@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 
@@ -16,17 +16,44 @@ public class Avatar : MonoBehaviour {
     [SerializeField, Expandable]
     SpriteRenderer attachedSprite = default;
 
-    [Header("Movement")]
+    [Header("Grounded/Falling movement")]
+    [SerializeField, Range(0, 100)]
+    float defaultSpeed = 10;
+    [SerializeField, Range(0, 2)]
+    float defaultGravity = 1;
     [SerializeField, Range(0, 10)]
-    float maxSpeed = 1;
+    float defaultDrag = 0;
+    [SerializeField, Range(0, 100)]
+    float liftoffSpeed = 10;
+    [Header("Jumping/Rising movement")]
+    [SerializeField, Range(0, 100)]
+    float jumpingSpeed = 10;
+    [SerializeField, Range(0, 2)]
+    float jumpingGravity = 1;
     [SerializeField, Range(0, 10)]
-    float jumpHeight = 1;
-    float jumpForce => Mathf.Sqrt(jumpHeight * -20f * Physics2D.gravity.y);
+    float jumpingDrag = 0;
+    [SerializeField, Range(0, 100)]
+    float risingSpeed = 10;
+    [SerializeField, Range(-10, 10)]
+    float cutoffSpeed = 0;
+    [Header("Gliding movement")]
+    [SerializeField, Range(0, 10)]
+    float glidingSpeedMultiplier = 1;
+    [SerializeField, Range(0, 2)]
+    float glidingGravity = 1;
+    [SerializeField, Range(0, 10)]
+    float glidingDrag = 0;
 
-    Vector2 input = Vector2.zero;
-    bool isJumping = false;
+    [Header("Current Input")]
+    public Vector2 intendedMovement = Vector2.zero;
+    public bool intendsJump = false;
+    public bool intendsGlide = false;
 
     MoveState state = MoveState.Airborne;
+    public bool isGrounded => state == MoveState.Grounded;
+    public bool isAirborne => state == MoveState.Airborne;
+    public bool isGliding => state == MoveState.Gliding;
+
     Color stateColor {
         get {
             switch (state) {
@@ -42,6 +69,7 @@ public class Avatar : MonoBehaviour {
         }
     }
 
+    [Header("State visualization")]
     [SerializeField, ColorUsage(true, true)]
     Color groundedColor = default;
     [SerializeField, ColorUsage(true, true)]
@@ -49,64 +77,86 @@ public class Avatar : MonoBehaviour {
     [SerializeField, ColorUsage(true, true)]
     Color glidingColor = default;
 
-    void Start() {
-    }
 
     void Update() {
-        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        if (Input.anyKeyDown) {
-            switch (state) {
-                case MoveState.Grounded:
-                    Jump();
-                    break;
-                case MoveState.Airborne:
-                    Glide();
-                    break;
-                case MoveState.Gliding:
-                    break;
-                default:
-                    break;
-            }
-        }
         attachedSprite.color = stateColor;
     }
 
-    void Jump() {
-        isJumping = true;
-    }
-    void Glide() {
+    public void Glide() {
         state = MoveState.Gliding;
     }
 
     void FixedUpdate() {
+        CalculateGrounded();
+
         var velocity = attachedRigidbody.velocity;
         float rotation = attachedRigidbody.rotation;
+        float gravity = attachedRigidbody.gravityScale;
+        float drag = attachedRigidbody.drag;
+
         switch (state) {
             case MoveState.Grounded:
-                velocity.x = input.x * maxSpeed;
-                velocity.y = isJumping
-                    ? jumpForce
-                    : 0;
-                isJumping = false;
+                velocity.x = intendedMovement.x * defaultSpeed;
+                if (intendsJump) {
+                    velocity.y = liftoffSpeed;
+                }
+                gravity = defaultGravity;
+                drag = defaultDrag;
                 rotation = 0;
                 break;
             case MoveState.Airborne:
+                if (intendsGlide) {
+                    state = MoveState.Gliding;
+                    velocity.x *= glidingSpeedMultiplier;
+                    goto case MoveState.Gliding;
+                }
+                velocity.x = intendedMovement.x * jumpingSpeed;
+                if (intendsJump && velocity.y > cutoffSpeed) {
+                    velocity.y += risingSpeed * Time.deltaTime;
+                    gravity = jumpingGravity;
+                    drag = jumpingDrag;
+                } else {
+                    gravity = defaultGravity;
+                    drag = defaultDrag;
+                }
                 rotation = 0;
                 break;
             case MoveState.Gliding:
+                if (!intendsGlide) {
+                    state = MoveState.Grounded;
+                    FixedUpdate();
+                    return;
+                }
+                gravity = glidingGravity;
+                drag = glidingDrag;
                 rotation = 90;
                 break;
             default:
                 break;
         }
+
         attachedRigidbody.velocity = velocity;
         attachedRigidbody.rotation = rotation;
+        attachedRigidbody.gravityScale = gravity;
+        attachedRigidbody.drag = drag;
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        state = MoveState.Grounded;
-    }
-    void OnCollisionExit2D(Collision2D collision) {
-        state = MoveState.Airborne;
+    [Header("Grounded Check")]
+    [SerializeField, Range(0, 1)]
+    float groundedRadius = 1;
+    [SerializeField]
+    LayerMask groundedLayers = default;
+    void CalculateGrounded() {
+        if (isGliding) {
+            return;
+        }
+        bool isGroundedNow = Physics2D
+            .OverlapCircleAll(transform.position, groundedRadius, groundedLayers)
+            .Any(collider => collider.gameObject != gameObject);
+        if (isGroundedNow) {
+            state = MoveState.Grounded;
+        } else {
+            state = MoveState.Airborne;
+        }
     }
 }
