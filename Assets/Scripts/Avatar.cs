@@ -27,6 +27,7 @@ public class Avatar : MonoBehaviour {
     float defaultDrag = 0;
     [SerializeField, Range(0, 100)]
     float liftoffSpeed = 10;
+
     [Header("Jumping/Rising movement")]
     [SerializeField, Range(0, 100)]
     float jumpingSpeed = 10;
@@ -40,6 +41,7 @@ public class Avatar : MonoBehaviour {
     float risingSpeed = 10;
     [SerializeField, Range(-10, 10)]
     float cutoffSpeed = 0;
+
     [Header("Gliding movement")]
     [SerializeField, Range(0, 10)]
     float glidingSpeedMultiplier = 1;
