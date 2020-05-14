@@ -19,6 +19,8 @@ public class Avatar : MonoBehaviour {
     [Header("Grounded/Falling movement")]
     [SerializeField, Range(0, 100)]
     float defaultSpeed = 10;
+    [SerializeField, Range(0, 1)]
+    float defaultSpeedLerp = 1;
     [SerializeField, Range(0, 2)]
     float defaultGravity = 1;
     [SerializeField, Range(0, 10)]
@@ -28,6 +30,8 @@ public class Avatar : MonoBehaviour {
     [Header("Jumping/Rising movement")]
     [SerializeField, Range(0, 100)]
     float jumpingSpeed = 10;
+    [SerializeField, Range(0, 1)]
+    float jumpingSpeedLerp = 1;
     [SerializeField, Range(0, 2)]
     float jumpingGravity = 1;
     [SerializeField, Range(0, 10)]
@@ -43,6 +47,8 @@ public class Avatar : MonoBehaviour {
     float glidingGravity = 1;
     [SerializeField, Range(0, 10)]
     float glidingDrag = 0;
+    [SerializeField, Range(0, 100)]
+    float glidingUpdrift = 10;
 
     [Header("Current Input")]
     public Vector2 intendedMovement = Vector2.zero;
@@ -96,7 +102,7 @@ public class Avatar : MonoBehaviour {
 
         switch (state) {
             case MoveState.Grounded:
-                velocity.x = intendedMovement.x * defaultSpeed;
+                velocity.x = Mathf.Lerp(velocity.x, intendedMovement.x * defaultSpeed, defaultSpeedLerp);
                 if (intendsJump) {
                     velocity.y = liftoffSpeed;
                 }
@@ -108,9 +114,10 @@ public class Avatar : MonoBehaviour {
                 if (intendsGlide) {
                     state = MoveState.Gliding;
                     velocity.x *= glidingSpeedMultiplier;
+                    velocity.y += glidingUpdrift;
                     goto case MoveState.Gliding;
                 }
-                velocity.x = intendedMovement.x * jumpingSpeed;
+                velocity.x = Mathf.Lerp(velocity.x, intendedMovement.x * jumpingSpeed, jumpingSpeedLerp);
                 if (intendsJump && velocity.y > cutoffSpeed) {
                     velocity.y += risingSpeed * Time.deltaTime;
                     gravity = jumpingGravity;
