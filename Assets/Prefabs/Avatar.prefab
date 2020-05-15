@@ -110,6 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 3089225555766872600}
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  jumpButton: Fire1
 --- !u!61 &3089225555766872602
 BoxCollider2D:
   m_ObjectHideFlags: 0
