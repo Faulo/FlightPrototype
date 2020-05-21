@@ -1,5 +1,233 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &447305113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447305114}
+  m_Layer: 0
+  m_Name: StateMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &447305114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447305113}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 808840776}
+  - {fileID: 1713786830}
+  - {fileID: 881665435}
+  - {fileID: 1756242493}
+  m_Father: {fileID: 3089225555766872606}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &808840775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808840776}
+  - component: {fileID: 808840777}
+  m_Layer: 0
+  m_Name: Grounded
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &808840776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808840775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &808840777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808840775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77471f8add668f64a898be450b10fe1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 1
+  drag: 0
+  stateColor: {r: 1, g: 1, b: 1, a: 1}
+  forwardSpeedLerp: 0.5
+  backwardSpeedLerp: 0.1
+--- !u!1 &881665434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881665435}
+  - component: {fileID: 881665436}
+  m_Layer: 0
+  m_Name: Airbone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &881665435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881665434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &881665436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881665434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ba953cd41d4e64bbb33bb0d3ae2222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 1
+  drag: 1
+  stateColor: {r: 0.15620832, g: 0.2529896, b: 0.32599998, a: 1}
+  forwardSpeedLerp: 0.1
+--- !u!1 &1713786829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713786830}
+  - component: {fileID: 1713786831}
+  m_Layer: 0
+  m_Name: Jumping
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1713786830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713786829}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1713786831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713786829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954c460aaec80564898895617d20fd80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 1
+  drag: 0
+  stateColor: {r: 0.35955858, g: 0.5842523, b: 0.754717, a: 1}
+  forwardSpeedLerp: 10
+  backwardSpeedLerp: 0.1
+  jumpInitialSpeed: 10
+  jumpAdditionalSpeed: 10
+  jumpStopSpeed: 0
+--- !u!1 &1756242492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1756242493}
+  - component: {fileID: 1756242494}
+  m_Layer: 0
+  m_Name: Gliding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1756242493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756242492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1756242494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756242492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ec9819da2b2eb409aea1d1bb15998f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 0.5
+  drag: 0
+  stateColor: {r: 0.44039908, g: 1.0377358, b: 0.30838376, a: 1}
+  initialSpeed: 5
+  rotationSpeed: 4
 --- !u!1 &3089225555766872605
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +264,8 @@ Transform:
   - {fileID: 3089225555960653586}
   - {fileID: 147062537120225838}
   - {fileID: 4068542434035090638}
+  - {fileID: 447305114}
+  - {fileID: 776067000994812475}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,40 +304,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedRigidbody: {fileID: 3089225555766872607}
   attachedSprite: {fileID: 3089225555960653587}
+  groundedCheck: {fileID: 136339116203656581}
   glidingTrail: {fileID: 4172646757701046998}
   dashParticles: {fileID: 1793346647631125614}
-  defaultSpeed: 12
-  defaultSpeedLerp: 0.25
-  defaultGravity: 1
-  defaultDrag: 1
-  liftoffSpeed: 10
-  jumpingSpeed: 12
-  jumpingSpeedLerp: 0.1
-  jumpingGravity: 0.5
-  jumpingDrag: 1
-  risingSpeed: 10
-  cutoffSpeed: 3
+  maximumRunningSpeed: 10
   maximumGlideCharges: 1
-  glidingMode: 0
-  glidingSpeed: 12
-  glidingGravity: 0.25
-  glidingDrag: 0
-  glidingUpdrift: 3
-  glidingRotation: 3
-  glidingSailBoost: 1
-  glidingDuration: 0.5
-  glidingDashParticleCount: 10
+  groundedState: {fileID: 808840777}
+  jumpingState: {fileID: 1713786831}
+  airborneState: {fileID: 881665436}
+  glidingState: {fileID: 1756242494}
+  currentState: 0
   intendedMovement: {x: 0, y: 0}
   intendsJump: 0
   intendsGlide: 0
-  groundedRadius: 0.49
-  groundedLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  groundedColor: {r: 1, g: 1, b: 1, a: 1}
-  airborneColor: {r: 0.35955858, g: 0.5842523, b: 0.754717, a: 1}
-  airborneNoChargeColor: {r: 0.15620832, g: 0.2529896, b: 0.32599998, a: 1}
-  glidingColor: {r: 0.44039908, g: 1.0377358, b: 0.30838376, a: 1}
+  isFacingRight: 1
 --- !u!114 &3089225555766872601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +601,53 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!1 &4963860712443086483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776067000994812475}
+  - component: {fileID: 136339116203656581}
+  m_Layer: 0
+  m_Name: GroundedCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776067000994812475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963860712443086483}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3089225555766872606}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &136339116203656581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963860712443086483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbc7583e38e0d14aa574cbb9daba01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundedRadius: 0.1
+  groundedLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &7261541598843111804
 GameObject:
   m_ObjectHideFlags: 0
