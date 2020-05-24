@@ -17,21 +17,8 @@ public class Avatar : MonoBehaviour {
     [SerializeField, Expandable]
     GroundedCheck groundedCheck = default;
 
-    [SerializeField, Expandable]
-    TrailRenderer glidingTrail = default;
-
-    [SerializeField, Expandable]
-    ParticleSystem dashParticles = default;
-
     [SerializeField]
     AvatarState currentState = default;
-
-    public bool glidingParticlesEnabled {
-        set {
-            var emission = dashParticles.emission;
-            emission.enabled = value;
-        }
-    }
 
     [Header("Movement")]
     [SerializeField, Range(0, 100)]
@@ -49,9 +36,11 @@ public class Avatar : MonoBehaviour {
 
     [Header("Current Input")]
     public Vector2 intendedMovement = Vector2.zero;
-    public float intendedRotation => intendedMovement.magnitude > 0
-        ? Vector2.SignedAngle(Vector2.up, intendedMovement.normalized)
-        : transform.rotation.eulerAngles.z;
+    public Quaternion intendedRotation => intendedMovement.magnitude > 0
+        ? Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, intendedMovement.normalized))
+        : currentRotation;
+    public Quaternion currentRotation => transform.rotation;
+
     public bool intendsJump = false;
     public bool intendsGlide = false;
 
@@ -73,7 +62,6 @@ public class Avatar : MonoBehaviour {
     public bool isGliding;
 
     void Start() {
-        glidingParticlesEnabled = false;
     }
 
     void Update() {

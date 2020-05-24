@@ -10,29 +10,16 @@ public class AvatarInput : MonoBehaviour {
     string verticalAxis = "Vertical";
     [SerializeField]
     string jumpButton = "Fire1";
+    [SerializeField]
+    string glideButton = "Fire2";
 
     void Update() {
         avatar.intendedMovement = new Vector2(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
-        if (avatar.isGrounded) {
-            avatar.intendsGlide = false;
-            if (Input.GetButtonDown(jumpButton)) {
-                avatar.intendsJump = true;
-            }
-        }
-        if (avatar.isJumping) {
+        if (avatar.intendsJump || Input.GetButtonDown(jumpButton)) {
             avatar.intendsJump = Input.GetButton(jumpButton);
-            if (Input.GetButtonDown(jumpButton)) {
-                avatar.intendsGlide = true;
-            }
         }
-        if (avatar.isAirborne) {
-            avatar.intendsJump = false;
-            if (Input.GetButtonDown(jumpButton)) {
-                avatar.intendsGlide = true;
-            }
-        }
-        if (avatar.isGliding) {
-            avatar.intendsGlide = Input.GetButton(jumpButton);
+        if (avatar.intendsGlide || Input.GetButtonDown(glideButton)) {
+            avatar.intendsGlide = Input.GetButton(glideButton);
         }
     }
 }

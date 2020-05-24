@@ -14,7 +14,6 @@ namespace AvatarStateMachine {
 
             avatar.isGrounded = true;
             avatar.RechargeDashes();
-            avatar.attachedRigidbody.rotation = 0;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

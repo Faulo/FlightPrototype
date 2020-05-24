@@ -14,7 +14,6 @@ namespace AvatarStateMachine {
             base.EnterState();
 
             avatar.isAirborne = true;
-            avatar.attachedRigidbody.rotation = 0;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

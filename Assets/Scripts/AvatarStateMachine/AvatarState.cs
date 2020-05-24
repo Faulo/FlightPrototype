@@ -15,7 +15,7 @@ namespace AvatarStateMachine {
         [SerializeField, ColorUsage(true, true)]
         public Color stateColor = default;
 
-        void OnEnable() {
+        void Awake() {
             avatar = GetComponentInParent<Avatar>();
             Assert.IsNotNull(avatar);
         }

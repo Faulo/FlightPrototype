@@ -12,6 +12,8 @@ namespace AvatarStateMachine {
         [Header("Movement")]
         [SerializeField, Range(0, 1)]
         float forwardSpeedLerp = 1;
+        [SerializeField, Range(0, 1)]
+        float backwardSpeedLerp = 0.1f;
 
         float hangTimer;
         public override void EnterState() {
@@ -19,23 +21,18 @@ namespace AvatarStateMachine {
 
             hangTimer = 0;
             avatar.isAirborne = true;
-            avatar.attachedRigidbody.rotation = 0;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
             hangTimer += Time.deltaTime;
 
-            switch (Math.Sign(avatar.intendedMovement.x)) {
-                case -1:
-                    avatar.isFacingRight = false;
-                    break;
-                case 1:
-                    avatar.isFacingRight = true;
-                    break;
-            }
             var velocity = avatar.attachedRigidbody.velocity;
-            velocity.x = Mathf.Lerp(velocity.x, avatar.intendedMovement.x * avatar.maximumRunningSpeed, forwardSpeedLerp);
+            if (Math.Sign(avatar.intendedMovement.x) == avatar.facingSign) {
+                velocity.x = Mathf.Lerp(velocity.x, avatar.intendedMovement.x * avatar.maximumRunningSpeed, forwardSpeedLerp);
+            } else {
+                velocity.x = Mathf.Lerp(velocity.x, avatar.intendedMovement.x * avatar.maximumRunningSpeed, backwardSpeedLerp);
+            }
             avatar.attachedRigidbody.velocity = velocity;
         }
         public override void ExitState() {

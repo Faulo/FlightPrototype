@@ -35,7 +35,6 @@ namespace AvatarStateMachine {
             avatar.isJumping = true;
             jumpTimer = 0;
 
-            avatar.attachedRigidbody.rotation = 0;
             avatar.attachedRigidbody.velocity += jumpStartVelocity;
         }
         public override void FixedUpdateState() {
