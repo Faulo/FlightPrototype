@@ -21,6 +21,9 @@ public class AvatarInput : MonoBehaviour {
         }
         if (avatar.isJumping) {
             avatar.intendsJump = Input.GetButton(jumpButton);
+            if (Input.GetButtonDown(jumpButton)) {
+                avatar.intendsGlide = true;
+            }
         }
         if (avatar.isAirborne) {
             avatar.intendsJump = false;

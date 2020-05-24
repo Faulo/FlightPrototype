@@ -29,6 +29,7 @@ Transform:
   m_Children:
   - {fileID: 808840776}
   - {fileID: 1713786830}
+  - {fileID: 7065404162661787021}
   - {fileID: 881665435}
   - {fileID: 1756242493}
   m_Father: {fileID: 3089225555766872606}
@@ -113,7 +114,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 447305114}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &881665436
 MonoBehaviour:
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 1
   drag: 1
-  stateColor: {r: 0.15620832, g: 0.2529896, b: 0.32599998, a: 1}
+  stateColor: {r: 0.3137255, g: 0.50980395, b: 0.6509804, a: 1}
   forwardSpeedLerp: 0.1
   groundedState: {fileID: 808840777}
   glidingState: {fileID: 1756242494}
@@ -176,15 +177,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954c460aaec80564898895617d20fd80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 1
+  gravity: 1.5
   drag: 0
   stateColor: {r: 0.35955858, g: 0.5842523, b: 0.754717, a: 1}
-  forwardSpeedLerp: 10
+  maximumJumpHeight: 3
+  minimumJumpDuration: 0.1
+  maximumJumpDuration: 0.3
+  jumpStopSpeed: 3
+  forwardSpeedLerp: 0.2
   backwardSpeedLerp: 0.1
-  jumpInitialSpeed: 10
-  jumpAdditionalSpeed: 10
-  jumpStopSpeed: 0
-  airborneState: {fileID: 881665436}
+  airborneState: {fileID: 4325773687270416393}
 --- !u!1 &1756242492
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 447305114}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1756242494
 MonoBehaviour:
@@ -233,7 +235,7 @@ MonoBehaviour:
   stateColor: {r: 0.44039908, g: 1.0377358, b: 0.30838376, a: 1}
   initialSpeed: 5
   rotationSpeed: 4
-  airborneState: {fileID: 881665436}
+  airborneState: {fileID: 4325773687270416393}
 --- !u!1 &3089225555766872605
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,11 +351,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 3089225555766872605}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.2}
   m_SpriteTilingProperty:
     border: {x: 0.25, y: 0, z: 0.25, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -364,7 +366,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.5}
+  m_Size: {x: 0.35, y: 0.8}
   m_EdgeRadius: 0
 --- !u!58 &3089225555766872603
 CircleCollider2D:
@@ -375,7 +377,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 3089225555766872605}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -391,11 +393,11 @@ CircleCollider2D:
   m_GameObject: {fileID: 3089225555766872605}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: 0.65}
   serializedVersion: 2
   m_Radius: 0.2
 --- !u!1 &3089225555960653585
@@ -654,6 +656,57 @@ MonoBehaviour:
   groundedLayers:
     serializedVersion: 2
     m_Bits: 1
+--- !u!1 &5340877623954232514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7065404162661787021}
+  - component: {fileID: 4325773687270416393}
+  m_Layer: 0
+  m_Name: HangTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7065404162661787021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5340877623954232514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4325773687270416393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5340877623954232514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccdb2074eea46847a694077d2450fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 0.25
+  drag: 0
+  stateColor: {r: 0.72156864, g: 1.1686275, b: 1.5058824, a: 1}
+  hangDuration: 0.25
+  forwardSpeedLerp: 0.15
+  groundedState: {fileID: 808840777}
+  glidingState: {fileID: 1756242494}
+  airborneState: {fileID: 881665436}
 --- !u!1 &7261541598843111804
 GameObject:
   m_ObjectHideFlags: 0
