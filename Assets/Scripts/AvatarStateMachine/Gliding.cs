@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Slothsoft.UnityExtensions;
+using UnityEngine;
 
 
 namespace AvatarStateMachine {
-    public class Gliding : AvatarStateBehaviour {
+    public class Gliding : AvatarState {
         [Header("Gliding movement")]
         [SerializeField, Range(0, 100)]
         float initialSpeed = 1;
@@ -10,8 +11,10 @@ namespace AvatarStateMachine {
         float rotationSpeed = 10;
 
         float glidingTimer;
-        public override void EnterState(Avatar avatar) {
-            base.EnterState(avatar);
+        public override void EnterState() {
+            base.EnterState();
+
+            avatar.isGliding = true;
 
             var velocity = avatar.attachedRigidbody.velocity;
             float rotation = avatar.attachedRigidbody.rotation;
@@ -25,8 +28,8 @@ namespace AvatarStateMachine {
             avatar.glidingParticlesEnabled = true;
             avatar.UseDashCharge();
         }
-        public override void FixedUpdateState(Avatar avatar) {
-            base.FixedUpdateState(avatar);
+        public override void FixedUpdateState() {
+            base.FixedUpdateState();
 
             var velocity = avatar.attachedRigidbody.velocity;
             var rotation = Quaternion.Euler(0, 0, avatar.attachedRigidbody.rotation);
@@ -38,23 +41,21 @@ namespace AvatarStateMachine {
             avatar.attachedRigidbody.rotation = rotation.eulerAngles.z;
         }
 
-        public override void ExitState(Avatar avatar) {
-            base.ExitState(avatar);
+        public override void ExitState() {
+            base.ExitState();
 
+            avatar.isGliding = false;
             avatar.glidingParticlesEnabled = false;
         }
 
-        public override bool ShouldTransitionToGliding(Avatar avatar) {
-            return false;
-        }
-        public override bool ShouldTransitionToJumping(Avatar avatar) {
-            return false;
-        }
-        public override bool ShouldTransitionToAirborne(Avatar avatar) {
-            return !avatar.intendsGlide;
-        }
-        public override bool ShouldTransitionToGrounded(Avatar avatar) {
-            return false;
+        [Header("Transitions")]
+        [SerializeField, Expandable]
+        AvatarState airborneState = default;
+        public override AvatarState CalculateNextState() {
+            if (!avatar.intendsGlide) {
+                return airborneState;
+            }
+            return base.CalculateNextState();
         }
     }
 }

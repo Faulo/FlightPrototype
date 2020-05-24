@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace AvatarStateMachine {
-    public class Airborne : AvatarStateBehaviour {
+    public class Airborne : AvatarState {
+
         [Header("Airborne")]
         [SerializeField, Range(0, 1)]
         float forwardSpeedLerp = 1;
-        public override void EnterState(Avatar avatar) {
-            base.EnterState(avatar);
+        public override void EnterState() {
+            base.EnterState();
 
+            avatar.isAirborne = true;
             avatar.attachedRigidbody.rotation = 0;
         }
-        public override void FixedUpdateState(Avatar avatar) {
-            base.FixedUpdateState(avatar);
+        public override void FixedUpdateState() {
+            base.FixedUpdateState();
 
             switch (Math.Sign(avatar.intendedMovement.x)) {
                 case -1:
@@ -62,21 +66,24 @@ namespace AvatarStateMachine {
             rotation = 0;
             //*/
         }
-        public override void ExitState(Avatar avatar) {
-            base.ExitState(avatar);
+        public override void ExitState() {
+            avatar.isAirborne = false;
+            base.ExitState();
         }
 
-        public override bool ShouldTransitionToGliding(Avatar avatar) {
-            return avatar.intendsGlide && avatar.canGlide;
-        }
-        public override bool ShouldTransitionToJumping(Avatar avatar) {
-            return false;
-        }
-        public override bool ShouldTransitionToAirborne(Avatar avatar) {
-            return false;
-        }
-        public override bool ShouldTransitionToGrounded(Avatar avatar) {
-            return avatar.CalculateGrounded();
+        [Header("Transitions")]
+        [SerializeField, Expandable]
+        AvatarState groundedState = default;
+        [SerializeField, Expandable]
+        AvatarState glidingState = default;
+        public override AvatarState CalculateNextState() {
+            if (avatar.CalculateGrounded()) {
+                return groundedState;
+            }
+            if (avatar.intendsGlide && avatar.canGlide) {
+                return glidingState;
+            }
+            return base.CalculateNextState();
         }
     }
 }

@@ -1,21 +1,23 @@
 ﻿using System;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace AvatarStateMachine {
-    public class Grounded : AvatarStateBehaviour {
+    public class Grounded : AvatarState {
         [Header("Grounded")]
         [SerializeField, Range(0, 1)]
         float forwardSpeedLerp = 1;
         [SerializeField, Range(0, 1)]
         float backwardSpeedLerp = 0.1f;
-        public override void EnterState(Avatar avatar) {
-            base.EnterState(avatar);
+        public override void EnterState() {
+            base.EnterState();
 
+            avatar.isGrounded = true;
             avatar.RechargeDashes();
             avatar.attachedRigidbody.rotation = 0;
         }
-        public override void FixedUpdateState(Avatar avatar) {
-            base.FixedUpdateState(avatar);
+        public override void FixedUpdateState() {
+            base.FixedUpdateState();
 
             var velocity = avatar.attachedRigidbody.velocity;
 
@@ -32,22 +34,24 @@ namespace AvatarStateMachine {
             }
         }
 
-        public override void ExitState(Avatar avatar) {
-            base.ExitState(avatar);
+        public override void ExitState() {
+            avatar.isGrounded = false;
+            base.ExitState();
         }
 
-        public override bool ShouldTransitionToGliding(Avatar avatar) {
-            return false;
-        }
-        public override bool ShouldTransitionToJumping(Avatar avatar) {
-            return avatar.intendsJump;
-        }
-        public override bool ShouldTransitionToAirborne(Avatar avatar) {
-            return !avatar.CalculateGrounded();
-        }
-
-        public override bool ShouldTransitionToGrounded(Avatar avatar) {
-            return false;
+        [Header("Transitions")]
+        [SerializeField, Expandable]
+        AvatarState jumpingState = default;
+        [SerializeField, Expandable]
+        AvatarState airborneState = default;
+        public override AvatarState CalculateNextState() {
+            if (avatar.intendsJump) {
+                return jumpingState;
+            }
+            if (!avatar.CalculateGrounded()) {
+                return airborneState;
+            }
+            return base.CalculateNextState();
         }
     }
 }

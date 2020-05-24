@@ -12,7 +12,7 @@ public class Avatar : MonoBehaviour {
     public Rigidbody2D attachedRigidbody = default;
 
     [SerializeField, Expandable]
-    SpriteRenderer attachedSprite = default;
+    public SpriteRenderer attachedSprite = default;
 
     [SerializeField, Expandable]
     GroundedCheck groundedCheck = default;
@@ -22,6 +22,9 @@ public class Avatar : MonoBehaviour {
 
     [SerializeField, Expandable]
     ParticleSystem dashParticles = default;
+
+    [SerializeField]
+    AvatarState currentState = default;
 
     public bool glidingParticlesEnabled {
         set {
@@ -44,35 +47,6 @@ public class Avatar : MonoBehaviour {
         currentGlideCharges--;
     }
 
-    [Header("State configuration")]
-    [SerializeField, Expandable]
-    Grounded groundedState = default;
-    [SerializeField, Expandable]
-    Jumping jumpingState = default;
-    [SerializeField, Expandable]
-    Airborne airborneState = default;
-    [SerializeField, Expandable]
-    Gliding glidingState = default;
-
-    [SerializeField]
-    AvatarStates currentState;
-    AvatarStateBehaviour currentStateBehaviour {
-        get {
-            switch (currentState) {
-                case AvatarStates.Grounded:
-                    return groundedState;
-                case AvatarStates.Jumping:
-                    return jumpingState;
-                case AvatarStates.Airborne:
-                    return airborneState;
-                case AvatarStates.Gliding:
-                    return glidingState;
-                default:
-                    throw new NotImplementedException(currentState.ToString());
-            }
-        }
-    }
-
     [Header("Current Input")]
     public Vector2 intendedMovement = Vector2.zero;
     public float intendedRotation => intendedMovement.magnitude > 0
@@ -81,7 +55,7 @@ public class Avatar : MonoBehaviour {
     public bool intendsJump = false;
     public bool intendsGlide = false;
 
-
+    [Header("Debug Info")]
     public bool isFacingRight = true;
     public int facingSign => isFacingRight
         ? 1
@@ -93,57 +67,30 @@ public class Avatar : MonoBehaviour {
 
     float glidingTimer = 0;
 
-    public bool isGrounded => currentState == AvatarStates.Grounded;
-    public bool isJumping => currentState == AvatarStates.Jumping;
-    public bool isAirborne => currentState == AvatarStates.Airborne;
-    public bool isGliding => currentState == AvatarStates.Gliding;
+    public bool isGrounded;
+    public bool isJumping;
+    public bool isAirborne;
+    public bool isGliding;
 
     void Start() {
-        currentState = AvatarStates.Grounded;
         glidingParticlesEnabled = false;
     }
 
     void Update() {
-        attachedSprite.color = currentStateBehaviour.stateColor;
-        attachedSprite.flipX = !isFacingRight;
+        currentState.UpdateState();
     }
 
     void FixedUpdate() {
-        UpdateStateMachine();
-    }
-
-    void UpdateStateMachine() {
-        var newState = CalculateState();
+        var newState = currentState.CalculateNextState();
 
         if (currentState == newState) {
-            currentStateBehaviour.FixedUpdateState(this);
+            currentState.FixedUpdateState();
         } else {
-            currentStateBehaviour.ExitState(this);
+            currentState.ExitState();
             currentState = newState;
-            currentStateBehaviour.EnterState(this);
+            currentState.EnterState();
         }
     }
-
-    AvatarStates CalculateState() {
-        if (shouldBeGliding) {
-            return AvatarStates.Gliding;
-        }
-        if (shouldBeJumping) {
-            return AvatarStates.Jumping;
-        }
-        if (shouldBeAirborne) {
-            return AvatarStates.Airborne;
-        }
-        if (shouldBeGrounded) {
-            return AvatarStates.Grounded;
-        }
-        return currentState;
-    }
-
-    bool shouldBeGliding => currentStateBehaviour.ShouldTransitionToGliding(this);
-    bool shouldBeJumping => currentStateBehaviour.ShouldTransitionToJumping(this);
-    bool shouldBeAirborne => currentStateBehaviour.ShouldTransitionToAirborne(this);
-    bool shouldBeGrounded => currentStateBehaviour.ShouldTransitionToGrounded(this);
 
     public bool CalculateGrounded() => groundedCheck.IsGrounded(gameObject);
 }

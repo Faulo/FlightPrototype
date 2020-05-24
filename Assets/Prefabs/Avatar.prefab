@@ -82,6 +82,8 @@ MonoBehaviour:
   stateColor: {r: 1, g: 1, b: 1, a: 1}
   forwardSpeedLerp: 0.5
   backwardSpeedLerp: 0.1
+  jumpingState: {fileID: 1713786831}
+  airborneState: {fileID: 881665436}
 --- !u!1 &881665434
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +131,8 @@ MonoBehaviour:
   drag: 1
   stateColor: {r: 0.15620832, g: 0.2529896, b: 0.32599998, a: 1}
   forwardSpeedLerp: 0.1
+  groundedState: {fileID: 808840777}
+  glidingState: {fileID: 1756242494}
 --- !u!1 &1713786829
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +184,7 @@ MonoBehaviour:
   jumpInitialSpeed: 10
   jumpAdditionalSpeed: 10
   jumpStopSpeed: 0
+  airborneState: {fileID: 881665436}
 --- !u!1 &1756242492
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +233,7 @@ MonoBehaviour:
   stateColor: {r: 0.44039908, g: 1.0377358, b: 0.30838376, a: 1}
   initialSpeed: 5
   rotationSpeed: 4
+  airborneState: {fileID: 881665436}
 --- !u!1 &3089225555766872605
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,9 +243,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3089225555766872606}
-  - component: {fileID: 3089225555766872607}
   - component: {fileID: 3089225555766872600}
   - component: {fileID: 3089225555766872601}
+  - component: {fileID: 3089225555766872607}
   - component: {fileID: 3089225555766872602}
   - component: {fileID: 3089225555766872603}
   - component: {fileID: 3089225555766872596}
@@ -269,6 +275,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3089225555766872600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089225555766872605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d99063d47054a4eaf13a56730e8f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedRigidbody: {fileID: 3089225555766872607}
+  attachedSprite: {fileID: 3089225555960653587}
+  groundedCheck: {fileID: 136339116203656581}
+  glidingTrail: {fileID: 4172646757701046998}
+  dashParticles: {fileID: 1793346647631125614}
+  currentState: {fileID: 808840777}
+  maximumRunningSpeed: 10
+  maximumGlideCharges: 1
+  intendedMovement: {x: 0, y: 0}
+  intendsJump: 0
+  intendsGlide: 0
+  isFacingRight: 1
+  isGrounded: 0
+  isJumping: 0
+  isAirborne: 0
+  isGliding: 0
+--- !u!114 &3089225555766872601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089225555766872605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d695aed04963c9844a4d738c041c9b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 3089225555766872600}
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  jumpButton: Fire1
 --- !u!50 &3089225555766872607
 Rigidbody2D:
   serializedVersion: 4
@@ -290,50 +340,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &3089225555766872600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3089225555766872605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59d99063d47054a4eaf13a56730e8f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachedRigidbody: {fileID: 3089225555766872607}
-  attachedSprite: {fileID: 3089225555960653587}
-  groundedCheck: {fileID: 136339116203656581}
-  glidingTrail: {fileID: 4172646757701046998}
-  dashParticles: {fileID: 1793346647631125614}
-  maximumRunningSpeed: 10
-  maximumGlideCharges: 1
-  groundedState: {fileID: 808840777}
-  jumpingState: {fileID: 1713786831}
-  airborneState: {fileID: 881665436}
-  glidingState: {fileID: 1756242494}
-  currentState: 0
-  intendedMovement: {x: 0, y: 0}
-  intendsJump: 0
-  intendsGlide: 0
-  isFacingRight: 1
---- !u!114 &3089225555766872601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3089225555766872605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d695aed04963c9844a4d738c041c9b08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatar: {fileID: 3089225555766872600}
-  horizontalAxis: Horizontal
-  verticalAxis: Vertical
-  jumpButton: Fire1
 --- !u!61 &3089225555766872602
 BoxCollider2D:
   m_ObjectHideFlags: 0
