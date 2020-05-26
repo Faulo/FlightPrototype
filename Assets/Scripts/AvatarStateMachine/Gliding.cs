@@ -31,6 +31,7 @@ namespace AvatarStateMachine {
             particlesEnabled = true;
 
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
+            avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -58,6 +59,7 @@ namespace AvatarStateMachine {
 
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             avatar.attachedRigidbody.rotation = 0;
+            avatar.attachedSprite.transform.rotation = avatar.transform.rotation;
         }
 
         [Header("Transitions")]
