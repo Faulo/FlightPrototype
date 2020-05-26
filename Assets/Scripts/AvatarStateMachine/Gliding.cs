@@ -5,7 +5,13 @@ using UnityEngine;
 
 namespace AvatarStateMachine {
     public class Gliding : AvatarState {
+        enum GlideMode {
+            RotationControl,
+            AngularVelocityControl
+        }
         [Header("Gliding movement")]
+        [SerializeField]
+        GlideMode mode = GlideMode.RotationControl;
         [SerializeField, Range(0, 720)]
         float rotationSpeed = 360;
         [SerializeField, Range(0, 1)]
@@ -45,8 +51,15 @@ namespace AvatarStateMachine {
             avatar.attachedRigidbody.velocity = velocity;
 
             float angularVelocity = 0;
-            if (currentRotation != intendedRotation) {
-                angularVelocity = Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
+            switch (mode) {
+                case GlideMode.RotationControl:
+                    if (currentRotation != intendedRotation) {
+                        angularVelocity = Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
+                    }
+                    break;
+                case GlideMode.AngularVelocityControl:
+                    angularVelocity = avatar.intendedMovement.y;
+                    break;
             }
             avatar.attachedRigidbody.angularVelocity = Mathf.Lerp(avatar.attachedRigidbody.angularVelocity, rotationSpeed * angularVelocity, rotationLerp);
         }
