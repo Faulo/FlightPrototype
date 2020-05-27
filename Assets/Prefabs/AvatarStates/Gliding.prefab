@@ -50,4 +50,5 @@ MonoBehaviour:
   mode: 0
   rotationSpeed: 180
   rotationLerp: 0.125
+  glideEfficiency: 0.175
   airborneState: {fileID: 0}

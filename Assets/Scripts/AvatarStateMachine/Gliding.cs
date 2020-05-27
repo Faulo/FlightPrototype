@@ -16,6 +16,8 @@ namespace AvatarStateMachine {
         float rotationSpeed = 360;
         [SerializeField, Range(0, 1)]
         float rotationLerp = 1;
+        [SerializeField, Range(0, 1)]
+        float glideEfficiency = 1;
 
         public override void EnterState() {
             base.EnterState();
@@ -31,8 +33,7 @@ namespace AvatarStateMachine {
             var currentRotation = avatar.currentRotation;
             var intendedRotation = avatar.intendedRotation;
 
-            //velocity -= Physics2D.gravity * gravity * Time.deltaTime;
-            velocity = currentRotation * Vector2.right * velocity.magnitude * avatar.facingSign;
+            velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * velocity.magnitude * avatar.facingSign, glideEfficiency);
             velocity += Physics2D.gravity * gravity * Time.deltaTime;
 
             avatar.attachedRigidbody.velocity = velocity;
