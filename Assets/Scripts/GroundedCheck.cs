@@ -11,7 +11,8 @@ public class GroundedCheck : MonoBehaviour {
     public bool IsGrounded(GameObject context) {
         return Physics2D
             .OverlapCircleAll(transform.position, groundedRadius, groundedLayers)
-            .Any(collider => collider.gameObject != context);
+            .Select(collider => collider.attachedRigidbody ? collider.attachedRigidbody.gameObject : collider.gameObject)
+            .Any(obj => obj != context);
     }
 
     void OnDrawGizmos() {

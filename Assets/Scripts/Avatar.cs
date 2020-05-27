@@ -5,14 +5,18 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class Avatar : MonoBehaviour {
-    public event Action<Avatar> onJump;
-    public event Action<Avatar> onDash;
+    public event Action<Avatar> onColliderChange;
 
     [SerializeField, Expandable]
     public Rigidbody2D attachedRigidbody = default;
 
     [SerializeField, Expandable]
     public SpriteRenderer attachedSprite = default;
+
+    [SerializeField, Expandable]
+    GameObject uprightCollider = default;
+    [SerializeField, Expandable]
+    GameObject flyingCollider = default;
 
     [SerializeField, Expandable]
     GroundedCheck groundedCheck = default;
@@ -38,7 +42,7 @@ public class Avatar : MonoBehaviour {
     public Vector2 intendedMovement = Vector2.zero;
     public Quaternion intendedRotation => intendedMovement.magnitude > 0
         ? Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, intendedMovement.normalized))
-        : currentRotation;
+        : Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, Vector2.right * facingSign));
     public Quaternion currentRotation => transform.rotation;
 
     public bool intendsJump = false;
@@ -50,16 +54,52 @@ public class Avatar : MonoBehaviour {
         ? 1
         : -1;
 
+    public void AlignFaceToIntend() {
+        switch (Math.Sign(intendedMovement.x)) {
+            case -1:
+                isFacingRight = false;
+                break;
+            case 1:
+                isFacingRight = true;
+                break;
+        }
+    }
+
 
     int currentGlideCharges = 0;
     public bool canGlide => currentGlideCharges > 0;
 
-    float glidingTimer = 0;
+    public AvatarHitBox colliderMode {
+        get => colliderModeCache;
+        set {
+            if (colliderModeCache != value) {
+                currentCollider.SetActive(false);
+                colliderModeCache = value;
+                currentCollider.SetActive(true);
+                onColliderChange?.Invoke(this);
+            }
+        }
+    }
+    AvatarHitBox colliderModeCache;
+
+    GameObject currentCollider {
+        get {
+            switch (colliderMode) {
+                case AvatarHitBox.Upright:
+                    return uprightCollider;
+                case AvatarHitBox.Flying:
+                    return flyingCollider;
+                default:
+                    throw new NotImplementedException(colliderMode.ToString());
+            }
+        }
+    }
 
     public bool isGrounded;
     public bool isJumping;
     public bool isAirborne;
-    public bool isGliding;
+
+    public bool isFlying => colliderModeCache == AvatarHitBox.Flying;
 
     void Start() {
     }

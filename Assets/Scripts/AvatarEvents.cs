@@ -11,16 +11,12 @@ public class AvatarEvents : MonoBehaviour {
     Avatar observedAvatar = default;
 
     [SerializeField]
-    AvatarEvent onJump = default;
-    [SerializeField]
-    AvatarEvent onDash = default;
+    AvatarEvent onColliderChange = default;
 
     void OnEnable() {
-        observedAvatar.onJump += onJump.Invoke;
-        observedAvatar.onDash += onDash.Invoke;
+        observedAvatar.onColliderChange += onColliderChange.Invoke;
     }
     void OnDisable() {
-        observedAvatar.onJump -= onJump.Invoke;
-        observedAvatar.onDash -= onDash.Invoke;
+        observedAvatar.onColliderChange -= onColliderChange.Invoke;
     }
 }

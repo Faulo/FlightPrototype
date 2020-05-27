@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using Slothsoft.UnityExtensions;
+﻿using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace AvatarStateMachine {
@@ -18,14 +16,7 @@ namespace AvatarStateMachine {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            switch (Math.Sign(avatar.intendedMovement.x)) {
-                case -1:
-                    avatar.isFacingRight = false;
-                    break;
-                case 1:
-                    avatar.isFacingRight = true;
-                    break;
-            }
+            avatar.AlignFaceToIntend();
             var velocity = avatar.attachedRigidbody.velocity;
             velocity.x = Mathf.Lerp(velocity.x, avatar.intendedMovement.x * avatar.maximumRunningSpeed, forwardSpeedLerp);
             avatar.attachedRigidbody.velocity = velocity;

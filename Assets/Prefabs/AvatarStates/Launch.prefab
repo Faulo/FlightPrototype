@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7332922680609542243
+--- !u!1 &8746976378673052468
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7332922680609542242}
-  - component: {fileID: 7332922680609542241}
+  - component: {fileID: 7998136592502230346}
+  - component: {fileID: 3767952390876210019}
   m_Layer: 0
-  m_Name: Gliding
+  m_Name: Launch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7332922680609542242
+--- !u!4 &7998136592502230346
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332922680609542243}
+  m_GameObject: {fileID: 8746976378673052468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,23 +31,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7332922680609542241
+--- !u!114 &3767952390876210019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332922680609542243}
+  m_GameObject: {fileID: 8746976378673052468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1ec9819da2b2eb409aea1d1bb15998f, type: 3}
+  m_Script: {fileID: 11500000, guid: c368d1edd3813e844832ad6ef4574867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 0.5
+  gravity: 0
   drag: 0
   colliderMode: 1
-  stateColor: {r: 0.44039908, g: 1.0377358, b: 0.30838376, a: 1}
-  mode: 0
-  rotationSpeed: 180
-  rotationLerp: 0.125
+  stateColor: {r: 1.8490566, g: 0.18316126, b: 1.8458983, a: 1}
+  dashDuration: 1
+  initialMode: 0
+  initialSpeed: 15
+  exitMode: 0
+  exitSpeed: 5
+  dashDirections: 8
+  glidingState: {fileID: 0}
   airborneState: {fileID: 0}

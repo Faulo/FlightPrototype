@@ -28,8 +28,8 @@ namespace AvatarStateMachine {
             velocity.x = Mathf.Clamp(velocity.x, -avatar.maximumRunningSpeed, avatar.maximumRunningSpeed);
 
             avatar.attachedRigidbody.velocity = velocity;
-            if (avatar.intendedMovement.x != 0 && Math.Sign(avatar.intendedMovement.x) == Math.Sign(velocity.x)) {
-                avatar.isFacingRight = avatar.intendedMovement.x > 0;
+            if (Math.Sign(avatar.intendedMovement.x) == Math.Sign(velocity.x)) {
+                avatar.AlignFaceToIntend();
             }
         }
 

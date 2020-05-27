@@ -27,8 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3061120943356082019}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,92 +45,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 0
   drag: 0
+  colliderMode: 1
   stateColor: {r: 1.8490566, g: 0.18316126, b: 1.8458983, a: 1}
-  dashDistance: 6
-  dashSpeed: 15
+  dashDuration: 1
+  initialMode: 0
+  initialSpeed: 15
+  exitMode: 0
   exitSpeed: 5
   dashDirections: 8
-  particles: {fileID: 5006508173063321120}
   glidingState: {fileID: 0}
   airborneState: {fileID: 0}
---- !u!1001 &906388370087924684
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 7998136592502230346}
-    m_Modifications:
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5317709209240411039, guid: 49af8ab926e535d44818f034e8dfce54,
-        type: 3}
-      propertyPath: m_Name
-      value: TrailParticles_Dash
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 49af8ab926e535d44818f034e8dfce54, type: 3}
---- !u!4 &3061120943356082019 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2805577830364980399, guid: 49af8ab926e535d44818f034e8dfce54,
-    type: 3}
-  m_PrefabInstance: {fileID: 906388370087924684}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &5006508173063321120 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5327357879234438636, guid: 49af8ab926e535d44818f034e8dfce54,
-    type: 3}
-  m_PrefabInstance: {fileID: 906388370087924684}
-  m_PrefabAsset: {fileID: 0}

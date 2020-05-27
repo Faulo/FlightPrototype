@@ -17,27 +17,12 @@ namespace AvatarStateMachine {
         [SerializeField, Range(0, 1)]
         float rotationLerp = 1;
 
-        [Header("Sub-components")]
-        [SerializeField, Expandable]
-        ParticleSystem particles = default;
-        bool particlesEnabled {
-            set {
-                if (value) {
-                    particles.Play();
-                } else {
-                    particles.Stop();
-                }
-            }
-        }
-
         public override void EnterState() {
             base.EnterState();
 
-            avatar.isGliding = true;
-            particlesEnabled = true;
-
+            avatar.attachedRigidbody.gravityScale = 0;
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
-            avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
+            //avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -46,7 +31,9 @@ namespace AvatarStateMachine {
             var currentRotation = avatar.currentRotation;
             var intendedRotation = avatar.intendedRotation;
 
-            velocity = currentRotation * Vector2.up * velocity.magnitude;
+            //velocity -= Physics2D.gravity * gravity * Time.deltaTime;
+            velocity = currentRotation * Vector2.right * velocity.magnitude * avatar.facingSign;
+            velocity += Physics2D.gravity * gravity * Time.deltaTime;
 
             avatar.attachedRigidbody.velocity = velocity;
 
@@ -58,7 +45,7 @@ namespace AvatarStateMachine {
                     }
                     break;
                 case GlideMode.AngularVelocityControl:
-                    angularVelocity = avatar.intendedMovement.y;
+                    angularVelocity = avatar.intendedMovement.y * avatar.facingSign;
                     break;
             }
             avatar.attachedRigidbody.angularVelocity = Mathf.Lerp(avatar.attachedRigidbody.angularVelocity, rotationSpeed * angularVelocity, rotationLerp);
@@ -67,12 +54,9 @@ namespace AvatarStateMachine {
         public override void ExitState() {
             base.ExitState();
 
-            avatar.isGliding = false;
-            particlesEnabled = false;
-
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             avatar.attachedRigidbody.rotation = 0;
-            avatar.attachedSprite.transform.rotation = avatar.transform.rotation;
+            //avatar.attachedSprite.transform.rotation = avatar.transform.rotation;
         }
 
         [Header("Transitions")]

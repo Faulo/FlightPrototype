@@ -7,9 +7,11 @@ namespace AvatarStateMachine {
 
         [Header("Rigidbody configuration")]
         [SerializeField, Range(0, 2)]
-        float gravity = 1;
+        protected float gravity = 1;
         [SerializeField, Range(0, 10)]
-        float drag = 0;
+        protected float drag = 0;
+        [SerializeField]
+        AvatarHitBox colliderMode = default;
 
         [Header("State visualization")]
         [SerializeField, ColorUsage(true, true)]
@@ -26,9 +28,10 @@ namespace AvatarStateMachine {
         public virtual void EnterState() {
             avatar.attachedRigidbody.gravityScale = gravity;
             avatar.attachedRigidbody.drag = drag;
+            avatar.colliderMode = colliderMode;
         }
         public virtual void UpdateState() {
-            avatar.attachedSprite.color = stateColor;
+            //avatar.attachedSprite.color = stateColor;
             avatar.attachedSprite.flipX = !avatar.isFacingRight;
         }
         public virtual void FixedUpdateState() {
