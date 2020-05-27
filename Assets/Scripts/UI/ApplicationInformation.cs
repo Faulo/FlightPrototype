@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI {
+namespace TheCursedBroom.UI {
     public class ApplicationInformation : FormattableText {
         public override IDictionary<string, string> parameters => new Dictionary<string, string> {
             ["Application.companyName"] = Application.companyName,

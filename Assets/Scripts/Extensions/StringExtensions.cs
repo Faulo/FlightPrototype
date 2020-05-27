@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Extensions {
+namespace TheCursedBroom.Extensions {
     public static class StringExtensions {
         public static string Format(this string formatString, IDictionary<string, string> dictionary) {
             foreach (var element in dictionary) {

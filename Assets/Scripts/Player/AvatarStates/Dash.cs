@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace AvatarStateMachine {
+namespace TheCursedBroom.Player.AvatarStates {
     public class Dash : AvatarState {
         enum VelocityMode {
             SetVelocity,

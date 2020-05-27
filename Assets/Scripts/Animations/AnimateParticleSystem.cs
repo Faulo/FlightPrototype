@@ -1,7 +1,7 @@
 ﻿using Slothsoft.UnityExtensions;
 using UnityEngine;
 
-namespace Animations {
+namespace TheCursedBroom.Animations {
     public class AnimateParticleSystem : StateMachineBehaviour {
         [SerializeField, Expandable]
         ParticleSystem prefab = default;

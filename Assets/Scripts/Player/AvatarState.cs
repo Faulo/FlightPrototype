@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace AvatarStateMachine {
+namespace TheCursedBroom.Player {
     public abstract class AvatarState : MonoBehaviour {
         protected Avatar avatar { get; private set; }
 

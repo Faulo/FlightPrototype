@@ -2,7 +2,7 @@
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 
-namespace AvatarStateMachine {
+namespace TheCursedBroom.Player.AvatarStates {
     public class Grounded : AvatarState {
         [Header("Grounded")]
         [SerializeField, Range(0, 1)]

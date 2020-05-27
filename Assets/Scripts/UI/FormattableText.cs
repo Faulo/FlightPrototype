@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Extensions;
+using TheCursedBroom.Extensions;
 using TMPro;
 using UnityEngine;
 
-namespace UI {
+namespace TheCursedBroom.UI {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public abstract class FormattableText : MonoBehaviour {
         [SerializeField, Range(0, 1)]

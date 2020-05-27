@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UI {
+namespace TheCursedBroom.UI {
     public class DebugInformation : FormattableText {
         public override IDictionary<string, string> parameters {
             get {

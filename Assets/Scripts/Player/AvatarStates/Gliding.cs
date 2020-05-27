@@ -3,7 +3,7 @@ using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 
-namespace AvatarStateMachine {
+namespace TheCursedBroom.Player.AvatarStates {
     public class Gliding : AvatarState {
         enum GlideMode {
             RotationControl,
