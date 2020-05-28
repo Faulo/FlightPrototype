@@ -31,7 +31,3 @@ MonoBehaviour:
     - {fileID: 5897886265953266890, guid: 313c938144d4b9a49930360763ccdd2e, type: 3}
     setCSharpVersionTo: 7.3
     m_setWarningLevelTo: 4
-  - affectedAssemblies:
-    - {fileID: 5897886265953266890, guid: 39ddaa99bfecddd48b4c85a0583584b1, type: 3}
-    setCSharpVersionTo: 7.3
-    m_setWarningLevelTo: 0
