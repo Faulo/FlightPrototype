@@ -7,6 +7,8 @@ namespace TheCursedBroom.Player {
         Avatar observedAvatar = default;
         [SerializeField, Expandable]
         Animator observedAnimator = default;
+        [SerializeField]
+        Quaternion flipRotation = default;
         protected virtual void OnValidate() {
             if (observedAvatar == null) {
                 observedAvatar = GetComponentInParent<Avatar>();
@@ -17,6 +19,7 @@ namespace TheCursedBroom.Player {
         }
 
         void Update() {
+            transform.rotation = observedAvatar.facingRotation;
             observedAnimator.SetBool("isFlying", observedAvatar.isFlying);
         }
     }

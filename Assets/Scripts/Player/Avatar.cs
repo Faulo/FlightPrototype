@@ -11,9 +11,6 @@ namespace TheCursedBroom.Player {
         public Rigidbody2D attachedRigidbody = default;
 
         [SerializeField, Expandable]
-        public SpriteRenderer attachedSprite = default;
-
-        [SerializeField, Expandable]
         GameObject uprightCollider = default;
         [SerializeField, Expandable]
         GameObject flyingCollider = default;
@@ -53,6 +50,10 @@ namespace TheCursedBroom.Player {
         public int facingSign => isFacingRight
             ? 1
             : -1;
+        public Quaternion facingRotation => isFacingRight
+            ? transform.rotation
+            : transform.rotation * flipRotation;
+        Quaternion flipRotation;
 
         public void AlignFaceToIntend() {
             switch (Math.Sign(intendedMovement.x)) {
@@ -100,7 +101,9 @@ namespace TheCursedBroom.Player {
         public bool isAirborne;
 
         public bool isFlying => colliderModeCache == AvatarHitBox.Flying;
-
+        void Awake() {
+            flipRotation = Quaternion.Euler(0, 180, 0);
+        }
         void Start() {
         }
 
