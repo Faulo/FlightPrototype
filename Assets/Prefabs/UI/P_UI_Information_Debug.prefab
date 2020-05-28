@@ -25,27 +25,30 @@ PrefabInstance:
       propertyPath: m_text
       value: 'FPS: <b>{Debug.FPS}</b>
 
-        Level: {Scene.name}'
+        Level: {Scene.name}
+
+        Controls:
+        Arrow Keys, Space, Ctrl'
       objectReference: {fileID: 0}
     - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 36
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 33
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8833400050736072179, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
