@@ -286,7 +286,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   observedAvatar: {fileID: 3089225555766872600}
   observedAnimator: {fileID: 3089225555779599422}
-  flipRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
 --- !u!1 &4963860712443086483
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +381,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!61 &7391293513289786909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -407,7 +406,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!58 &950692966269962978
 CircleCollider2D:
@@ -424,7 +423,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!1 &6956451215886010120
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +472,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!61 &3361507551152733077
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -498,7 +497,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!58 &6903511891115075522
 CircleCollider2D:
@@ -515,7 +514,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!1001 &842247800319871231
 PrefabInstance:
   m_ObjectHideFlags: 0
