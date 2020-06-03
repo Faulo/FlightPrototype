@@ -20,6 +20,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             var velocity = avatar.attachedRigidbody.velocity;
             velocity.x = Mathf.Lerp(velocity.x, avatar.intendedMovement.x * avatar.maximumRunningSpeed, forwardSpeedLerp);
             avatar.attachedRigidbody.velocity = velocity;
+            avatar.attachedAnimator.Play(AvatarAnimations.Falling);
         }
         public override void ExitState() {
             avatar.isAirborne = false;
@@ -38,7 +39,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendsGlide && avatar.canGlide) {
                 return glidingState;
             }
-            return base.CalculateNextState();
+            return this;
         }
     }
 }

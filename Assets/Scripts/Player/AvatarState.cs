@@ -13,10 +13,6 @@ namespace TheCursedBroom.Player {
         [SerializeField]
         AvatarHitBox colliderMode = default;
 
-        [Header("State visualization")]
-        [SerializeField, ColorUsage(true, true)]
-        public Color stateColor = default;
-
         void Awake() {
             avatar = GetComponentInParent<Avatar>();
             Assert.IsNotNull(avatar);
@@ -31,16 +27,12 @@ namespace TheCursedBroom.Player {
             avatar.colliderMode = colliderMode;
         }
         public virtual void UpdateState() {
-            //avatar.attachedSprite.color = stateColor;
-            avatar.attachedSprite.flipX = !avatar.isFacingRight;
         }
         public virtual void FixedUpdateState() {
         }
         public virtual void ExitState() {
         }
-        public virtual AvatarState CalculateNextState() {
-            return this;
-        }
+        public abstract AvatarState CalculateNextState();
         #endregion
     }
 }

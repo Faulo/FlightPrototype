@@ -11,7 +11,7 @@ namespace TheCursedBroom.Player {
         public Rigidbody2D attachedRigidbody = default;
 
         [SerializeField, Expandable]
-        public SpriteRenderer attachedSprite = default;
+        public AvatarAnimator attachedAnimator = default;
 
         [SerializeField, Expandable]
         GameObject uprightCollider = default;
@@ -27,13 +27,13 @@ namespace TheCursedBroom.Player {
         [Header("Movement")]
         [SerializeField, Range(0, 100)]
         public float maximumRunningSpeed = 10;
-        [SerializeField, Range(0, 10)]
-        int maximumGlideCharges = 1;
+        [SerializeField, Range(0, 10000)]
+        int maximumGlideFrameCount = 1000;
 
-        public void RechargeDashes() {
-            currentGlideCharges = maximumGlideCharges;
+        public void RechargeGlide() {
+            currentGlideCharges = maximumGlideFrameCount;
         }
-        public void UseDashCharge() {
+        public void UseGlideCharge() {
             Assert.IsTrue(currentGlideCharges > 0);
             currentGlideCharges--;
         }
@@ -47,12 +47,17 @@ namespace TheCursedBroom.Player {
 
         public bool intendsJump = false;
         public bool intendsGlide = false;
+        public bool intendsCrouch = false;
 
         [Header("Debug Info")]
         public bool isFacingRight = true;
         public int facingSign => isFacingRight
             ? 1
             : -1;
+        public Quaternion facingRotation => isFacingRight
+            ? transform.rotation
+            : transform.rotation * flipRotation;
+        Quaternion flipRotation;
 
         public void AlignFaceToIntend() {
             switch (Math.Sign(intendedMovement.x)) {
@@ -95,12 +100,14 @@ namespace TheCursedBroom.Player {
             }
         }
 
-        public bool isGrounded;
+        public bool isIdle;
         public bool isJumping;
         public bool isAirborne;
 
         public bool isFlying => colliderModeCache == AvatarHitBox.Flying;
-
+        void Awake() {
+            flipRotation = Quaternion.Euler(0, 180, 0);
+        }
         void Start() {
         }
 

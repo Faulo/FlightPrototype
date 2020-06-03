@@ -17,7 +17,14 @@ namespace TheCursedBroom.Player {
         }
 
         void Update() {
+            transform.rotation = observedAvatar.facingRotation;
             observedAnimator.SetBool("isFlying", observedAvatar.isFlying);
+            observedAnimator.SetBool("isJumping", observedAvatar.isJumping);
+        }
+
+        public void Play(AvatarAnimations state) {
+            observedAnimator.speed = 1;
+            observedAnimator.Play(state.ToString(), 0);
         }
     }
 }

@@ -7,5 +7,5 @@ A game about the ups and downs of flying and falling.
 
 ### Third-party assets
 - [Slothsoft's Unity Extensions](https://github.com/Faulo/UnityExtensions)
-- [Sunny Land Forest](https://github.com/Unity-Technologies/ml-agents)
+- [Sunny Land Forest](https://assetstore.unity.com/packages/2d/characters/sunny-land-forest-108124)
 - [Magic Cliffs Pixel Art Environment](https://assetstore.unity.com/packages/2d/textures-materials/magic-cliffs-pixel-art-environment-60458)
