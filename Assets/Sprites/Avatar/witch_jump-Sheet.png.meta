@@ -2634,7 +2634,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -2689,7 +2689,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -2729,8 +2729,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2738,8 +2738,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7925adabac8e50f70800000000000000
-      internalID: 9152977775116309143
+      spriteID: 77361701cd429f6b0800000000000000
+      internalID: -5262134162018442377
       vertices: []
       indices: 
       edges: []
@@ -2748,10 +2748,10 @@ TextureImporter:
       name: witch_jump-Sheet_1
       rect:
         serializedVersion: 2
-        x: 320
+        x: 32
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2759,8 +2759,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54295519bde1deb00800000000000000
-      internalID: 859377032282608197
+      spriteID: fb04ab7ba43f2f450800000000000000
+      internalID: 6121222345785491647
       vertices: []
       indices: 
       edges: []
@@ -2769,10 +2769,10 @@ TextureImporter:
       name: witch_jump-Sheet_2
       rect:
         serializedVersion: 2
-        x: 640
+        x: 64
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2780,8 +2780,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51cb9cb1cb14e0650800000000000000
-      internalID: 6200966013111614485
+      spriteID: 7ad140be4a4191500800000000000000
+      internalID: 367347543157513639
       vertices: []
       indices: 
       edges: []
@@ -2790,10 +2790,10 @@ TextureImporter:
       name: witch_jump-Sheet_3
       rect:
         serializedVersion: 2
-        x: 960
+        x: 96
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2801,8 +2801,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfd76d1456c583830800000000000000
-      internalID: 4051089454785789437
+      spriteID: 3e10d43f9d7664b00800000000000000
+      internalID: 812450968574427619
       vertices: []
       indices: 
       edges: []
@@ -2811,10 +2811,10 @@ TextureImporter:
       name: witch_jump-Sheet_4
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 128
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2822,8 +2822,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13998c25072cfb280800000000000000
-      internalID: -9025281340546180815
+      spriteID: c0923b2b2473233f0800000000000000
+      internalID: -922614214052075252
       vertices: []
       indices: 
       edges: []
@@ -2832,10 +2832,10 @@ TextureImporter:
       name: witch_jump-Sheet_5
       rect:
         serializedVersion: 2
-        x: 1600
+        x: 160
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2843,8 +2843,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 663b141d1dc2971d0800000000000000
-      internalID: -3352599167930092698
+      spriteID: 44c9ffd22aad5f8e0800000000000000
+      internalID: -1660180497524876220
       vertices: []
       indices: 
       edges: []
@@ -2853,10 +2853,10 @@ TextureImporter:
       name: witch_jump-Sheet_6
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 192
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2864,8 +2864,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c134170696132f760800000000000000
-      internalID: 7490103458929918748
+      spriteID: ba3c95d6a5acd4e00800000000000000
+      internalID: 1030702379468178347
       vertices: []
       indices: 
       edges: []
@@ -2874,10 +2874,10 @@ TextureImporter:
       name: witch_jump-Sheet_7
       rect:
         serializedVersion: 2
-        x: 2240
+        x: 224
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2885,8 +2885,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15f0b9126322d5ba0800000000000000
-      internalID: -6098680704502395055
+      spriteID: 400b30e9f6e92aa70800000000000000
+      internalID: 8836799621083934724
       vertices: []
       indices: 
       edges: []
@@ -2895,10 +2895,10 @@ TextureImporter:
       name: witch_jump-Sheet_8
       rect:
         serializedVersion: 2
-        x: 2560
+        x: 256
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2906,8 +2906,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c0a8bf961fe81d40800000000000000
-      internalID: 5555453020809502916
+      spriteID: 76abc438f1a223770800000000000000
+      internalID: 8588973754184153703
       vertices: []
       indices: 
       edges: []
@@ -2916,10 +2916,10 @@ TextureImporter:
       name: witch_jump-Sheet_9
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 288
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2927,8 +2927,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f9db176dcd7406e0800000000000000
-      internalID: -1872233223927637514
+      spriteID: e5503f4b6088871b0800000000000000
+      internalID: -5658623369404021410
       vertices: []
       indices: 
       edges: []
@@ -2937,10 +2937,10 @@ TextureImporter:
       name: witch_jump-Sheet_10
       rect:
         serializedVersion: 2
-        x: 3200
+        x: 320
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2948,8 +2948,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ca5f0c9f80d21010800000000000000
-      internalID: 1158217369404791492
+      spriteID: 8e5f64a0214d2e420800000000000000
+      internalID: 2657919904048936424
       vertices: []
       indices: 
       edges: []
@@ -2958,10 +2958,10 @@ TextureImporter:
       name: witch_jump-Sheet_11
       rect:
         serializedVersion: 2
-        x: 3520
+        x: 352
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2969,8 +2969,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55d3097217deca6e0800000000000000
-      internalID: -1824822678741041835
+      spriteID: 0806d8d69d7d43600800000000000000
+      internalID: 447219591862378624
       vertices: []
       indices: 
       edges: []
@@ -2979,10 +2979,10 @@ TextureImporter:
       name: witch_jump-Sheet_12
       rect:
         serializedVersion: 2
-        x: 3840
+        x: 384
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2990,8 +2990,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8324af02aabf0c520800000000000000
-      internalID: 2720450883048063544
+      spriteID: 80908d0396511fcc0800000000000000
+      internalID: -3679135879049770744
       vertices: []
       indices: 
       edges: []
@@ -3000,10 +3000,10 @@ TextureImporter:
       name: witch_jump-Sheet_13
       rect:
         serializedVersion: 2
-        x: 4160
+        x: 416
         y: 0
-        width: 320
-        height: 320
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3011,8 +3011,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99a30daa9b83bf3f0800000000000000
-      internalID: -866036133252810087
+      spriteID: 04801f3124afce220800000000000000
+      internalID: 2516661453502613568
       vertices: []
       indices: 
       edges: []
