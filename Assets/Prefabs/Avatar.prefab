@@ -135,6 +135,7 @@ MonoBehaviour:
   drag: 0
   colliderMode: 0
   minimumCrouchFrameCount: 15
+  breakingSpeedLerp: 0.02
   jumpingState: {fileID: 1713786831}
   idleState: {fileID: 808840777}
   airborneState: {fileID: 881665436}
@@ -781,7 +782,7 @@ PrefabInstance:
     - target: {fileID: 3767952390876210019, guid: 16666ba6d3f9dff459d91681fab49420,
         type: 3}
       propertyPath: direction
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3767952390876210019, guid: 16666ba6d3f9dff459d91681fab49420,
         type: 3}
@@ -943,18 +944,23 @@ PrefabInstance:
     - target: {fileID: 2683022721128912667, guid: 4c73381c3ac4483448574d05d1054182,
         type: 3}
       propertyPath: minimumJumpFrameCount
-      value: 30
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2683022721128912667, guid: 4c73381c3ac4483448574d05d1054182,
         type: 3}
       propertyPath: maximumJumpFrameCount
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2683022721128912667, guid: 4c73381c3ac4483448574d05d1054182,
         type: 3}
       propertyPath: glidingState
       value: 
       objectReference: {fileID: 3309947060964344441}
+    - target: {fileID: 2683022721128912667, guid: 4c73381c3ac4483448574d05d1054182,
+        type: 3}
+      propertyPath: jumpStopSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c73381c3ac4483448574d05d1054182, type: 3}
 --- !u!114 &1713786831 stripped

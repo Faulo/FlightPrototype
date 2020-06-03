@@ -1,4 +1,5 @@
-﻿using Slothsoft.UnityExtensions;
+﻿using System;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
@@ -6,6 +7,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Crouching")]
         [SerializeField, Range(0, 100)]
         int minimumCrouchFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float breakingSpeedLerp = 1;
+
+        bool intendsJump;
 
         int crouchDuration;
         public override void EnterState() {
@@ -14,10 +19,19 @@ namespace TheCursedBroom.Player.AvatarStates {
             crouchDuration = 0;
             avatar.attachedAnimator.Play(AvatarAnimations.Crouching);
             avatar.RechargeGlide();
+            intendsJump = avatar.intendsJump;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
             crouchDuration++;
+
+            var velocity = avatar.attachedRigidbody.velocity;
+
+            velocity.x = Mathf.Lerp(velocity.x, 0, breakingSpeedLerp);
+
+            velocity.x = Mathf.Clamp(velocity.x, -avatar.maximumRunningSpeed, avatar.maximumRunningSpeed);
+
+            avatar.attachedRigidbody.velocity = velocity;
         }
 
         public override void ExitState() {
@@ -35,7 +49,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (crouchDuration < minimumCrouchFrameCount) {
                 return this;
             }
-            if (avatar.intendsJump) {
+            if (intendsJump || avatar.intendsJump) {
                 return jumpingState;
             }
             if (!avatar.CalculateGrounded()) {

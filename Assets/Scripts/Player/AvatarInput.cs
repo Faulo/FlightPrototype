@@ -17,7 +17,7 @@ namespace TheCursedBroom.Player {
         string crouchButton = "Fire3";
 
         void Update() {
-            avatar.intendedMovement = new Vector2(Input.GetAxis(horizontalAxis), Input.GetAxis(verticalAxis));
+            avatar.intendedMovement = new Vector2(Input.GetAxisRaw(horizontalAxis), Input.GetAxisRaw(verticalAxis));
             if (avatar.intendsJump || Input.GetButtonDown(jumpButton)) {
                 avatar.intendsJump = Input.GetButton(jumpButton);
             }
