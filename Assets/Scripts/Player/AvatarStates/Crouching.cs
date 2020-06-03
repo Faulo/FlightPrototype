@@ -1,5 +1,4 @@
-﻿using System;
-using Slothsoft.UnityExtensions;
+﻿using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
