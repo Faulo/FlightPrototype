@@ -18,6 +18,12 @@ namespace TheCursedBroom.Player.AvatarStates {
         float rotationLerp = 1;
         [SerializeField, Range(0, 1)]
         float glideEfficiency = 1;
+        [SerializeField, Range(0, 1)]
+        float glideAcceleration = 1;
+        [SerializeField]
+        bool allowLoopings = false;
+        [SerializeField]
+        bool useGlideCharges = false;
 
         public override void EnterState() {
             base.EnterState();
@@ -25,15 +31,25 @@ namespace TheCursedBroom.Player.AvatarStates {
             avatar.attachedRigidbody.gravityScale = 0;
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
             //avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
+            avatar.attachedAnimator.Play(AvatarAnimations.Flying);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
+            if (useGlideCharges) {
+                avatar.UseGlideCharge();
+            }
+
             var velocity = avatar.attachedRigidbody.velocity;
             var currentRotation = avatar.currentRotation;
             var intendedRotation = avatar.intendedRotation;
+            float speed = velocity.magnitude;
 
-            velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * velocity.magnitude * avatar.facingSign, glideEfficiency);
+            if (Math.Sign(avatar.intendedMovement.x) == avatar.facingSign) {
+                speed += Math.Abs(avatar.intendedMovement.x) * glideAcceleration;
+            }
+
+            velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * speed * avatar.facingSign, glideEfficiency);
             velocity += Physics2D.gravity * gravity * Time.deltaTime;
 
             avatar.attachedRigidbody.velocity = velocity;
@@ -42,7 +58,10 @@ namespace TheCursedBroom.Player.AvatarStates {
             switch (mode) {
                 case GlideMode.RotationControl:
                     if (currentRotation != intendedRotation) {
-                        angularVelocity = Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
+                        // TODO: make this work again
+                        int rotationOffset = -180;
+                        Debug.Log((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z + rotationOffset);
+                        angularVelocity = Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z + rotationOffset);
                     }
                     break;
                 case GlideMode.AngularVelocityControl:
@@ -50,6 +69,15 @@ namespace TheCursedBroom.Player.AvatarStates {
                     break;
             }
             avatar.attachedRigidbody.angularVelocity = Mathf.Lerp(avatar.attachedRigidbody.angularVelocity, rotationSpeed * angularVelocity, rotationLerp);
+            if (!allowLoopings) {
+                float rotation = avatar.attachedRigidbody.rotation;
+                while (rotation >= 360) {
+                    rotation -= 360;
+                }
+                avatar.attachedRigidbody.rotation = avatar.isFacingRight
+                    ? Mathf.Clamp(rotation, -90, 90)
+                    : Mathf.Clamp(rotation, -90, 90);
+            }
         }
 
         public override void ExitState() {
@@ -58,16 +86,17 @@ namespace TheCursedBroom.Player.AvatarStates {
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             avatar.attachedRigidbody.rotation = 0;
             //avatar.attachedSprite.transform.rotation = avatar.transform.rotation;
+            avatar.attachedAnimator.Play(AvatarAnimations.Dismounting);
         }
 
         [Header("Transitions")]
         [SerializeField, Expandable]
         AvatarState airborneState = default;
         public override AvatarState CalculateNextState() {
-            if (!avatar.intendsGlide) {
+            if (!avatar.intendsGlide || !avatar.canGlide) {
                 return airborneState;
             }
-            return base.CalculateNextState();
+            return this;
         }
     }
 }
