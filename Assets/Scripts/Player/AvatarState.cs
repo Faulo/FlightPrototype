@@ -32,9 +32,7 @@ namespace TheCursedBroom.Player {
         }
         public virtual void ExitState() {
         }
-        public virtual AvatarState CalculateNextState() {
-            return this;
-        }
+        public abstract AvatarState CalculateNextState();
         #endregion
     }
 }

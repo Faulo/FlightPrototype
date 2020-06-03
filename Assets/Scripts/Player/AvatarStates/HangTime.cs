@@ -20,6 +20,7 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             hangTimer = 0;
             avatar.isAirborne = true;
+            avatar.attachedAnimator.Play(AvatarAnimations.Hanging);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -56,7 +57,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (hangTimer > hangDuration) {
                 return airborneState;
             }
-            return base.CalculateNextState();
+            return this;
         }
     }
 }

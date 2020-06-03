@@ -12,8 +12,9 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
-            avatar.isGrounded = true;
-            avatar.RechargeDashes();
+            avatar.isIdle = true;
+            avatar.RechargeGlide();
+            avatar.attachedAnimator.Play(AvatarAnimations.Idling);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -34,11 +35,13 @@ namespace TheCursedBroom.Player.AvatarStates {
         }
 
         public override void ExitState() {
-            avatar.isGrounded = false;
+            avatar.isIdle = false;
             base.ExitState();
         }
 
         [Header("Transitions")]
+        [SerializeField, Expandable]
+        AvatarState crouchingState = default;
         [SerializeField, Expandable]
         AvatarState jumpingState = default;
         [SerializeField, Expandable]
@@ -47,10 +50,13 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendsJump) {
                 return jumpingState;
             }
+            if (avatar.intendsCrouch) {
+                return crouchingState;
+            }
             if (!avatar.CalculateGrounded()) {
                 return airborneState;
             }
-            return base.CalculateNextState();
+            return this;
         }
     }
 }

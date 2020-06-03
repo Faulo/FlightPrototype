@@ -9,17 +9,20 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Jumping")]
         [SerializeField, Range(0, 10)]
         float maximumJumpHeight = 5;
-        [SerializeField, Range(0.0001f, 1)]
-        float minimumJumpDuration = 1;
-        [SerializeField, Range(0.0001f, 1)]
-        float maximumJumpDuration = 1;
+        [SerializeField, Range(0, 100)]
+        int minimumJumpFrameCount = 1;
+        [SerializeField, Range(0, 100)]
+        int maximumJumpFrameCount = 1;
         [SerializeField, Range(0, 10), Tooltip("The vertical speed where/when jumping stops")]
         float jumpStopSpeed = 0;
         Vector2 jumpStartVelocity {
             get {
+                float maximumJumpDuration = maximumJumpFrameCount * Time.deltaTime;
                 var up = Vector2.up * maximumJumpHeight;
                 var down = Physics2D.gravity * avatar.attachedRigidbody.gravityScale * maximumJumpDuration * maximumJumpDuration / 2;
-                return (up - down) / maximumJumpDuration;
+                var velocity = (up - down) / maximumJumpDuration;
+                velocity.x += avatar.attachedRigidbody.velocity.x;
+                return velocity;
             }
         }
         [Header("Movement")]
@@ -28,19 +31,20 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Range(0, 1)]
         float backwardSpeedLerp = 0.1f;
 
-        float jumpTimer = 0;
+        int jumpTimer = 0;
         public override void EnterState() {
             base.EnterState();
 
             avatar.isJumping = true;
             jumpTimer = 0;
 
-            avatar.attachedRigidbody.velocity += jumpStartVelocity;
+            avatar.attachedRigidbody.velocity = jumpStartVelocity;
+            avatar.attachedAnimator.Play(AvatarAnimations.Jumping);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            jumpTimer += Time.deltaTime;
+            jumpTimer++;
 
             var velocity = avatar.attachedRigidbody.velocity;
             if (Math.Sign(avatar.intendedMovement.x) == avatar.facingSign) {
@@ -62,12 +66,17 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         [Header("Transitions")]
         [SerializeField, Expandable]
+        AvatarState glidingState = default;
+        [SerializeField, Expandable]
         AvatarState airborneState = default;
         public override AvatarState CalculateNextState() {
-            if (jumpTimer < minimumJumpDuration) {
+            if (jumpTimer < minimumJumpFrameCount) {
                 return this;
             }
-            if (jumpTimer > maximumJumpDuration) {
+            if (avatar.intendsGlide) {
+                return glidingState;
+            }
+            if (jumpTimer > maximumJumpFrameCount) {
                 return airborneState;
             }
             if (!avatar.intendsJump) {
@@ -76,7 +85,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.attachedRigidbody.velocity.y < jumpStopSpeed) {
                 return airborneState;
             }
-            return base.CalculateNextState();
+            return this;
         }
     }
 }

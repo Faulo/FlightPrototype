@@ -11,6 +11,9 @@ namespace TheCursedBroom.Player {
         public Rigidbody2D attachedRigidbody = default;
 
         [SerializeField, Expandable]
+        public AvatarAnimator attachedAnimator = default;
+
+        [SerializeField, Expandable]
         GameObject uprightCollider = default;
         [SerializeField, Expandable]
         GameObject flyingCollider = default;
@@ -24,13 +27,13 @@ namespace TheCursedBroom.Player {
         [Header("Movement")]
         [SerializeField, Range(0, 100)]
         public float maximumRunningSpeed = 10;
-        [SerializeField, Range(0, 10)]
-        int maximumGlideCharges = 1;
+        [SerializeField, Range(0, 10000)]
+        int maximumGlideFrameCount = 1000;
 
-        public void RechargeDashes() {
-            currentGlideCharges = maximumGlideCharges;
+        public void RechargeGlide() {
+            currentGlideCharges = maximumGlideFrameCount;
         }
-        public void UseDashCharge() {
+        public void UseGlideCharge() {
             Assert.IsTrue(currentGlideCharges > 0);
             currentGlideCharges--;
         }
@@ -44,6 +47,7 @@ namespace TheCursedBroom.Player {
 
         public bool intendsJump = false;
         public bool intendsGlide = false;
+        public bool intendsCrouch = false;
 
         [Header("Debug Info")]
         public bool isFacingRight = true;
@@ -96,7 +100,7 @@ namespace TheCursedBroom.Player {
             }
         }
 
-        public bool isGrounded;
+        public bool isIdle;
         public bool isJumping;
         public bool isAirborne;
 

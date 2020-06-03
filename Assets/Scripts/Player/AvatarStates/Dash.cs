@@ -4,13 +4,17 @@ using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
     public class Dash : AvatarState {
+        enum DashDirection {
+            CurrentIntention,
+            CurrentVelocity
+        }
         enum VelocityMode {
             SetVelocity,
             AddVelocity
         }
         [Header("Dash")]
-        [SerializeField, Range(0, 10)]
-        float dashDuration = 1;
+        [SerializeField, Range(0, 100)]
+        int dashFrameCount = 1;
         [SerializeField]
         VelocityMode initialMode = default;
         [SerializeField, Range(-100, 100)]
@@ -19,11 +23,15 @@ namespace TheCursedBroom.Player.AvatarStates {
         VelocityMode exitMode = default;
         [SerializeField, Range(-100, 100)]
         float exitSpeed = 1;
+        [SerializeField]
+        DashDirection direction = default;
         [SerializeField, Range(1, 360)]
         int dashDirections = 8;
+        [SerializeField, Range(0, 360)]
+        int rotationOffset = 0;
 
 
-        float dashTimer;
+        int dashTimer;
         float rotation;
         Vector2 velocity;
         public override void EnterState() {
@@ -31,10 +39,26 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             dashTimer = 0;
 
-            //avatar.AlignFaceToIntend();
-            avatar.UseDashCharge();
+            avatar.AlignFaceToIntend();
+            avatar.UseGlideCharge();
 
-            rotation = Mathf.RoundToInt(avatar.intendedRotation.eulerAngles.z * dashDirections / 360) * 360 / dashDirections;
+            velocity = avatar.attachedRigidbody.velocity;
+
+            switch (direction) {
+                case DashDirection.CurrentIntention:
+                    rotation = avatar.intendedRotation.eulerAngles.z;
+                    break;
+                case DashDirection.CurrentVelocity:
+                    rotation = velocity.magnitude > 0
+                        ? Vector2.SignedAngle(Vector2.up, velocity.normalized)
+                        : Vector2.SignedAngle(Vector2.up, Vector2.right * avatar.facingSign);
+                    break;
+                default:
+                    break;
+            }
+            rotation += rotationOffset * avatar.facingSign;
+            rotation = Mathf.RoundToInt(rotation * dashDirections / 360) * 360 / dashDirections;
+
             velocity = Quaternion.Euler(0, 0, rotation) * Vector2.right * initialSpeed * avatar.facingSign;
 
             switch (initialMode) {
@@ -49,11 +73,12 @@ namespace TheCursedBroom.Player.AvatarStates {
             avatar.attachedRigidbody.velocity = velocity;
             avatar.attachedRigidbody.rotation = rotation;
             //avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
+            avatar.attachedAnimator.Play(AvatarAnimations.Mounting);
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            dashTimer += Time.deltaTime;
+            dashTimer++;
             avatar.attachedRigidbody.velocity = velocity;
         }
 
@@ -69,27 +94,26 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState airborneState = default;
         public override AvatarState CalculateNextState() {
-            if (dashTimer >= dashDuration) {
-                if (avatar.intendsGlide) {
-                    return glidingState;
-                } else {
-                    velocity = Quaternion.Euler(0, 0, rotation) * Vector2.up * exitSpeed;
-                    velocity += Physics2D.gravity * Time.deltaTime;
-                    switch (exitMode) {
-                        case VelocityMode.SetVelocity:
-                            break;
-                        case VelocityMode.AddVelocity:
-                            velocity += avatar.attachedRigidbody.velocity;
-                            break;
-                    }
-
-                    avatar.attachedRigidbody.rotation = 0;
-                    avatar.attachedRigidbody.velocity = velocity;
-                    avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-                    return airborneState;
-                }
+            if (dashTimer < dashFrameCount) {
+                return this;
             }
-            return base.CalculateNextState();
+            if (avatar.intendsGlide) {
+                return glidingState;
+            } else {
+                velocity = Quaternion.Euler(0, 0, rotation) * Vector2.up * exitSpeed;
+                velocity += Physics2D.gravity * Time.deltaTime;
+                switch (exitMode) {
+                    case VelocityMode.SetVelocity:
+                        break;
+                    case VelocityMode.AddVelocity:
+                        velocity += avatar.attachedRigidbody.velocity;
+                        break;
+                }
+                avatar.attachedRigidbody.rotation = 0;
+                avatar.attachedRigidbody.velocity = velocity;
+                avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                return airborneState;
+            }
         }
     }
 }
