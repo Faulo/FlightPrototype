@@ -782,7 +782,7 @@ PrefabInstance:
     - target: {fileID: 3767952390876210019, guid: 16666ba6d3f9dff459d91681fab49420,
         type: 3}
       propertyPath: direction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3767952390876210019, guid: 16666ba6d3f9dff459d91681fab49420,
         type: 3}
@@ -1301,6 +1301,16 @@ PrefabInstance:
         type: 3}
       propertyPath: allowLoopings
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332922680609542241, guid: f387378c86e51dc4fb94a05ba07dff5d,
+        type: 3}
+      propertyPath: glideEfficiency
+      value: 0.175
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332922680609542241, guid: f387378c86e51dc4fb94a05ba07dff5d,
+        type: 3}
+      propertyPath: glideAcceleration
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7332922680609542242, guid: f387378c86e51dc4fb94a05ba07dff5d,
         type: 3}

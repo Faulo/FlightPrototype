@@ -18,6 +18,8 @@ namespace TheCursedBroom.Player.AvatarStates {
         float rotationLerp = 1;
         [SerializeField, Range(0, 1)]
         float glideEfficiency = 1;
+        [SerializeField, Range(0, 1)]
+        float glideAcceleration = 1;
         [SerializeField]
         bool allowLoopings = false;
         [SerializeField]
@@ -41,8 +43,13 @@ namespace TheCursedBroom.Player.AvatarStates {
             var velocity = avatar.attachedRigidbody.velocity;
             var currentRotation = avatar.currentRotation;
             var intendedRotation = avatar.intendedRotation;
+            float speed = velocity.magnitude;
 
-            velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * velocity.magnitude * avatar.facingSign, glideEfficiency);
+            if (Math.Sign(avatar.intendedMovement.x) == avatar.facingSign) {
+                speed += Math.Abs(avatar.intendedMovement.x) * glideAcceleration;
+            }
+
+            velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * speed * avatar.facingSign, glideEfficiency);
             velocity += Physics2D.gravity * gravity * Time.deltaTime;
 
             avatar.attachedRigidbody.velocity = velocity;
