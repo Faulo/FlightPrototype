@@ -4,14 +4,18 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarMovements {
     [CreateAssetMenu()]
     public class HorizontalMovement : AvatarMovement {
-        [SerializeField]
-        bool breakImmediately = true;
-        [SerializeField, Range(0, 1)]
-        float accelerationDuration = 1;
-        [SerializeField]
-        bool breakWhenNoInput = true;
         [SerializeField, Range(0, 100)]
         float maximumSpeed = 10;
+        [SerializeField, Range(0, 1)]
+        float accelerationDuration = 1;
+        [SerializeField, Range(0, 1)]
+        float decelerationDuration = 1;
+        [SerializeField]
+        bool turnAroundImmediately = true;
+        [SerializeField]
+        bool breakWhenNoInput = true;
+        [SerializeField]
+        bool useGroundFriction = true;
 
         public override Func<Vector2> CreateVelocityCalculator(Avatar avatar) {
             float velocityX = avatar.velocity.x;
@@ -19,7 +23,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
             return () => {
                 float speed = avatar.velocity.x;
 
-                if (breakImmediately) {
+                if (turnAroundImmediately) {
                     float minSpeed = avatar.isFacingRight
                         ? 0
                         : -avatar.maximumRunningSpeed;
@@ -29,18 +33,25 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
                 }
 
-                float targetSpeed = speed;
-                if (avatar.intendedMovement.x == 0) {
-                    if (breakWhenNoInput) {
-                        targetSpeed = 0;
-                    }
-                } else {
-                    if (maximumSpeed != 0) {
-                        targetSpeed = avatar.intendedMovement.x * maximumSpeed;
-                    }
+                if (breakWhenNoInput && avatar.intendedMovement.x == 0) {
+                    speed = 0;
                 }
-                speed = Mathf.SmoothDamp(speed, targetSpeed, ref velocityX, accelerationDuration);
 
+                float targetSpeed = avatar.intendedMovement.x * maximumSpeed;
+
+                bool isAccelerating = Mathf.Abs(targetSpeed) > Mathf.Abs(speed);
+
+                float duration = isAccelerating
+                    ? accelerationDuration
+                    : decelerationDuration;
+
+                if (useGroundFriction && avatar.isGrounded) {
+                    duration /= isAccelerating
+                        ? avatar.groundStaticFriction
+                        : avatar.groundKinematicFriction;
+                }
+
+                speed = Mathf.SmoothDamp(speed, targetSpeed, ref velocityX, duration);
 
                 return new Vector2(speed, avatar.velocity.y);
             };

@@ -14,7 +14,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             animationTimer = 0;
-            avatar.attachedAnimator.Play(animationToPlay);
+            avatar.currentAnimation = animationToPlay;
 
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();

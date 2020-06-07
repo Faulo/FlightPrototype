@@ -73,7 +73,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             avatar.attachedRigidbody.velocity = velocity;
             avatar.attachedRigidbody.rotation = rotation;
             //avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
-            avatar.attachedAnimator.Play(AvatarAnimations.Mounting);
+            avatar.currentAnimation = AvatarAnimations.Mounting;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TheCursedBroom {
@@ -9,11 +10,12 @@ namespace TheCursedBroom {
         [SerializeField]
         LayerMask groundedLayers = default;
 
-        public bool IsGrounded(GameObject context) {
+        public IReadOnlyList<Ground> GetGrounds() {
             return Physics2D
                 .OverlapCircleAll(transform.position, groundedRadius, groundedLayers)
                 .Select(collider => collider.attachedRigidbody ? collider.attachedRigidbody.gameObject : collider.gameObject)
-                .Any(obj => obj != context);
+                .SelectMany(obj => obj.GetComponents<Ground>())
+                .ToList();
         }
 
         void OnDrawGizmos() {

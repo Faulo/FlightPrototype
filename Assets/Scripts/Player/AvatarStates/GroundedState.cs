@@ -7,7 +7,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             avatar.RechargeGlide();
-            avatar.attachedAnimator.Play(AvatarAnimations.Idling);
+            avatar.currentAnimation = AvatarAnimations.Idling;
 
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();
@@ -36,7 +36,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendsCrouch) {
                 return crouchingState;
             }
-            if (!avatar.CalculateGrounded()) {
+            if (!avatar.isGrounded) {
                 return airborneState;
             }
             return this;

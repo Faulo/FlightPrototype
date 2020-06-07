@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player {
     public class Avatar : MonoBehaviour {
-        public event Action<Avatar> onColliderChange;
-
         [SerializeField, Expandable]
         public Rigidbody2D attachedRigidbody = default;
 
         [SerializeField, Expandable]
-        public AvatarAnimator attachedAnimator = default;
+        AvatarAnimator spriteAnimator = default;
 
         [SerializeField, Expandable]
-        GameObject uprightCollider = default;
-        [SerializeField, Expandable]
-        GameObject flyingCollider = default;
+        AvatarAnimator colliderAnimator = default;
+
+        public AvatarAnimations currentAnimation {
+            set {
+                spriteAnimator.Play(value);
+                colliderAnimator.Play(value);
+            }
+        }
 
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
@@ -73,43 +78,17 @@ namespace TheCursedBroom.Player {
 
         int currentGlideCharges = 0;
         public bool canGlide => currentGlideCharges > 0;
-
-        public AvatarHitBox colliderMode {
-            get => colliderModeCache;
-            set {
-                if (colliderModeCache != value) {
-                    currentCollider.SetActive(false);
-                    colliderModeCache = value;
-                    currentCollider.SetActive(true);
-                    onColliderChange?.Invoke(this);
-                }
-            }
-        }
-        AvatarHitBox colliderModeCache;
-
-        GameObject currentCollider {
-            get {
-                switch (colliderMode) {
-                    case AvatarHitBox.Upright:
-                        return uprightCollider;
-                    case AvatarHitBox.Flying:
-                        return flyingCollider;
-                    default:
-                        throw new NotImplementedException(colliderMode.ToString());
-                }
-            }
-        }
-
         public Vector2 velocity {
             get => attachedRigidbody.velocity;
             set => attachedRigidbody.velocity = value;
         }
+
         public Func<Vector2> velocityCalculator;
         public void UpdateVelocity() {
             velocity = velocityCalculator();
         }
+        public float walkSpeed => velocity.x;
 
-        public bool isFlying => colliderModeCache == AvatarHitBox.Flying;
         void Awake() {
             flipRotation = Quaternion.Euler(0, 180, 0);
         }
@@ -121,6 +100,8 @@ namespace TheCursedBroom.Player {
         }
 
         void FixedUpdate() {
+            grounds = groundedCheck.GetGrounds();
+
             var newState = currentState.CalculateNextState();
 
             if (currentState == newState) {
@@ -132,6 +113,16 @@ namespace TheCursedBroom.Player {
             }
         }
 
-        public bool CalculateGrounded() => groundedCheck.IsGrounded(gameObject);
+        IReadOnlyList<Ground> grounds;
+        public bool isGrounded => grounds
+            .Any();
+        public float groundKinematicFriction => grounds
+            .Select(ground => ground.kinematicFriction)
+            .DefaultIfEmpty(1)
+            .Min();
+        public float groundStaticFriction => grounds
+            .Select(ground => ground.staticFriction)
+            .DefaultIfEmpty(1)
+            .Min();
     }
 }

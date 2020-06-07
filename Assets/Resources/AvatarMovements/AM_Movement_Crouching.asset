@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3b398c9e797b94490c824506d7d2cb, type: 3}
   m_Name: AM_Movement_Crouching
   m_EditorClassIdentifier: 
-  breakImmediately: 1
-  accelerationDuration: 0.1
   maximumSpeed: 0
+  accelerationDuration: 0.1
+  decelerationDuration: 1
+  turnAroundImmediately: 1
+  breakWhenNoInput: 0
+  useGroundFriction: 1

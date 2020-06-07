@@ -29,7 +29,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             jumpTimer = 0;
-            avatar.attachedAnimator.Play(AvatarAnimations.Jumping);
+            avatar.currentAnimation = AvatarAnimations.Jumping;
 
             avatar.AlignFaceToIntend();
             avatar.velocity = jumpStartVelocity;

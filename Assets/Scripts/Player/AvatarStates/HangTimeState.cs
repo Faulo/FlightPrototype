@@ -12,7 +12,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             hangTimer = 0;
-            avatar.attachedAnimator.Play(AvatarAnimations.Hanging);
+            avatar.currentAnimation = AvatarAnimations.Hanging;
 
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();
@@ -37,7 +37,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState airborneState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.CalculateGrounded()) {
+            if (avatar.isGrounded) {
                 return groundedState;
             }
             if (avatar.intendsGlide && avatar.canGlide) {

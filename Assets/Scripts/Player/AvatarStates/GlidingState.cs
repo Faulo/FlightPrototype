@@ -30,8 +30,7 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             avatar.attachedRigidbody.gravityScale = 0;
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
-            //avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
-            avatar.attachedAnimator.Play(AvatarAnimations.Flying);
+            avatar.currentAnimation = AvatarAnimations.Flying;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -85,8 +84,7 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             avatar.attachedRigidbody.rotation = 0;
-            //avatar.attachedSprite.transform.rotation = avatar.transform.rotation;
-            avatar.attachedAnimator.Play(AvatarAnimations.Dismounting);
+            avatar.currentAnimation = AvatarAnimations.Dismounting;
         }
 
         [Header("Transitions")]
