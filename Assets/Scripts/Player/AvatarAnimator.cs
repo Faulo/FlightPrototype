@@ -7,7 +7,8 @@ namespace TheCursedBroom.Player {
         Avatar observedAvatar = default;
         [SerializeField, Expandable]
         Animator observedAnimator = default;
-        protected virtual void OnValidate() {
+
+        void OnValidate() {
             if (observedAvatar == null) {
                 observedAvatar = GetComponentInParent<Avatar>();
             }
@@ -18,13 +19,15 @@ namespace TheCursedBroom.Player {
 
         void Update() {
             transform.rotation = observedAvatar.facingRotation;
-            observedAnimator.SetBool("isFlying", observedAvatar.isFlying);
-            observedAnimator.SetBool("isJumping", observedAvatar.isJumping);
+            observedAnimator.SetFloat("walkSpeed", observedAvatar.walkSpeed);
         }
 
         public void Play(AvatarAnimations state) {
-            observedAnimator.speed = 1;
             observedAnimator.Play(state.ToString(), 0);
+        }
+
+        public void InstantiatePrefab(GameObject prefab) {
+            Instantiate(prefab, transform);
         }
     }
 }
