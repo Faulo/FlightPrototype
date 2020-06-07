@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Avatar_Dismount
+  m_Name: Avatar_Visuals_Crouching
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 0e65a3794efde3f42be9deef9340aaa2, type: 3}
+      value: {fileID: 6121222345785491647, guid: de7e819947b3d234e9689c86bc1961c6,
+        type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 0e65a3794efde3f42be9deef9340aaa2, type: 3}
+      value: {fileID: 367347543157513639, guid: de7e819947b3d234e9689c86bc1961c6,
+        type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,8 +44,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 0e65a3794efde3f42be9deef9340aaa2, type: 3}
-    - {fileID: 21300000, guid: 0e65a3794efde3f42be9deef9340aaa2, type: 3}
+    - {fileID: 6121222345785491647, guid: de7e819947b3d234e9689c86bc1961c6, type: 3}
+    - {fileID: 367347543157513639, guid: de7e819947b3d234e9689c86bc1961c6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
