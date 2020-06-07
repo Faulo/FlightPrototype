@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AM_Movement_Running
   m_EditorClassIdentifier: 
   maximumSpeed: 10
-  accelerationDuration: 0.1
-  decelerationDuration: 0.05
+  accelerationDuration: 0.04
+  decelerationDuration: 0.02
   turnAroundImmediately: 1
   breakWhenNoInput: 0
   useGroundFriction: 1

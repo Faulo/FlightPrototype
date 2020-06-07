@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AM_Movement_Crouching
   m_EditorClassIdentifier: 
   maximumSpeed: 0
-  accelerationDuration: 0.1
-  decelerationDuration: 1
-  turnAroundImmediately: 1
+  accelerationDuration: 0
+  decelerationDuration: 0.8
+  turnAroundImmediately: 0
   breakWhenNoInput: 0
   useGroundFriction: 1

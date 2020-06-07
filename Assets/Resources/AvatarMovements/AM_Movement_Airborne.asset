@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AM_Movement_Airborne
   m_EditorClassIdentifier: 
   maximumSpeed: 10
-  accelerationDuration: 0.2
-  decelerationDuration: 0.3
+  accelerationDuration: 0.1
+  decelerationDuration: 0.2
   turnAroundImmediately: 1
   breakWhenNoInput: 0
   useGroundFriction: 0
