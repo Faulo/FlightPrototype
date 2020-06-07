@@ -14,7 +14,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             get {
                 float maximumJumpDuration = maximumJumpFrameCount * Time.fixedDeltaTime;
                 float up = maximumJumpHeight;
-                float down = Physics2D.gravity.y * avatar.attachedRigidbody.gravityScale * maximumJumpDuration * maximumJumpDuration / 2;
+                float down = Physics2D.gravity.y * avatar.gravityScale * maximumJumpDuration * maximumJumpDuration / 2;
                 return (up - down) / maximumJumpDuration;
             }
         }
@@ -29,7 +29,6 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             jumpTimer = 0;
-            avatar.currentAnimation = AvatarAnimations.Jumping;
 
             avatar.AlignFaceToIntend();
             avatar.velocity = jumpStartVelocity;
@@ -51,26 +50,26 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         [Header("Transitions")]
         [SerializeField, Expandable]
-        AvatarState glidingState = default;
+        AvatarState intendsGlideState = default;
         [SerializeField, Expandable]
-        AvatarState airborneState = default;
+        AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
             if (jumpTimer < minimumJumpFrameCount) {
                 return this;
             }
             if (avatar.intendsGlide) {
-                return glidingState;
+                return intendsGlideState;
             }
             if (!avatar.intendsJump) {
-                return airborneState;
+                return rejectsGlideState;
             }
             if (avatar.velocity.y < jumpStopSpeed) {
-                return airborneState;
+                return rejectsGlideState;
             }
             if (jumpTimer < maximumJumpFrameCount) {
                 return this;
             }
-            return airborneState;
+            return rejectsGlideState;
         }
     }
 }

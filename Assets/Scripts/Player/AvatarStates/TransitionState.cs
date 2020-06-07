@@ -4,8 +4,6 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class TransitionState : AvatarState {
         [Header("Transitional State")]
-        [SerializeField]
-        AvatarAnimations animationToPlay = default;
         [SerializeField, Range(0, 100)]
         int animationFrameCount = 1;
 
@@ -14,7 +12,6 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             animationTimer = 0;
-            avatar.currentAnimation = animationToPlay;
 
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();

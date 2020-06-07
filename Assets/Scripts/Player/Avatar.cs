@@ -7,31 +7,30 @@ using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player {
     public class Avatar : MonoBehaviour {
+        [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
         public Rigidbody2D attachedRigidbody = default;
 
         [SerializeField, Expandable]
-        AvatarAnimator spriteAnimator = default;
+        AvatarAnimator visualsAnimator = default;
 
         [SerializeField, Expandable]
-        AvatarAnimator colliderAnimator = default;
+        AvatarAnimator physicsAnimator = default;
 
         public AvatarAnimations currentAnimation {
             set {
-                spriteAnimator.Play(value);
-                colliderAnimator.Play(value);
+                visualsAnimator.Play(value);
+                physicsAnimator.Play(value);
             }
         }
 
         [SerializeField, Expandable]
-        GroundedCheck groundedCheck = default;
-
-        [SerializeField]
         AvatarState currentState = default;
 
+        [SerializeField, Expandable]
+        GroundedCheck groundedCheck = default;
+
         [Header("Movement")]
-        [SerializeField, Range(0, 100)]
-        public float maximumRunningSpeed = 10;
         [SerializeField, Range(0, 10000)]
         int maximumGlideFrameCount = 1000;
 
@@ -82,6 +81,14 @@ namespace TheCursedBroom.Player {
             get => attachedRigidbody.velocity;
             set => attachedRigidbody.velocity = value;
         }
+        public float gravityScale {
+            get => attachedRigidbody.gravityScale;
+            set => attachedRigidbody.gravityScale = value;
+        }
+        public float drag {
+            get => attachedRigidbody.drag;
+            set => attachedRigidbody.drag = value;
+        }
 
         public Func<Vector2> velocityCalculator;
         public void UpdateVelocity() {
@@ -114,6 +121,7 @@ namespace TheCursedBroom.Player {
         }
 
         IReadOnlyList<Ground> grounds;
+
         public bool isGrounded => grounds
             .Any();
         public float groundKinematicFriction => grounds

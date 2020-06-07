@@ -30,7 +30,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             avatar.attachedRigidbody.gravityScale = 0;
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
-            avatar.currentAnimation = AvatarAnimations.Flying;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -84,15 +83,14 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             avatar.attachedRigidbody.rotation = 0;
-            avatar.currentAnimation = AvatarAnimations.Dismounting;
         }
 
         [Header("Transitions")]
         [SerializeField, Expandable]
-        AvatarState airborneState = default;
+        AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
             if (!avatar.intendsGlide || !avatar.canGlide) {
-                return airborneState;
+                return rejectsGlideState;
             }
             return this;
         }

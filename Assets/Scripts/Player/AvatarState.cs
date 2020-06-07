@@ -4,15 +4,15 @@ using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player {
     public abstract class AvatarState : MonoBehaviour {
-        protected Avatar avatar { get; private set; }
+        protected Avatar avatar;
 
-        [Header("Rigidbody configuration")]
+        [Header("Avatar parameters")]
+        [SerializeField]
+        AvatarAnimations animatorState = default;
         [SerializeField, Range(0, 2)]
         protected float gravity = 1;
         [SerializeField, Range(0, 10)]
         protected float drag = 0;
-        [SerializeField, Expandable]
-        PhysicsMaterial2D physicsMaterial = default;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
 
@@ -25,9 +25,9 @@ namespace TheCursedBroom.Player {
 
         #region State
         public virtual void EnterState() {
-            avatar.attachedRigidbody.gravityScale = gravity;
-            avatar.attachedRigidbody.drag = drag;
-            avatar.attachedRigidbody.sharedMaterial = physicsMaterial;
+            avatar.currentAnimation = animatorState;
+            avatar.gravityScale = gravity;
+            avatar.drag = drag;
             avatar.velocityCalculator = movement
                 ? movement.CreateVelocityCalculator(avatar)
                 : () => avatar.velocity;

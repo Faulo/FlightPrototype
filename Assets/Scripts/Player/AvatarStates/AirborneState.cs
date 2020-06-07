@@ -6,8 +6,6 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
-            avatar.currentAnimation = AvatarAnimations.Falling;
-
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();
         }
@@ -23,15 +21,15 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         [Header("Transitions")]
         [SerializeField, Expandable]
-        AvatarState groundedState = default;
+        AvatarState intendsGlideState = default;
         [SerializeField, Expandable]
-        AvatarState glidingState = default;
+        AvatarState isGroundedState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.isGrounded) {
-                return groundedState;
-            }
             if (avatar.intendsGlide && avatar.canGlide) {
-                return glidingState;
+                return intendsGlideState;
+            }
+            if (avatar.isGrounded) {
+                return isGroundedState;
             }
             return this;
         }

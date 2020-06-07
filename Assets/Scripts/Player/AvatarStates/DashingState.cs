@@ -72,8 +72,6 @@ namespace TheCursedBroom.Player.AvatarStates {
             avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
             avatar.attachedRigidbody.velocity = velocity;
             avatar.attachedRigidbody.rotation = rotation;
-            //avatar.attachedSprite.transform.rotation = avatar.transform.rotation * Quaternion.Euler(0, 0, 90 * avatar.facingSign);
-            avatar.currentAnimation = AvatarAnimations.Mounting;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -90,15 +88,15 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         [Header("Transitions")]
         [SerializeField, Expandable]
-        AvatarState glidingState = default;
+        AvatarState intendsGlideState = default;
         [SerializeField, Expandable]
-        AvatarState airborneState = default;
+        AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
             if (dashTimer < dashFrameCount) {
                 return this;
             }
             if (avatar.intendsGlide) {
-                return glidingState;
+                return intendsGlideState;
             } else {
                 velocity = Quaternion.Euler(0, 0, rotation) * Vector2.up * exitSpeed;
                 velocity += Physics2D.gravity * Time.deltaTime;
@@ -112,7 +110,7 @@ namespace TheCursedBroom.Player.AvatarStates {
                 avatar.attachedRigidbody.rotation = 0;
                 avatar.attachedRigidbody.velocity = velocity;
                 avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-                return airborneState;
+                return rejectsGlideState;
             }
         }
     }

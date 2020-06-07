@@ -14,7 +14,6 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             crouchDuration = 0;
-            avatar.currentAnimation = AvatarAnimations.Crouching;
             avatar.RechargeGlide();
             intendsJump = avatar.intendsJump;
 
@@ -35,23 +34,23 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         [Header("Transitions")]
         [SerializeField, Expandable]
-        AvatarState jumpingState = default;
+        AvatarState intendsJumpState = default;
         [SerializeField, Expandable]
-        AvatarState idleState = default;
+        AvatarState notGroundedState = default;
         [SerializeField, Expandable]
-        AvatarState airborneState = default;
+        AvatarState rejectsCrouchState = default;
         public override AvatarState CalculateNextState() {
             if (crouchDuration < minimumCrouchFrameCount) {
                 return this;
             }
             if (intendsJump || avatar.intendsJump) {
-                return jumpingState;
+                return intendsJumpState;
             }
             if (!avatar.isGrounded) {
-                return airborneState;
+                return notGroundedState;
             }
             if (!avatar.intendsCrouch) {
-                return idleState;
+                return rejectsCrouchState;
             }
             return this;
         }

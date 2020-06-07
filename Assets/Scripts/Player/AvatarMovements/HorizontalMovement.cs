@@ -26,9 +26,9 @@ namespace TheCursedBroom.Player.AvatarMovements {
                 if (turnAroundImmediately) {
                     float minSpeed = avatar.isFacingRight
                         ? 0
-                        : -avatar.maximumRunningSpeed;
+                        : -maximumSpeed;
                     float maxSpeed = avatar.isFacingRight
-                        ? avatar.maximumRunningSpeed
+                        ? maximumSpeed
                         : 0;
                     speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
                 }
