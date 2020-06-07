@@ -100,9 +100,14 @@ namespace TheCursedBroom.Player {
             }
         }
 
-        public bool isIdle;
-        public bool isJumping;
-        public bool isAirborne;
+        public Vector2 velocity {
+            get => attachedRigidbody.velocity;
+            set => attachedRigidbody.velocity = value;
+        }
+        public Func<Vector2> velocityCalculator;
+        public void UpdateVelocity() {
+            velocity = velocityCalculator();
+        }
 
         public bool isFlying => colliderModeCache == AvatarHitBox.Flying;
         void Awake() {

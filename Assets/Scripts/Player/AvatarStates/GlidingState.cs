@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 namespace TheCursedBroom.Player.AvatarStates {
-    public class Gliding : AvatarState {
+    public class GlidingState : AvatarState {
         enum GlideMode {
             RotationControl,
             AngularVelocityControl

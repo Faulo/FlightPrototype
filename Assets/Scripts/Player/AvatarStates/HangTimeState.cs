@@ -2,28 +2,30 @@
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
-    public class Airborne : AvatarState {
+    public class HangTimeState : AvatarState {
+        [Header("Hang Time")]
+        [SerializeField, Range(0, 100)]
+        int maximumHangFrameCount = 1;
 
-        [Header("Airborne")]
-        [Header("Movement")]
-        [SerializeField, Range(0, 1)]
-        float forwardSpeedLerp = 1;
+        int hangTimer;
         public override void EnterState() {
             base.EnterState();
 
-            avatar.isAirborne = true;
+            hangTimer = 0;
+            avatar.attachedAnimator.Play(AvatarAnimations.Hanging);
+
+            avatar.AlignFaceToIntend();
+            avatar.UpdateVelocity();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
+            hangTimer++;
+
             avatar.AlignFaceToIntend();
-            var velocity = avatar.attachedRigidbody.velocity;
-            velocity.x = Mathf.Lerp(velocity.x, avatar.intendedMovement.x * avatar.maximumRunningSpeed, forwardSpeedLerp);
-            avatar.attachedRigidbody.velocity = velocity;
-            avatar.attachedAnimator.Play(AvatarAnimations.Falling);
+            avatar.UpdateVelocity();
         }
         public override void ExitState() {
-            avatar.isAirborne = false;
             base.ExitState();
         }
 
@@ -32,6 +34,8 @@ namespace TheCursedBroom.Player.AvatarStates {
         AvatarState groundedState = default;
         [SerializeField, Expandable]
         AvatarState glidingState = default;
+        [SerializeField, Expandable]
+        AvatarState airborneState = default;
         public override AvatarState CalculateNextState() {
             if (avatar.CalculateGrounded()) {
                 return groundedState;
@@ -39,7 +43,10 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendsGlide && avatar.canGlide) {
                 return glidingState;
             }
-            return this;
+            if (hangTimer < maximumHangFrameCount) {
+                return this;
+            }
+            return airborneState;
         }
     }
 }

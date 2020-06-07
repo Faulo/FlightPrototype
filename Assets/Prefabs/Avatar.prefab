@@ -85,6 +85,8 @@ MonoBehaviour:
   gravity: 1
   drag: 0
   colliderMode: 0
+  physicsMaterial: {fileID: 0}
+  movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
   animationToPlay: 64
   animationFrameCount: 5
   nextState: {fileID: 881665436}
@@ -134,8 +136,9 @@ MonoBehaviour:
   gravity: 1
   drag: 0
   colliderMode: 0
-  minimumCrouchFrameCount: 15
-  breakingSpeedLerp: 0.02
+  physicsMaterial: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
+  movement: {fileID: 11400000, guid: 9e02c29c83ab21344aae646d0f708b2b, type: 2}
+  minimumCrouchFrameCount: 10
   jumpingState: {fileID: 1713786831}
   idleState: {fileID: 808840777}
   airborneState: {fileID: 881665436}
@@ -233,9 +236,6 @@ MonoBehaviour:
   intendsGlide: 0
   intendsCrouch: 0
   isFacingRight: 1
-  isIdle: 0
-  isJumping: 0
-  isAirborne: 0
 --- !u!114 &3089225555766872601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +270,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0cb77231a430b454fb792ff7ffcc3943, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -416,7 +416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4963860712443086483}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7, z: 0}
+  m_LocalPosition: {x: 0, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3089225555766872606}
@@ -480,7 +480,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 6481224851307128213}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -496,7 +496,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6481224851307128213}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -522,7 +522,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 6481224851307128213}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -642,6 +642,22 @@ PrefabInstance:
       propertyPath: crouchingState
       value: 
       objectReference: {fileID: 4629324005851000664}
+    - target: {fileID: 842247799513704118, guid: 8f98fbed0c99ba440ba40808478d1575,
+        type: 3}
+      propertyPath: accelerationDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 842247799513704118, guid: 8f98fbed0c99ba440ba40808478d1575,
+        type: 3}
+      propertyPath: physicsMaterial
+      value: 
+      objectReference: {fileID: 6200000, guid: 0cb77231a430b454fb792ff7ffcc3943, type: 2}
+    - target: {fileID: 842247799513704118, guid: 8f98fbed0c99ba440ba40808478d1575,
+        type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: c9cec1312d8015440875d24563f7fd99,
+        type: 2}
     - target: {fileID: 842247799513704119, guid: 8f98fbed0c99ba440ba40808478d1575,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -961,6 +977,12 @@ PrefabInstance:
       propertyPath: jumpStopSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2683022721128912667, guid: 4c73381c3ac4483448574d05d1054182,
+        type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c73381c3ac4483448574d05d1054182, type: 3}
 --- !u!114 &1713786831 stripped
@@ -998,6 +1020,12 @@ PrefabInstance:
       propertyPath: glidingState
       value: 
       objectReference: {fileID: 3309947060964344441}
+    - target: {fileID: 4573398694091814266, guid: a3e52b436d329f544b7323404e68b094,
+        type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc,
+        type: 2}
     - target: {fileID: 4573398694091814268, guid: a3e52b436d329f544b7323404e68b094,
         type: 3}
       propertyPath: m_Name
@@ -1160,6 +1188,17 @@ PrefabInstance:
       propertyPath: airborneState
       value: 
       objectReference: {fileID: 881665436}
+    - target: {fileID: 8195743865854930815, guid: d2d0902ceb7e3d947a54169c33403185,
+        type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc,
+        type: 2}
+    - target: {fileID: 8195743865854930815, guid: d2d0902ceb7e3d947a54169c33403185,
+        type: 3}
+      propertyPath: maximumHangFrameCount
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2d0902ceb7e3d947a54169c33403185, type: 3}
 --- !u!4 &7065404162661787021 stripped

@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 namespace TheCursedBroom.Player.AvatarStates {
-    public class Dash : AvatarState {
+    public class DashingState : AvatarState {
         enum DashDirection {
             CurrentIntention,
             CurrentVelocity

@@ -2,12 +2,10 @@
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
-    public class Crouching : AvatarState {
+    public class CrouchingState : AvatarState {
         [Header("Crouching")]
         [SerializeField, Range(0, 100)]
         int minimumCrouchFrameCount = 1;
-        [SerializeField, Range(0, 1)]
-        float breakingSpeedLerp = 1;
 
         bool intendsJump;
 
@@ -19,18 +17,16 @@ namespace TheCursedBroom.Player.AvatarStates {
             avatar.attachedAnimator.Play(AvatarAnimations.Crouching);
             avatar.RechargeGlide();
             intendsJump = avatar.intendsJump;
+
+            avatar.AlignFaceToIntend();
+            avatar.UpdateVelocity();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
             crouchDuration++;
 
-            var velocity = avatar.attachedRigidbody.velocity;
-
-            velocity.x = Mathf.Lerp(velocity.x, 0, breakingSpeedLerp);
-
-            velocity.x = Mathf.Clamp(velocity.x, -avatar.maximumRunningSpeed, avatar.maximumRunningSpeed);
-
-            avatar.attachedRigidbody.velocity = velocity;
+            avatar.AlignFaceToIntend();
+            avatar.UpdateVelocity();
         }
 
         public override void ExitState() {

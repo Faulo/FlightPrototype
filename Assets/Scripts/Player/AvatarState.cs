@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Slothsoft.UnityExtensions;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player {
@@ -12,6 +13,10 @@ namespace TheCursedBroom.Player {
         protected float drag = 0;
         [SerializeField]
         AvatarHitBox colliderMode = default;
+        [SerializeField, Expandable]
+        PhysicsMaterial2D physicsMaterial = default;
+        [SerializeField, Expandable]
+        AvatarMovement movement = default;
 
         void Awake() {
             avatar = GetComponentInParent<Avatar>();
@@ -24,7 +29,11 @@ namespace TheCursedBroom.Player {
         public virtual void EnterState() {
             avatar.attachedRigidbody.gravityScale = gravity;
             avatar.attachedRigidbody.drag = drag;
+            avatar.attachedRigidbody.sharedMaterial = physicsMaterial;
             avatar.colliderMode = colliderMode;
+            avatar.velocityCalculator = movement
+                ? movement.CreateVelocityCalculator(avatar)
+                : () => avatar.velocity;
         }
         public virtual void UpdateState() {
         }

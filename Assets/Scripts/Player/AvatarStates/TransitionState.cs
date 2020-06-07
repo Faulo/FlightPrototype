@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
-    public class Transition : AvatarState {
+    public class TransitionState : AvatarState {
         [Header("Transitional State")]
         [SerializeField]
         AvatarAnimations animationToPlay = default;
@@ -15,11 +15,17 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             animationTimer = 0;
             avatar.attachedAnimator.Play(animationToPlay);
+
+            avatar.AlignFaceToIntend();
+            avatar.UpdateVelocity();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
             animationTimer++;
+
+            avatar.AlignFaceToIntend();
+            avatar.UpdateVelocity();
         }
 
         public override void ExitState() {
