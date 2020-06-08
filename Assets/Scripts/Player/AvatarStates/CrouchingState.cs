@@ -7,7 +7,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Range(0, 100)]
         int minimumCrouchFrameCount = 1;
 
-        bool intendsJump;
+        bool intendedJump;
 
         int crouchDuration;
         public override void EnterState() {
@@ -15,7 +15,7 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             crouchDuration = 0;
             avatar.RechargeGlide();
-            intendsJump = avatar.intendsJumpStart;
+            intendedJump = avatar.intendsJumpStart;
 
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();
@@ -34,16 +34,21 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         [Header("Transitions")]
         [SerializeField, Expandable]
+        AvatarState intendsGlideState = default;
+        [SerializeField, Expandable]
         AvatarState intendsJumpState = default;
         [SerializeField, Expandable]
         AvatarState notGroundedState = default;
         [SerializeField, Expandable]
         AvatarState rejectsCrouchState = default;
         public override AvatarState CalculateNextState() {
+            if (!avatar.isGrounded && avatar.intendsGlide) {
+                return intendsGlideState;
+            }
             if (crouchDuration < minimumCrouchFrameCount) {
                 return this;
             }
-            if (intendsJump || avatar.intendsJumpStart) {
+            if (intendedJump || avatar.intendsJumpStart) {
                 return intendsJumpState;
             }
             if (!avatar.isGrounded) {

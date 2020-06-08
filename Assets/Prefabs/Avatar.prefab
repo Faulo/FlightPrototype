@@ -87,7 +87,7 @@ MonoBehaviour:
   movement: {fileID: 11400000, guid: c9cec1312d8015440875d24563f7fd99, type: 2}
   intendsJumpState: {fileID: 4629324005851000664}
   intendsCrouchState: {fileID: 4629324005851000664}
-  notGroundedState: {fileID: 4325773687270416393}
+  notGroundedState: {fileID: 4629324005851000664}
 --- !u!1 &881665434
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,10 +340,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorState: 128
-  gravity: 1
+  gravity: 2
   drag: 0.5
   movement: {fileID: 11400000, guid: 9e02c29c83ab21344aae646d0f708b2b, type: 2}
   minimumCrouchFrameCount: 8
+  intendsGlideState: {fileID: 3309947060964344441}
   intendsJumpState: {fileID: 1713786831}
   notGroundedState: {fileID: 881665436}
   rejectsCrouchState: {fileID: 808840777}
@@ -993,7 +994,7 @@ MonoBehaviour:
   gravity: 0.25
   drag: 0.5
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
-  minimumHangFrameCount: 10
+  minimumHangFrameCount: 15
   maximumHangFrameCount: 40
   intendsGlideState: {fileID: 3309947060964344441}
   rejectsGlideState: {fileID: 881665436}
