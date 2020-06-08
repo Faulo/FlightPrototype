@@ -43,8 +43,8 @@ namespace TheCursedBroom.Player.AvatarStates {
             var intendedRotation = avatar.intendedRotation;
             float speed = velocity.magnitude;
 
-            if (Math.Sign(avatar.intendedMovement.x) == avatar.facingSign) {
-                speed += Math.Abs(avatar.intendedMovement.x) * glideAcceleration;
+            if (avatar.intendedFacing == avatar.facingSign) {
+                speed += Math.Abs(avatar.intendedFlight.x) * glideAcceleration;
             }
 
             velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * speed * avatar.facingSign, glideEfficiency);
@@ -63,7 +63,7 @@ namespace TheCursedBroom.Player.AvatarStates {
                     }
                     break;
                 case GlideMode.AngularVelocityControl:
-                    angularVelocity = avatar.intendedMovement.y * avatar.facingSign;
+                    angularVelocity = avatar.intendedFlight.y * avatar.facingSign;
                     break;
             }
             avatar.attachedRigidbody.angularVelocity = Mathf.Lerp(avatar.attachedRigidbody.angularVelocity, rotationSpeed * angularVelocity, rotationLerp);

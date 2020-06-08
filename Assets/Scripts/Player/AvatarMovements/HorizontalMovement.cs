@@ -16,13 +16,6 @@ namespace TheCursedBroom.Player.AvatarMovements {
         bool breakWhenNoInput = true;
         [SerializeField]
         bool useGroundFriction = true;
-        [Header("Input")]
-        [SerializeField, Range(0, 1)]
-        float inputDeadZone = 0;
-        [SerializeField, Tooltip("Normalize to input range [0, 1] instead of [deadzone, 1]")]
-        bool normalizeInput = true;
-        [SerializeField, Range(1, 360), Tooltip("How many different input values are possible")]
-        int inputRange = 360;
 
 
         public override Func<Vector2> CreateVelocityCalculator(Avatar avatar) {
@@ -30,8 +23,6 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
             return () => {
                 float speed = avatar.velocity.x;
-
-                var input = ProcessInput(avatar.intendedMovement);
 
                 if (turnAroundImmediately) {
                     float minSpeed = avatar.isFacingRight
@@ -43,11 +34,11 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
                 }
 
-                if (breakWhenNoInput && input.x == 0) {
+                if (breakWhenNoInput && avatar.intendedMovement == 0) {
                     speed = 0;
                 }
 
-                float targetSpeed = input.x * maximumSpeed;
+                float targetSpeed = avatar.intendedMovement * maximumSpeed;
 
                 bool isAccelerating = Mathf.Abs(targetSpeed) > Mathf.Abs(speed);
 
@@ -65,22 +56,6 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                 return new Vector2(speed, avatar.velocity.y);
             };
-        }
-
-        Vector2 ProcessInput(Vector2 intention) {
-            if (Mathf.Abs(intention.x) <= inputDeadZone) {
-                intention.x = 0;
-            }
-
-            if (normalizeInput) {
-                intention.x = (Mathf.Abs(intention.x) - inputDeadZone) * Math.Sign(intention.x) / (1 - inputDeadZone);
-            }
-
-            intention.x = intention.x > 0
-                ? Mathf.Ceil(intention.x * inputRange) / inputRange
-                : Mathf.Floor(intention.x * inputRange) / inputRange;
-
-            return intention;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             crouchDuration = 0;
             avatar.RechargeGlide();
-            intendsJump = avatar.intendsJump;
+            intendsJump = avatar.intendsJumpStart;
 
             avatar.AlignFaceToIntend();
             avatar.UpdateVelocity();
@@ -43,7 +43,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (crouchDuration < minimumCrouchFrameCount) {
                 return this;
             }
-            if (intendsJump || avatar.intendsJump) {
+            if (intendsJump || avatar.intendsJumpStart) {
                 return intendsJumpState;
             }
             if (!avatar.isGrounded) {

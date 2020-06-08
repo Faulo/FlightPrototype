@@ -28,6 +28,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
+            avatar.intendsJumpStart = false;
             jumpTimer = 0;
 
             avatar.AlignFaceToIntend();
@@ -44,7 +45,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         public override void ExitState() {
             avatar.velocity = jumpStopVelocity;
-            avatar.intendsJump = false;
             base.ExitState();
         }
 
@@ -54,11 +54,11 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
+            if (avatar.intendsGlide && avatar.canGlide) {
+                return intendsGlideState;
+            }
             if (jumpTimer < minimumJumpFrameCount) {
                 return this;
-            }
-            if (avatar.intendsGlide) {
-                return intendsGlideState;
             }
             if (!avatar.intendsJump) {
                 return rejectsGlideState;

@@ -29,7 +29,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState notGroundedState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.intendsJump) {
+            if (avatar.intendsJumpStart) {
                 return intendsJumpState;
             }
             if (avatar.intendsCrouch) {

@@ -43,12 +43,12 @@ namespace TheCursedBroom.Player {
         }
 
         [Header("Current Input")]
-        public Vector2 intendedMovement = Vector2.zero;
-        public Quaternion intendedRotation => intendedMovement.magnitude > 0
-            ? Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, intendedMovement.normalized))
-            : Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, Vector2.right * facingSign));
-        public Quaternion currentRotation => transform.rotation;
+        public int intendedFacing = 0;
+        public float intendedMovement = 0;
+        public Vector2 intendedFlight = Vector2.zero;
+        public Quaternion intendedRotation = Quaternion.identity;
 
+        public bool intendsJumpStart = false;
         public bool intendsJump = false;
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
@@ -61,10 +61,13 @@ namespace TheCursedBroom.Player {
         public Quaternion facingRotation => isFacingRight
             ? transform.rotation
             : transform.rotation * flipRotation;
+
+        public Quaternion currentRotation => transform.rotation;
+
         Quaternion flipRotation;
 
         public void AlignFaceToIntend() {
-            switch (Math.Sign(intendedMovement.x)) {
+            switch (intendedFacing) {
                 case -1:
                     isFacingRight = false;
                     break;

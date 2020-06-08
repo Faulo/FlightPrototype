@@ -135,7 +135,9 @@ MonoBehaviour:
   gravity: 1
   drag: 1
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
+  resetVelocityOnGround: 1
   intendsGlideState: {fileID: 3309947060964344441}
+  isGroundedAndMovingState: {fileID: 808840777}
   isGroundedState: {fileID: 4629324005851000664}
 --- !u!1 &1713786829
 GameObject:
@@ -482,7 +484,11 @@ MonoBehaviour:
   currentState: {fileID: 808840777}
   groundedCheck: {fileID: 136339116203656581}
   maximumGlideFrameCount: 1000
-  intendedMovement: {x: 0, y: 0}
+  intendedFacing: 0
+  intendedMovement: 0
+  intendedFlight: {x: 0, y: 0}
+  intendedRotation: {x: 0, y: 0, z: 0, w: 1}
+  intendsJumpStart: 0
   intendsJump: 0
   intendsGlide: 0
   intendsCrouch: 1
@@ -505,6 +511,12 @@ MonoBehaviour:
   jumpButton: Fire1
   glideButton: Fire2
   crouchButton: Fire3
+  jumpBufferDuration: 0.1
+  turningDeadZone: 0.1
+  movementDeadZone: 0.2
+  movementNormalized: 1
+  movementAlwaysRoundUp: 1
+  movementRange: 4
 --- !u!50 &3089225555766872607
 Rigidbody2D:
   serializedVersion: 4
@@ -981,8 +993,8 @@ MonoBehaviour:
   gravity: 0.25
   drag: 0.5
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
-  maximumHangFrameCount: 25
-  isGroundedState: {fileID: 4629324005851000664}
+  minimumHangFrameCount: 10
+  maximumHangFrameCount: 40
   intendsGlideState: {fileID: 3309947060964344441}
   rejectsGlideState: {fileID: 881665436}
 --- !u!1 &6973471356833258030
