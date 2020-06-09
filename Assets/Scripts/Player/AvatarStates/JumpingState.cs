@@ -28,11 +28,11 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
-            avatar.intendsJumpStart = false;
             jumpTimer = 0;
 
             avatar.AlignFaceToIntend();
             avatar.velocity = jumpStartVelocity;
+            avatar.intendsJumpStart = false;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -40,12 +40,13 @@ namespace TheCursedBroom.Player.AvatarStates {
             jumpTimer++;
 
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
 
         public override void ExitState() {
-            avatar.velocity = jumpStopVelocity;
             base.ExitState();
+
+            avatar.velocity = jumpStopVelocity;
         }
 
         [Header("Transitions")]

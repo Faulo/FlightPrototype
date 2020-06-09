@@ -33,9 +33,8 @@ Transform:
   - {fileID: 7065404162661787021}
   - {fileID: 881665435}
   - {fileID: 8600231750788213840}
-  - {fileID: 1756242493}
-  - {fileID: 1740971982}
   - {fileID: 1836684147}
+  - {fileID: 1740971982}
   m_Father: {fileID: 3089225555766872606}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,6 +84,7 @@ MonoBehaviour:
   animatorState: 1
   gravity: 1
   drag: 1
+  allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: c9cec1312d8015440875d24563f7fd99, type: 2}
   intendsJumpState: {fileID: 4629324005851000664}
   intendsCrouchState: {fileID: 4629324005851000664}
@@ -135,6 +135,7 @@ MonoBehaviour:
   animatorState: 8
   gravity: 1
   drag: 1
+  allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
   resetVelocityOnGround: 1
   intendsGlideState: {fileID: 3309947060964344441}
@@ -186,7 +187,8 @@ MonoBehaviour:
   animatorState: 2
   gravity: 1.5
   drag: 0
-  movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
+  allowPhysicsRotation: 0
+  movement: {fileID: 11400000, guid: 800e7a8932599ba48bac5a19a3abd126, type: 2}
   maximumJumpHeight: 3
   minimumJumpFrameCount: 8
   maximumJumpFrameCount: 40
@@ -239,64 +241,10 @@ MonoBehaviour:
   animatorState: 64
   gravity: 1
   drag: 0
+  allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
-  animationFrameCount: 5
+  transitionFrameCount: 5
   nextState: {fileID: 881665436}
---- !u!1 &1756242492
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1756242493}
-  - component: {fileID: 1756242494}
-  m_Layer: 0
-  m_Name: Fly v1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1756242493
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756242492}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 447305114}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1756242494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756242492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1ec9819da2b2eb409aea1d1bb15998f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animatorState: 32
-  gravity: 0.5
-  drag: 0
-  movement: {fileID: 0}
-  mode: 1
-  rotationSpeed: 270
-  rotationLerp: 0.125
-  glideEfficiency: 0.175
-  glideAcceleration: 0
-  allowLoopings: 1
-  useGlideCharges: 0
-  rejectsGlideState: {fileID: 1740971983}
 --- !u!1 &1836684146
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +256,7 @@ GameObject:
   - component: {fileID: 1836684147}
   - component: {fileID: 1836684148}
   m_Layer: 0
-  m_Name: Fly v2
+  m_Name: Flight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,7 +274,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 447305114}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1836684148
 MonoBehaviour:
@@ -343,8 +291,9 @@ MonoBehaviour:
   animatorState: 32
   gravity: 0.25
   drag: 0
-  movement: {fileID: 0}
-  updraftParticles: {fileID: 0}
+  allowPhysicsRotation: 0
+  movement: {fileID: 11400000, guid: 3b7b411d0370ff548ae45da2f268db6d, type: 2}
+  updraftParticles: {fileID: 7147689269680743400}
   rejectsGlideState: {fileID: 1740971983}
 --- !u!1 &1333995720129163968
 GameObject:
@@ -392,6 +341,7 @@ MonoBehaviour:
   animatorState: 128
   gravity: 2
   drag: 0.5
+  allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: 9e02c29c83ab21344aae646d0f708b2b, type: 2}
   minimumCrouchFrameCount: 8
   intendsGlideState: {fileID: 3309947060964344441}
@@ -534,7 +484,6 @@ MonoBehaviour:
   physicsAnimator: {fileID: 4858272974567616656}
   currentState: {fileID: 808840777}
   groundedCheck: {fileID: 136339116203656581}
-  maximumGlideFrameCount: 1000
   intendedFacing: 0
   intendedMovement: 0
   intendedFlight: {x: 0, y: 0}
@@ -542,8 +491,9 @@ MonoBehaviour:
   intendsJumpStart: 0
   intendsJump: 0
   intendsGlide: 0
-  intendsCrouch: 1
+  intendsCrouch: 0
   isFacingRight: 1
+  gravityScale: 0
 --- !u!114 &3089225555766872601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +533,7 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 1
   m_AngularDrag: 1
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -607,20 +557,6 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0.0625
   m_ColliderPaths:
-  - m_Collider: {fileID: 4853336842558127059}
-    m_ColliderPaths:
-    - - X: 2500000
-        Y: 6250000
-      - X: 0
-        Y: 7500000
-      - X: -2500000
-        Y: 6250000
-      - X: -2500000
-        Y: 3750000
-      - X: 0
-        Y: 2500000
-      - X: 2500000
-        Y: 3750000
   - m_Collider: {fileID: 6410998072065350134}
     m_ColliderPaths:
     - - X: 1250000
@@ -639,6 +575,20 @@ CompositeCollider2D:
         Y: -1250000
       - X: 3125000
         Y: 1250000
+  - m_Collider: {fileID: 4853336842558127059}
+    m_ColliderPaths:
+    - - X: 2500000
+        Y: 6250000
+      - X: 0
+        Y: 7500000
+      - X: -2500000
+        Y: 6250000
+      - X: -2500000
+        Y: 3750000
+      - X: 0
+        Y: 2500000
+      - X: 2500000
+        Y: 3750000
   - m_Collider: {fileID: 4203533074684741513}
     m_ColliderPaths:
     - - X: 8750000
@@ -989,7 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbc7583e38e0d14aa574cbb9daba01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundedSize: {x: 0.625, y: 0.125}
+  groundedSize: {x: 0.5625, y: 0.125}
   groundedLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -1039,7 +989,8 @@ MonoBehaviour:
   animatorState: 4
   gravity: 0.25
   drag: 0.5
-  movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
+  allowPhysicsRotation: 0
+  movement: {fileID: 11400000, guid: 4b20c3fee9a391a4489fbf06eaaeed32, type: 2}
   minimumHangFrameCount: 15
   maximumHangFrameCount: 40
   intendsGlideState: {fileID: 3309947060964344441}
@@ -1090,17 +1041,24 @@ MonoBehaviour:
   animatorState: 16
   gravity: 0
   drag: 0
-  movement: {fileID: 0}
-  dashFrameCount: 10
-  initialMode: 1
-  initialSpeed: 4
-  exitMode: 1
-  exitSpeed: 0
-  direction: 1
-  dashDirections: 1
-  rotationOffset: 90
+  allowPhysicsRotation: 0
+  movement: {fileID: 11400000, guid: 1f84a2ae46858e44e9ec3a05f86757cc, type: 2}
+  minimumDashFrameCount: 8
   intendsGlideState: {fileID: 1836684148}
   rejectsGlideState: {fileID: 1740971983}
+--- !u!114 &1898589686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7139170914818432411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a980b31a53a6f42a0ce1c0610bd35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!1 &7691276936857166954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,11 +1362,33 @@ PrefabInstance:
       propertyPath: InitialModule.maxNumParticles
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6451d21899788a4d90fc5e037b6d944, type: 3}
+--- !u!1 &7139170914818432411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5317709209240411039, guid: d6451d21899788a4d90fc5e037b6d944,
+    type: 3}
+  m_PrefabInstance: {fileID: 3089225556446971396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &878281550184653483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2805577830364980399, guid: d6451d21899788a4d90fc5e037b6d944,
+    type: 3}
+  m_PrefabInstance: {fileID: 3089225556446971396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7147689269680743400 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
     type: 3}
   m_PrefabInstance: {fileID: 3089225556446971396}
   m_PrefabAsset: {fileID: 0}

@@ -6,16 +6,14 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
-            avatar.RechargeGlide();
-
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
         public override void ExitState() {
             base.ExitState();

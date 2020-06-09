@@ -10,9 +10,11 @@ namespace TheCursedBroom.Player {
         [SerializeField]
         AvatarAnimations animatorState = default;
         [SerializeField, Range(0, 2)]
-        protected float gravity = 1;
+        float gravity = 1;
         [SerializeField, Range(0, 10)]
-        protected float drag = 0;
+        float drag = 0;
+        [SerializeField]
+        bool allowPhysicsRotation = false;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
 
@@ -26,9 +28,12 @@ namespace TheCursedBroom.Player {
             avatar.currentAnimation = animatorState;
             avatar.gravityScale = gravity;
             avatar.drag = drag;
-            avatar.velocityCalculator = movement
-                ? movement.CreateVelocityCalculator(avatar)
-                : () => avatar.velocity;
+            avatar.attachedRigidbody.constraints = allowPhysicsRotation
+                ? RigidbodyConstraints2D.None
+                : RigidbodyConstraints2D.FreezeRotation;
+            avatar.movementCalculator = movement
+                ? movement.CreateMovementCalculator(avatar)
+                : () => (avatar.velocity, avatar.rotation);
         }
         public virtual void UpdateState() {
         }

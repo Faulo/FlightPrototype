@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f3b398c9e797b94490c824506d7d2cb, type: 3}
-  m_Name: AM_Horizontal_Crouching
+  m_Name: AM_Horizontal_Jumping
   m_EditorClassIdentifier: 
-  gravity: 2
-  maximumSpeed: 0
-  accelerationDuration: 0
-  decelerationDuration: 0.8
-  turnAroundImmediately: 0
+  gravity: 1.5
+  maximumSpeed: 10
+  accelerationDuration: 0.1
+  decelerationDuration: 0.2
+  turnAroundImmediately: 1
   breakWhenNoInput: 0
-  useGroundFriction: 1
+  useGroundFriction: 0

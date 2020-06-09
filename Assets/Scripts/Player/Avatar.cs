@@ -30,18 +30,6 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
 
-        [Header("Movement")]
-        [SerializeField, Range(0, 10000)]
-        int maximumGlideFrameCount = 1000;
-
-        public void RechargeGlide() {
-            currentGlideCharges = maximumGlideFrameCount;
-        }
-        public void UseGlideCharge() {
-            Assert.IsTrue(currentGlideCharges > 0);
-            currentGlideCharges--;
-        }
-
         [Header("Current Input")]
         public int intendedFacing = 0;
         public float intendedMovement = 0;
@@ -63,7 +51,10 @@ namespace TheCursedBroom.Player {
             : transform.rotation * flipRotation;
 
         public Quaternion currentRotation => transform.rotation;
-
+        public float rotation {
+            get => attachedRigidbody.rotation;
+            set => attachedRigidbody.rotation = value;
+        }
         public Vector2 currentForward => new Vector2(transform.right.x, transform.right.y) * facingSign;
 
         Quaternion flipRotation;
@@ -79,25 +70,20 @@ namespace TheCursedBroom.Player {
             }
         }
 
-
-        int currentGlideCharges = 0;
-        public bool canGlide => currentGlideCharges > 0;
+        public bool canGlide => true;
         public Vector2 velocity {
             get => attachedRigidbody.velocity;
             set => attachedRigidbody.velocity = value;
         }
-        public float gravityScale {
-            get => attachedRigidbody.gravityScale;
-            set => attachedRigidbody.gravityScale = value;
-        }
+        public float gravityScale = 0;
         public float drag {
             get => attachedRigidbody.drag;
             set => attachedRigidbody.drag = value;
         }
 
-        public Func<Vector2> velocityCalculator;
-        public void UpdateVelocity() {
-            velocity = velocityCalculator();
+        public MovementCalculator movementCalculator;
+        public void UpdateMovement() {
+            (velocity, rotation) = movementCalculator();
         }
         public float walkSpeed => velocity.x;
 

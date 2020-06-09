@@ -8,24 +8,24 @@ namespace TheCursedBroom.Player.AvatarStates {
         int minimumCrouchFrameCount = 1;
 
         bool intendedJump;
-
         int crouchDuration;
+
         public override void EnterState() {
             base.EnterState();
 
             crouchDuration = 0;
-            avatar.RechargeGlide();
             intendedJump = avatar.intendsJumpStart;
 
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
+
             crouchDuration++;
 
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
 
         public override void ExitState() {

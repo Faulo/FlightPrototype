@@ -18,11 +18,11 @@ namespace TheCursedBroom.Player.AvatarMovements {
         bool useGroundFriction = true;
 
 
-        public override Func<Vector2> CreateVelocityCalculator(Avatar avatar) {
+        public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
             float velocityX = avatar.velocity.x;
 
             return () => {
-                float speed = avatar.velocity.x;
+                var velocity = avatar.velocity;
 
                 if (turnAroundImmediately) {
                     float minSpeed = avatar.isFacingRight
@@ -31,16 +31,16 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     float maxSpeed = avatar.isFacingRight
                         ? maximumSpeed
                         : 0;
-                    speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
+                    velocity.x = Mathf.Clamp(velocity.x, minSpeed, maxSpeed);
                 }
 
                 if (breakWhenNoInput && avatar.intendedMovement == 0) {
-                    speed = 0;
+                    velocity.x = 0;
                 }
 
                 float targetSpeed = avatar.intendedMovement * maximumSpeed;
 
-                bool isAccelerating = Mathf.Abs(targetSpeed) > Mathf.Abs(speed);
+                bool isAccelerating = Mathf.Abs(targetSpeed) > Mathf.Abs(velocity.x);
 
                 float duration = isAccelerating
                     ? accelerationDuration
@@ -52,9 +52,11 @@ namespace TheCursedBroom.Player.AvatarMovements {
                         : avatar.groundKinematicFriction;
                 }
 
-                speed = Mathf.SmoothDamp(speed, targetSpeed, ref velocityX, duration);
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetSpeed, ref velocityX, duration);
 
-                return new Vector2(speed, avatar.velocity.y);
+                velocity += avatar.gravityScale * Physics2D.gravity * Time.deltaTime;
+
+                return (velocity, 0);
             };
         }
     }

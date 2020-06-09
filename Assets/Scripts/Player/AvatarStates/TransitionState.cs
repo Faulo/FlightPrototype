@@ -5,24 +5,24 @@ namespace TheCursedBroom.Player.AvatarStates {
     public class TransitionState : AvatarState {
         [Header("Transitional State")]
         [SerializeField, Range(0, 100)]
-        int animationFrameCount = 1;
+        int transitionFrameCount = 1;
 
-        int animationTimer;
+        int transitionTimer;
         public override void EnterState() {
             base.EnterState();
 
-            animationTimer = 0;
+            transitionTimer = 0;
 
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            animationTimer++;
+            transitionTimer++;
 
             avatar.AlignFaceToIntend();
-            avatar.UpdateVelocity();
+            avatar.UpdateMovement();
         }
 
         public override void ExitState() {
@@ -33,7 +33,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState nextState = default;
         public override AvatarState CalculateNextState() {
-            if (animationTimer < animationFrameCount) {
+            if (transitionTimer < transitionFrameCount) {
                 return this;
             }
             return nextState;
