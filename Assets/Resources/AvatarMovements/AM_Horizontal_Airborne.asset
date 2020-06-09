@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f3b398c9e797b94490c824506d7d2cb, type: 3}
-  m_Name: AM_Movement_Airborne
+  m_Name: AM_Horizontal_Airborne
   m_EditorClassIdentifier: 
   maximumSpeed: 10
   accelerationDuration: 0.1
@@ -18,6 +18,3 @@ MonoBehaviour:
   turnAroundImmediately: 1
   breakWhenNoInput: 0
   useGroundFriction: 0
-  inputDeadZone: 0.2
-  normalizeInput: 1
-  inputRange: 4

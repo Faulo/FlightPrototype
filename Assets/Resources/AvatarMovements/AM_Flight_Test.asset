@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 660c3f776d5b9d048806ce69637cae3a, type: 3}
-  m_Name: AM_Movement_Flight
+  m_Name: AM_Flight_Test
   m_EditorClassIdentifier: 
   upDraft: 10
   downDraft: 10
+  acceleration: 10
+  deceleration: 10
