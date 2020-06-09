@@ -26,7 +26,7 @@ namespace TheCursedBroom {
             return position;
         }
         IEnumerable<Vector2> CleanPath(IEnumerable<Vector2> path) {
-            var lastPosition = Vector2.zero;
+            var lastPosition = path.LastOrDefault();
             foreach (var position in path) {
                 if (lastPosition != position) {
                     lastPosition = position;
