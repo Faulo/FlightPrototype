@@ -46352,6 +46352,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1898589684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7139170914818432411, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
+    type: 3}
+  m_PrefabInstance: {fileID: 3089225555779599420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1898589686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898589684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a980b31a53a6f42a0ce1c0610bd35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!198 &1898589688 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7147689269680743400, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
+    type: 3}
+  m_PrefabInstance: {fileID: 3089225555779599420}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1927078859
 GameObject:
   m_ObjectHideFlags: 0
@@ -46476,6 +46501,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1836684148, guid: 29fffe4f6c58ead40bb40e4575c1e1da, type: 3}
+      propertyPath: updraftParticles
+      value: 
+      objectReference: {fileID: 1898589688}
+    - target: {fileID: 1836684148, guid: 29fffe4f6c58ead40bb40e4575c1e1da, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b7b411d0370ff548ae45da2f268db6d,
+        type: 2}
     - target: {fileID: 3089225555766872605, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
         type: 3}
       propertyPath: m_Name
@@ -46534,6 +46568,16 @@ PrefabInstance:
     - target: {fileID: 3089225555766872606, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147689269680743400, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147689269680743400, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
+        type: 3}
+      propertyPath: moveWithTransform
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

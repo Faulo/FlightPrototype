@@ -69,7 +69,7 @@ namespace TheCursedBroom.Player.AvatarStates {
                     break;
             }
 
-            avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
+            //avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.None;
             avatar.attachedRigidbody.velocity = velocity;
             avatar.attachedRigidbody.rotation = rotation;
         }
@@ -109,7 +109,7 @@ namespace TheCursedBroom.Player.AvatarStates {
                 }
                 avatar.attachedRigidbody.rotation = 0;
                 avatar.attachedRigidbody.velocity = velocity;
-                avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                //avatar.attachedRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 return rejectsGlideState;
             }
         }

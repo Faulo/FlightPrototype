@@ -20,8 +20,6 @@ namespace TheCursedBroom.Player {
             avatar = GetComponentInParent<Avatar>();
             Assert.IsNotNull(avatar);
         }
-        void OnDisable() {
-        }
 
         #region State
         public virtual void EnterState() {

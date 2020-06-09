@@ -64,6 +64,8 @@ namespace TheCursedBroom.Player {
 
         public Quaternion currentRotation => transform.rotation;
 
+        public Vector2 currentForward => new Vector2(transform.right.x, transform.right.y) * facingSign;
+
         Quaternion flipRotation;
 
         public void AlignFaceToIntend() {
