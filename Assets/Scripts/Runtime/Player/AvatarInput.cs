@@ -1,21 +1,12 @@
 ﻿using System;
+using TheCursedBroom.Input;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TheCursedBroom.Player {
-    public class AvatarInput : MonoBehaviour {
+    public class AvatarInput : MonoBehaviour, Controls.IPlayerActions {
         [SerializeField]
         Avatar avatar = default;
-
-        [SerializeField]
-        string horizontalAxis = "Horizontal";
-        [SerializeField]
-        string verticalAxis = "Vertical";
-        [SerializeField]
-        string jumpButton = "Fire1";
-        [SerializeField]
-        string glideButton = "Fire2";
-        [SerializeField]
-        string crouchButton = "Fire3";
 
         [Header("Input Refinement")]
         [SerializeField, Range(0, 10)]
@@ -31,30 +22,55 @@ namespace TheCursedBroom.Player {
         [SerializeField, Range(1, 360), Tooltip("How many different input values are possible")]
         int movementRange = 360;
 
+        Controls controls;
         float jumpBufferTimer;
 
-        void Update() {
-            var input = new Vector2(Input.GetAxisRaw(horizontalAxis), Input.GetAxisRaw(verticalAxis));
+        void Awake() {
+            controls = new Controls();
+            controls.Player.SetCallbacks(this);
+        }
+        public void OnEnable() {
+            controls.Player.Enable();
+        }
+        public void OnDisable() {
+            controls.Player.Disable();
+        }
 
+        public void OnMove(InputAction.CallbackContext context) {
+            var input = context.ReadValue<Vector2>();
             avatar.intendedFacing = ProcessFacing(input);
             avatar.intendedMovement = ProcessMovement(input);
+        }
+        public void OnLook(InputAction.CallbackContext context) {
+            var input = context.ReadValue<Vector2>();
             avatar.intendedFlight = ProcessFlight(input);
             avatar.intendedRotation = ProcessRotation(input);
-
-            if (jumpBufferTimer >= 0) {
-                jumpBufferTimer -= Time.deltaTime;
-            }
-            if (Input.GetButtonDown(jumpButton)) {
+        }
+        public void OnJump(InputAction.CallbackContext context) {
+            if (context.started) {
                 avatar.intendsJumpStart = true;
                 jumpBufferTimer = jumpBufferDuration;
             }
-            avatar.intendsJump = Input.GetButton(jumpButton);
-            if (Input.GetButtonUp(jumpButton) || jumpBufferTimer < 0) {
+            avatar.intendsJump = context.performed;
+            if (context.canceled) {
                 avatar.intendsJumpStart = false;
             }
+        }
+        public void OnCrouch(InputAction.CallbackContext context) {
+            avatar.intendsCrouch = context.performed;
+        }
+        public void OnGlide(InputAction.CallbackContext context) {
+            avatar.intendsGlide = context.performed;
+        }
 
-            avatar.intendsGlide = Input.GetButton(glideButton);
-            avatar.intendsCrouch = Input.GetButton(crouchButton);
+        void FixedUpdate() {
+            if (avatar.intendsJumpStart) {
+                if (jumpBufferTimer >= 0) {
+                    jumpBufferTimer -= Time.deltaTime;
+                } else {
+                    avatar.intendsJumpStart = false;
+                }
+            }
         }
 
         int ProcessFacing(Vector2 input) {

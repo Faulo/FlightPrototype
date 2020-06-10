@@ -1,9 +1,7 @@
 {
-    "name": "TheCursedBroom",
+    "name": "TheCursedBroom.Input",
     "references": [
-        "Slothsoft.UnityExtensions.Runtime",
-        "Cinemachine",
-        "Unity.TextMeshPro"
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
