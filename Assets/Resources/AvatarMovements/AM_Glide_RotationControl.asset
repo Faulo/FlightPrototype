@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   rotationSpeed: 360
-  rotationLerp: 1
-  glideEfficiency: 1
-  glideAcceleration: 1
-  allowLoopings: 0
+  rotationLerp: 0.5
+  glideEfficiency: 0.2
+  glideAcceleration: 0
+  allowLoopings: 1

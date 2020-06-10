@@ -42,10 +42,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                 switch (mode) {
                     case GlideMode.RotationControl:
                         if (currentRotation != intendedRotation) {
-                            // TODO: make this work again
-                            int rotationOffset = -180;
-                            Debug.Log((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z + rotationOffset);
-                            angularVelocity = Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z + rotationOffset);
+                            angularVelocity = avatar.intendedFlight.magnitude * Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
                         }
                         break;
                     case GlideMode.AngularVelocityControl:

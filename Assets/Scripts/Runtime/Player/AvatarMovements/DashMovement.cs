@@ -21,8 +21,6 @@ namespace TheCursedBroom.Player.AvatarMovements {
         DashDirection direction = default;
         [SerializeField, Range(1, 360)]
         int dashDirections = 8;
-        [SerializeField, Range(0, 360)]
-        int rotationOffset = 0;
 
         public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
             var velocity = avatar.attachedRigidbody.velocity;
@@ -40,7 +38,6 @@ namespace TheCursedBroom.Player.AvatarMovements {
                 default:
                     break;
             }
-            rotation += rotationOffset * avatar.facingSign;
             rotation = Mathf.RoundToInt(rotation * dashDirections / 360) * 360 / dashDirections;
 
             velocity = Quaternion.Euler(0, 0, rotation) * Vector2.right * initialSpeed * avatar.facingSign;

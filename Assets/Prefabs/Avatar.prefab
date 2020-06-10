@@ -291,8 +291,8 @@ MonoBehaviour:
   animatorState: 32
   gravity: 0.25
   drag: 0
-  allowPhysicsRotation: 0
-  movement: {fileID: 11400000, guid: 3b7b411d0370ff548ae45da2f268db6d, type: 2}
+  allowPhysicsRotation: 1
+  movement: {fileID: 11400000, guid: da8a1436f54a6a047a97196906ddc5bc, type: 2}
   updraftParticles: {fileID: 7147689269680743400}
   rejectsGlideState: {fileID: 1740971983}
 --- !u!1 &1333995720129163968
@@ -507,17 +507,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 3089225555766872600}
-  horizontalAxis: Horizontal
-  verticalAxis: Vertical
-  jumpButton: Fire1
-  glideButton: Fire2
-  crouchButton: Fire3
   jumpBufferDuration: 0.1
   turningDeadZone: 0.1
   movementDeadZone: 0.2
   movementNormalized: 1
   movementAlwaysRoundUp: 1
   movementRange: 4
+  flightDeadZone: 0
+  rotationOffset: 90
 --- !u!50 &3089225555766872607
 Rigidbody2D:
   serializedVersion: 4
@@ -1053,7 +1050,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7139170914818432411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99a980b31a53a6f42a0ce1c0610bd35d, type: 3}
   m_Name: 
@@ -1252,6 +1249,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleTrail_Updraft
       objectReference: {fileID: 0}
+    - target: {fileID: 5317709209240411039, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.size
@@ -1305,12 +1307,12 @@ PrefabInstance:
     - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
         type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
         type: 3}

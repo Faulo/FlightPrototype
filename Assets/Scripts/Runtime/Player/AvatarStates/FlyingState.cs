@@ -17,8 +17,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
+            updraftParticles.transform.rotation = avatar.intendedRotation;
+
             var main = updraftParticles.main;
-            main.startSpeed = new ParticleSystem.MinMaxCurve(avatar.intendedFlight.y, avatar.intendedFlight.y * 5);
+            //main.startSpeed = new ParticleSystem.MinMaxCurve(avatar.intendedFlight.y, avatar.intendedFlight.y * 5);
 
             avatar.UpdateMovement();
         }

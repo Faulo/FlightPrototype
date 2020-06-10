@@ -21,6 +21,10 @@ namespace TheCursedBroom.Player {
         bool movementAlwaysRoundUp = true;
         [SerializeField, Range(1, 360), Tooltip("How many different input values are possible")]
         int movementRange = 360;
+        [SerializeField, Range(0, 1)]
+        float flightDeadZone = 0;
+        [SerializeField, Range(-360, 360)]
+        int rotationOffset = 0;
 
         Controls controls;
         float jumpBufferTimer;
@@ -43,8 +47,10 @@ namespace TheCursedBroom.Player {
         }
         public void OnLook(InputAction.CallbackContext context) {
             var input = context.ReadValue<Vector2>();
+            avatar.intendedFacing = ProcessFacing(input);
             avatar.intendedFlight = ProcessFlight(input);
             avatar.intendedRotation = ProcessRotation(input);
+            avatar.intendsGlide = input.magnitude > flightDeadZone;
         }
         public void OnJump(InputAction.CallbackContext context) {
             if (context.started) {
@@ -76,7 +82,7 @@ namespace TheCursedBroom.Player {
         int ProcessFacing(Vector2 input) {
             return Mathf.Abs(input.x) > turningDeadZone
                 ? Math.Sign(input.x)
-                : 0;
+                : avatar.intendedFacing;
         }
 
         float ProcessMovement(Vector2 intention) {
@@ -103,9 +109,10 @@ namespace TheCursedBroom.Player {
             return intention;
         }
         Quaternion ProcessRotation(Vector2 input) {
-            return input.magnitude > 0
-                ? Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, input.normalized))
-                : Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, Vector2.right * avatar.facingSign));
+            if (input.magnitude <= flightDeadZone) {
+                input = avatar.currentForward;
+            }
+            return Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, input) + rotationOffset * avatar.facingSign);
         }
     }
 }
