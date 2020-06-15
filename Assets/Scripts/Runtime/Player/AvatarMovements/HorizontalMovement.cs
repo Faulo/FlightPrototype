@@ -4,6 +4,8 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarMovements {
     [CreateAssetMenu()]
     public class HorizontalMovement : AvatarMovement {
+        [SerializeField]
+        AnimationCurve intentionFilter = default;
         [SerializeField, Range(0, 100)]
         float maximumSpeed = 10;
         [SerializeField, Range(0, 1)]
@@ -38,9 +40,10 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     velocity.x = 0;
                 }
 
-                float targetSpeed = avatar.intendedMovement * maximumSpeed;
+                float intention = Math.Sign(avatar.intendedMovement) * intentionFilter.Evaluate(Math.Abs(avatar.intendedMovement));
+                float targetSpeed = intention * maximumSpeed;
 
-                bool isAccelerating = Mathf.Abs(targetSpeed) > Mathf.Abs(velocity.x);
+                bool isAccelerating = Math.Abs(targetSpeed) > Math.Abs(velocity.x);
 
                 float duration = isAccelerating
                     ? accelerationDuration

@@ -23,14 +23,26 @@ namespace TheCursedBroom.Player.AvatarMovements {
         bool allowLoopings = false;
 
         public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
+            var gravityRotation = Quaternion.Inverse(Quaternion.LookRotation(Physics2D.gravity, Vector3.forward));
+            var angularVelocity = Quaternion.identity;
             return () => {
-                var velocity = avatar.attachedRigidbody.velocity;
                 var currentRotation = avatar.currentRotation;
-                var intendedRotation = avatar.intendedRotation;
+                var intendedRotation = avatar.intendedMovementRotation;
+
+                var rotation = QuaternionUtil.SmoothDamp(currentRotation, intendedRotation, ref angularVelocity, Time.deltaTime, rotationSpeed);
+                var velocity = avatar.attachedRigidbody.velocity;
+
+                var dragRotation = rotation * gravityRotation;
+
+                Debug.Log(dragRotation.eulerAngles);
+
+                /*
+
+
                 float speed = velocity.magnitude;
 
                 if (avatar.intendedFacing == avatar.facingSign) {
-                    speed += Math.Abs(avatar.intendedFlight.x) * glideAcceleration;
+                    speed += Math.Abs(avatar.intendedLook.x) * glideAcceleration;
                 }
 
                 velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * speed * avatar.facingSign, glideEfficiency);
@@ -38,15 +50,14 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                 avatar.attachedRigidbody.velocity = velocity;
 
-                float angularVelocity = 0;
                 switch (mode) {
                     case GlideMode.RotationControl:
                         if (currentRotation != intendedRotation) {
-                            angularVelocity = avatar.intendedFlight.magnitude * Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
+                            angularVelocity = avatar.intendedLook.magnitude * Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
                         }
                         break;
                     case GlideMode.AngularVelocityControl:
-                        angularVelocity = avatar.intendedFlight.y * avatar.facingSign;
+                        angularVelocity = avatar.intendedLook.y * avatar.facingSign;
                         break;
                 }
                 avatar.attachedRigidbody.angularVelocity = Mathf.Lerp(avatar.attachedRigidbody.angularVelocity, rotationSpeed * angularVelocity, rotationLerp);
@@ -60,8 +71,8 @@ namespace TheCursedBroom.Player.AvatarMovements {
                         ? Mathf.Clamp(rotation, -90, 90)
                         : Mathf.Clamp(rotation, -90, 90);
                 }
-
-                return (velocity, rotation);
+                //*/
+                return (velocity, rotation.eulerAngles.z);
             };
         }
     }

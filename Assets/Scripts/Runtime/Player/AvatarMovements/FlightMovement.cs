@@ -18,18 +18,18 @@ namespace TheCursedBroom.Player.AvatarMovements {
             return () => {
                 var velocity = avatar.velocity;
 
-                if (avatar.intendedFlight.y > 0) {
-                    velocity.y += upDraft * avatar.intendedFlight.y * Time.deltaTime;
+                if (avatar.intendedLook.y > 0) {
+                    velocity.y += upDraft * avatar.intendedLook.y * Time.deltaTime;
                 }
-                if (avatar.intendedFlight.y < 0) {
-                    velocity.y += downDraft * avatar.intendedFlight.y * Time.deltaTime;
+                if (avatar.intendedLook.y < 0) {
+                    velocity.y += downDraft * avatar.intendedLook.y * Time.deltaTime;
                 }
 
-                if (avatar.intendedFlight.x > 0) {
-                    velocity.x += acceleration * avatar.intendedFlight.x * Time.deltaTime;
+                if (avatar.intendedLook.x > 0) {
+                    velocity.x += acceleration * avatar.intendedLook.x * Time.deltaTime;
                 }
-                if (avatar.intendedFlight.x < 0) {
-                    velocity.x += deceleration * avatar.intendedFlight.x * Time.deltaTime;
+                if (avatar.intendedLook.x < 0) {
+                    velocity.x += deceleration * avatar.intendedLook.x * Time.deltaTime;
                 }
 
                 return (velocity, avatar.rotation);

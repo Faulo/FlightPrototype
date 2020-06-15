@@ -30,7 +30,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             jumpTimer = 0;
 
-            avatar.AlignFaceToIntend();
             avatar.velocity = jumpStartVelocity;
             avatar.intendsJumpStart = false;
         }
@@ -39,7 +38,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             jumpTimer++;
 
-            avatar.AlignFaceToIntend();
             avatar.UpdateMovement();
         }
 

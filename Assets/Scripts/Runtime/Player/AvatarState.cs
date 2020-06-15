@@ -17,6 +17,10 @@ namespace TheCursedBroom.Player {
         bool allowPhysicsRotation = false;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
+        [SerializeField]
+        bool allowTurnOnEnter = true;
+        [SerializeField]
+        bool allowTurnOnUpdate = true;
 
         void Awake() {
             avatar = GetComponentInParent<Avatar>();
@@ -25,6 +29,9 @@ namespace TheCursedBroom.Player {
 
         #region State
         public virtual void EnterState() {
+            if (allowTurnOnEnter) {
+                avatar.AlignFaceToIntend();
+            }
             avatar.currentAnimation = animatorState;
             avatar.gravityScale = gravity;
             avatar.drag = drag;
@@ -36,6 +43,9 @@ namespace TheCursedBroom.Player {
                 : () => (avatar.velocity, avatar.rotation);
         }
         public virtual void UpdateState() {
+            if (allowTurnOnUpdate) {
+                avatar.AlignFaceToIntend();
+            }
         }
         public virtual void FixedUpdateState() {
         }

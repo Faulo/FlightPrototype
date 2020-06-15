@@ -15,7 +15,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             hangTimer = 0;
 
-            avatar.AlignFaceToIntend();
             avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
@@ -23,7 +22,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             hangTimer++;
 
-            avatar.AlignFaceToIntend();
             avatar.UpdateMovement();
         }
         public override void ExitState() {

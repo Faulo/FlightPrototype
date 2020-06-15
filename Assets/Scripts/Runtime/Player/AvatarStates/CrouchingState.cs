@@ -16,7 +16,6 @@ namespace TheCursedBroom.Player.AvatarStates {
             crouchDuration = 0;
             intendedJump = avatar.intendsJumpStart;
 
-            avatar.AlignFaceToIntend();
             avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
@@ -24,7 +23,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             crouchDuration++;
 
-            avatar.AlignFaceToIntend();
             avatar.UpdateMovement();
         }
 

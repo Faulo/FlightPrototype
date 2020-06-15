@@ -44,13 +44,13 @@ namespace TheCursedBroom.Player {
             var input = context.ReadValue<Vector2>();
             avatar.intendedFacing = ProcessFacing(input);
             avatar.intendedMovement = ProcessMovement(input);
+            avatar.intendedMovementRotation = ProcessRotation(input);
         }
         public void OnLook(InputAction.CallbackContext context) {
             var input = context.ReadValue<Vector2>();
             avatar.intendedFacing = ProcessFacing(input);
-            avatar.intendedFlight = ProcessFlight(input);
-            avatar.intendedRotation = ProcessRotation(input);
-            avatar.intendsGlide = input.magnitude > flightDeadZone;
+            avatar.intendedLook = ProcessFlight(input);
+            avatar.intendedLookRotation = ProcessRotation(input);
         }
         public void OnJump(InputAction.CallbackContext context) {
             if (context.started) {
@@ -80,19 +80,19 @@ namespace TheCursedBroom.Player {
         }
 
         int ProcessFacing(Vector2 input) {
-            return Mathf.Abs(input.x) > turningDeadZone
+            return Math.Abs(input.x) > turningDeadZone
                 ? Math.Sign(input.x)
                 : avatar.intendedFacing;
         }
 
         float ProcessMovement(Vector2 intention) {
             float x = intention.x;
-            if (Mathf.Abs(x) <= movementDeadZone) {
+            if (Math.Abs(x) <= movementDeadZone) {
                 x = 0;
             }
 
             if (movementNormalized) {
-                x = (Mathf.Abs(x) - movementDeadZone) * Math.Sign(x) / (1 - movementDeadZone);
+                x = (Math.Abs(x) - movementDeadZone) * Math.Sign(x) / (1 - movementDeadZone);
             }
 
             if (movementAlwaysRoundUp) {
@@ -106,13 +106,15 @@ namespace TheCursedBroom.Player {
             return x;
         }
         Vector2 ProcessFlight(Vector2 intention) {
-            return intention;
+            return intention.magnitude > flightDeadZone
+                ? intention
+                : Vector2.zero;
         }
         Quaternion ProcessRotation(Vector2 input) {
             if (input.magnitude <= flightDeadZone) {
                 input = avatar.currentForward;
             }
-            return Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, input) + rotationOffset * avatar.facingSign);
+            return Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, input) + (rotationOffset * avatar.facingSign));
         }
     }
 }

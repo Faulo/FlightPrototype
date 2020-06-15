@@ -14,7 +14,6 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             dashTimer = 0;
 
-            avatar.AlignFaceToIntend();
             avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {

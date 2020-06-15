@@ -33,8 +33,9 @@ namespace TheCursedBroom.Player {
         [Header("Current Input")]
         public int intendedFacing = 0;
         public float intendedMovement = 0;
-        public Vector2 intendedFlight = Vector2.zero;
-        public Quaternion intendedRotation = Quaternion.identity;
+        public Quaternion intendedMovementRotation = Quaternion.identity;
+        public Vector2 intendedLook = Vector2.zero;
+        public Quaternion intendedLookRotation = Quaternion.identity;
 
         public bool intendsJumpStart = false;
         public bool intendsJump = false;
@@ -75,6 +76,7 @@ namespace TheCursedBroom.Player {
             get => attachedRigidbody.velocity;
             set => attachedRigidbody.velocity = value;
         }
+
         public float gravityScale = 0;
         public float drag {
             get => attachedRigidbody.drag;
