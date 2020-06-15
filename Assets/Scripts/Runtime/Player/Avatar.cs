@@ -64,7 +64,9 @@ namespace TheCursedBroom.Player {
                         break;
                 }
                 attachedRigidbody.rotation = value;
-                transform.localScale = new Vector3(this.facing, 1, 1);
+                horizontalFlipTransform.rotation = isFacingRight
+                    ? transform.rotation
+                    : transform.rotation * Quaternion.Euler(0, 180, 0);
             }
         }
         public Vector2 currentForward => transform.right * facing;
