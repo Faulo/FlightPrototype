@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 namespace TheCursedBroom.Player {
     public class Avatar : MonoBehaviour {
         [Header("MonoBehaviour configuration")]
+        [SerializeField, Expandable]
+        Transform horizontalFlipTransform = default;
         [SerializeField, Expandable]
         public Rigidbody2D attachedRigidbody = default;
 
@@ -38,36 +41,33 @@ namespace TheCursedBroom.Player {
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
 
-        public bool isFacingRight {
-            get => isFacingRightCache;
-            set {
-                if (isFacingRightCache != value) {
-                    isFacingRightCache = value;
-                    float r = rotation;
-                    transform.rotation = Quaternion.Euler(0, value ? 0 : 180, 0);
-                    rotation = r;
-                }
-            }
-        }
-        bool isFacingRightCache = true;
+        public bool isFacingRight = true;
         public int facing {
             get => isFacingRight ? 1 : -1;
-            set {
-                switch (value) {
-                    case -1:
-                        isFacingRight = false;
-                        break;
+        }
+        public float rotation {
+            get {
+                return isFacingRight
+                    ? attachedRigidbody.rotation
+                    : attachedRigidbody.rotation + 180;
+            }
+            private set {
+                value = AngleUtil.NormalizeAngle(value);
+                int facing = AngleUtil.HorizontalSign(value);
+                switch (facing) {
                     case 1:
                         isFacingRight = true;
                         break;
+                    case -1:
+                        isFacingRight = false;
+                        value -= 180;
+                        break;
                 }
+                attachedRigidbody.rotation = value;
+                transform.localScale = new Vector3(this.facing, 1, 1);
             }
         }
-        public float rotation {
-            get => attachedRigidbody.rotation;
-            set => attachedRigidbody.rotation = value;
-        }
-        public Vector2 currentForward => transform.right;
+        public Vector2 currentForward => transform.right * facing;
 
         public bool canGlide => true;
         public Vector2 velocity {
@@ -83,7 +83,7 @@ namespace TheCursedBroom.Player {
 
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
-            (facing, velocity, rotation) = movementCalculator();
+            (velocity, rotation) = movementCalculator();
         }
 
         void Start() {

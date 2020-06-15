@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: AM_Dash_Velocity
   m_EditorClassIdentifier: 
   directionMode: 1
-  dashDirections: 8
+  directionsNormalized: 0
+  directionRange: 8
+  instantRotation: 1
   directionEfficiency: 1
   speedMode: 1
   initialSpeed: 4

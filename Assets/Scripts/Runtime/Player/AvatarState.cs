@@ -33,7 +33,7 @@ namespace TheCursedBroom.Player {
                 : RigidbodyConstraints2D.FreezeRotation;
             avatar.movementCalculator = movement
                 ? movement.CreateMovementCalculator(avatar)
-                : () => (avatar.facing, avatar.velocity, avatar.rotation);
+                : () => (avatar.velocity, avatar.rotation);
         }
         public virtual void UpdateState() {
         }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using TheCursedBroom.Extensions;
+using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarMovements {
     [CreateAssetMenu()]
@@ -8,88 +10,67 @@ namespace TheCursedBroom.Player.AvatarMovements {
             AngularVelocityControl
         }
         [Header("Gliding movement")]
+        [SerializeField, Tooltip("Round input to rotationDirections")]
+        bool directionsNormalized = true;
+        [SerializeField, Range(1, 360)]
+        int directionRange = 8;
         [SerializeField]
-        GlideMode mode = GlideMode.RotationControl;
+        bool instantRotation = true;
         [SerializeField, Range(0, 720)]
         float rotationSpeed = 360;
-        [SerializeField, Range(0, 1)]
-        float rotationLerp = 1;
-        [SerializeField, Range(0, 1)]
-        float glideEfficiency = 1;
-        [SerializeField, Range(0, 1)]
-        float glideAcceleration = 1;
+
+        [Header("Drag")]
         [SerializeField]
-        bool allowLoopings = false;
+        AnimationCurve dragOverAlignment = default;
         [SerializeField, Range(0, 100)]
         float maximumDrag = 10;
 
+        [Header("Boost")]
+        [SerializeField]
+        AnimationCurve alignDurationOverAlignment = default;
+        [SerializeField, Range(0, 100)]
+        float maximumAlignDuration = 10;
+
         public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
-            var gravityRotation = Quaternion.Inverse(Quaternion.LookRotation(Physics2D.gravity, Vector3.forward));
             var angularVelocity = Quaternion.identity;
             var acceleration = Vector2.zero;
             return () => {
-                /*
-                var currentRotation = avatar.currentRotation;
-                var intendedRotation = avatar.intendedMovementRotation;
+                var direction = avatar.intendedFlight == Vector2.zero
+                    ? avatar.currentForward
+                    : avatar.intendedFlight;
 
-                var rotation = QuaternionUtil.SmoothDamp(currentRotation, intendedRotation, ref angularVelocity, Time.deltaTime, rotationSpeed);
-                var velocity = avatar.attachedRigidbody.velocity;
+                float rotation = AngleUtil.DirectionalAngle(direction);
 
-                var dragRotation = rotation * Quaternion.Inverse(avatar.velocityRotation);
-
-                float drag = 1 - Mathf.Cos(dragRotation.eulerAngles.z * Mathf.Deg2Rad);
-
-                velocity = Vector2.SmoothDamp(velocity, avatar.currentForward, ref acceleration, Time.deltaTime, glideEfficiency);
-
-                avatar.drag = drag  * maximumDrag;
-                //*/
-                /*
-                Assert.IsTrue(dragZ >= 0);
-                Assert.IsTrue(dragZ <= 360);
-                dragZ /= 180;
-                dragZ -= 1;
-                dragZ = Math.Abs(dragZ);
-                dragZ = 1 - dragZ;
-                //*/
-                //Debug.Log(dragZ);
-
-                /*
-
-
-                float speed = velocity.magnitude;
-
-                if (avatar.intendedFacing == avatar.facingSign) {
-                    speed += Math.Abs(avatar.intendedLook.x) * glideAcceleration;
+                if (directionsNormalized) {
+                    rotation = Mathf.RoundToInt(rotation * directionRange / 360) * 360 / directionRange;
                 }
 
-                velocity = Vector2.Lerp(velocity, currentRotation * Vector2.right * speed * avatar.facingSign, glideEfficiency);
-                velocity += Physics2D.gravity * avatar.gravityScale * Time.deltaTime;
-
-                avatar.attachedRigidbody.velocity = velocity;
-
-                switch (mode) {
-                    case GlideMode.RotationControl:
-                        if (currentRotation != intendedRotation) {
-                            angularVelocity = avatar.intendedLook.magnitude * Math.Sign((currentRotation * Quaternion.Inverse(intendedRotation)).eulerAngles.z - 180);
-                        }
-                        break;
-                    case GlideMode.AngularVelocityControl:
-                        angularVelocity = avatar.intendedLook.y * avatar.facingSign;
-                        break;
+                Quaternion glideRotation;
+                if (instantRotation) {
+                    glideRotation = Quaternion.Euler(0, 0, rotation);
+                } else { 
+                    var currentRotation = Quaternion.Euler(0, 0, avatar.rotation);
+                    var targetRotation = Quaternion.Euler(0, 0, rotation);
+                    glideRotation = QuaternionUtil.SmoothDamp(currentRotation, targetRotation, ref angularVelocity, Time.deltaTime, rotationSpeed);
+                    rotation = glideRotation.eulerAngles.z;
                 }
-                avatar.attachedRigidbody.angularVelocity = Mathf.Lerp(avatar.attachedRigidbody.angularVelocity, rotationSpeed * angularVelocity, rotationLerp);
 
-                float rotation = avatar.attachedRigidbody.rotation;
-                if (!allowLoopings) {
-                    while (rotation >= 360) {
-                        rotation -= 360;
-                    }
-                    avatar.attachedRigidbody.rotation = avatar.isFacingRight
-                        ? Mathf.Clamp(rotation, -90, 90)
-                        : Mathf.Clamp(rotation, -90, 90);
-                }
-                //*/
-                return (avatar.facing, avatar.velocity, avatar.rotation);
+                var velocity = avatar.velocity;
+                var velocityRotation = AngleUtil.DirectionalRotation(velocity);
+                var gravity = avatar.gravityScale * Physics2D.gravity * Time.deltaTime;
+
+                var alignmentRotation = glideRotation * Quaternion.Inverse(velocityRotation);
+                float alignment = Mathf.Cos(alignmentRotation.eulerAngles.z * Mathf.Deg2Rad);
+
+                avatar.drag = maximumDrag * dragOverAlignment.Evaluate(alignment);
+
+                float alignDuration = maximumAlignDuration * alignDurationOverAlignment.Evaluate(alignment);
+                var targetVelocity = glideRotation * Vector2.right * (velocity - gravity).magnitude;
+                velocity = Vector2.SmoothDamp(velocity, targetVelocity, ref acceleration, alignDuration);
+
+                velocity += gravity;
+
+                return (velocity, rotation);
             };
         }
     }

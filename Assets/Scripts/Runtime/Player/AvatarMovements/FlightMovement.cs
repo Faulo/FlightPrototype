@@ -30,7 +30,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     velocity.x += deceleration * avatar.intendedFlight.x * Time.deltaTime;
                 }
 
-                return (avatar.intendedFacing, velocity, avatar.rotation);
+                return (velocity, avatar.rotation);
             };
         }
     }

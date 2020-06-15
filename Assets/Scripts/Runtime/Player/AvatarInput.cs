@@ -25,6 +25,8 @@ namespace TheCursedBroom.Player {
         [Header("Directional Input, flying")]
         [SerializeField, Range(0, 1)]
         float flightDeadZone = 0;
+        [SerializeField, Tooltip("Normalize to input range [0, 1] instead of [deadzone, 1]")]
+        bool flightNormalized = true;
 
         Controls controls;
         float jumpBufferTimer;
@@ -102,9 +104,19 @@ namespace TheCursedBroom.Player {
             return x;
         }
         Vector2 ProcessFlight(Vector2 intention) {
-            return intention.magnitude > flightDeadZone
-                ? intention
-                : Vector2.zero;
+            if (Math.Abs(intention.x) <= flightDeadZone) {
+                intention.x = 0;
+            }
+            if (Math.Abs(intention.y) <= flightDeadZone) {
+                intention.y = 0;
+            }
+
+            if (flightNormalized) {
+                intention.x = (Math.Abs(intention.x) - flightDeadZone) * Math.Sign(intention.x) / (1 - flightDeadZone);
+                intention.y = (Math.Abs(intention.y) - flightDeadZone) * Math.Sign(intention.y) / (1 - flightDeadZone);
+            }
+
+            return intention;
         }
     }
 }

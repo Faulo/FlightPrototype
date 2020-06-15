@@ -1,4 +1,5 @@
 ﻿using System;
+using TheCursedBroom.Extensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarMovements {
@@ -53,7 +54,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                 velocity += avatar.gravityScale * Physics2D.gravity * Time.deltaTime;
 
-                return (avatar.intendedFacing, velocity, 0);
+                return (velocity, AngleUtil.HorizontalAngle(avatar.intendedFacing));
             };
         }
     }

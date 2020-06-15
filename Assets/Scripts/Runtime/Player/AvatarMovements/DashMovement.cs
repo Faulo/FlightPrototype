@@ -15,8 +15,12 @@ namespace TheCursedBroom.Player.AvatarMovements {
         [Header("Dash")]
         [SerializeField]
         DashDirection directionMode = default;
+        [SerializeField, Tooltip("Round input to rotationDirections")]
+        bool directionsNormalized = true;
         [SerializeField, Range(1, 360)]
-        int dashDirections = 8;
+        int directionRange = 8;
+        [SerializeField]
+        bool instantRotation = true;
         [SerializeField, Range(0, 1)]
         float directionEfficiency = 1;
         [SerializeField]
@@ -42,15 +46,19 @@ namespace TheCursedBroom.Player.AvatarMovements {
                 default:
                     break;
             }
-            int facing = avatar.intendedFacing;
-            float rotation = direction.As2DRotation(facing);
-            rotation = Mathf.RoundToInt(rotation * dashDirections / 360) * 360 / dashDirections;
+            float rotation = AngleUtil.DirectionalAngle(direction);
 
-            var currentRotation = Quaternion.Euler(0, 0, avatar.rotation);
-            var targetRotation = Quaternion.Euler(0, 0, rotation);
-            var dashRotation = Quaternion.Lerp(currentRotation, targetRotation, directionEfficiency);
+            if (directionsNormalized) {
+                rotation = Mathf.RoundToInt(rotation * directionRange / 360) * 360 / directionRange;
+            }
 
-            Vector2 dashVelocity = dashRotation * Vector2.right * facing * initialSpeed;
+            var dashRotation = Quaternion.Euler(0, 0, rotation);
+            if (!instantRotation) {
+                var currentRotation = Quaternion.Euler(0, 0, avatar.rotation);
+                dashRotation = Quaternion.Lerp(currentRotation, dashRotation, directionEfficiency);
+            }
+
+            Vector2 dashVelocity = dashRotation * Vector2.right * initialSpeed;
 
             switch (speedMode) {
                 case VelocityMode.SetVelocity:
@@ -62,7 +70,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
             }
 
             return () => {
-                return (facing, velocity, rotation);
+                return (velocity, rotation);
             };
         }
     }
