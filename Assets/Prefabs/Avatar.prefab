@@ -291,7 +291,7 @@ MonoBehaviour:
   animatorState: 32
   gravity: 0.25
   drag: 0
-  allowPhysicsRotation: 1
+  allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: da8a1436f54a6a047a97196906ddc5bc, type: 2}
   updraftParticles: {fileID: 7147689269680743400}
   rejectsGlideState: {fileID: 1740971983}
@@ -484,15 +484,13 @@ MonoBehaviour:
   physicsAnimator: {fileID: 4858272974567616656}
   currentState: {fileID: 808840777}
   groundedCheck: {fileID: 136339116203656581}
-  intendedFacing: 0
+  intendedFacing: 1
   intendedMovement: 0
   intendedFlight: {x: 0, y: 0}
-  intendedRotation: {x: 0, y: 0, z: 0, w: 1}
   intendsJumpStart: 0
   intendsJump: 0
   intendsGlide: 0
   intendsCrouch: 0
-  isFacingRight: 1
   gravityScale: 0
 --- !u!114 &3089225555766872601
 MonoBehaviour:
@@ -513,8 +511,7 @@ MonoBehaviour:
   movementNormalized: 1
   movementAlwaysRoundUp: 1
   movementRange: 4
-  flightDeadZone: 0
-  rotationOffset: 90
+  flightDeadZone: 0.1
 --- !u!50 &3089225555766872607
 Rigidbody2D:
   serializedVersion: 4
@@ -672,7 +669,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3089225555960653585}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

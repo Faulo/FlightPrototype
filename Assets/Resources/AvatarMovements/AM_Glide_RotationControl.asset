@@ -18,3 +18,4 @@ MonoBehaviour:
   glideEfficiency: 0.2
   glideAcceleration: 0
   allowLoopings: 1
+  maximumDrag: 1

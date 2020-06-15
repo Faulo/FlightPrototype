@@ -13,6 +13,7 @@ namespace TheCursedBroom.Player {
         float jumpBufferDuration = 0;
         [SerializeField, Range(0, 1)]
         float turningDeadZone = 0;
+        [Header("Directional Input, grounded")]
         [SerializeField, Range(0, 1)]
         float movementDeadZone = 0;
         [SerializeField, Tooltip("Normalize to input range [0, 1] instead of [deadzone, 1]")]
@@ -21,10 +22,9 @@ namespace TheCursedBroom.Player {
         bool movementAlwaysRoundUp = true;
         [SerializeField, Range(1, 360), Tooltip("How many different input values are possible")]
         int movementRange = 360;
+        [Header("Directional Input, flying")]
         [SerializeField, Range(0, 1)]
         float flightDeadZone = 0;
-        [SerializeField, Range(-360, 360)]
-        int rotationOffset = 0;
 
         Controls controls;
         float jumpBufferTimer;
@@ -44,13 +44,9 @@ namespace TheCursedBroom.Player {
             var input = context.ReadValue<Vector2>();
             avatar.intendedFacing = ProcessFacing(input);
             avatar.intendedMovement = ProcessMovement(input);
-            avatar.intendedMovementRotation = ProcessRotation(input);
+            avatar.intendedFlight = ProcessFlight(input);
         }
         public void OnLook(InputAction.CallbackContext context) {
-            var input = context.ReadValue<Vector2>();
-            avatar.intendedFacing = ProcessFacing(input);
-            avatar.intendedLook = ProcessFlight(input);
-            avatar.intendedLookRotation = ProcessRotation(input);
         }
         public void OnJump(InputAction.CallbackContext context) {
             if (context.started) {
@@ -109,12 +105,6 @@ namespace TheCursedBroom.Player {
             return intention.magnitude > flightDeadZone
                 ? intention
                 : Vector2.zero;
-        }
-        Quaternion ProcessRotation(Vector2 input) {
-            if (input.magnitude <= flightDeadZone) {
-                input = avatar.currentForward;
-            }
-            return Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, input) + (rotationOffset * avatar.facingSign));
         }
     }
 }

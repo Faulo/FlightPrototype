@@ -21,19 +21,13 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
 
         public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
-            float velocityX = avatar.velocity.x;
+            float acceleration = avatar.velocity.x;
 
             return () => {
                 var velocity = avatar.velocity;
 
-                if (turnAroundImmediately) {
-                    float minSpeed = avatar.isFacingRight
-                        ? 0
-                        : -maximumSpeed;
-                    float maxSpeed = avatar.isFacingRight
-                        ? maximumSpeed
-                        : 0;
-                    velocity.x = Mathf.Clamp(velocity.x, minSpeed, maxSpeed);
+                if (turnAroundImmediately && avatar.intendedFacing != avatar.facing) {
+                    velocity.x = 0;
                 }
 
                 if (breakWhenNoInput && avatar.intendedMovement == 0) {
@@ -55,11 +49,11 @@ namespace TheCursedBroom.Player.AvatarMovements {
                         : avatar.groundKinematicFriction;
                 }
 
-                velocity.x = Mathf.SmoothDamp(velocity.x, targetSpeed, ref velocityX, duration);
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetSpeed, ref acceleration, duration);
 
                 velocity += avatar.gravityScale * Physics2D.gravity * Time.deltaTime;
 
-                return (velocity, 0);
+                return (avatar.intendedFacing, velocity, 0);
             };
         }
     }

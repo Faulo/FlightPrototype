@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom.Player {
     public abstract class AvatarMovement : ScriptableObject {

@@ -1,4 +1,5 @@
-﻿using Slothsoft.UnityExtensions;
+﻿using System;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Player {
@@ -7,6 +8,8 @@ namespace TheCursedBroom.Player {
         Avatar observedAvatar = default;
         [SerializeField, Expandable]
         Animator observedAnimator = default;
+
+        float walkSpeed => Math.Abs(observedAvatar.velocity.x);
 
         void OnValidate() {
             if (observedAvatar == null) {
@@ -18,8 +21,7 @@ namespace TheCursedBroom.Player {
         }
 
         void Update() {
-            transform.rotation = observedAvatar.facingRotation;
-            observedAnimator.SetFloat("walkSpeed", observedAvatar.walkSpeed);
+            observedAnimator.SetFloat("walkSpeed", walkSpeed);
         }
 
         public void Play(AvatarAnimations state) {

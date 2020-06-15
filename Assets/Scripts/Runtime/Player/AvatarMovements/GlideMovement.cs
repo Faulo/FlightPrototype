@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarMovements {
     [CreateAssetMenu()]
@@ -21,20 +20,38 @@ namespace TheCursedBroom.Player.AvatarMovements {
         float glideAcceleration = 1;
         [SerializeField]
         bool allowLoopings = false;
+        [SerializeField, Range(0, 100)]
+        float maximumDrag = 10;
 
         public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
             var gravityRotation = Quaternion.Inverse(Quaternion.LookRotation(Physics2D.gravity, Vector3.forward));
             var angularVelocity = Quaternion.identity;
+            var acceleration = Vector2.zero;
             return () => {
+                /*
                 var currentRotation = avatar.currentRotation;
                 var intendedRotation = avatar.intendedMovementRotation;
 
                 var rotation = QuaternionUtil.SmoothDamp(currentRotation, intendedRotation, ref angularVelocity, Time.deltaTime, rotationSpeed);
                 var velocity = avatar.attachedRigidbody.velocity;
 
-                var dragRotation = rotation * gravityRotation;
+                var dragRotation = rotation * Quaternion.Inverse(avatar.velocityRotation);
 
-                Debug.Log(dragRotation.eulerAngles);
+                float drag = 1 - Mathf.Cos(dragRotation.eulerAngles.z * Mathf.Deg2Rad);
+
+                velocity = Vector2.SmoothDamp(velocity, avatar.currentForward, ref acceleration, Time.deltaTime, glideEfficiency);
+
+                avatar.drag = drag  * maximumDrag;
+                //*/
+                /*
+                Assert.IsTrue(dragZ >= 0);
+                Assert.IsTrue(dragZ <= 360);
+                dragZ /= 180;
+                dragZ -= 1;
+                dragZ = Math.Abs(dragZ);
+                dragZ = 1 - dragZ;
+                //*/
+                //Debug.Log(dragZ);
 
                 /*
 
@@ -72,7 +89,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                         : Mathf.Clamp(rotation, -90, 90);
                 }
                 //*/
-                return (velocity, rotation.eulerAngles.z);
+                return (avatar.facing, avatar.velocity, avatar.rotation);
             };
         }
     }

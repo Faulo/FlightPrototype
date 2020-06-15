@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player {
     public class Avatar : MonoBehaviour {
@@ -31,45 +29,45 @@ namespace TheCursedBroom.Player {
         GroundedCheck groundedCheck = default;
 
         [Header("Current Input")]
-        public int intendedFacing = 0;
+        public int intendedFacing = 1;
         public float intendedMovement = 0;
-        public Quaternion intendedMovementRotation = Quaternion.identity;
-        public Vector2 intendedLook = Vector2.zero;
-        public Quaternion intendedLookRotation = Quaternion.identity;
+        public Vector2 intendedFlight = Vector2.zero;
 
         public bool intendsJumpStart = false;
         public bool intendsJump = false;
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
 
-        [Header("Debug Info")]
-        public bool isFacingRight = true;
-        public int facingSign => isFacingRight
-            ? 1
-            : -1;
-        public Quaternion facingRotation => isFacingRight
-            ? transform.rotation
-            : transform.rotation * flipRotation;
-
-        public Quaternion currentRotation => transform.rotation;
+        public bool isFacingRight {
+            get => isFacingRightCache;
+            set {
+                if (isFacingRightCache != value) {
+                    isFacingRightCache = value;
+                    float r = rotation;
+                    transform.rotation = Quaternion.Euler(0, value ? 0 : 180, 0);
+                    rotation = r;
+                }
+            }
+        }
+        bool isFacingRightCache = true;
+        public int facing {
+            get => isFacingRight ? 1 : -1;
+            set {
+                switch (value) {
+                    case -1:
+                        isFacingRight = false;
+                        break;
+                    case 1:
+                        isFacingRight = true;
+                        break;
+                }
+            }
+        }
         public float rotation {
             get => attachedRigidbody.rotation;
             set => attachedRigidbody.rotation = value;
         }
-        public Vector2 currentForward => new Vector2(transform.right.x, transform.right.y) * facingSign;
-
-        Quaternion flipRotation;
-
-        public void AlignFaceToIntend() {
-            switch (intendedFacing) {
-                case -1:
-                    isFacingRight = false;
-                    break;
-                case 1:
-                    isFacingRight = true;
-                    break;
-            }
-        }
+        public Vector2 currentForward => transform.right;
 
         public bool canGlide => true;
         public Vector2 velocity {
@@ -85,13 +83,9 @@ namespace TheCursedBroom.Player {
 
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
-            (velocity, rotation) = movementCalculator();
+            (facing, velocity, rotation) = movementCalculator();
         }
-        public float walkSpeed => velocity.x;
 
-        void Awake() {
-            flipRotation = Quaternion.Euler(0, 180, 0);
-        }
         void Start() {
         }
 

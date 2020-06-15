@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom.Player {
-    public delegate (Vector2, float) MovementCalculator();
+    public delegate (int, Vector2, float) MovementCalculator();
 }
