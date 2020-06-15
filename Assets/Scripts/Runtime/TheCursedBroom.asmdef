@@ -5,7 +5,8 @@
         "Cinemachine",
         "Unity.TextMeshPro",
         "Unity.InputSystem",
-        "TheCursedBroom.Input"
+        "TheCursedBroom.Input",
+        "maxattack"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
