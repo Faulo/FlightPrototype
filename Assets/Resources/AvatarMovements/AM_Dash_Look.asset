@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a841e9fb78a3764995c49242c676db3, type: 3}
-  m_Name: AM_Dash_Short
+  m_Name: AM_Dash_Look
   m_EditorClassIdentifier: 
-  initialMode: 1
-  initialSpeed: 4
-  direction: 0
+  direction: 1
   dashDirections: 8
+  directionEfficiency: 1
   rotationOffset: 90
+  speedMode: 1
+  initialSpeed: 4
