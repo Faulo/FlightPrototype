@@ -21,15 +21,16 @@ namespace TheCursedBroom.Effects {
         float timeOffset = 0;
 
         public override void Invoke(GameObject context) {
-            var source = context.AddComponent<AudioSource>();
-            source.playOnAwake = true;
-            source.loop = loop;
-            source.clip = clips.RandomElement();
-            source.outputAudioMixerGroup = mixer;
-            source.pitch = Random.Range(mininumPitch, maxmimumPitch);
-            source.time = timeOffset;
-
-            source.Play();
+            if (!AudioManager.instance) {
+                return;
+            }
+            AudioManager.instance.Play(new AudioInfo {
+                clip = clips.RandomElement(),
+                mixer = mixer,
+                pitch = Random.Range(mininumPitch, maxmimumPitch),
+                loop = loop,
+                timeOffset = timeOffset,
+            });
         }
     }
 }
