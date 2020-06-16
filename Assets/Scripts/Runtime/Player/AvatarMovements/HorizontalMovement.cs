@@ -1,5 +1,4 @@
 ﻿using System;
-using TheCursedBroom.Extensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarMovements {

@@ -1,8 +1,6 @@
-﻿using System;
-using Slothsoft.UnityExtensions;
+﻿using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Events;
 
 namespace TheCursedBroom.Player {
     public abstract class AvatarState : MonoBehaviour {

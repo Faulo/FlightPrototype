@@ -15,7 +15,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 2d58ca84a9912b440a2d848ef25082c4, type: 3}
   mixer: {fileID: -3571531847446954820, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
-  mininumPitch: 0.8
-  maxmimumPitch: 1.2
+  mininumPitch: 0.7
+  maxmimumPitch: 1
   loop: 0
   timeOffset: 0
