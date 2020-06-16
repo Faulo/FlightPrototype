@@ -21,7 +21,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
         bool useGroundFriction = true;
 
 
-        public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
+        public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
             float acceleration = avatar.velocity.x;
 
             return () => {

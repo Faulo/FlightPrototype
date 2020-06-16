@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a841e9fb78a3764995c49242c676db3, type: 3}
-  m_Name: AM_Dash_Velocity
+  m_Name: AM_Dash_Additive
   m_EditorClassIdentifier: 
-  directionMode: 1
   directionsNormalized: 0
   directionRange: 8
-  instantRotation: 1
-  directionEfficiency: 1
   speedMode: 1
   initialSpeed: 4

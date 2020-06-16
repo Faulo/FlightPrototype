@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace TheCursedBroom.Player {
     public class AvatarInput : MonoBehaviour, Controls.IPlayerActions {
         [SerializeField]
-        Avatar avatar = default;
+        AvatarController avatar = default;
 
         [Header("Input Refinement")]
         [SerializeField, Range(0, 10)]

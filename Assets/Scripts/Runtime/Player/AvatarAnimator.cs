@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TheCursedBroom.Player {
     public class AvatarAnimator : MonoBehaviour {
         [SerializeField, Expandable]
-        Avatar observedAvatar = default;
+        AvatarController observedAvatar = default;
         [SerializeField, Expandable]
         Animator observedAnimator = default;
 
@@ -13,7 +13,7 @@ namespace TheCursedBroom.Player {
 
         void OnValidate() {
             if (observedAvatar == null) {
-                observedAvatar = GetComponentInParent<Avatar>();
+                observedAvatar = GetComponentInParent<AvatarController>();
             }
             if (observedAnimator == null) {
                 observedAnimator = GetComponentInParent<Animator>();

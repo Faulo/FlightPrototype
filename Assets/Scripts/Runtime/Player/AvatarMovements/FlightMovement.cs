@@ -12,7 +12,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
         [SerializeField, Range(0, 1000)]
         float deceleration = 10;
 
-        public override MovementCalculator CreateMovementCalculator(Avatar avatar) {
+        public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
             return () => {
                 var velocity = avatar.velocity;
 
@@ -30,7 +30,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     velocity.x += deceleration * avatar.intendedFlight.x * Time.deltaTime;
                 }
 
-                return (velocity, avatar.rotation);
+                return (velocity, avatar.rotationAngle);
             };
         }
     }

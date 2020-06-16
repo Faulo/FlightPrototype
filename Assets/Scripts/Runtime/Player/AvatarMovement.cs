@@ -2,6 +2,6 @@
 
 namespace TheCursedBroom.Player {
     public abstract class AvatarMovement : ScriptableObject {
-        public abstract MovementCalculator CreateMovementCalculator(Avatar avatar);
+        public abstract MovementCalculator CreateMovementCalculator(AvatarController avatar);
     }
 }

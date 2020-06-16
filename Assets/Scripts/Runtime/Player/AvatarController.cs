@@ -5,7 +5,7 @@ using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Player {
-    public class Avatar : MonoBehaviour {
+    public class AvatarController : MonoBehaviour {
         [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
         Transform horizontalFlipTransform = default;
@@ -45,7 +45,7 @@ namespace TheCursedBroom.Player {
         public int facing {
             get => isFacingRight ? 1 : -1;
         }
-        public float rotation {
+        public float rotationAngle {
             get {
                 return isFacingRight
                     ? attachedRigidbody.rotation
@@ -69,7 +69,7 @@ namespace TheCursedBroom.Player {
                     : transform.rotation * Quaternion.Euler(0, 180, 0);
             }
         }
-        public Vector2 currentForward => transform.right * facing;
+        public Vector2 forward => horizontalFlipTransform.right;
 
         public bool canGlide => true;
         public Vector2 velocity {
@@ -85,7 +85,7 @@ namespace TheCursedBroom.Player {
 
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
-            (velocity, rotation) = movementCalculator();
+            (velocity, rotationAngle) = movementCalculator();
         }
 
         void Start() {

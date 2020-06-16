@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player {
     public abstract class AvatarState : MonoBehaviour {
-        protected Avatar avatar;
+        protected AvatarController avatar;
 
         [Header("Avatar parameters")]
         [SerializeField]
@@ -19,7 +19,7 @@ namespace TheCursedBroom.Player {
         AvatarMovement movement = default;
 
         void Awake() {
-            avatar = GetComponentInParent<Avatar>();
+            avatar = GetComponentInParent<AvatarController>();
             Assert.IsNotNull(avatar);
         }
 
@@ -33,7 +33,7 @@ namespace TheCursedBroom.Player {
                 : RigidbodyConstraints2D.FreezeRotation;
             avatar.movementCalculator = movement
                 ? movement.CreateMovementCalculator(avatar)
-                : () => (avatar.velocity, avatar.rotation);
+                : () => (avatar.velocity, avatar.rotationAngle);
         }
         public virtual void UpdateState() {
         }
