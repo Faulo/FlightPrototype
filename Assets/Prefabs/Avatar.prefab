@@ -86,6 +86,12 @@ MonoBehaviour:
   drag: 1
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: c9cec1312d8015440875d24563f7fd99, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   intendsJumpState: {fileID: 4629324005851000664}
   intendsCrouchState: {fileID: 4629324005851000664}
   notGroundedState: {fileID: 4629324005851000664}
@@ -137,6 +143,12 @@ MonoBehaviour:
   drag: 1
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   resetVelocityOnGround: 1
   intendsGlideState: {fileID: 3309947060964344441}
   isGroundedAndMovingState: {fileID: 808840777}
@@ -189,6 +201,23 @@ MonoBehaviour:
   drag: 0
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: 800e7a8932599ba48bac5a19a3abd126, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 10883f8bd109e0f4dbd355f80122f2f6, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   maximumJumpHeight: 3
   minimumJumpFrameCount: 8
   maximumJumpFrameCount: 40
@@ -243,6 +272,12 @@ MonoBehaviour:
   drag: 0
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   transitionFrameCount: 5
   nextState: {fileID: 881665436}
 --- !u!1 &1836684146
@@ -293,6 +328,12 @@ MonoBehaviour:
   drag: 0
   allowPhysicsRotation: 1
   movement: {fileID: 11400000, guid: da8a1436f54a6a047a97196906ddc5bc, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   updraftParticles: {fileID: 7147689269680743400}
   rejectsGlideState: {fileID: 1740971983}
 --- !u!1 &1333995720129163968
@@ -343,6 +384,12 @@ MonoBehaviour:
   drag: 0.5
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: 9e02c29c83ab21344aae646d0f708b2b, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   minimumCrouchFrameCount: 8
   intendsGlideState: {fileID: 3309947060964344441}
   intendsJumpState: {fileID: 1713786831}
@@ -492,6 +539,20 @@ MonoBehaviour:
   intendsCrouch: 0
   isFacingRight: 1
   gravityScale: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 57c49007e0daea94bab7ec0984f1d6cf, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3089225555766872601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,6 +1048,12 @@ MonoBehaviour:
   drag: 0.5
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: 4b20c3fee9a391a4489fbf06eaaeed32, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   minimumHangFrameCount: 15
   maximumHangFrameCount: 40
   intendsGlideState: {fileID: 3309947060964344441}
@@ -1039,6 +1106,12 @@ MonoBehaviour:
   drag: 0
   allowPhysicsRotation: 0
   movement: {fileID: 11400000, guid: 7a78a3c871f855e46a571ab87d480663, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
   minimumDashFrameCount: 8
   intendsGlideState: {fileID: 1836684148}
   rejectsGlideState: {fileID: 1740971983}
