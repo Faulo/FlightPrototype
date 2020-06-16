@@ -44266,7 +44266,7 @@ TilemapCollider2D:
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 1
+  m_ExtrusionFactor: 0
 --- !u!66 &1425454485
 CompositeCollider2D:
   m_ObjectHideFlags: 0

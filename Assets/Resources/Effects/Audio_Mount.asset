@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b81f14cb24ae43b72d2a8fb88ab2b, type: 3}
-  m_Name: Audio_Jump
+  m_Name: Audio_Mount
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 2d58ca84a9912b440a2d848ef25082c4, type: 3}
-  mixer: {fileID: -3571531847446954820, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
+  - {fileID: 8300000, guid: 18e548e5dc9bfc042bcedf1f869d0516, type: 3}
+  mixer: {fileID: 7753301104561651467, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
   mininumPitch: 0.8
   maxmimumPitch: 1.2
   loop: 0
-  timeOffset: 0
+  timeOffset: 0.1
