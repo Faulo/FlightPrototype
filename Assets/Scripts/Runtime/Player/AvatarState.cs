@@ -1,6 +1,8 @@
-﻿using Slothsoft.UnityExtensions;
+﻿using System;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 namespace TheCursedBroom.Player {
     public abstract class AvatarState : MonoBehaviour {
@@ -17,6 +19,11 @@ namespace TheCursedBroom.Player {
         bool allowPhysicsRotation = false;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onStateEnter = default;
+        [SerializeField]
+        GameObjectEvent onStateExit = default;
 
         void Awake() {
             avatar = GetComponentInParent<AvatarController>();
@@ -34,12 +41,15 @@ namespace TheCursedBroom.Player {
             avatar.movementCalculator = movement
                 ? movement.CreateMovementCalculator(avatar)
                 : () => (avatar.velocity, avatar.rotationAngle);
+
+            onStateEnter.Invoke(avatar.gameObject);
         }
         public virtual void UpdateState() {
         }
         public virtual void FixedUpdateState() {
         }
         public virtual void ExitState() {
+            onStateExit.Invoke(avatar.gameObject);
         }
         public abstract AvatarState CalculateNextState();
         #endregion
