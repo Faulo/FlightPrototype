@@ -127,6 +127,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3089225555779599420}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &454888098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3089225555766872600, guid: 29fffe4f6c58ead40bb40e4575c1e1da,
+    type: 3}
+  m_PrefabInstance: {fileID: 3089225555779599420}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d99063d47054a4eaf13a56730e8f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622930124
 GameObject:
   m_ObjectHideFlags: 0
@@ -45561,6 +45573,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 173
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_text
+      value: '<u>Avatar Info</u>
+
+        Forward: {Avatar.forward}
+
+        Rotation:
+        {Avatar.rotationAngle}
+
+        Facing: {Avatar.facing}
+
+        Velocity:
+        {Avatar.velocity}
+
+        Drag: {Avatar.drag}
+
+        Gravity: {Avatar.gravityScale}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575397791545323182, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 257
+      objectReference: {fileID: 0}
     - target: {fileID: 2881344109035727141, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -45719,6 +45780,21 @@ PrefabInstance:
     - target: {fileID: 4277435169611209150, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102152571711769849, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119869681630360829, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: avatar
+      value: 
+      objectReference: {fileID: 454888098}
+    - target: {fileID: 7119869681630360829, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
+        type: 3}
+      propertyPath: refreshInterval
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7567407697747442251, guid: 1cbabe4a1eda8d8458c4e7f67f253d47,
