@@ -18,4 +18,4 @@ MonoBehaviour:
   mininumPitch: 0.8
   maxmimumPitch: 1.2
   loop: 0
-  timeOffset: 0
+  timeOffset: 0.05

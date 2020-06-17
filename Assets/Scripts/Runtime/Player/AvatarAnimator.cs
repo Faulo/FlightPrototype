@@ -31,5 +31,12 @@ namespace TheCursedBroom.Player {
         public void InstantiatePrefab(GameObject prefab) {
             Instantiate(prefab, transform);
         }
+
+        public void InvokeEffect(Effect effect) {
+            effect.Invoke(observedAvatar.gameObject);
+        }
+        public void InvokeEvent(AvatarController effect) {
+            //effect.Invoke(observedAvatar.gameObject);
+        }
     }
 }
