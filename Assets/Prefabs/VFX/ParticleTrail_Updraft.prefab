@@ -27,15 +27,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6451651148518846741, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: m_Name
-      value: ParticleTrail_Updraft
+      value: ParticleTrail_Environment
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
@@ -65,22 +95,22 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 100
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
@@ -95,22 +125,22 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: ShapeModule.randomPositionAmount
-      value: 1
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: EmissionModule.m_BurstCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: ShapeModule.radiusThickness
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
@@ -236,6 +266,31 @@ PrefabInstance:
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4093751067911687194, guid: 09d64e9e8c3ceb944893c05df82b37cc, type: 3}

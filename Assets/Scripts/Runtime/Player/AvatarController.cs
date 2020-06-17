@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
@@ -88,7 +87,14 @@ namespace TheCursedBroom.Player {
             (velocity, rotationAngle) = movementCalculator();
         }
 
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onStart = default;
+        [SerializeField]
+        GameObjectEvent onCollect = default;
+
         void Start() {
+            onStart.Invoke(gameObject);
         }
 
         void Update() {
@@ -121,5 +127,13 @@ namespace TheCursedBroom.Player {
             .Select(ground => ground.staticFriction)
             .DefaultIfEmpty(1)
             .Min();
+
+
+        void OnTriggerEnter2D(Collider2D collider) {
+            if (collider.gameObject.CompareTag("Collectible")) {
+                onCollect.Invoke(collider.gameObject);
+                Destroy(collider.gameObject);
+            }
+        }
     }
 }
