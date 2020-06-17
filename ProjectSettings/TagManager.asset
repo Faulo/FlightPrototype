@@ -4,10 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Interactable
-  - Ground
-  - Wall
-  - Interactable_Candy
+  - Collectible
   layers:
   - Default
   - TransparentFX

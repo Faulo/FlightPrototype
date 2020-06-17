@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using Slothsoft.UnityExtensions;
 using TheCursedBroom.Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TheCursedBroom.UI {
     public class AvatarInformation : FormattableText {
