@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 namespace TheCursedBroom.Effects {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "Audio_New", menuName = "Effects/Audio")]
     public class AudioEffect : Effect {
         [SerializeField, Expandable]
         AudioClip[] clips = default;

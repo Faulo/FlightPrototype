@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace TheCursedBroom.Effects {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "Instantiate_New", menuName = "Effects/Instantiate")]
     public class InstantiateEffect : Effect {
         [SerializeField, Expandable]
         GameObject[] prefabs = default;
