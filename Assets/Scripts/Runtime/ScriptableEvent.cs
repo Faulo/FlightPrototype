@@ -1,5 +1,4 @@
-﻿using TheCursedBroom.Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom {
     public class ScriptableEvent : MonoBehaviour {
@@ -8,7 +7,7 @@ namespace TheCursedBroom {
         [SerializeField]
         GameObjectEvent onInvoke = default;
 
-        void Invoke() {
+        public void Invoke() {
             onInvoke.Invoke(context);
         }
     }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TheCursedBroom.Player {
+namespace TheCursedBroom {
     [Serializable]
     public class GameObjectEvent : UnityEvent<GameObject> {
     }

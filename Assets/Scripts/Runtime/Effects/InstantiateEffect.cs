@@ -9,7 +9,7 @@ namespace TheCursedBroom.Effects {
 
         public override void Invoke(GameObject context) {
             var prefab = prefabs.RandomElement();
-            Instantiate(prefab, context.transform.position, prefab.transform.rotation);
+            Instantiate(prefab, context.transform.position, context.transform.rotation);
         }
     }
 }

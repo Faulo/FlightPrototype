@@ -1,5 +1,4 @@
-﻿using TheCursedBroom.Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom.Level {
     public class Interactable : MonoBehaviour {
