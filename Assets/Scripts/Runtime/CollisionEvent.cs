@@ -19,7 +19,6 @@ namespace TheCursedBroom {
             var tempObject = new GameObject();
             tempObject.transform.position = contact.point;
             tempObject.transform.rotation = AngleUtil.DirectionalRotation(contact.normal);
-            Debug.Log(tempObject.transform.rotation.eulerAngles);
             onColliderEnter.Invoke(tempObject);
             Destroy(tempObject, 0);
         }
