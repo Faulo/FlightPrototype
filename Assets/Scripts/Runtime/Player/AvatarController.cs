@@ -88,14 +88,6 @@ namespace TheCursedBroom.Player {
             (velocity, rotationAngle) = movementCalculator();
         }
 
-        [Header("Events")]
-        [SerializeField]
-        GameObjectEvent onStart = default;
-
-        void Start() {
-            onStart.Invoke(gameObject);
-        }
-
         void Update() {
             currentState.UpdateState();
         }
