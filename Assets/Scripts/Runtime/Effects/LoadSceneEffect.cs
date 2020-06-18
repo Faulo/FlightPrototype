@@ -8,7 +8,7 @@ namespace TheCursedBroom.Effects {
         string scene = "";
 
         public override void Invoke(GameObject context) {
-            SceneManager.LoadScene(scene);
+            SceneManager.LoadScene(scene == "" ? SceneManager.GetActiveScene().name : scene);
         }
     }
 }

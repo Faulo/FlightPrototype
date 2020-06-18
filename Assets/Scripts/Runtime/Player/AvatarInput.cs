@@ -28,6 +28,10 @@ namespace TheCursedBroom.Player {
         [SerializeField, Tooltip("Normalize to input range [0, 1] instead of [deadzone, 1]")]
         bool flightNormalized = true;
 
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onStartButton = default;
+
         Controls controls;
         float jumpBufferTimer;
 
@@ -117,6 +121,10 @@ namespace TheCursedBroom.Player {
             }
 
             return intention;
+        }
+
+        public void OnStart(InputAction.CallbackContext context) {
+            onStartButton.Invoke(gameObject);
         }
     }
 }

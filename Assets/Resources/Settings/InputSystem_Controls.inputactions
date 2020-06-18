@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "4e4fa99c-3006-4322-82c8-fb74b7f009a1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -308,6 +316,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Glide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "adc28f9b-0d71-4483-89af-a698ee0c4c23",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da084066-f534-4a10-9fc0-2c3f8e533022",
+                    "path": "<Joystick>/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd729a2d-4c0c-48e0-9f35-88c66e4a9ec0",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
