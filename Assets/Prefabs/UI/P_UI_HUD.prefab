@@ -108,6 +108,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3473905787114244728}
     m_Modifications:
+    - target: {fileID: 2477941874491023410, guid: 5478ab2735aa001449929ef6e71af96f,
+        type: 3}
+      propertyPath: m_text
+      value: '<u>Avatar Info</u>
+
+        Forward: {Avatar.forward}
+
+        Rotation:
+        {Avatar.rotationAngle}
+
+        Facing: {Avatar.facing}
+
+        Velocity:
+        {Avatar.velocity}
+
+        Drag: {Avatar.drag}
+
+        Gravity: {Avatar.gravityScale}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477941874491023410, guid: 5478ab2735aa001449929ef6e71af96f,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 257
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138230029743209057, guid: 5478ab2735aa001449929ef6e71af96f,
+        type: 3}
+      propertyPath: refreshInterval
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7156544741276500581, guid: 5478ab2735aa001449929ef6e71af96f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -217,6 +246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_UI_Information_Avatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230381341237429436, guid: 5478ab2735aa001449929ef6e71af96f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5478ab2735aa001449929ef6e71af96f, type: 3}
