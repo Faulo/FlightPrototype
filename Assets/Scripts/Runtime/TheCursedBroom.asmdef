@@ -1,0 +1,20 @@
+{
+    "name": "TheCursedBroom",
+    "references": [
+        "Slothsoft.UnityExtensions.Runtime",
+        "Cinemachine",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "TheCursedBroom.Input",
+        "maxattack"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
