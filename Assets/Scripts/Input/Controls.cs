@@ -59,6 +59,14 @@ namespace TheCursedBroom.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e4fa99c-3006-4322-82c8-fb74b7f009a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -323,6 +331,39 @@ namespace TheCursedBroom.Input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adc28f9b-0d71-4483-89af-a698ee0c4c23"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da084066-f534-4a10-9fc0-2c3f8e533022"",
+                    ""path"": ""<Joystick>/button10"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd729a2d-4c0c-48e0-9f35-88c66e4a9ec0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -905,6 +946,7 @@ namespace TheCursedBroom.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
+            m_Player_Start = m_Player.FindAction("Start", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -971,6 +1013,7 @@ namespace TheCursedBroom.Input
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Glide;
+        private readonly InputAction m_Player_Start;
         public struct PlayerActions
         {
             private @Controls m_Wrapper;
@@ -980,6 +1023,7 @@ namespace TheCursedBroom.Input
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @Glide => m_Wrapper.m_Player_Glide;
+            public InputAction @Start => m_Wrapper.m_Player_Start;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1004,6 +1048,9 @@ namespace TheCursedBroom.Input
                     @Glide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
                     @Glide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
                     @Glide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
+                    @Start.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
+                    @Start.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
+                    @Start.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1023,6 +1070,9 @@ namespace TheCursedBroom.Input
                     @Glide.started += instance.OnGlide;
                     @Glide.performed += instance.OnGlide;
                     @Glide.canceled += instance.OnGlide;
+                    @Start.started += instance.OnStart;
+                    @Start.performed += instance.OnStart;
+                    @Start.canceled += instance.OnStart;
                 }
             }
         }
@@ -1184,6 +1234,7 @@ namespace TheCursedBroom.Input
             void OnJump(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnGlide(InputAction.CallbackContext context);
+            void OnStart(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
