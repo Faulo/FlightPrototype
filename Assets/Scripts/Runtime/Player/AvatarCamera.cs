@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Cinemachine;
 using UnityEngine;
-using Cinemachine;
 
 namespace TheCursedBroom.Player {
     public class AvatarCamera : MonoBehaviour {
+        [Header("MonoBehaviour configuration")]
         [SerializeField]
         AvatarController observedAvatar = default;
         [SerializeField]
         CinemachineVirtualCamera targetCamera = default;
+
         [Header("Parameters")]
         [SerializeField, Range(0, 1)]
         float facingLookahead = 0;
@@ -21,6 +21,10 @@ namespace TheCursedBroom.Player {
         [SerializeField, Range(0, 10)]
         float airborneChangeDuration = 1;
         float sizeChangeVelocity = 0;
+        float cameraSize {
+            get => targetCamera.m_Lens.OrthographicSize;
+            set => targetCamera.m_Lens.OrthographicSize = value;
+        }
 
         CinemachineFramingTransposer transposer;
 
@@ -30,13 +34,14 @@ namespace TheCursedBroom.Player {
 
         void Update() {
             transposer.m_ScreenX = 0.5f - (facingLookahead * observedAvatar.facing);
-            float targetSize = observedAvatar.isFlying
-                ? airborneSize
-                : groundedSize;
-            float duration = observedAvatar.isFlying
-                ? airborneChangeDuration
-                : groundedChangeDuration;
-            targetCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(targetCamera.m_Lens.OrthographicSize, targetSize, ref sizeChangeVelocity, duration);
+            if (observedAvatar.isFlying) {
+                ChangeCameraSize(airborneSize, airborneChangeDuration);
+            } else {
+                ChangeCameraSize(groundedSize, groundedChangeDuration);
+            }
+        }
+        void ChangeCameraSize(float size, float duration) {
+            cameraSize = Mathf.SmoothDamp(cameraSize, size, ref sizeChangeVelocity, duration);
         }
     }
 }
