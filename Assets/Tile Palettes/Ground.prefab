@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2032935968834940495}
   - component: {fileID: 3744789999445795154}
   m_Layer: 31
-  m_Name: Outdoors
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3590608574723318687}
   m_Enabled: 1
-  m_CellSize: {x: 0.13, y: 0.13, z: 0}
+  m_CellSize: {x: 1, y: 1, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -85,20 +85,11 @@ Tilemap:
   m_GameObject: {fileID: 4935041119479210006}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -1, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 0
-      m_AllTileFlags: 2147483650
   - first: {x: -1, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -107,17 +98,20 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 823af85de11980d41aaeb8fd9a040f81, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 1a8fca73aabbfc84ca99136810a241c1, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -7932027650947292734, guid: 50ee070f04afdc04f9b21e56384a8386,
       type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 6819948692403088750, guid: 3c2c2727556dca54da685eb088f46085,
-      type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data:
       e00: 1
       e01: 0
@@ -136,15 +130,17 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 961210211468534619, guid: d78b7940a14775146af8d1c8d2d500e2, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -1, y: -2, z: 0}
-  m_Size: {x: 1, y: 3, z: 1}
+  m_Origin: {x: -1, y: -4, z: 0}
+  m_Size: {x: 2, y: 5, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -223,4 +219,4 @@ MonoBehaviour:
   m_Script: {fileID: 12395, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Palette Settings
   m_EditorClassIdentifier: 
-  cellSizing: 0
+  cellSizing: 100
