@@ -265,6 +265,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1675487892}
+        m_MethodName: CallEffect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ab8642fa36434d24d903f5f2602cd1d6,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TheCursedBroom.Effect, TheCursedBroom
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
@@ -1019,6 +1031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3855436540913979009}
   - component: {fileID: 3377214822263179361}
+  - component: {fileID: 1675487892}
   m_Layer: 0
   m_Name: Legs
   m_TagString: Untagged
@@ -1073,6 +1086,18 @@ PolygonCollider2D:
       - {x: -0.3125, y: 0}
       - {x: 0.3125, y: 0}
       - {x: 0.3125, y: 0.25}
+--- !u!114 &1675487892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848277091042139628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0203b3cfcf1d814f9498dfd0919496c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4923506841448325619
 GameObject:
   m_ObjectHideFlags: 0
