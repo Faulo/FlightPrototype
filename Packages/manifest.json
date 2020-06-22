@@ -23,15 +23,5 @@
     "com.unity.modules.ui": "1.0.0",
     "com.unity.modules.uielements": "1.0.0",
     "com.unity.modules.umbra": "1.0.0"
-  },
-  "lock": {
-    "com.unity.2d.tilemap.extras": {
-      "revision": "master",
-      "hash": "18cae2921070fc149efc3e9a0b410df35309db73"
-    },
-    "net.slothsoft.unity-extensions": {
-      "revision": "0.1.10",
-      "hash": "5b011bfbfc12a0cd4dbd748a2ba6173021364ba3"
-    }
   }
 }
