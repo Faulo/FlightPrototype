@@ -79,6 +79,7 @@ namespace TheCursedBroom.Player {
         }
 
         public float gravityScale = 0;
+        public Vector2 gravityStep => gravityScale * Physics2D.gravity * Time.deltaTime;
         public float drag {
             get => attachedRigidbody.drag;
             set => attachedRigidbody.drag = value;
@@ -108,7 +109,6 @@ namespace TheCursedBroom.Player {
         }
 
         IReadOnlyList<Ground> grounds;
-
         public bool isGrounded => grounds
             .Any();
         public float groundKinematicFriction => grounds
