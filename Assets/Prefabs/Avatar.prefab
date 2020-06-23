@@ -85,6 +85,8 @@ MonoBehaviour:
   gravity: 1
   drag: 1
   allowPhysicsRotation: 0
+  allowSave: 1
+  allowLoad: 1
   movement: {fileID: 11400000, guid: c9cec1312d8015440875d24563f7fd99, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -142,6 +144,8 @@ MonoBehaviour:
   gravity: 1
   drag: 1
   allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -250,6 +254,8 @@ MonoBehaviour:
   gravity: 1.5
   drag: 0
   allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: 800e7a8932599ba48bac5a19a3abd126, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -333,6 +339,8 @@ MonoBehaviour:
   gravity: 1
   drag: 0
   allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: b001435de6ba6314bbad76a1a54f04fc, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -411,6 +419,8 @@ MonoBehaviour:
   gravity: 0.25
   drag: 0
   allowPhysicsRotation: 1
+  allowSave: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: da8a1436f54a6a047a97196906ddc5bc, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -536,6 +546,8 @@ MonoBehaviour:
   gravity: 2
   drag: 0.5
   allowPhysicsRotation: 0
+  allowSave: 1
+  allowLoad: 1
   movement: {fileID: 11400000, guid: 9e02c29c83ab21344aae646d0f708b2b, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -688,6 +700,70 @@ MonoBehaviour:
   physicsAnimator: {fileID: 4858272974567616656}
   currentState: {fileID: 808840777}
   groundedCheck: {fileID: 136339116203656581}
+  onSpawn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 4a61212aad6740d47a47825c43dc40d2, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSave:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: b2fa541bd448a1a4490a21d782313a20, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 4a61212aad6740d47a47825c43dc40d2, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onLoad:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: f539406916ce7be4d89027971c98240f, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 10fab38e72212714c8569ef30da609be, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   intendedFacing: 1
   intendedMovement: 0
   intendedFlight: {x: 0, y: 0}
@@ -695,6 +771,8 @@ MonoBehaviour:
   intendsJump: 0
   intendsGlide: 0
   intendsCrouch: 0
+  intendsSave: 0
+  intendsLoad: 0
   isFacingRight: 1
   gravityScale: 0
 --- !u!114 &3089225555766872601
@@ -1257,6 +1335,8 @@ MonoBehaviour:
   gravity: 0.25
   drag: 0.5
   allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: 4b20c3fee9a391a4489fbf06eaaeed32, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -1315,6 +1395,8 @@ MonoBehaviour:
   gravity: 0
   drag: 0
   allowPhysicsRotation: 1
+  allowSave: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: 7a78a3c871f855e46a571ab87d480663, type: 2}
   onStateEnter:
     m_PersistentCalls:
@@ -1820,12 +1902,12 @@ PrefabInstance:
     - target: {fileID: 2805577830364980399, guid: 1c75879d03c103a4b9fb984d9dda0145,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2805577830364980399, guid: 1c75879d03c103a4b9fb984d9dda0145,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2805577830364980399, guid: 1c75879d03c103a4b9fb984d9dda0145,
         type: 3}
@@ -1881,6 +1963,41 @@ PrefabInstance:
         type: 3}
       propertyPath: EmissionModule.enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: ShapeModule.angle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: ShapeModule.m_Position.x
+      value: -0.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: ShapeModule.m_Position.y
+      value: -0.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: ShapeModule.m_Rotation.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 1c75879d03c103a4b9fb984d9dda0145,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c75879d03c103a4b9fb984d9dda0145, type: 3}

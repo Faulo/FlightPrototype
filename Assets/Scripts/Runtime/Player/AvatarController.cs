@@ -31,6 +31,14 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
 
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onSpawn = default;
+        [SerializeField]
+        GameObjectEvent onSave = default;
+        [SerializeField]
+        GameObjectEvent onLoad = default;
+
         [Header("Current Input")]
         public int intendedFacing = 1;
         public float intendedMovement = 0;
@@ -40,6 +48,8 @@ namespace TheCursedBroom.Player {
         public bool intendsJump = false;
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
+        public bool intendsSave = false;
+        public bool intendsLoad = false;
 
         public bool isFacingRight = true;
         public int facing {
@@ -69,6 +79,7 @@ namespace TheCursedBroom.Player {
                     : transform.rotation * Quaternion.Euler(0, 180, 0);
             }
         }
+
         public Vector2 forward => horizontalFlipTransform.right;
 
         public bool canGlide => true;
@@ -79,6 +90,7 @@ namespace TheCursedBroom.Player {
         }
 
         public float gravityScale = 0;
+        public Vector2 gravityStep => gravityScale * Physics2D.gravity * Time.deltaTime;
         public float drag {
             get => attachedRigidbody.drag;
             set => attachedRigidbody.drag = value;
@@ -87,6 +99,10 @@ namespace TheCursedBroom.Player {
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
             (velocity, rotationAngle) = movementCalculator();
+        }
+
+        void Start() {
+            onSpawn.Invoke(gameObject);
         }
 
         void Update() {
@@ -108,7 +124,6 @@ namespace TheCursedBroom.Player {
         }
 
         IReadOnlyList<Ground> grounds;
-
         public bool isGrounded => grounds
             .Any();
         public float groundKinematicFriction => grounds
@@ -125,6 +140,29 @@ namespace TheCursedBroom.Player {
             if (collider.TryGetComponent(out Interactable interactable)) {
                 interactable.Interact();
             }
+        }
+        public void CastSave() {
+            onSave.Invoke(gameObject);
+        }
+        public void CastLoad() {
+            onLoad.Invoke(gameObject);
+        }
+
+        struct AvatarSaveState {
+            public Vector3 position;
+            public float rotationAngle;
+        }
+        AvatarSaveState state = default;
+        public void StateSave() {
+            state.position = transform.position;
+            state.rotationAngle = rotationAngle;
+        }
+        public void StateLoad() {
+            transform.position = state.position;
+            rotationAngle = state.rotationAngle;
+
+            attachedRigidbody.velocity = Vector2.zero;
+            attachedRigidbody.angularVelocity = 0;
         }
     }
 }
