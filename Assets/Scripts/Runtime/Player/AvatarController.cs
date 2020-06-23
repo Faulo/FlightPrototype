@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using TheCursedBroom.Level;
@@ -142,11 +141,28 @@ namespace TheCursedBroom.Player {
                 interactable.Interact();
             }
         }
-        public void Save() {
+        public void CastSave() {
             onSave.Invoke(gameObject);
         }
-        public void Load() {
+        public void CastLoad() {
             onLoad.Invoke(gameObject);
+        }
+
+        struct AvatarSaveState {
+            public Vector3 position;
+            public float rotationAngle;
+        }
+        AvatarSaveState state = default;
+        public void StateSave() {
+            state.position = transform.position;
+            state.rotationAngle = rotationAngle;
+        }
+        public void StateLoad() {
+            transform.position = state.position;
+            rotationAngle = state.rotationAngle;
+
+            attachedRigidbody.velocity = Vector2.zero;
+            attachedRigidbody.angularVelocity = 0;
         }
     }
 }

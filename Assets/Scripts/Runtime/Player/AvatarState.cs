@@ -49,11 +49,11 @@ namespace TheCursedBroom.Player {
         public virtual void UpdateState() {
             if (allowSave && avatar.intendsSave) {
                 avatar.intendsSave = false;
-                avatar.Save();
+                avatar.CastSave();
             }
             if (allowLoad && avatar.intendsLoad) {
                 avatar.intendsLoad = false;
-                avatar.Load();
+                avatar.CastLoad();
             }
         }
         public virtual void FixedUpdateState() {

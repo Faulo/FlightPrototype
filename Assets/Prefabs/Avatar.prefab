@@ -85,7 +85,7 @@ MonoBehaviour:
   gravity: 1
   drag: 1
   allowPhysicsRotation: 0
-  allowSave: 0
+  allowSave: 1
   allowLoad: 1
   movement: {fileID: 11400000, guid: c9cec1312d8015440875d24563f7fd99, type: 2}
   onStateEnter:
@@ -547,7 +547,7 @@ MonoBehaviour:
   drag: 0.5
   allowPhysicsRotation: 0
   allowSave: 1
-  allowLoad: 0
+  allowLoad: 1
   movement: {fileID: 11400000, guid: 9e02c29c83ab21344aae646d0f708b2b, type: 2}
   onStateEnter:
     m_PersistentCalls:
