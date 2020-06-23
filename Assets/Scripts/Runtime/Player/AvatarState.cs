@@ -15,6 +15,10 @@ namespace TheCursedBroom.Player {
         float drag = 0;
         [SerializeField]
         bool allowPhysicsRotation = false;
+        [SerializeField]
+        bool allowSave = false;
+        [SerializeField]
+        bool allowLoad = true;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
         [Header("Events")]
@@ -43,6 +47,14 @@ namespace TheCursedBroom.Player {
             onStateEnter.Invoke(avatar.gameObject);
         }
         public virtual void UpdateState() {
+            if (allowSave && avatar.intendsSave) {
+                avatar.intendsSave = false;
+                avatar.Save();
+            }
+            if (allowLoad && avatar.intendsLoad) {
+                avatar.intendsLoad = false;
+                avatar.Load();
+            }
         }
         public virtual void FixedUpdateState() {
         }

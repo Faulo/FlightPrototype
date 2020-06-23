@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using TheCursedBroom.Level;
@@ -31,6 +32,14 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
 
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onSpawn = default;
+        [SerializeField]
+        GameObjectEvent onSave = default;
+        [SerializeField]
+        GameObjectEvent onLoad = default;
+
         [Header("Current Input")]
         public int intendedFacing = 1;
         public float intendedMovement = 0;
@@ -40,6 +49,8 @@ namespace TheCursedBroom.Player {
         public bool intendsJump = false;
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
+        public bool intendsSave = false;
+        public bool intendsLoad = false;
 
         public bool isFacingRight = true;
         public int facing {
@@ -69,6 +80,7 @@ namespace TheCursedBroom.Player {
                     : transform.rotation * Quaternion.Euler(0, 180, 0);
             }
         }
+
         public Vector2 forward => horizontalFlipTransform.right;
 
         public bool canGlide => true;
@@ -88,6 +100,10 @@ namespace TheCursedBroom.Player {
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
             (velocity, rotationAngle) = movementCalculator();
+        }
+
+        void Start() {
+            onSpawn.Invoke(gameObject);
         }
 
         void Update() {
@@ -125,6 +141,12 @@ namespace TheCursedBroom.Player {
             if (collider.TryGetComponent(out Interactable interactable)) {
                 interactable.Interact();
             }
+        }
+        public void Save() {
+            onSave.Invoke(gameObject);
+        }
+        public void Load() {
+            onLoad.Invoke(gameObject);
         }
     }
 }

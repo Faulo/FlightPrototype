@@ -70,6 +70,22 @@ namespace TheCursedBroom.Player {
         public void OnGlide(InputAction.CallbackContext context) {
             avatar.intendsGlide = context.performed;
         }
+        public void OnSave(InputAction.CallbackContext context) {
+            if (context.started) {
+                avatar.intendsSave = true;
+            }
+            if (context.canceled) {
+                avatar.intendsSave = false;
+            }
+        }
+        public void OnLoad(InputAction.CallbackContext context) {
+            if (context.started) {
+                avatar.intendsLoad = true;
+            }
+            if (context.canceled) {
+                avatar.intendsLoad = false;
+            }
+        }
 
         void FixedUpdate() {
             if (avatar.intendsJumpStart) {

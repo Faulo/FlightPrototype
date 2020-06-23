@@ -48,7 +48,7 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 1fe1fd4f30f05b44e9f5de4a9fb45605, type: 2}
+      - m_Target: {fileID: 11400000, guid: 10fab38e72212714c8569ef30da609be, type: 2}
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:
