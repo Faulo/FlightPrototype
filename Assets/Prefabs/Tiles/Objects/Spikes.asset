@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a4c99bb4520bc046a2a6762ae933b8d, type: 3}
-  m_Name: LoadScene_Level_1
+  m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
+  m_Name: Spikes
   m_EditorClassIdentifier: 
-  scene: Level 1
+  sprite: {fileID: 2541332410875945389, guid: 2f4d336d5909f1346a7785705baa605a, type: 3}
+  prefab: {fileID: 961210211468534619, guid: 2581ac1a258a8a74ab2f165f37db30ad, type: 3}
+  colliderType: 0
