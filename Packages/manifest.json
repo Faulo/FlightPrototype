@@ -9,7 +9,7 @@
     "com.unity.test-framework": "1.1.14",
     "com.unity.textmeshpro": "2.0.1",
     "com.unity.ugui": "1.0.0",
-    "net.slothsoft.unity-extensions": "https://github.com/Faulo/UnityExtensions.git#0.1.10",
+    "net.slothsoft.unity-extensions": "https://github.com/Faulo/UnityExtensions.git#0.1.12",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.audio": "1.0.0",
     "com.unity.modules.director": "1.0.0",
