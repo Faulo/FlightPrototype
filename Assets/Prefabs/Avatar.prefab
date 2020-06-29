@@ -35,6 +35,9 @@ Transform:
   - {fileID: 8600231750788213840}
   - {fileID: 1836684147}
   - {fileID: 1740971982}
+  - {fileID: 7988296233879213631}
+  - {fileID: 6952028642554002763}
+  - {fileID: 8702739005548762531}
   m_Father: {fileID: 3089225555766872606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -430,6 +433,7 @@ MonoBehaviour:
       m_Calls: []
   updraftParticles: {fileID: 7147689269680743400}
   rejectsGlideState: {fileID: 1740971983}
+  wallCollisionState: {fileID: 4267501010207170452}
 --- !u!1 &347126880693443701
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +852,87 @@ MonoBehaviour:
   onTriggerExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1745157203361921921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6952028642554002763}
+  - component: {fileID: 6015708295390145231}
+  m_Layer: 0
+  m_Name: WallJump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6952028642554002763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745157203361921921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6015708295390145231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745157203361921921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c368d1edd3813e844832ad6ef4574867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorState: 528
+  gravity: 0
+  drag: 0
+  allowPhysicsRotation: 1
+  allowSave: 0
+  allowLoad: 1
+  movement: {fileID: 11400000, guid: 1f84a2ae46858e44e9ec3a05f86757cc, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e7816ca51a834fd4ba6f5bb63585e3d7, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 9276cbf6e3ef5814e9a4a4b17ce0c471, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  minimumDashFrameCount: 8
+  intendsGlideState: {fileID: 1836684148}
+  rejectsGlideState: {fileID: 1740971983}
 --- !u!1 &2327387785658773955
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1072,7 @@ MonoBehaviour:
   attachedRigidbody: {fileID: 3089225555766872607}
   visualsAnimator: {fileID: 3089225555779599424}
   physicsAnimator: {fileID: 4858272974567616656}
+  physics: {fileID: 6081193294796904847}
   currentState: {fileID: 808840777}
   groundedCheck: {fileID: 136339116203656581}
   intendedFacing: 1
@@ -1601,6 +1687,77 @@ MonoBehaviour:
   maximumHangFrameCount: 40
   intendsGlideState: {fileID: 3309947060964344441}
   rejectsGlideState: {fileID: 881665436}
+--- !u!1 &6206077231400271089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7988296233879213631}
+  - component: {fileID: 4267501010207170452}
+  m_Layer: 0
+  m_Name: WallCollision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7988296233879213631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6206077231400271089}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4267501010207170452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6206077231400271089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47e5b665cc7a4d4db091e62fb95b886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorState: 256
+  gravity: 0
+  drag: 10
+  allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
+  movement: {fileID: 0}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: f539406916ce7be4d89027971c98240f, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  minimumCollisionFrameCount: 1
+  maximumCollisionFrameCount: 50
+  intendsJumpState: {fileID: 6015708295390145231}
+  rejectsJumpState: {fileID: 6562811889961319448}
 --- !u!1 &6973471356833258030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,6 +1978,86 @@ PolygonCollider2D:
       - {x: 0.125, y: -0.375}
       - {x: 0.3125, y: -0.125}
       - {x: 0.3125, y: 0.125}
+--- !u!1 &8265227772122616613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8702739005548762531}
+  - component: {fileID: 6562811889961319448}
+  m_Layer: 0
+  m_Name: WallPlummet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8702739005548762531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265227772122616613}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6562811889961319448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265227772122616613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32e5288440e4674eb63aeeface4ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorState: 1024
+  gravity: 1
+  drag: 0
+  allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
+  movement: {fileID: 11400000, guid: deac0917da4ae0b4eb92df693d87c0c1, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6cbb41bbc48462f44ab40aee8d3f03e2, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: b79f2ef68427694459a3de59b7d08177, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  transitionFrameCount: 100
+  nextState: {fileID: 881665436}
 --- !u!1 &9196574831870242006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,15 +2370,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3089225556446971396}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7139170914818432411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5317709209240411039, guid: d6451d21899788a4d90fc5e037b6d944,
-    type: 3}
-  m_PrefabInstance: {fileID: 3089225556446971396}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &7147689269680743400 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+    type: 3}
+  m_PrefabInstance: {fileID: 3089225556446971396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7139170914818432411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5317709209240411039, guid: d6451d21899788a4d90fc5e037b6d944,
     type: 3}
   m_PrefabInstance: {fileID: 3089225556446971396}
   m_PrefabAsset: {fileID: 0}

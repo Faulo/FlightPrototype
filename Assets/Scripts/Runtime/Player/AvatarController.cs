@@ -16,12 +16,12 @@ namespace TheCursedBroom.Player {
         Transform horizontalFlipTransform = default;
         [SerializeField, Expandable]
         public Rigidbody2D attachedRigidbody = default;
-
         [SerializeField, Expandable]
         AvatarAnimator visualsAnimator = default;
-
         [SerializeField, Expandable]
         AvatarAnimator physicsAnimator = default;
+        [SerializeField, Expandable]
+        public PhysicsEventEmitter physics = default;
 
         public AvatarAnimations currentAnimation {
             set {

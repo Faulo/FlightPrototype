@@ -11,5 +11,8 @@ namespace TheCursedBroom.Player {
         Flying = 1 << 5,
         Dismounting = 1 << 6,
         Crouching = 1 << 7,
+        WallCollision = 1 << 8,
+        WallJump = 1 << 9,
+        WallPlummet = 1 << 10,
     }
 }

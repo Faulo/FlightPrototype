@@ -7,13 +7,19 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Flying")]
         [SerializeField, Expandable]
         ParticleSystem updraftParticles = default;
+
+        bool hasCollided;
         public override void EnterState() {
             base.EnterState();
 
             updraftParticles.Play();
 
+            hasCollided = false;
+            avatar.physics.onCollisionEnter += CollisionListener;
+
             avatar.UpdateMovement();
         }
+
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
@@ -28,13 +34,26 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void ExitState() {
             base.ExitState();
 
+            avatar.physics.onCollisionEnter -= CollisionListener;
+
             updraftParticles.Stop();
         }
+
+
+        void CollisionListener(Collision2D collision) {
+            hasCollided = true;
+        }
+
 
         [Header("Transitions")]
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
+        [SerializeField, Expandable]
+        AvatarState wallCollisionState = default;
         public override AvatarState CalculateNextState() {
+            if (hasCollided) {
+                return wallCollisionState;
+            }
             if (!avatar.intendsGlide || !avatar.canGlide) {
                 return rejectsGlideState;
             }

@@ -15,4 +15,4 @@ MonoBehaviour:
   directionsNormalized: 0
   directionRange: 8
   speedMode: 0
-  initialSpeed: 20
+  initialSpeed: 15
