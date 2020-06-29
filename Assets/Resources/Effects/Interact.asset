@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Interact_New
+  m_Script: {fileID: 11500000, guid: b196dcdf2a044934f8306e5c6aed77ed, type: 3}
+  m_Name: Interact
   m_EditorClassIdentifier: TheCursedBroom:TheCursedBroom.Effects:InteractEffect
