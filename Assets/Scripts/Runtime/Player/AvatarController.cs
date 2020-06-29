@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
-using TheCursedBroom.Level;
 using UnityEngine;
 
 namespace TheCursedBroom.Player {
     public class AvatarController : MonoBehaviour {
+        public event Action<GameObject> onSpawn;
+        public event Action<GameObject> onSave;
+        public event Action<GameObject> onLoad;
+        public event Action<GameObject> onReset;
+
         [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
         Transform horizontalFlipTransform = default;
@@ -31,14 +36,6 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
 
-        [Header("Events")]
-        [SerializeField]
-        GameObjectEvent onSpawn = default;
-        [SerializeField]
-        GameObjectEvent onSave = default;
-        [SerializeField]
-        GameObjectEvent onLoad = default;
-
         [Header("Current Input")]
         public int intendedFacing = 1;
         public float intendedMovement = 0;
@@ -50,6 +47,7 @@ namespace TheCursedBroom.Player {
         public bool intendsCrouch = false;
         public bool intendsSave = false;
         public bool intendsLoad = false;
+        public bool intendsReset = false;
 
         public bool isFacingRight = true;
         public int facing {
@@ -102,11 +100,14 @@ namespace TheCursedBroom.Player {
         }
 
         void Start() {
-            onSpawn.Invoke(gameObject);
+            onSpawn?.Invoke(gameObject);
         }
 
         void Update() {
             currentState.UpdateState();
+            if (intendsReset) {
+                onReset?.Invoke(gameObject);
+            }
         }
 
         void FixedUpdate() {
@@ -135,17 +136,11 @@ namespace TheCursedBroom.Player {
             .DefaultIfEmpty(1)
             .Min();
 
-
-        void OnTriggerEnter2D(Collider2D collider) {
-            if (collider.TryGetComponent(out Interactable interactable)) {
-                interactable.Interact();
-            }
-        }
         public void CastSave() {
-            onSave.Invoke(gameObject);
+            onSave?.Invoke(gameObject);
         }
         public void CastLoad() {
-            onLoad.Invoke(gameObject);
+            onLoad?.Invoke(gameObject);
         }
 
         struct AvatarSaveState {
@@ -153,6 +148,7 @@ namespace TheCursedBroom.Player {
             public float rotationAngle;
         }
         AvatarSaveState state = default;
+
         public void StateSave() {
             state.position = transform.position;
             state.rotationAngle = rotationAngle;
