@@ -12,6 +12,8 @@ namespace TheCursedBroom.Player.AvatarMovements {
         bool directionsNormalized = true;
         [SerializeField, Range(1, 360)]
         int directionRange = 8;
+        [SerializeField, Range(0, 180)]
+        int directionBaseAngle = 0;
         [SerializeField]
         VelocityMode speedMode = default;
         [SerializeField, Range(-100, 100)]
@@ -26,7 +28,9 @@ namespace TheCursedBroom.Player.AvatarMovements {
             float rotation = AngleUtil.DirectionalAngle(direction);
 
             if (directionsNormalized) {
+                rotation += directionBaseAngle;
                 rotation = Mathf.RoundToInt(rotation * directionRange / 360) * 360 / directionRange;
+                rotation -= directionBaseAngle;
             }
 
             var dashRotation = Quaternion.Euler(0, 0, rotation);

@@ -36,6 +36,7 @@ Transform:
   - {fileID: 1836684147}
   - {fileID: 1740971982}
   - {fileID: 7988296233879213631}
+  - {fileID: 5839324383214116911}
   - {fileID: 6952028642554002763}
   - {fileID: 8702739005548762531}
   m_Father: {fileID: 3089225555766872606}
@@ -432,6 +433,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   updraftParticles: {fileID: 7147689269680743400}
+  wallMustBeAirborne: 1
+  wallMinimumX: 0.5
+  wallMaximumY: 0.5
   rejectsGlideState: {fileID: 1740971983}
   wallCollisionState: {fileID: 4267501010207170452}
 --- !u!1 &347126880693443701
@@ -881,7 +885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 447305114}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6015708295390145231
 MonoBehaviour:
@@ -895,10 +899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c368d1edd3813e844832ad6ef4574867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorState: 528
+  animatorState: 1024
   gravity: 0
   drag: 0
-  allowPhysicsRotation: 1
+  allowPhysicsRotation: 0
   allowSave: 0
   allowLoad: 1
   movement: {fileID: 11400000, guid: 1f84a2ae46858e44e9ec3a05f86757cc, type: 2}
@@ -1161,24 +1165,6 @@ CompositeCollider2D:
         Y: 2500000
       - X: 2500000
         Y: 3750000
-  - m_Collider: {fileID: 4203533074684741513}
-    m_ColliderPaths:
-    - - X: 7500000
-        Y: 0
-      - X: -2500000
-        Y: 0
-      - X: -7500000
-        Y: 1250000
-      - X: -8750000
-        Y: -625000
-      - X: -8750000
-        Y: -1250000
-      - X: -7500000
-        Y: -3750000
-      - X: -2500000
-        Y: -1875000
-      - X: 7500000
-        Y: -1875000
   - m_Collider: {fileID: 6410998072065350134}
     m_ColliderPaths:
     - - X: 1250000
@@ -1197,6 +1183,24 @@ CompositeCollider2D:
         Y: -1250000
       - X: 3125000
         Y: 1250000
+  - m_Collider: {fileID: 4203533074684741513}
+    m_ColliderPaths:
+    - - X: 7500000
+        Y: 0
+      - X: -2500000
+        Y: 0
+      - X: -7500000
+        Y: 1250000
+      - X: -8750000
+        Y: -625000
+      - X: -8750000
+        Y: -1250000
+      - X: -7500000
+        Y: -3750000
+      - X: -2500000
+        Y: -1875000
+      - X: 7500000
+        Y: -1875000
   m_CompositePaths:
     m_Paths:
     - - {x: 0.1274744, y: -0.3717009}
@@ -1745,7 +1749,7 @@ MonoBehaviour:
       m_Calls: []
   minimumCollisionFrameCount: 1
   maximumCollisionFrameCount: 50
-  intendsJumpState: {fileID: 6015708295390145231}
+  intendsJumpState: {fileID: 5260698245157940693}
   rejectsJumpState: {fileID: 6562811889961319448}
 --- !u!1 &6973471356833258030
 GameObject:
@@ -1996,7 +2000,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 447305114}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6562811889961319448
 MonoBehaviour:
@@ -2010,7 +2014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32e5288440e4674eb63aeeface4ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorState: 1024
+  animatorState: 2048
   gravity: 1
   drag: 0
   allowPhysicsRotation: 0
@@ -2047,6 +2051,64 @@ MonoBehaviour:
       m_Calls: []
   transitionFrameCount: 75
   nextState: {fileID: 881665436}
+--- !u!1 &8530760938937004147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5839324383214116911}
+  - component: {fileID: 5260698245157940693}
+  m_Layer: 0
+  m_Name: WallTurn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5839324383214116911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530760938937004147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5260698245157940693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530760938937004147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32e5288440e4674eb63aeeface4ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorState: 512
+  gravity: 0
+  drag: 0
+  allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 1
+  movement: {fileID: 11400000, guid: deac0917da4ae0b4eb92df693d87c0c1, type: 2}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  transitionFrameCount: 15
+  nextState: {fileID: 6015708295390145231}
 --- !u!1 &9196574831870242006
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Avatar_Visuals_WallJump
+  m_Name: Avatar_Visuals_WallTurn
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -22,25 +22,25 @@ AnimationClip:
     - time: 0
       value: {fileID: -1522201563107210620, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.083333336
+    - time: 0.05
       value: {fileID: 7838059349016273282, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.16666667
+    - time: 0.1
       value: {fileID: -7802878538340894152, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.25
+    - time: 0.15
       value: {fileID: 8843500055249001269, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.33333334
+    - time: 0.2
       value: {fileID: 6841459781498268632, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.41666666
+    - time: 0.25
       value: {fileID: -2103964410128143834, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.5
+    - time: 0.3
       value: {fileID: 3077546853447111014, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
-    - time: 0.5833333
+    - time: 0.35
       value: {fileID: -3479021782026389930, guid: 7d94de8e929288c4292d168e3869bb1a,
         type: 3}
     attribute: m_Sprite
@@ -75,7 +75,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.59999996
+    m_StopTime: 0.36666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
