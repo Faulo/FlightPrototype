@@ -10,6 +10,7 @@ namespace TheCursedBroom.Player {
         public event Action<GameObject> onSave;
         public event Action<GameObject> onLoad;
         public event Action<GameObject> onReset;
+        public event Action<GameObject, Vector3> onTeleport;
 
         [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
@@ -154,11 +155,14 @@ namespace TheCursedBroom.Player {
             state.rotationAngle = rotationAngle;
         }
         public void StateLoad() {
+            var delta = state.position - transform.position;
             transform.position = state.position;
             rotationAngle = state.rotationAngle;
 
             attachedRigidbody.velocity = Vector2.zero;
             attachedRigidbody.angularVelocity = 0;
+
+            onTeleport?.Invoke(gameObject, delta);
         }
     }
 }
