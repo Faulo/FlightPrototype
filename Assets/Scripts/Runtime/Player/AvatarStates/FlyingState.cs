@@ -66,6 +66,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (Math.Sign((contact.point - avatar.attachedRigidbody.position).x) != avatar.facing) {
                 return false;
             }
+            avatar.wallFacing = Math.Sign((contact.point - avatar.attachedRigidbody.position).x);
             return true;
         }
 

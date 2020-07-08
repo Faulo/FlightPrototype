@@ -56,6 +56,7 @@ namespace TheCursedBroom.Player {
         public int facing {
             get => isFacingRight ? 1 : -1;
         }
+        public int wallFacing;
         public float rotationAngle {
             get {
                 return isFacingRight
