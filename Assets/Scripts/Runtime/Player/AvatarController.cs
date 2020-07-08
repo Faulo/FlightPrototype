@@ -12,6 +12,8 @@ namespace TheCursedBroom.Player {
         public event Action<GameObject> onReset;
         public event Action<GameObject, Vector3> onTeleport;
 
+        public static AvatarController instance;
+
         [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
         Transform horizontalFlipTransform = default;
@@ -101,6 +103,7 @@ namespace TheCursedBroom.Player {
         }
 
         void Start() {
+            instance = this;
             onSpawn?.Invoke(gameObject);
         }
 
@@ -112,6 +115,7 @@ namespace TheCursedBroom.Player {
         }
 
         void FixedUpdate() {
+            UpdateRumbling();
             grounds = groundedCheck.GetGrounds();
 
             var newState = currentState.CalculateNextState();
@@ -163,6 +167,20 @@ namespace TheCursedBroom.Player {
             attachedRigidbody.angularVelocity = 0;
 
             onTeleport?.Invoke(gameObject, delta);
+        }
+
+        public bool isRumbling => rumblingDuration > 0;
+        public float rumblingLowIntensity;
+        public float rumblingHighIntensity;
+        public float rumblingDuration;
+
+        void UpdateRumbling() {
+            if (rumblingDuration >= 0) {
+                rumblingDuration -= Time.deltaTime;
+            } else {
+                rumblingLowIntensity = 0;
+                rumblingHighIntensity = 0;
+            }
         }
     }
 }
