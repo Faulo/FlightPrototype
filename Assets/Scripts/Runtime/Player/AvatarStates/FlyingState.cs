@@ -80,7 +80,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (hasCollided) {
                 return wallCollisionState;
             }
-            if (!avatar.intendsGlide || !avatar.canGlide) {
+            if (!avatar.intendsGlide) {
                 return rejectsGlideState;
             }
             return this;

@@ -84,7 +84,7 @@ namespace TheCursedBroom.Player {
 
         public Vector2 forward => horizontalFlipTransform.right;
 
-        public bool canGlide => true;
+        public bool canGlide = true;
         public bool isFlying => !attachedRigidbody.freezeRotation;
         public Vector2 velocity {
             get => attachedRigidbody.velocity;
