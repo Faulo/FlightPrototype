@@ -1,22 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
-using TheCursedBroom.Level;
 using UnityEngine;
 
 namespace TheCursedBroom.Player {
     public class AvatarController : MonoBehaviour {
+        public event Action<GameObject> onSpawn;
+        public event Action<GameObject> onSave;
+        public event Action<GameObject> onLoad;
+        public event Action<GameObject> onReset;
+        public event Action<GameObject, Vector3> onTeleport;
+
+        public static AvatarController instance;
+
         [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
         Transform horizontalFlipTransform = default;
         [SerializeField, Expandable]
         public Rigidbody2D attachedRigidbody = default;
-
         [SerializeField, Expandable]
         AvatarAnimator visualsAnimator = default;
-
         [SerializeField, Expandable]
         AvatarAnimator physicsAnimator = default;
+        [SerializeField, Expandable]
+        public PhysicsEventEmitter physics = default;
 
         public AvatarAnimations currentAnimation {
             set {
@@ -31,14 +39,6 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
 
-        [Header("Events")]
-        [SerializeField]
-        GameObjectEvent onSpawn = default;
-        [SerializeField]
-        GameObjectEvent onSave = default;
-        [SerializeField]
-        GameObjectEvent onLoad = default;
-
         [Header("Current Input")]
         public int intendedFacing = 1;
         public float intendedMovement = 0;
@@ -50,11 +50,13 @@ namespace TheCursedBroom.Player {
         public bool intendsCrouch = false;
         public bool intendsSave = false;
         public bool intendsLoad = false;
+        public bool intendsReset = false;
 
         public bool isFacingRight = true;
         public int facing {
             get => isFacingRight ? 1 : -1;
         }
+        public int wallFacing;
         public float rotationAngle {
             get {
                 return isFacingRight
@@ -82,7 +84,7 @@ namespace TheCursedBroom.Player {
 
         public Vector2 forward => horizontalFlipTransform.right;
 
-        public bool canGlide => true;
+        public bool canGlide = true;
         public bool isFlying => !attachedRigidbody.freezeRotation;
         public Vector2 velocity {
             get => attachedRigidbody.velocity;
@@ -102,14 +104,19 @@ namespace TheCursedBroom.Player {
         }
 
         void Start() {
-            onSpawn.Invoke(gameObject);
+            instance = this;
+            onSpawn?.Invoke(gameObject);
         }
 
         void Update() {
             currentState.UpdateState();
+            if (intendsReset) {
+                onReset?.Invoke(gameObject);
+            }
         }
 
         void FixedUpdate() {
+            UpdateRumbling();
             grounds = groundedCheck.GetGrounds();
 
             var newState = currentState.CalculateNextState();
@@ -135,17 +142,11 @@ namespace TheCursedBroom.Player {
             .DefaultIfEmpty(1)
             .Min();
 
-
-        void OnTriggerEnter2D(Collider2D collider) {
-            if (collider.TryGetComponent(out Interactable interactable)) {
-                interactable.Interact();
-            }
-        }
         public void CastSave() {
-            onSave.Invoke(gameObject);
+            onSave?.Invoke(gameObject);
         }
         public void CastLoad() {
-            onLoad.Invoke(gameObject);
+            onLoad?.Invoke(gameObject);
         }
 
         struct AvatarSaveState {
@@ -153,16 +154,34 @@ namespace TheCursedBroom.Player {
             public float rotationAngle;
         }
         AvatarSaveState state = default;
+
         public void StateSave() {
             state.position = transform.position;
             state.rotationAngle = rotationAngle;
         }
         public void StateLoad() {
+            var delta = state.position - transform.position;
             transform.position = state.position;
             rotationAngle = state.rotationAngle;
 
             attachedRigidbody.velocity = Vector2.zero;
             attachedRigidbody.angularVelocity = 0;
+
+            onTeleport?.Invoke(gameObject, delta);
+        }
+
+        public bool isRumbling => rumblingDuration > 0;
+        public float rumblingLowIntensity;
+        public float rumblingHighIntensity;
+        public float rumblingDuration;
+
+        void UpdateRumbling() {
+            if (rumblingDuration >= 0) {
+                rumblingDuration -= Time.deltaTime;
+            } else {
+                rumblingLowIntensity = 0;
+                rumblingHighIntensity = 0;
+            }
         }
     }
 }

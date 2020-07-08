@@ -7,6 +7,8 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             avatar.UpdateMovement();
+
+            avatar.canGlide = true;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using TheCursedBroom.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Haptics;
 
 namespace TheCursedBroom.Player {
     public class AvatarInput : MonoBehaviour, Controls.IPlayerActions {
@@ -28,10 +30,6 @@ namespace TheCursedBroom.Player {
         [SerializeField, Tooltip("Normalize to input range [0, 1] instead of [deadzone, 1]")]
         bool flightNormalized = true;
 
-        [Header("Events")]
-        [SerializeField]
-        GameObjectEvent onStartButton = default;
-
         Controls controls;
         float jumpBufferTimer;
 
@@ -44,6 +42,12 @@ namespace TheCursedBroom.Player {
         }
         public void OnDisable() {
             controls.Player.Disable();
+            rumbleMotor?.ResetHaptics();
+        }
+        void Start() {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.pauseStateChanged += state => ApplicationPauseListener(state == UnityEditor.PauseState.Paused);
+#endif
         }
 
         public void OnMove(InputAction.CallbackContext context) {
@@ -55,6 +59,7 @@ namespace TheCursedBroom.Player {
         public void OnLook(InputAction.CallbackContext context) {
         }
         public void OnJump(InputAction.CallbackContext context) {
+            SetRumble(context.control.device as IDualMotorRumble);
             if (context.started) {
                 avatar.intendsJumpStart = true;
                 jumpBufferTimer = jumpBufferDuration;
@@ -65,9 +70,11 @@ namespace TheCursedBroom.Player {
             }
         }
         public void OnCrouch(InputAction.CallbackContext context) {
+            SetRumble(context.control.device as IDualMotorRumble);
             avatar.intendsCrouch = context.performed;
         }
         public void OnGlide(InputAction.CallbackContext context) {
+            SetRumble(context.control.device as IDualMotorRumble);
             avatar.intendsGlide = context.performed;
         }
         public void OnSave(InputAction.CallbackContext context) {
@@ -95,6 +102,7 @@ namespace TheCursedBroom.Player {
                     avatar.intendsJumpStart = false;
                 }
             }
+            rumbleMotor?.SetMotorSpeeds(avatar.rumblingLowIntensity, avatar.rumblingHighIntensity);
         }
 
         int ProcessFacing(Vector2 input) {
@@ -140,7 +148,26 @@ namespace TheCursedBroom.Player {
         }
 
         public void OnStart(InputAction.CallbackContext context) {
-            onStartButton.Invoke(gameObject);
+            avatar.intendsReset = context.performed;
         }
+
+        #region Rumble
+        IDualMotorRumble rumbleMotor;
+        void ApplicationPauseListener(bool isPaused) {
+            if (isPaused) {
+                rumbleMotor?.PauseHaptics();
+            } else {
+                rumbleMotor?.ResumeHaptics();
+            }
+        }
+
+        void SetRumble(IDualMotorRumble newMotor) {
+            if (rumbleMotor != newMotor) {
+                rumbleMotor?.ResetHaptics();
+                rumbleMotor = newMotor;
+                rumbleMotor?.ResetHaptics();
+            }
+        }
+        #endregion
     }
 }

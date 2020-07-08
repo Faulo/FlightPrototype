@@ -23,7 +23,7 @@
       "hash": "18cae2921070fc149efc3e9a0b410df35309db73"
     },
     "com.unity.cinemachine": {
-      "version": "2.5.0",
+      "version": "2.6.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -100,13 +100,13 @@
       }
     },
     "net.slothsoft.unity-extensions": {
-      "version": "https://github.com/Faulo/UnityExtensions.git#0.1.10",
+      "version": "https://github.com/Faulo/UnityExtensions.git#0.1.13",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.test-framework": "1.0.13"
       },
-      "hash": "5b011bfbfc12a0cd4dbd748a2ba6173021364ba3"
+      "hash": "54f529d6a6436aba0a0f66367a1ea9db7f3eb9e4"
     },
     "com.unity.modules.animation": {
       "version": "1.0.0",
