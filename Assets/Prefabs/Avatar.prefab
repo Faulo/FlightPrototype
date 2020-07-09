@@ -1178,7 +1178,7 @@ Rigidbody2D:
   m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -2576,6 +2576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ParticleTrail_Ready
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: 4c7752d1281e24b4696b8d3299e318db,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c7752d1281e24b4696b8d3299e318db, type: 3}
