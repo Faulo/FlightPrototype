@@ -30,17 +30,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Crouch",
+                    "name": "Glide",
                     "type": "Button",
-                    "id": "31cf402a-d9af-469d-98b1-d224c0ee55c7",
+                    "id": "122ea1ba-c974-4569-9ec4-266d0602918b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Glide",
+                    "name": "Crouch",
                     "type": "Button",
-                    "id": "122ea1ba-c974-4569-9ec4-266d0602918b",
+                    "id": "31cf402a-d9af-469d-98b1-d224c0ee55c7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -183,8 +183,19 @@
                 },
                 {
                     "name": "",
+                    "id": "1eca601f-75a0-4ba7-b8c0-1be6f50d68c9",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
+                    "path": "<Joystick>/button3",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -194,11 +205,11 @@
                 },
                 {
                     "name": "",
-                    "id": "cf8cf81e-20ac-4b57-82e5-6c52c35c840d",
-                    "path": "<Keyboard>/Space",
+                    "id": "8e487f21-2002-4c12-ae72-fa16ea9a8d01",
+                    "path": "<Joystick>/trigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Joystick",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -260,61 +271,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1eca601f-75a0-4ba7-b8c0-1be6f50d68c9",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "af1277da-d770-47c5-b98c-c9b487953f47",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c8a72816-2bb0-4739-90bb-d60b26fd20bc",
-                    "path": "<Joystick>/button2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0817c230-7cac-4b65-bc32-9401eb398b63",
-                    "path": "<Joystick>/button5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0c4e77b1-b416-4fd9-8537-3f14e26a33f0",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "408a729b-3d9f-4256-83ea-93ca07f1ff5d",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -326,8 +282,30 @@
                 },
                 {
                     "name": "",
+                    "id": "9f2f4cc3-dc38-44bb-8b41-c4b5b26ec6df",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Glide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8a72816-2bb0-4739-90bb-d60b26fd20bc",
+                    "path": "<Joystick>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Glide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9289f44b-050b-447e-85f3-889cfe195377",
-                    "path": "<Joystick>/button3",
+                    "path": "<Joystick>/button4",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -420,6 +398,50 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Load",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf8cf81e-20ac-4b57-82e5-6c52c35c840d",
+                    "path": "<Keyboard>/Space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af1277da-d770-47c5-b98c-c9b487953f47",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0817c230-7cac-4b65-bc32-9401eb398b63",
+                    "path": "<Joystick>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c4e77b1-b416-4fd9-8537-3f14e26a33f0",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

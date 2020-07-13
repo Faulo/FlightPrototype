@@ -45,17 +45,17 @@ namespace TheCursedBroom.Input
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Crouch"",
+                    ""name"": ""Glide"",
                     ""type"": ""Button"",
-                    ""id"": ""31cf402a-d9af-469d-98b1-d224c0ee55c7"",
+                    ""id"": ""122ea1ba-c974-4569-9ec4-266d0602918b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Glide"",
+                    ""name"": ""Crouch"",
                     ""type"": ""Button"",
-                    ""id"": ""122ea1ba-c974-4569-9ec4-266d0602918b"",
+                    ""id"": ""31cf402a-d9af-469d-98b1-d224c0ee55c7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -198,8 +198,19 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1eca601f-75a0-4ba7-b8c0-1be6f50d68c9"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/trigger"",
+                    ""path"": ""<Joystick>/button3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -209,11 +220,11 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cf8cf81e-20ac-4b57-82e5-6c52c35c840d"",
-                    ""path"": ""<Keyboard>/Space"",
+                    ""id"": ""8e487f21-2002-4c12-ae72-fa16ea9a8d01"",
+                    ""path"": ""<Joystick>/trigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -275,61 +286,6 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1eca601f-75a0-4ba7-b8c0-1be6f50d68c9"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""af1277da-d770-47c5-b98c-c9b487953f47"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c8a72816-2bb0-4739-90bb-d60b26fd20bc"",
-                    ""path"": ""<Joystick>/button2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0817c230-7cac-4b65-bc32-9401eb398b63"",
-                    ""path"": ""<Joystick>/button5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0c4e77b1-b416-4fd9-8537-3f14e26a33f0"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""408a729b-3d9f-4256-83ea-93ca07f1ff5d"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
@@ -341,8 +297,30 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9f2f4cc3-dc38-44bb-8b41-c4b5b26ec6df"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8a72816-2bb0-4739-90bb-d60b26fd20bc"",
+                    ""path"": ""<Joystick>/button2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9289f44b-050b-447e-85f3-889cfe195377"",
-                    ""path"": ""<Joystick>/button3"",
+                    ""path"": ""<Joystick>/button4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -435,6 +413,50 @@ namespace TheCursedBroom.Input
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf8cf81e-20ac-4b57-82e5-6c52c35c840d"",
+                    ""path"": ""<Keyboard>/Space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af1277da-d770-47c5-b98c-c9b487953f47"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0817c230-7cac-4b65-bc32-9401eb398b63"",
+                    ""path"": ""<Joystick>/button5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c4e77b1-b416-4fd9-8537-3f14e26a33f0"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1015,8 +1037,8 @@ namespace TheCursedBroom.Input
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-            m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
+            m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Start = m_Player.FindAction("Start", throwIfNotFound: true);
             m_Player_Save = m_Player.FindAction("Save", throwIfNotFound: true);
             m_Player_Load = m_Player.FindAction("Load", throwIfNotFound: true);
@@ -1084,8 +1106,8 @@ namespace TheCursedBroom.Input
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Jump;
-        private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Glide;
+        private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Start;
         private readonly InputAction m_Player_Save;
         private readonly InputAction m_Player_Load;
@@ -1096,8 +1118,8 @@ namespace TheCursedBroom.Input
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
-            public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @Glide => m_Wrapper.m_Player_Glide;
+            public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @Start => m_Wrapper.m_Player_Start;
             public InputAction @Save => m_Wrapper.m_Player_Save;
             public InputAction @Load => m_Wrapper.m_Player_Load;
@@ -1119,12 +1141,12 @@ namespace TheCursedBroom.Input
                     @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                    @Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
-                    @Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
-                    @Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                     @Glide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
                     @Glide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
                     @Glide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGlide;
+                    @Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                    @Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                    @Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                     @Start.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
                     @Start.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
                     @Start.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
@@ -1147,12 +1169,12 @@ namespace TheCursedBroom.Input
                     @Jump.started += instance.OnJump;
                     @Jump.performed += instance.OnJump;
                     @Jump.canceled += instance.OnJump;
-                    @Crouch.started += instance.OnCrouch;
-                    @Crouch.performed += instance.OnCrouch;
-                    @Crouch.canceled += instance.OnCrouch;
                     @Glide.started += instance.OnGlide;
                     @Glide.performed += instance.OnGlide;
                     @Glide.canceled += instance.OnGlide;
+                    @Crouch.started += instance.OnCrouch;
+                    @Crouch.performed += instance.OnCrouch;
+                    @Crouch.canceled += instance.OnCrouch;
                     @Start.started += instance.OnStart;
                     @Start.performed += instance.OnStart;
                     @Start.canceled += instance.OnStart;
@@ -1321,8 +1343,8 @@ namespace TheCursedBroom.Input
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
-            void OnCrouch(InputAction.CallbackContext context);
             void OnGlide(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
             void OnStart(InputAction.CallbackContext context);
             void OnSave(InputAction.CallbackContext context);
             void OnLoad(InputAction.CallbackContext context);
