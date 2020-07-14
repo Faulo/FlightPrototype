@@ -36,9 +36,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maximumSpeed: 10
+  maximumSpeed: 30
   accelerationDuration: 0.04
   decelerationDuration: 0.02
   turnAroundImmediately: 1
   breakWhenNoInput: 0
   useGroundFriction: 1
+  allowTurning: 1

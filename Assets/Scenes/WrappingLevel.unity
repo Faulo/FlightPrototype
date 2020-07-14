@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -205,6 +205,7 @@ MonoBehaviour:
   decorations: {fileID: 1927078862}
   levels:
   - {fileID: 7622852625163005332, guid: d7290567d6261284298db846a1046088, type: 3}
+  - {fileID: 7622852625163005332, guid: c5b80833717364240b4fa58171ed1328, type: 3}
   onStart:
     m_PersistentCalls:
       m_Calls:
@@ -219,6 +220,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  observedActor: {fileID: 0}
+  minimumRange: {x: 48, y: 27, z: 1}
+  maximumRange: {x: 64, y: 36, z: 1}
 --- !u!114 &1216517077 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3936557096076248658, guid: b1d3a20ee8f94bf418d6add4bd048e27,

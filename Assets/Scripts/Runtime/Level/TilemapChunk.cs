@@ -33,7 +33,28 @@ namespace TheCursedBroom.Level {
             }
         }
 
+        IEnumerable<Tilemap> tilemaps {
+            get {
+                if (background) {
+                    yield return background;
+                }
+                if (ground) {
+                    yield return ground;
+                }
+                if (objects) {
+                    yield return objects;
+                }
+                if (decorations) {
+                    yield return decorations;
+                }
+            }
+        }
+
         Vector3 worldBottomLeft => background.GetCellCenterWorld(Vector3Int.zero);
+
+        [Header("Editor Tools")]
+        [SerializeField]
+        bool syncRightWithLeftBorder = false;
 
         void OnValidate() {
             if (!background) {
@@ -48,12 +69,27 @@ namespace TheCursedBroom.Level {
             if (!decorations) {
                 decorations = GetComponentsInChildren<Tilemap>()[3];
             }
+            if (syncRightWithLeftBorder) {
+                syncRightWithLeftBorder = false;
+                SyncBorders();
+            }
+        }
+
+        void SyncBorders() {
+            for (int i = 0; i < size.y; i++) {
+                var left = new Vector3Int(0, i, 0);
+                var right = new Vector3Int(size.x, i, 0);
+                foreach (var tilemap in tilemaps) {
+                    tilemap.SetTile(right, tilemap.GetTile(left));
+                    tilemap.SetTile(left + Vector3Int.left, tilemap.GetTile(right + Vector3Int.left));
+                }
+            }
         }
 
         void OnDrawGizmos() {
             Gizmos.color = Color.white;
             var size = (Vector3)(Vector2)this.size;
-            Gizmos.DrawWireCube(worldBottomLeft + size / 2, size + Vector3.one);
+            Gizmos.DrawWireCube(worldBottomLeft + ((size - Vector3.one) / 2), size);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
+using TheCursedBroom.Level;
 using UnityEngine;
 
 namespace TheCursedBroom.Player {
@@ -105,6 +106,7 @@ namespace TheCursedBroom.Player {
 
         void Start() {
             instance = this;
+            LevelController.instance.observedActor = transform;
             onSpawn?.Invoke(gameObject);
         }
 
