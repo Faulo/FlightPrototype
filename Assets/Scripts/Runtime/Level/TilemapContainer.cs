@@ -68,6 +68,14 @@ namespace TheCursedBroom.Level {
             if (!decorations) {
                 decorations = context.GetComponentsInChildren<Tilemap>()[3];
             }
+            int i = 0;
+            foreach (var (type, tilemap) in all) {
+                string name = $"L{i}_{type}";
+                if (tilemap.gameObject.name != name) {
+                    tilemap.gameObject.name = name;
+                }
+                i++;
+            }
         }
 
         public Vector3Int WorldToCell(Vector3 position) => background.WorldToCell(position);
