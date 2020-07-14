@@ -78,6 +78,7 @@ namespace TheCursedBroom.Level {
             }
         }
 
+        public Vector3 tileAnchor => background.tileAnchor;
         public Vector3Int WorldToCell(Vector3 position) => background.WorldToCell(position);
         public Vector3 CellToWorld(Vector3Int position) => background.CellToWorld(position);
         public Vector3 worldBottomLeft => CellToWorld(Vector3Int.zero);

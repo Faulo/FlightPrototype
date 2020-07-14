@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
+using TheCursedBroom.Level;
 using UnityEngine;
 
 namespace TheCursedBroom.Player {
@@ -106,6 +107,10 @@ namespace TheCursedBroom.Player {
         void Start() {
             instance = this;
             onSpawn?.Invoke(gameObject);
+
+            if (LevelController.instance) {
+                LevelController.instance.observedObjects.Add(state);
+            }
         }
 
         void Update() {
@@ -149,11 +154,18 @@ namespace TheCursedBroom.Player {
             onLoad?.Invoke(gameObject);
         }
 
-        struct AvatarSaveState {
+        class AvatarSaveState : ILevelObject {
             public Vector3 position;
             public float rotationAngle;
+
+            Vector3 ILevelObject.position => position;
+            bool ILevelObject.requireLevel => false;
+
+            public void TranslateX(float x) {
+                position.x += x;
+            }
         }
-        AvatarSaveState state = default;
+        AvatarSaveState state = new AvatarSaveState();
 
         public void StateSave() {
             state.position = transform.position;

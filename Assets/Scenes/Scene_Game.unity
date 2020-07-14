@@ -233,8 +233,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   observedActor: {fileID: 0}
-  minimumRange: {x: 48, y: 27, z: 1}
-  maximumRange: {x: 64, y: 36, z: 1}
+  minimumRangeX: 32
+  minimumRangeY: 18
+  maximumRangeX: 48
+  maximumRangeY: 27
 --- !u!114 &1216517077 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3936557096076248658, guid: b1d3a20ee8f94bf418d6add4bd048e27,
