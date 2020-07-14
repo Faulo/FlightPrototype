@@ -14,14 +14,8 @@ namespace TheCursedBroom.Level {
         public static LevelController instance;
 
         [Header("MonoBehaviour configuration")]
-        [SerializeField, Expandable]
-        Tilemap background = default;
-        [SerializeField, Expandable]
-        Tilemap ground = default;
-        [SerializeField, Expandable]
-        Tilemap objects = default;
-        [SerializeField, Expandable]
-        Tilemap decorations = default;
+        [SerializeField]
+        TilemapContainer tilemaps = default;
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -49,7 +43,7 @@ namespace TheCursedBroom.Level {
         }
         void FixedUpdate() {
             if (observedActor) {
-                actorPosition = ground.WorldToCell(observedActor.position);
+                actorPosition = tilemaps.WorldToCell(observedActor.position);
                 actorPosition.z = 0;
 
                 DetermineOldTiles()
@@ -78,33 +72,40 @@ namespace TheCursedBroom.Level {
             }
         }
         void DiscardTile(Vector3Int position) {
-            ground.SetTile(position, null);
+            foreach (var (_, tilemap) in tilemaps.all) {
+                tilemap.SetTile(position, null);
+            }
             tilePositions.Remove(position);
         }
         void LoadTile(Vector3Int position) {
-            ground.SetTile(position, GetTile(position));
+            foreach (var (type, tilemap) in tilemaps.all) {
+                tilemap.SetTile(position, GetTile(type, position));
+            }
             tilePositions.Add(position);
         }
-        TileBase GetTile(Vector3Int position) {
-            while (position.x < 0) {
-                position.x += levels[0].size.x;
+        TileBase GetTile(TilemapType type, Vector3Int position) {
+            int i = (int)(tilemaps.CellToWorld(position).y / tilemaps.height);
+            if (i < 0 || i >= levels.Length) {
+                return null;
             }
-            position.x %= levels[0].size.x;
-            return levels[0].ground.GetTile(position);
+            position.y -= i * tilemaps.height;
+
+            while (position.x < 0) {
+                position.x += tilemaps.width;
+            }
+            position.x %= tilemaps.width;
+            return levels[i].GetTile(type, position);
         }
 
         void OnValidate() {
-            if (!background) {
-                background = GetComponentsInChildren<Tilemap>()[0];
-            }
-            if (!ground) {
-                ground = GetComponentsInChildren<Tilemap>()[1];
-            }
-            if (!objects) {
-                objects = GetComponentsInChildren<Tilemap>()[2];
-            }
-            if (!decorations) {
-                decorations = GetComponentsInChildren<Tilemap>()[3];
+            tilemaps.OnValidate(transform);
+        }
+        void OnDrawGizmos() {
+            if (observedActor) {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireCube(observedActor.position, minimumRange);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawWireCube(observedActor.position, maximumRange);
             }
         }
     }

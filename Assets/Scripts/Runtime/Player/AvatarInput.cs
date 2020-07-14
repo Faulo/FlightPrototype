@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using TheCursedBroom.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
