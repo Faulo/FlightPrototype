@@ -16,6 +16,7 @@ namespace TheCursedBroom.Level {
         [Header("MonoBehaviour configuration")]
         [SerializeField]
         TilemapContainer tilemaps = default;
+        TileBase[][] tiles;
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -46,6 +47,15 @@ namespace TheCursedBroom.Level {
 
         void Awake() {
             instance = this;
+            tiles = new TileBase[tilemaps.width][];
+            for (int x = 0; x < tilemaps.width; x++) {
+                tiles[x] = new TileBase[tilemaps.height * levels.Length];
+                for (int i = 0; i < levels.Length; i++) {
+                    for (int y = 0; y < tilemaps.height; y++) {
+                        tiles[x][y + (i * tilemaps.height)] = levels[i].GetTile(TilemapType.Ground, new Vector3Int(x, y, 0));
+                    }
+                }
+            }
         }
         void Start() {
             onStart.Invoke(gameObject);
@@ -123,17 +133,19 @@ namespace TheCursedBroom.Level {
             tilePositions.Add(position);
         }
         TileBase GetTile(TilemapType type, Vector3Int position) {
-            int i = (int)(tilemaps.CellToWorld(position).y / tilemaps.height);
-            if (i < 0 || i >= levels.Length) {
+            if (position.y < 0 || position.y >= tilemaps.height * levels.Length) {
                 return null;
             }
-            position.y -= i * tilemaps.height;
-
             while (position.x < 0) {
                 position.x += tilemaps.width;
             }
             position.x %= tilemaps.width;
+            return type == TilemapType.Ground
+                ? tiles[position.x][position.y]
+                : null;
+            /*
             return levels[i].GetTile(type, position);
+            //*/
         }
 
         void OnValidate() {
