@@ -31,7 +31,9 @@ namespace TheCursedBroom.Player {
 
         void Start() {
             transposer = targetCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-            LevelController.instance.observedActor = targetCamera.transform;
+            if (LevelController.instance) {
+                LevelController.instance.observedActor = targetCamera.transform;
+            }
         }
         void OnEnable() {
             observedAvatar.onTeleport += TeleportListener;
