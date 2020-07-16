@@ -206,6 +206,7 @@ MonoBehaviour:
     ground: {fileID: 1425454483}
     objects: {fileID: 1486073808}
     decorations: {fileID: 1927078862}
+  groundCollider: {fileID: 1425454485}
   levels:
   - {fileID: 4384120513912332705, guid: 532ddf54fb8e67349a717471751eeaf8, type: 3}
   - {fileID: 7622852625163005332, guid: c5b80833717364240b4fa58171ed1328, type: 3}
@@ -226,10 +227,10 @@ MonoBehaviour:
         m_CallState: 2
   observedActor: {fileID: 0}
   allowNonActorTileLoading: 0
-  minimumRangeX: 26
-  minimumRangeY: 19
-  maximumRangeX: 31
-  maximumRangeY: 24
+  minimumRangeX: 23
+  minimumRangeY: 16
+  maximumRangeX: 25
+  maximumRangeY: 18
 --- !u!114 &1216517077 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3936557096076248658, guid: b1d3a20ee8f94bf418d6add4bd048e27,

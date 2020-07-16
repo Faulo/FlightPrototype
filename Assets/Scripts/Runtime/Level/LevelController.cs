@@ -14,6 +14,10 @@ namespace TheCursedBroom.Level {
         IDictionary<TilemapType, TileBase[][]> tiles = new Dictionary<TilemapType, TileBase[][]>();
         ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
+        [SerializeField, Expandable]
+        CompositeCollider2D groundCollider = default;
+        bool groundHasChanged;
+
         [Header("Levels")]
         [SerializeField, Expandable]
         TilemapChunk[] levels = new TilemapChunk[0];
@@ -25,6 +29,7 @@ namespace TheCursedBroom.Level {
         public Transform observedActor;
         public ISet<ILevelObject> observedObjects = new HashSet<ILevelObject>();
         IList<Vector3Int> observedPositions = new List<Vector3Int> { Vector3Int.zero };
+        IList<Vector3Int> lastPositions = new List<Vector3Int> { Vector3Int.zero };
 
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
@@ -45,7 +50,7 @@ namespace TheCursedBroom.Level {
         void Start() {
             onStart.Invoke(gameObject);
         }
-        void FixedUpdate() {
+        void Update() {
             if (observedActor) {
                 UpdateTiles();
             }
@@ -63,8 +68,12 @@ namespace TheCursedBroom.Level {
                     }
                 }
             }
+
+            groundCollider.generationType = CompositeCollider2D.GenerationType.Manual;
         }
         void UpdateTiles() {
+            groundHasChanged = false;
+
             foreach (var observedObject in observedObjects) {
                 while (observedObject.position.x < observedActor.position.x - (tilemaps.width / 2)) {
                     observedObject.TranslateX(tilemaps.width);
@@ -84,8 +93,16 @@ namespace TheCursedBroom.Level {
                 observedPositions[0] = tilemaps.WorldToCell(observedActor.position);
             }
 
-            DiscardOldTiles();
-            LoadNewTiles();
+            if (lastPositions[0] != observedPositions[0]) {
+                lastPositions[0] = observedPositions[0];
+
+                DiscardOldTiles();
+                LoadNewTiles();
+
+                if (groundHasChanged) {
+                    groundCollider.GenerateGeometry();
+                }
+            }
         }
         void DiscardOldTiles() {
             var positions = new HashSet<Vector3Int>();
@@ -112,8 +129,8 @@ namespace TheCursedBroom.Level {
         }
         void LoadNewTiles() {
             foreach (var center in observedPositions) {
-                foreach (int x in Enumerable.Range(center.x - minimumRangeX, (minimumRangeX * 2) + 1)) {
-                    foreach (int y in Enumerable.Range(center.y - minimumRangeY, (minimumRangeY * 2) + 1)) {
+                for (int x = center.x - minimumRangeX; x <= center.x + minimumRangeX; x++) {
+                    for (int y = center.y - minimumRangeY; y <= center.y + minimumRangeY; y++) {
                         var position = new Vector3Int(x, y, 0);
                         if (!loadedTilePositions.Contains(position)) {
                             LoadTile(position);
@@ -133,6 +150,7 @@ namespace TheCursedBroom.Level {
                 tilemap.SetTile(position, GetTile(type, position));
             }
             loadedTilePositions.Add(position);
+            groundHasChanged = true;
         }
         TileBase GetTile(TilemapType type, Vector3Int position) {
             if (position.y < 0 || position.y >= tilemaps.height * levels.Length) {
@@ -146,6 +164,9 @@ namespace TheCursedBroom.Level {
         }
         void OnValidate() {
             tilemaps.OnValidate(transform);
+            if (!groundCollider) {
+                groundCollider = GetComponentInChildren<CompositeCollider2D>();
+            }
         }
         void OnDrawGizmos() {
             if (observedActor) {
