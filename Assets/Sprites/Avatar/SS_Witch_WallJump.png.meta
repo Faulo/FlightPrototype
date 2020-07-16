@@ -1,0 +1,440 @@
+fileFormatVersion: 2
+guid: 7d94de8e929288c4292d168e3869bb1a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1522201563107210620
+    second: SS_Witch_WallJump_0
+  - first:
+      213: 7838059349016273282
+    second: SS_Witch_WallJump_1
+  - first:
+      213: -7802878538340894152
+    second: SS_Witch_WallJump_2
+  - first:
+      213: 8843500055249001269
+    second: SS_Witch_WallJump_3
+  - first:
+      213: 6841459781498268632
+    second: SS_Witch_WallJump_4
+  - first:
+      213: -2103964410128143834
+    second: SS_Witch_WallJump_5
+  - first:
+      213: 3077546853447111014
+    second: SS_Witch_WallJump_6
+  - first:
+      213: -3479021782026389930
+    second: SS_Witch_WallJump_7
+  - first:
+      213: 4514822021982376606
+    second: SS_Witch_WallJump_8
+  - first:
+      213: 3879996693706955614
+    second: SS_Witch_WallJump_9
+  - first:
+      213: 3604962688971122791
+    second: SS_Witch_WallJump_10
+  - first:
+      213: -7160506920447174560
+    second: SS_Witch_WallJump_11
+  - first:
+      213: 2534225224036628201
+    second: SS_Witch_WallJump_12
+  - first:
+      213: 4060025158566896870
+    second: SS_Witch_WallJump_13
+  - first:
+      213: 2240408901899747827
+    second: SS_Witch_WallJump_14
+  - first:
+      213: 1463115685499269802
+    second: SS_Witch_WallJump_15
+  - first:
+      213: 7434805903351118373
+    second: SS_Witch_WallJump_16
+  - first:
+      213: -8154189116898926069
+    second: SS_Witch_WallJump_17
+  - first:
+      213: 350397773940537269
+    second: SS_Witch_WallJump_18
+  - first:
+      213: 5733208426160186254
+    second: SS_Witch_WallJump_19
+  - first:
+      213: -2703836913732249016
+    second: SS_Witch_WallJump_20
+  - first:
+      213: -923584611581942540
+    second: SS_Witch_WallJump_21
+  - first:
+      213: -2259044296368984169
+    second: SS_Witch_WallJump_22
+  - first:
+      213: -5747197911623343602
+    second: SS_Witch_WallJump_23
+  - first:
+      213: -4915256995914466660
+    second: SS_Witch_WallJump_24
+  - first:
+      213: -4125429788616335651
+    second: SS_Witch_WallJump_25
+  - first:
+      213: -3777679114850177133
+    second: SS_Witch_WallJump_26
+  - first:
+      213: 3392485954979792634
+    second: SS_Witch_WallJump_27
+  - first:
+      213: 3695010510758753477
+    second: SS_Witch_WallJump_28
+  - first:
+      213: -3924875274301252257
+    second: SS_Witch_WallJump_29
+  - first:
+      213: -7448628094054370666
+    second: SS_Witch_WallJump_30
+  - first:
+      213: -4020885306745668801
+    second: SS_Witch_WallJump_31
+  - first:
+      213: -1509234634596699555
+    second: SS_Witch_WallJump_0
+  - first:
+      213: -3623191720281650558
+    second: SS_Witch_WallJump_1
+  - first:
+      213: -8805191609264531686
+    second: SS_Witch_WallJump_2
+  - first:
+      213: 7385529712907385650
+    second: SS_Witch_WallJump_3
+  - first:
+      213: 4217226794184408373
+    second: SS_Witch_WallJump_4
+  - first:
+      213: 4751708938783607383
+    second: SS_Witch_WallJump_5
+  - first:
+      213: 157431207387464826
+    second: SS_Witch_WallJump_6
+  - first:
+      213: -6340378267879707974
+    second: SS_Witch_WallJump_7
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 2
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52b52a981f1e0be0800000000000000
+      internalID: -1509234634596699555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ac97fa356d7bdc0800000000000000
+      internalID: -3623191720281650558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a17998e12ecadc580800000000000000
+      internalID: -8805191609264531686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23bffe7c42cae7660800000000000000
+      internalID: 7385529712907385650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53dfe9cec69968a30800000000000000
+      internalID: 4217226794184408373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ace3caa1671f140800000000000000
+      internalID: 4751708938783607383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7404e859de4f2200800000000000000
+      internalID: 157431207387464826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SS_Witch_WallJump_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aba6c61ee837208a0800000000000000
+      internalID: -6340378267879707974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 759c4331536e39e42ad2cc228331b326
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

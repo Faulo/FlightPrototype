@@ -15,6 +15,8 @@ namespace TheCursedBroom.Player.AvatarStates {
             dashTimer = 0;
 
             avatar.UpdateMovement();
+
+            avatar.canGlide = false;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

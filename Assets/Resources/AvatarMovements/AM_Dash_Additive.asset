@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionsNormalized: 0
   directionRange: 8
+  directionBaseAngle: 0
+  directionMaxAngle: 360
   speedMode: 1
   initialSpeed: 4

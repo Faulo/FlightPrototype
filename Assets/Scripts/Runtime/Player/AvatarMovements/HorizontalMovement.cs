@@ -18,6 +18,8 @@ namespace TheCursedBroom.Player.AvatarMovements {
         bool breakWhenNoInput = true;
         [SerializeField]
         bool useGroundFriction = true;
+        [SerializeField]
+        bool allowTurning = true;
 
 
         public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
@@ -53,7 +55,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                 velocity += avatar.gravityScale * Physics2D.gravity * Time.deltaTime;
 
-                return (velocity, AngleUtil.HorizontalAngle(avatar.intendedFacing));
+                return (velocity, AngleUtil.HorizontalAngle(allowTurning ? avatar.intendedFacing : avatar.facing));
             };
         }
     }
