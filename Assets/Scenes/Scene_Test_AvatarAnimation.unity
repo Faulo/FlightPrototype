@@ -46393,6 +46393,7 @@ MonoBehaviour:
   m_XDamping: 2
   m_YDamping: 3
   m_ZDamping: 10
+  m_TargetMovementOnly: 0
   m_ScreenX: 0.5
   m_ScreenY: 0.6
   m_CameraDistance: 10
