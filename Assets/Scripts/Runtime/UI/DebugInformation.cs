@@ -14,6 +14,7 @@ namespace TheCursedBroom.UI {
                     ["Assembly.build"] = Assembly.GetExecutingAssembly().GetName().Version.Build.ToString(),
                     ["Assembly.revision"] = Assembly.GetExecutingAssembly().GetName().Version.Revision.ToString(),
                     ["Debug.FPS"] = Time.smoothDeltaTime == 0 ? "???" : Mathf.RoundToInt(1 / Time.smoothDeltaTime).ToString(),
+                    ["Settings.qualityLevel"] = QualitySettings.names[QualitySettings.GetQualityLevel()],
                 };
             }
         }
