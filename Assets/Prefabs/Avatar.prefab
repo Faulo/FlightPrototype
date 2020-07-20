@@ -1543,7 +1543,7 @@ MonoBehaviour:
   - {x: -0.3125, y: 0.375, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -136492
+  m_InstanceId: -1298
 --- !u!1 &4843271639842582056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,7 +1703,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -136672
+  m_InstanceId: -1296
 --- !u!1 &4963860712443086483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,7 +2064,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -136588
+  m_InstanceId: -1302
 --- !u!1 &7934276981752088608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,7 +2155,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -136216
+  m_InstanceId: -1300
 --- !u!1 &8265227772122616613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2403,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ParticleTrail_Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.2492009
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327357879234438636, guid: d6451d21899788a4d90fc5e037b6d944,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.11031505
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6451d21899788a4d90fc5e037b6d944, type: 3}
