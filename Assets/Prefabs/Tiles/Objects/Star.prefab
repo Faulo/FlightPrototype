@@ -223,16 +223,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Light_Star
       objectReference: {fileID: 0}
-    - target: {fileID: 1086103869226998823, guid: 32ab4408df207134b9b6fbf8501e8685,
-        type: 3}
-      propertyPath: m_ShadowIntensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1086103869226998823, guid: 32ab4408df207134b9b6fbf8501e8685,
-        type: 3}
-      propertyPath: m_ShadowVolumeIntensity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4387320085950501871, guid: 32ab4408df207134b9b6fbf8501e8685,
         type: 3}
       propertyPath: m_LocalPosition.x
