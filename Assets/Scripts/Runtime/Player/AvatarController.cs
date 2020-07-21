@@ -195,5 +195,7 @@ namespace TheCursedBroom.Player {
                 rumblingHighIntensity = 0;
             }
         }
+
+        public int collectibleCount;
     }
 }
