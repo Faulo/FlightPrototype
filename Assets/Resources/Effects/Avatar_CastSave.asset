@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e573ac508d140a3448e98c7fbddc6cc6, type: 3}
-  m_Name: StateSave_New
+  m_Script: {fileID: 11500000, guid: 37f53b2d643a22747a9c2549ee8997ce, type: 3}
+  m_Name: Avatar_CastSave
   m_EditorClassIdentifier: 
+  methodToCall: 0
