@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39298ba896501d4395273f72fc0ff34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refreshInterval: 1
+  refreshInterval: 0.1
 --- !u!1001 &2686842174397063079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27,8 +27,11 @@ PrefabInstance:
 
         Level: {Scene.name}
 
-        Controls:
-        Arrow Keys, Space, Ctrl'
+        Quality
+        Level: <b>{Settings.qualityLevel}</b>
+
+        Controls: Arrow Keys, Space,
+        Ctrl'
       objectReference: {fileID: 0}
     - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
@@ -49,6 +52,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.lineCount
       value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297777701792065444, guid: 1de5164cc08410941b0c4cdf47ee91ad,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 8833400050736072179, guid: 1de5164cc08410941b0c4cdf47ee91ad,
         type: 3}
