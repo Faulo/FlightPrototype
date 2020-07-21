@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdd4596cee3a70f499456af11e77158f, type: 3}
-  m_Name: StateLoad_New
+  m_Script: {fileID: 11500000, guid: 64273299f642dca409f241025a527d26, type: 3}
+  m_Name: Rumble_Level3_Short
   m_EditorClassIdentifier: 
+  lowIntensity: 0.5
+  highIntensity: 0.5
+  duration: 0.1

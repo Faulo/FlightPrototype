@@ -8,8 +8,6 @@ using UnityEngine;
 namespace TheCursedBroom.Player {
     public class AvatarController : MonoBehaviour {
         public event Action<GameObject> onSpawn;
-        public event Action<GameObject> onSave;
-        public event Action<GameObject> onLoad;
         public event Action<GameObject> onReset;
         public event Action<GameObject, Vector3> onTeleport;
 
@@ -36,6 +34,10 @@ namespace TheCursedBroom.Player {
 
         [SerializeField, Expandable]
         AvatarState currentState = default;
+        [SerializeField, Expandable]
+        AvatarState saveState = default;
+        [SerializeField, Expandable]
+        AvatarState loadState = default;
 
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
@@ -106,6 +108,8 @@ namespace TheCursedBroom.Player {
 
         void Start() {
             instance = this;
+            grounds = groundedCheck.GetGrounds();
+            currentState.EnterState();
             onSpawn?.Invoke(gameObject);
 
             if (LevelController.instance) {
@@ -129,10 +133,13 @@ namespace TheCursedBroom.Player {
             if (currentState == newState) {
                 currentState.FixedUpdateState();
             } else {
-                currentState.ExitState();
-                currentState = newState;
-                currentState.EnterState();
+                SetState(newState);
             }
+        }
+        void SetState(AvatarState newState) {
+            currentState.ExitState();
+            currentState = newState;
+            currentState.EnterState();
         }
 
         IReadOnlyList<Ground> grounds;
@@ -148,10 +155,14 @@ namespace TheCursedBroom.Player {
             .Min();
 
         public void CastSave() {
-            onSave?.Invoke(gameObject);
+            if (currentState != saveState) {
+                SetState(saveState);
+            }
         }
         public void CastLoad() {
-            onLoad?.Invoke(gameObject);
+            if (currentState != loadState) {
+                SetState(loadState);
+            }
         }
 
         class AvatarSaveState : ILevelObject {
