@@ -155,10 +155,14 @@ namespace TheCursedBroom.Player {
             .Min();
 
         public void CastSave() {
-            SetState(saveState);
+            if (currentState != saveState) {
+                SetState(saveState);
+            }
         }
         public void CastLoad() {
-            SetState(loadState);
+            if (currentState != loadState) {
+                SetState(loadState);
+            }
         }
 
         class AvatarSaveState : ILevelObject {

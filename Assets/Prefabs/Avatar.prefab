@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorState: 8192
-  gravity: 1
+  gravity: 0
   drag: 10
   allowPhysicsRotation: 0
   allowSave: 0
@@ -1560,7 +1560,7 @@ MonoBehaviour:
   - {x: -0.3125, y: 0.375, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2802
+  m_InstanceId: 26384
 --- !u!1 &4843271639842582056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2800
+  m_InstanceId: 26378
 --- !u!1 &4963860712443086483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,7 +1945,7 @@ MonoBehaviour:
   animatorState: 16
   gravity: 0
   drag: 0
-  allowPhysicsRotation: 1
+  allowPhysicsRotation: 0
   allowSave: 0
   allowLoad: 1
   movement: {fileID: 11400000, guid: 7a78a3c871f855e46a571ab87d480663, type: 2}
@@ -2183,7 +2183,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2806
+  m_InstanceId: 26390
 --- !u!1 &7934276981752088608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,7 +2274,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2804
+  m_InstanceId: 26386
 --- !u!1 &8265227772122616613
 GameObject:
   m_ObjectHideFlags: 0
