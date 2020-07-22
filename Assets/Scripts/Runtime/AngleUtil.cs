@@ -13,6 +13,9 @@ namespace TheCursedBroom {
             }
             return angle;
         }
+        public static float RoundAngle(float angle, int numberOfDirections) {
+            return Mathf.RoundToInt(angle * numberOfDirections / 360) * 360 / numberOfDirections;
+        }
         public static float DirectionalAngle(Vector2 direction) => DirectionalRotation(direction).eulerAngles.z;
         public static Quaternion DirectionalRotation(Vector2 direction) {
             return Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, direction));
@@ -32,6 +35,11 @@ namespace TheCursedBroom {
             return sign > 0
                 ? 0
                 : 180;
+        }
+
+        public static float Alignment(Quaternion firstRotation, Quaternion secondRotation) {
+            var alignmentRotation = firstRotation * Quaternion.Inverse(secondRotation);
+            return Mathf.Cos(alignmentRotation.eulerAngles.z * Mathf.Deg2Rad);
         }
     }
 }

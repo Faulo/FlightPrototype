@@ -33,6 +33,7 @@ RectTransform:
   - {fileID: 8602753687497242497}
   - {fileID: 8822213125053086697}
   - {fileID: 7102152571711769849}
+  - {fileID: 4110770530619893729}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,6 +102,91 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8790542076184213055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4110770530619893729}
+  - component: {fileID: 3282554787968368939}
+  m_Layer: 5
+  m_Name: Controls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4110770530619893729
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790542076184213055}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3473905787114244728}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3282554787968368939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790542076184213055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f42153b826806458a50bb4f50c919d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLeftClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onMiddleClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a295b36bc265a3a4abf246170d7a5f98, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onScrollDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: fd980454e88808d458da5a5d1d3bb997, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &134771147076538012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 2228528324916852739, guid: e60f49e49341e9f48b75a77cb1c4078b,
         type: 3}
       propertyPath: m_textAlignment
-      value: 1025
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 2228528324916852739, guid: e60f49e49341e9f48b75a77cb1c4078b,
         type: 3}
@@ -306,6 +392,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228528324916852739, guid: e60f49e49341e9f48b75a77cb1c4078b,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 6402218921572375693, guid: e60f49e49341e9f48b75a77cb1c4078b,
         type: 3}
@@ -475,7 +566,17 @@ PrefabInstance:
     - target: {fileID: 1251643464717628588, guid: 9719c6a27e2a9204980b7d16e973a10b,
         type: 3}
       propertyPath: m_textAlignment
-      value: 260
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251643464717628588, guid: 9719c6a27e2a9204980b7d16e973a10b,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251643464717628588, guid: 9719c6a27e2a9204980b7d16e973a10b,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5795279080140920571, guid: 9719c6a27e2a9204980b7d16e973a10b,
         type: 3}

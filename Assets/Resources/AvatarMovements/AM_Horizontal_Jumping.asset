@@ -42,3 +42,4 @@ MonoBehaviour:
   turnAroundImmediately: 1
   breakWhenNoInput: 0
   useGroundFriction: 0
+  allowTurning: 1

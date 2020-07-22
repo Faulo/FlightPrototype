@@ -2,10 +2,17 @@
 using TheCursedBroom.Extensions;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 namespace TheCursedBroom.Player.AvatarMovements {
     [CreateAssetMenu()]
     public class GlideMovement : AvatarMovement {
+        enum BoostState {
+            Inactive,
+            Gathering,
+            Start,
+            Executing
+        }
         enum GlideMode {
             RotationControl,
             AngularVelocityControl
@@ -25,22 +32,51 @@ namespace TheCursedBroom.Player.AvatarMovements {
         float minimumDrag = 0;
         [SerializeField, Range(0, 100)]
         float maximumDrag = 1;
+        float GetDrag(float alignment) {
+            return minimumDrag + ((maximumDrag - minimumDrag) * dragOverAlignment.Evaluate(alignment));
+        }
 
         [Header("Velocity Conversion")]
         [SerializeField]
         AnimationCurve alignDurationOverAlignment = default;
-        [SerializeField, Range(0, 100)]
+        [SerializeField, Range(0, 10)]
         float minimumAlignDuration = 0;
-        [SerializeField, Range(0, 100)]
+        [SerializeField, Range(0, 10)]
         float maximumAlignDuration = 1;
+        float GetAlignDuration(float alignment) {
+            return minimumAlignDuration + ((maximumAlignDuration - minimumAlignDuration) * alignDurationOverAlignment.Evaluate(alignment));
+        }
+
+        [Header("Acceleration")]
+        [SerializeField, FormerlySerializedAs("boostOverAlignment")]
+        AnimationCurve accelerationOverAlignment = default;
+        [SerializeField, Range(0, 100)]
+        float minimumAcceleration = 0;
+        [SerializeField, Range(0, 100)]
+        float maximumAcceleration = 1;
+        float GetAcceleration(float alignment) {
+            return minimumAcceleration + ((maximumAcceleration - minimumAcceleration) * accelerationOverAlignment.Evaluate(alignment));
+        }
 
         [Header("Boost")]
-        [SerializeField]
-        AnimationCurve boostOverAlignment = default;
+        [SerializeField, Range(0, 1)]
+        float requiredAlignment = 1;
         [SerializeField, Range(0, 100)]
-        float minimumBoost = 0;
+        float requiredSpeed = 10;
+        [SerializeField, Range(1, 100)]
+        int boostGatheringFrameCount = 10;
+        [SerializeField, Range(0, 10)]
+        float boostAlignDuration = 0;
+        [SerializeField, Range(1, 100)]
+        int boostExecutionFrameCount = 10;
         [SerializeField, Range(0, 100)]
-        float maximumBoost = 1;
+        float boostAcceleration = 1;
+        [SerializeField, Range(0, 1000)]
+        int boostParticleCount = 100;
+        [SerializeField, Range(0, 10)]
+        float boostParticleSpeed = 2;
+        [SerializeField, Range(0, 10)]
+        float boostDrag = 0;
 
         [Header("Visualization")]
         [SerializeField]
@@ -48,11 +84,19 @@ namespace TheCursedBroom.Player.AvatarMovements {
         [SerializeField]
         Gradient colorOverAlignment = default;
         [SerializeField]
+        Gradient boostGatheringColor = default;
+        [SerializeField]
+        Gradient boostExecutionColor = default;
+        [SerializeField]
         AnimationCurve particleCountOverAlignment = default;
         [SerializeField, Range(0, 1000)]
         int minimumParticleCount = 10;
         [SerializeField, Range(0, 1000)]
         int maximumParticleCount = 100;
+
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onBoost = default;
 
         public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
             var particles = avatar
@@ -61,47 +105,87 @@ namespace TheCursedBroom.Player.AvatarMovements {
             Assert.IsNotNull(particles, $"Couldn't find particles '{particlesName}'!");
             float angularVelocity = 0;
             var acceleration = Vector2.zero;
+            var boostState = BoostState.Inactive;
+            int boostGatheringTimer = 0;
+            int boostExecutionTimer = 0;
             return () => {
-                var direction = avatar.intendedFlight == Vector2.zero
+                var targetDirection = avatar.intendedFlight == Vector2.zero
                     ? avatar.forward
                     : avatar.intendedFlight;
-
-                float rotation = AngleUtil.DirectionalAngle(direction);
+                float targetAngle = AngleUtil.DirectionalAngle(targetDirection);
 
                 if (directionsNormalized) {
-                    rotation = Mathf.RoundToInt(rotation * directionRange / 360) * 360 / directionRange;
+                    targetAngle = AngleUtil.RoundAngle(targetAngle, directionRange);
                 }
+                var targetRotation = Quaternion.Euler(0, 0, targetAngle);
 
-                rotation = Mathf.SmoothDampAngle(avatar.rotationAngle, rotation, ref angularVelocity, rotationDuration);
-
-                var glideRotation = Quaternion.Euler(0, 0, rotation);
+                float currentAngle = Mathf.SmoothDampAngle(avatar.rotationAngle, targetAngle, ref angularVelocity, rotationDuration);
+                var currentRotation = Quaternion.Euler(0, 0, currentAngle);
 
                 var velocity = avatar.velocity;
                 var velocityRotation = AngleUtil.DirectionalRotation(velocity);
-                var gravity = avatar.gravityScale * Physics2D.gravity * Time.deltaTime;
 
-                var alignmentRotation = glideRotation * Quaternion.Inverse(velocityRotation);
-                float alignment = Mathf.Cos(alignmentRotation.eulerAngles.z * Mathf.Deg2Rad);
+                float alignment = AngleUtil.Alignment(currentRotation, velocityRotation);
 
-                alignment = Mathf.Clamp01((alignment + 1) / 2);
+                float alignDuration = GetAlignDuration(alignment);
+                var targetVelocity = currentRotation * Vector2.right * velocity.magnitude;
 
-                avatar.drag = minimumDrag + ((maximumDrag - minimumDrag) * dragOverAlignment.Evaluate(alignment));
+                var particleColor = colorOverAlignment.Evaluate(alignment);
+                int particleCount = minimumParticleCount + Mathf.RoundToInt((maximumParticleCount - minimumParticleCount) * particleCountOverAlignment.Evaluate(alignment));
+                float particleSpeed = 1;
 
-                float alignDuration = minimumAlignDuration + (maximumAlignDuration - minimumAlignDuration) * alignDurationOverAlignment.Evaluate(alignment);
-                var targetVelocity = glideRotation * Vector2.right * velocity.magnitude;
+                switch (boostState) {
+                    case BoostState.Inactive:
+                    case BoostState.Gathering:
+                        avatar.drag = GetDrag(alignment);
 
-                float boostAcceleration = minimumBoost + ((maximumBoost - minimumBoost) * boostOverAlignment.Evaluate(alignment));
-                var boost = (Vector2)(glideRotation * Vector2.right * boostAcceleration * Time.deltaTime);
+                        if (alignment > requiredAlignment) {
+                            if (velocity.magnitude > requiredSpeed) {
+                                if (boostGatheringTimer < boostGatheringFrameCount) {
+                                    boostGatheringTimer++;
+                                }
+                                boostState = BoostState.Gathering;
+                                particleColor = boostGatheringColor.Evaluate((float)boostGatheringTimer / (boostGatheringFrameCount - 1));
+                            }
+                        } else {
+                            if (boostGatheringTimer == boostGatheringFrameCount) {
+                                boostGatheringTimer = 0;
+                                boostState = BoostState.Executing;
+                                onBoost.Invoke(avatar.gameObject);
+                                goto case BoostState.Executing;
+                            } else {
+                                boostState = BoostState.Inactive;
+                                if (boostGatheringTimer > 0) {
+                                    boostGatheringTimer--;
+                                }
+                            }
+                        }
+                        velocity = Vector2.SmoothDamp(velocity, targetVelocity, ref acceleration, alignDuration);
+                        velocity += (Vector2)(currentRotation * Vector2.right * GetAcceleration(alignment) * Time.deltaTime);
+                        velocity += avatar.gravityStep;
+                        break;
+                    case BoostState.Executing:
+                        avatar.drag = boostDrag;
 
+                        velocity = Vector2.SmoothDamp(velocity, targetVelocity, ref acceleration, boostAlignDuration);
+                        velocity += (Vector2)(targetRotation * Vector2.right * boostAcceleration * Time.deltaTime);
 
-                velocity = Vector2.SmoothDamp(velocity, targetVelocity, ref acceleration, alignDuration);
-                velocity += boost;
-                velocity += gravity;
+                        particleColor = boostExecutionColor.Evaluate((float)boostExecutionTimer / (boostExecutionFrameCount - 1));
+                        particleCount = boostParticleCount;
+                        particleSpeed = boostParticleSpeed;
 
-                particles.SetParticleColor(colorOverAlignment.Evaluate(alignment));
-                particles.SetParticleCount(minimumParticleCount + Mathf.RoundToInt((maximumParticleCount - minimumParticleCount) * particleCountOverAlignment.Evaluate(alignment)));
+                        boostExecutionTimer++;
+                        if (boostExecutionTimer == boostExecutionFrameCount) {
+                            boostExecutionTimer = 0;
+                            boostState = BoostState.Inactive;
+                        }
+                        break;
+                }
+                particles.SetParticleColor(particleColor);
+                particles.SetParticleCount(particleCount);
+                particles.SetStartSpeedMultiplier(2);
 
-                return (velocity, rotation);
+                return (velocity, currentAngle);
             };
         }
     }

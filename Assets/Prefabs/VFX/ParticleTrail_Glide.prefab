@@ -27,6 +27,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6451651148518846741, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: m_Name
@@ -46,6 +71,41 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.23921564
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.angle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.m_Position.x
+      value: -0.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.m_Position.y
+      value: -0.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.m_Rotation.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09d64e9e8c3ceb944893c05df82b37cc, type: 3}

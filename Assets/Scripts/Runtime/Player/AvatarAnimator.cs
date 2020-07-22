@@ -18,6 +18,9 @@ namespace TheCursedBroom.Player {
             ? 1
             : 0;
 
+        bool canDash => observedAvatar.canGlide;
+        bool isFlying => observedAvatar.isFlying;
+
         void OnValidate() {
             if (observedAvatar == null) {
                 observedAvatar = GetComponentInParent<AvatarController>();
@@ -34,7 +37,9 @@ namespace TheCursedBroom.Player {
         }
 
         void Update() {
-            observedAnimator.SetFloat("walkSpeed", walkSpeed);
+            observedAnimator.SetFloat(nameof(walkSpeed), walkSpeed);
+            observedAnimator.SetBool(nameof(canDash), canDash);
+            observedAnimator.SetBool(nameof(isFlying), isFlying);
         }
 
         public void Play(AvatarAnimations state) {

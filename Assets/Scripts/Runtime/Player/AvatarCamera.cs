@@ -31,6 +31,15 @@ namespace TheCursedBroom.Player {
         void Start() {
             transposer = targetCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
         }
+        void OnEnable() {
+            observedAvatar.onTeleport += TeleportListener;
+        }
+        void OnDisable() {
+            observedAvatar.onTeleport -= TeleportListener;
+        }
+        void TeleportListener(GameObject context, Vector3 deltaPosition) {
+            targetCamera.OnTargetObjectWarped(context.transform, deltaPosition);
+        }
 
         void Update() {
             transposer.m_ScreenX = 0.5f - (facingLookahead * observedAvatar.facing);
