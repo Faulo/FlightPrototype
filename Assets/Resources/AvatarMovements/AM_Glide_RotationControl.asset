@@ -216,3 +216,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   minimumParticleCount: 25
   maximumParticleCount: 100
+  onBoost:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 87ba9ab422009d845bdbd68d80ef8d58, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
