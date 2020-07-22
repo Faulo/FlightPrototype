@@ -15,7 +15,7 @@ namespace TheCursedBroom.Level {
             tileData.sprite = sprite;
             tileData.gameObject = prefab;
             tileData.colliderType = colliderType;
-            tileData.flags = TileFlags.LockTransform;
+            tileData.flags = TileFlags.LockColor;
             tileData.transform = Matrix4x4.identity;
         }
     }
