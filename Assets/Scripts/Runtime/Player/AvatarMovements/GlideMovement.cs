@@ -94,6 +94,10 @@ namespace TheCursedBroom.Player.AvatarMovements {
         [SerializeField, Range(0, 1000)]
         int maximumParticleCount = 100;
 
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onBoost = default;
+
         public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
             var particles = avatar
                 .GetComponentsInChildren<ParticleSystem>()
@@ -147,6 +151,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                             if (boostGatheringTimer == boostGatheringFrameCount) {
                                 boostGatheringTimer = 0;
                                 boostState = BoostState.Executing;
+                                onBoost.Invoke(avatar.gameObject);
                                 goto case BoostState.Executing;
                             } else {
                                 boostState = BoostState.Inactive;
