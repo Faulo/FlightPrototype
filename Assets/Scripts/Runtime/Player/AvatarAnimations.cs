@@ -15,5 +15,7 @@ namespace TheCursedBroom.Player {
         WallTurn = 1 << 9,
         WallJump = 1 << 10,
         WallPlummet = 1 << 11,
+        SpellSave = 1 << 12,
+        SpellLoad = 1 << 13,
     }
 }

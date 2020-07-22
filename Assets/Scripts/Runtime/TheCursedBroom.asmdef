@@ -6,7 +6,8 @@
         "Unity.TextMeshPro",
         "Unity.InputSystem",
         "TheCursedBroom.Input",
-        "maxattack"
+        "maxattack",
+        "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
