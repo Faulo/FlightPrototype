@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Button_DPad_Up
   m_EditorClassIdentifier: 
   sprite: {fileID: 7827955234990926999, guid: d7a9bb5bbf85b07479c36c37ae9bbc2a, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 642851093565264006, guid: e0366246b3872fa40a1edf391914fe91, type: 3}
   colliderType: 2
