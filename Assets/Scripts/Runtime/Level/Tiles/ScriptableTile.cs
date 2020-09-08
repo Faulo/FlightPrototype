@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace TheCursedBroom.Level {
+namespace TheCursedBroom.Level.Tiles {
     [CreateAssetMenu()]
     public class ScriptableTile : TileBase {
         [SerializeField, Expandable]
