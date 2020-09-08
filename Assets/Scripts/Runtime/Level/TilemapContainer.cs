@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
@@ -14,73 +14,61 @@ namespace TheCursedBroom.Level {
         public int height = 150;
 
         [Header("Tilemaps")]
-        [SerializeField, Expandable]
-        public Tilemap background = default;
-        [SerializeField, Expandable]
-        public Tilemap ground = default;
-        [SerializeField, Expandable]
-        public Tilemap objects = default;
-        [SerializeField, Expandable]
-        public Tilemap decorations = default;
+        [SerializeField]
+        public TilemapLayerAsset[] tilemapLayers = new TilemapLayerAsset[0];
+        [SerializeField]
+        public Tilemap[] tilemaps = new Tilemap[0];
 
-        public IEnumerable<(TilemapType, Tilemap)> all {
+        IDictionary<TilemapLayerAsset, Tilemap> layerToTilemap;
+        IDictionary<TileBase, int> tileToId;
+
+        public IEnumerable<(TilemapLayerAsset, Tilemap)> all {
             get {
-                if (background) {
-                    yield return (TilemapType.Background, background);
-                }
-                if (ground) {
-                    yield return (TilemapType.Ground, ground);
-                }
-                if (objects) {
-                    yield return (TilemapType.Objects, objects);
-                }
-                if (decorations) {
-                    yield return (TilemapType.Decorations, decorations);
+                for (int i = 0; i < tilemapLayers.Length; i++) {
+                    yield return (tilemapLayers[i], tilemaps[i]);
                 }
             }
         }
 
-        public Tilemap GetTilemapByType(TilemapType type) {
-            switch (type) {
-                case TilemapType.Background:
-                    return background;
-                case TilemapType.Ground:
-                    return ground;
-                case TilemapType.Objects:
-                    return objects;
-                case TilemapType.Decorations:
-                    return decorations;
-                default:
-                    throw new NotImplementedException(type.ToString());
-            }
-        }
+        public CompositeCollider2D[] colliders;
 
-        public void OnValidate(Transform context) {
-            if (!background) {
-                background = context.GetComponentsInChildren<Tilemap>()[0];
-            }
-            if (!ground) {
-                ground = context.GetComponentsInChildren<Tilemap>()[1];
-            }
-            if (!objects) {
-                objects = context.GetComponentsInChildren<Tilemap>()[2];
-            }
-            if (!decorations) {
-                decorations = context.GetComponentsInChildren<Tilemap>()[3];
-            }
-            int i = 0;
-            foreach (var (type, tilemap) in all) {
-                string name = $"L{i}_{type}";
-                if (tilemap.gameObject.name != name) {
-                    tilemap.gameObject.name = name;
+        public TilemapLayerAsset GetTilemapLayerByTile(TileBase tile) {
+            return tilemapLayers[tileToId[tile]];
+        }
+        public Tilemap GetTilemapByTile(TileBase tile) {
+            return tilemaps[tileToId[tile]];
+        }
+        public Tilemap GetTilemapByLayer(TilemapLayerAsset layer) {
+            return layerToTilemap[layer];
+        }
+        public void Install(Transform context) {
+            tilemapLayers = TilemapLayerAsset.all;
+            tilemaps = new Tilemap[tilemapLayers.Length];
+            layerToTilemap = new Dictionary<TilemapLayerAsset, Tilemap>();
+            tileToId = new Dictionary<TileBase, int>();
+
+            var currentTilemaps = context.GetComponentsInChildren<Tilemap>(true);
+            for (int i = 0; i < tilemapLayers.Length; i++) {
+                var child = i < currentTilemaps.Length
+                    ? currentTilemaps[i].gameObject
+                    : new GameObject();
+                child.transform.parent = context;
+                tilemaps[i] = tilemapLayers[i].InstallTilemap(child);
+
+                layerToTilemap[tilemapLayers[i]] = tilemaps[i];
+
+                foreach (var tile in tilemapLayers[i].allowedTiles) {
+                    Assert.IsFalse(tileToId.ContainsKey(tile), $"Tile {tile} can't be on two layers! One of them is: {tilemapLayers[i]}");
+                    tileToId[tile] = i;
                 }
-                i++;
             }
+
+            colliders = context.GetComponentsInChildren<CompositeCollider2D>();
         }
 
-        public Vector3 tileAnchor => background.tileAnchor;
-        public Vector3Int WorldToCell(Vector3 position) => background.WorldToCell(position);
-        public Vector3 CellToWorld(Vector3Int position) => background.CellToWorld(position);
+        public Vector3 tileAnchor => tilemaps[0].tileAnchor;
+        public Vector3Int WorldToCell(Vector3 position) => tilemaps[0].WorldToCell(position);
+        public Vector3 CellToWorld(Vector3Int position) => tilemaps[0].CellToWorld(position);
         public Vector3 worldBottomLeft => CellToWorld(Vector3Int.zero);
         public IEnumerable<Vector3Int> tilePositions {
             get {
