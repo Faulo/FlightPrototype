@@ -37,6 +37,7 @@ namespace TheCursedBroom.Level {
         IEnumerator InstallTilemap() {
             yield return null;
             tilemaps.Install(transform);
+            Debug.Log("InstallTilemap complete!");
         }
         IEnumerator SyncBorders() {
             yield return null;
@@ -48,10 +49,11 @@ namespace TheCursedBroom.Level {
                     tilemap.SetTile(left + Vector3Int.left, tilemap.GetTile(right + Vector3Int.left));
                 }
             }
+            Debug.Log("SyncBorders complete!");
         }
 
         IEnumerator MoveTiles() {
-            yield return null;
+            yield return InstallTilemap();
             var tileMoves = new List<(Tilemap, Tilemap, Vector3Int, TileBase)>();
             // collect tiles to move
             foreach (var (_, oldTilemap) in tilemaps.all) {
@@ -78,6 +80,8 @@ namespace TheCursedBroom.Level {
             foreach (var (_, newTilemap, position, tile) in tileMoves) {
                 newTilemap.SetTile(position, tile);
             }
+
+            Debug.Log($"MoveTiles complete! {tileMoves.Count} tiles moved.");
         }
 
         public TileBase GetTile(TilemapLayerAsset layer, Vector3Int position) {
