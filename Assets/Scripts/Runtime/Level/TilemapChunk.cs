@@ -81,6 +81,11 @@ namespace TheCursedBroom.Level {
                 newTilemap.SetTile(position, tile);
             }
 
+            // refresh tilemaps
+            foreach (var (_, tilemap) in tilemaps.all) {
+                tilemap.RefreshAllTiles();
+            }
+
             Debug.Log($"MoveTiles complete! {tileMoves.Count} tiles moved.");
         }
 
