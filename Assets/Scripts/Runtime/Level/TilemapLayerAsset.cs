@@ -101,6 +101,7 @@ namespace TheCursedBroom.Level {
             } else {
                 var rigidbody = obj.GetOrAddComponent<Rigidbody2D>();
                 rigidbody.bodyType = RigidbodyType2D.Static;
+                rigidbody.sharedMaterial = collisionMaterial;
 
                 var collider = obj.GetOrAddComponent<TilemapCollider2D>();
                 collider.usedByComposite = true;
