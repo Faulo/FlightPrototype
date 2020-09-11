@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
   m_Name: Button_DPad_Down
   m_EditorClassIdentifier: 
-  sprite: {fileID: 595212420076197363, guid: d7a9bb5bbf85b07479c36c37ae9bbc2a, type: 3}
+  sprite: {fileID: 3685265250278293887, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
   prefab: {fileID: 642851093565264006, guid: e0366246b3872fa40a1edf391914fe91, type: 3}
   colliderType: 2
