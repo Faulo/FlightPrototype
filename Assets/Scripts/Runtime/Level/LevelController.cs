@@ -15,7 +15,9 @@ namespace TheCursedBroom.Level {
         IDictionary<TilemapLayerAsset, TileBase[][]> tiles = new Dictionary<TilemapLayerAsset, TileBase[][]>();
         ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
-        bool tilesHaveChanged;
+        int tilesChangedCount;
+        [SerializeField, Range(-1, 1000)]
+        int tilesChangedMaximum = -1;
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -77,7 +79,7 @@ namespace TheCursedBroom.Level {
             }
         }
         void UpdateTiles() {
-            tilesHaveChanged = false;
+            tilesChangedCount = 0;
 
             foreach (var observedObject in observedObjects) {
                 while (observedObject.position.x < observedActor.position.x - (map.width / 2)) {
@@ -104,7 +106,7 @@ namespace TheCursedBroom.Level {
                 DiscardOldTiles();
                 LoadNewTiles();
 
-                if (tilesHaveChanged) {
+                if (tilesChangedCount > 0) {
                     foreach (var collider in map.colliders) {
                         collider.GenerateGeometry();
                     }
@@ -141,6 +143,9 @@ namespace TheCursedBroom.Level {
                         var position = new Vector3Int(x, y, 0);
                         if (!loadedTilePositions.Contains(position)) {
                             LoadTile(position);
+                            if (tilesChangedCount == tilesChangedMaximum) {
+                                return;
+                            }
                         }
                     }
                 }
@@ -157,7 +162,7 @@ namespace TheCursedBroom.Level {
                 tilemap.SetTile(position, GetTile(type, position));
             }
             loadedTilePositions.Add(position);
-            tilesHaveChanged = true;
+            tilesChangedCount++;
         }
         TileBase GetTile(TilemapLayerAsset type, Vector3Int position) {
             if (position.y < 0 || position.y >= map.height * levels.Length) {

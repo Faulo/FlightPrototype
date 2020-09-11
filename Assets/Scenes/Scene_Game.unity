@@ -546,6 +546,7 @@ MonoBehaviour:
     - {fileID: 1527578067}
     - {fileID: 1425454482}
     - {fileID: 1486073807}
+  tilesChangedMaximum: 1000
   levels:
   - {fileID: 4384120513912332705, guid: 532ddf54fb8e67349a717471751eeaf8, type: 3}
   - {fileID: 7622852625163005332, guid: c5b80833717364240b4fa58171ed1328, type: 3}
