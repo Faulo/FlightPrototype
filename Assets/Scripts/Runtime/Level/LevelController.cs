@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
@@ -10,13 +11,13 @@ namespace TheCursedBroom.Level {
 
         [Header("MonoBehaviour configuration")]
         [SerializeField]
-        TilemapContainer tilemaps = default;
-        IDictionary<TilemapType, TileBase[][]> tiles = new Dictionary<TilemapType, TileBase[][]>();
+        TilemapContainer map = default;
+        IDictionary<TilemapLayerAsset, TileBase[][]> tiles = new Dictionary<TilemapLayerAsset, TileBase[][]>();
         ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
-        [SerializeField, Expandable]
-        CompositeCollider2D groundCollider = default;
-        bool groundHasChanged;
+        int tilesChangedCount;
+        [SerializeField, Range(-1, 1000)]
+        int tilesChangedMaximum = -1;
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -43,6 +44,10 @@ namespace TheCursedBroom.Level {
         [SerializeField, Range(1, 100)]
         int maximumRangeY = 36;
 
+        [Header("Editor Tools")]
+        [SerializeField]
+        bool installTilemap = false;
+
         void Awake() {
             instance = this;
             PrepareTiles();
@@ -56,30 +61,32 @@ namespace TheCursedBroom.Level {
             }
         }
         void PrepareTiles() {
-            foreach (var (type, tilemap) in tilemaps.all) {
-                tiles[type] = new TileBase[tilemaps.height * levels.Length][];
+            map.Install(transform);
+            for (int i = 0; i < levels.Length; i++) {
+                levels[i].tilemaps.Install(levels[i].transform);
+            }
+            foreach (var (layer, tilemap) in map.all) {
+                tiles[layer] = new TileBase[map.height * levels.Length][];
                 for (int i = 0; i < levels.Length; i++) {
-                    for (int y = 0; y < tilemaps.height; y++) {
-                        int j = y + (i * tilemaps.height);
-                        tiles[type][j] = new TileBase[tilemaps.width];
-                        for (int x = 0; x < tilemaps.width; x++) {
-                            tiles[type][j][x] = levels[i].GetTile(type, new Vector3Int(x, y, 0));
+                    for (int y = 0; y < map.height; y++) {
+                        int j = y + (i * map.height);
+                        tiles[layer][j] = new TileBase[map.width];
+                        for (int x = 0; x < map.width; x++) {
+                            tiles[layer][j][x] = levels[i].GetTile(layer, new Vector3Int(x, y, 0));
                         }
                     }
                 }
             }
-
-            groundCollider.generationType = CompositeCollider2D.GenerationType.Manual;
         }
         void UpdateTiles() {
-            groundHasChanged = false;
+            tilesChangedCount = 0;
 
             foreach (var observedObject in observedObjects) {
-                while (observedObject.position.x < observedActor.position.x - (tilemaps.width / 2)) {
-                    observedObject.TranslateX(tilemaps.width);
+                while (observedObject.position.x < observedActor.position.x - (map.width / 2)) {
+                    observedObject.TranslateX(map.width);
                 }
-                while (observedObject.position.x > observedActor.position.x + (tilemaps.width / 2)) {
-                    observedObject.TranslateX(-tilemaps.width);
+                while (observedObject.position.x > observedActor.position.x + (map.width / 2)) {
+                    observedObject.TranslateX(-map.width);
                 }
             }
             if (allowNonActorTileLoading) {
@@ -87,10 +94,10 @@ namespace TheCursedBroom.Level {
                     .Where(o => o.requireLevel)
                     .Select(o => o.position)
                     .Append(observedActor.position)
-                    .Select(tilemaps.WorldToCell)
+                    .Select(map.WorldToCell)
                     .ToList();
             } else {
-                observedPositions[0] = tilemaps.WorldToCell(observedActor.position);
+                observedPositions[0] = map.WorldToCell(observedActor.position);
             }
 
             if (lastPositions[0] != observedPositions[0]) {
@@ -99,8 +106,10 @@ namespace TheCursedBroom.Level {
                 DiscardOldTiles();
                 LoadNewTiles();
 
-                if (groundHasChanged) {
-                    groundCollider.GenerateGeometry();
+                if (tilesChangedCount > 0) {
+                    foreach (var collider in map.colliders) {
+                        collider.GenerateGeometry();
+                    }
                 }
             }
         }
@@ -134,44 +143,51 @@ namespace TheCursedBroom.Level {
                         var position = new Vector3Int(x, y, 0);
                         if (!loadedTilePositions.Contains(position)) {
                             LoadTile(position);
+                            if (tilesChangedCount == tilesChangedMaximum) {
+                                return;
+                            }
                         }
                     }
                 }
             }
         }
         void DiscardTile(Vector3Int position) {
-            foreach (var (_, tilemap) in tilemaps.all) {
+            foreach (var (_, tilemap) in map.all) {
                 tilemap.SetTile(position, null);
             }
             loadedTilePositions.Remove(position);
         }
         void LoadTile(Vector3Int position) {
-            foreach (var (type, tilemap) in tilemaps.all) {
+            foreach (var (type, tilemap) in map.all) {
                 tilemap.SetTile(position, GetTile(type, position));
             }
             loadedTilePositions.Add(position);
-            groundHasChanged = true;
+            tilesChangedCount++;
         }
-        TileBase GetTile(TilemapType type, Vector3Int position) {
-            if (position.y < 0 || position.y >= tilemaps.height * levels.Length) {
+        TileBase GetTile(TilemapLayerAsset type, Vector3Int position) {
+            if (position.y < 0 || position.y >= map.height * levels.Length) {
                 return null;
             }
             while (position.x < 0) {
-                position.x += tilemaps.width;
+                position.x += map.width;
             }
-            position.x %= tilemaps.width;
+            position.x %= map.width;
             return tiles[type][position.y][position.x];
         }
         void OnValidate() {
-            tilemaps.OnValidate(transform);
-            if (!groundCollider) {
-                groundCollider = GetComponentInChildren<CompositeCollider2D>();
+            if (installTilemap) {
+                installTilemap = false;
+                StartCoroutine(InstallTilemap());
             }
+        }
+        IEnumerator InstallTilemap() {
+            yield return null;
+            map.Install(transform);
         }
         void OnDrawGizmos() {
             if (observedActor) {
                 var center = new Vector3((int)observedActor.position.x, (int)observedActor.position.y, 0);
-                center += tilemaps.tileAnchor;
+                center += map.tileAnchor;
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawWireCube(center, new Vector3((2 * minimumRangeX) + 1, (2 * minimumRangeY) + 1, 1));
                 Gizmos.color = Color.blue;
