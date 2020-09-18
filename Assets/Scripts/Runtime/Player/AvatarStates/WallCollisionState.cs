@@ -14,6 +14,9 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             collisionTimer = 0;
 
+            avatar.broom.isFlying = false;
+            avatar.broom.canDash = false;
+
             avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {

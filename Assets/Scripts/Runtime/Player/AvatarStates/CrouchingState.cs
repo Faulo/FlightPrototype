@@ -16,9 +16,10 @@ namespace TheCursedBroom.Player.AvatarStates {
             crouchDuration = 0;
             intendedJump = avatar.intendsJumpStart;
 
-            avatar.UpdateMovement();
+            avatar.broom.isFlying = false;
+            avatar.broom.canDash = true;
 
-            avatar.canGlide = true;
+            avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

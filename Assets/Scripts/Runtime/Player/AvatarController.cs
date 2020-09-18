@@ -12,6 +12,7 @@ namespace TheCursedBroom.Player {
         public event Action<GameObject, Vector3> onTeleport;
 
         public static AvatarController instance;
+        public readonly BroomData broom = new BroomData();
 
         [Header("MonoBehaviour configuration")]
         [SerializeField, Expandable]
@@ -86,9 +87,6 @@ namespace TheCursedBroom.Player {
         }
 
         public Vector2 forward => horizontalFlipTransform.right;
-
-        public bool canGlide = true;
-        public bool isFlying => !attachedRigidbody.freezeRotation;
         public Vector2 velocity {
             get => attachedRigidbody.velocity;
             set => attachedRigidbody.velocity = value;

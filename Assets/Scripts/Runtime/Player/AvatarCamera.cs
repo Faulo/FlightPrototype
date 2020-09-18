@@ -43,7 +43,7 @@ namespace TheCursedBroom.Player {
 
         void Update() {
             transposer.m_ScreenX = 0.5f - (facingLookahead * observedAvatar.facing);
-            if (observedAvatar.isFlying) {
+            if (observedAvatar.broom.isFlying) {
                 ChangeCameraSize(airborneSize, airborneChangeDuration);
             } else {
                 ChangeCameraSize(groundedSize, groundedChangeDuration);
