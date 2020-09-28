@@ -7,5 +7,6 @@ namespace TheCursedBroom.Player {
         Diving,
         Plummeting,
         Soaring,
+        Boosting,
     }
 }

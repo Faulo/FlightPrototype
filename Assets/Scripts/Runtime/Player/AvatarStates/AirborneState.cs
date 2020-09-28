@@ -31,7 +31,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState isGroundedState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.intendsGlide && avatar.broom.canDash) {
+            if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
             }
             if (avatar.isGrounded) {

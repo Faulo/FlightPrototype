@@ -7,7 +7,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.EnterState();
 
             avatar.broom.isFlying = false;
-            avatar.broom.canDash = true;
+            avatar.broom.canBoost = true;
 
             avatar.UpdateMovement();
         }

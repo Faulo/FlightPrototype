@@ -58,12 +58,10 @@ namespace TheCursedBroom.Player.AvatarMovements {
         int boostGatheringFrameCount = 10;
         [SerializeField, Range(0, 10)]
         float boostRotationDuration = 0;
-        [SerializeField, Range(1, 100)]
-        int boostExecutionFrameCount = 10;
+        [SerializeField, Range(0, 10)]
+        float boostExecutionFrameMultiplier = 1;
         [SerializeField, Range(0, 100)]
         float boostExecutionSpeed = 1;
-        [SerializeField, Range(0, 1)]
-        float boostExecutionFalloff = 1;
         [SerializeField, Range(0, 10)]
         float boostDrag = 0;
 
@@ -76,6 +74,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
             var acceleration = Vector2.zero;
             int boostGatheringTimer = 0;
             int boostExecutionTimer = 0;
+            int boostExecutionFrameCount = 0;
             return () => {
                 float currentAngle = avatar.rotationAngle;
 
@@ -90,13 +89,13 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                 var currentVelocity = avatar.velocity;
 
-                (Vector2, float) dash() {
+                (Vector2, float) boost() {
                     avatar.drag = boostDrag;
 
                     boostExecutionTimer++;
-                    if (boostExecutionTimer == boostExecutionFrameCount) {
+                    if (boostExecutionTimer >= boostExecutionFrameCount) {
                         boostExecutionTimer = 0;
-                        avatar.broom.isDashing = false;
+                        avatar.broom.isBoosting = false;
                         angularVelocity = 0;
                         return glide();
                     }
@@ -105,7 +104,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     var rotation = Quaternion.Euler(0, 0, angle);
                     var targetVelocity = (Vector2)(rotation * Vector2.right * currentVelocity.magnitude);
 
-                    var velocity = targetVelocity * boostExecutionFalloff;
+                    var velocity = targetVelocity;
 
                     return (velocity, angle);
                 }
@@ -132,18 +131,21 @@ namespace TheCursedBroom.Player.AvatarMovements {
                                 boostGatheringTimer++;
                                 if (boostGatheringTimer == boostGatheringFrameCount) {
                                     boostGatheringTimer = 0;
-                                    avatar.broom.canDash = true;
+                                    avatar.broom.canBoost = true;
                                 }
                             }
                         }
                     } else {
-                        if (avatar.broom.canDash) {
-                            avatar.broom.canDash = false;
-                            avatar.broom.isDashing = true;
+                        if (avatar.broom.canBoost) {
+                            avatar.broom.canBoost = false;
+                            avatar.broom.isBoosting = true;
+                            float boostDuration = Mathf.Abs(currentVelocity.y);
+                            boostDuration *= boostExecutionFrameMultiplier;
+                            boostExecutionFrameCount = Mathf.RoundToInt(boostDuration);
                             onBoost.Invoke(avatar.gameObject);
                             currentVelocity += currentVelocity.normalized * boostExecutionSpeed;
                             angularVelocity = 0;
-                            return dash();
+                            return boost();
                         }
                     }
 
@@ -153,8 +155,8 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                     return (velocity, angle);
                 }
-                return avatar.broom.isDashing
-                    ? dash()
+                return avatar.broom.isBoosting
+                    ? boost()
                     : glide();
             };
         }

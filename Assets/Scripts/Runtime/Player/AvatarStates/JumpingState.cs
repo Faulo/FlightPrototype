@@ -55,7 +55,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.intendsGlide && avatar.broom.canDash) {
+            if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
             }
             if (jumpTimer < minimumJumpFrameCount) {

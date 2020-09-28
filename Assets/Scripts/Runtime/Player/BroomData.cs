@@ -1,6 +1,6 @@
 namespace TheCursedBroom.Player {
     public class BroomData {
-        public bool canDash {
+        public bool canBoost {
             get => m_canDash;
             set {
                 if (m_canDash != value) {
@@ -44,6 +44,17 @@ namespace TheCursedBroom.Player {
         }
         bool m_isDashing;
 
+        public bool isBoosting {
+            get => m_isBoosting;
+            set {
+                if (m_isBoosting != value) {
+                    m_isBoosting = value;
+                    isDirty = true;
+                }
+            }
+        }
+        bool m_isBoosting;
+
         public bool isFlying {
             get => m_isFlying;
             set {
@@ -72,7 +83,10 @@ namespace TheCursedBroom.Player {
                 if (isDashing) {
                     return BroomState.Dashing;
                 }
-                if (canDash) {
+                if (isBoosting) {
+                    return BroomState.Boosting;
+                }
+                if (canBoost) {
                     return BroomState.Gliding;
                 }
                 if (isAligned) {
@@ -82,7 +96,7 @@ namespace TheCursedBroom.Player {
                 }
                 return BroomState.Plummeting;
             }
-            return canDash
+            return canBoost
                 ? BroomState.Idling
                 : BroomState.Falling;
         }
