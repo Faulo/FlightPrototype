@@ -124,18 +124,9 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
                     avatar.broom.isAligned = alignment > requiredAlignment;
                     avatar.broom.isDiving = currentVelocity.y < requiredYSpeed;
+                    bool intendsBoost = targetAngle <= 180;
 
-                    if (avatar.broom.isAligned) {
-                        if (avatar.broom.isDiving) {
-                            if (boostGatheringTimer < boostGatheringFrameCount) {
-                                boostGatheringTimer++;
-                                if (boostGatheringTimer == boostGatheringFrameCount) {
-                                    boostGatheringTimer = 0;
-                                    avatar.broom.canBoost = true;
-                                }
-                            }
-                        }
-                    } else {
+                    if (intendsBoost) {
                         if (avatar.broom.canBoost) {
                             avatar.broom.canBoost = false;
                             avatar.broom.isBoosting = true;
@@ -146,6 +137,16 @@ namespace TheCursedBroom.Player.AvatarMovements {
                             currentVelocity += currentVelocity.normalized * boostExecutionSpeed;
                             angularVelocity = 0;
                             return boost();
+                        }
+                    } else {
+                        if (avatar.broom.isAligned && avatar.broom.isDiving) {
+                            if (!avatar.broom.canBoost && boostGatheringTimer < boostGatheringFrameCount) {
+                                boostGatheringTimer++;
+                                if (boostGatheringTimer >= boostGatheringFrameCount) {
+                                    boostGatheringTimer = 0;
+                                    avatar.broom.canBoost = true;
+                                }
+                            }
                         }
                     }
 
