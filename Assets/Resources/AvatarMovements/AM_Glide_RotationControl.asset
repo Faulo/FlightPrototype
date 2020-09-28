@@ -39,8 +39,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minimumDrag: 0.1
-  maximumDrag: 0.8
+  minimumDrag: 0.125
+  maximumDrag: 0.75
   alignDurationOverAlignment:
     serializedVersion: 2
     m_Curve:
@@ -65,8 +65,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minimumAlignDuration: 0.1
-  maximumAlignDuration: 1.5
+  minimumAlignDuration: 0.05
+  maximumAlignDuration: 0.75
   accelerationOverAlignment:
     serializedVersion: 2
     m_Curve:
@@ -91,16 +91,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minimumAcceleration: 1
-  maximumAcceleration: 2
-  requiredAlignment: 0.8
-  requiredYSpeed: -8
-  boostGatheringFrameCount: 20
+  minimumAcceleration: 0
+  maximumAcceleration: 1
+  requiredAlignment: 0.9
+  requiredYSpeed: -2
+  boostGatheringFrameCount: 1
   boostRotationDuration: 0.15
-  boostExecutionFrameCount: 20
-  boostExecutionSpeed: 8
-  boostExecutionFalloff: 0.995
-  boostDrag: 0
+  boostExecutionFrameMultiplier: 3
+  boostExecutionSpeed: 0.5
+  boostDrag: 0.0625
   onBoost:
     m_PersistentCalls:
       m_Calls:
