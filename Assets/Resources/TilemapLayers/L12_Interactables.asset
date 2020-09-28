@@ -18,7 +18,7 @@ MonoBehaviour:
   tilemapLayer: 0
   renderMode: 0
   renderSortingLayer: 0
-  renderOrderInLayer: 2
+  renderOrderInLayer: 10
   renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
   collisionMode: 0
   collisionMaterial: {fileID: 0}
