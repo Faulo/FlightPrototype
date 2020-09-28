@@ -6,9 +6,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
-            avatar.UpdateMovement();
+            avatar.broom.isFlying = false;
+            avatar.broom.canBoost = true;
 
-            avatar.canGlide = true;
+            avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();

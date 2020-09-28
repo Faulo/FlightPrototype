@@ -10,6 +10,8 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
+            avatar.broom.isFlying = false;
+
             avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
@@ -29,7 +31,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState isGroundedState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.intendsGlide && avatar.canGlide) {
+            if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
             }
             if (avatar.isGrounded) {

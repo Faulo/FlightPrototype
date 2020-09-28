@@ -32,6 +32,8 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             avatar.velocity = jumpStartVelocity;
             avatar.intendsJumpStart = false;
+
+            avatar.broom.isFlying = false;
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -53,7 +55,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
-            if (avatar.intendsGlide && avatar.canGlide) {
+            if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
             }
             if (jumpTimer < minimumJumpFrameCount) {
