@@ -11,9 +11,9 @@ namespace TheCursedBroom.Effects {
         [SerializeField, Expandable]
         AudioMixerGroup mixer = default;
 
-        [SerializeField, Range(0, 2)]
+        [SerializeField, Range(0, 5)]
         float mininumPitch = 1;
-        [SerializeField, Range(0, 2)]
+        [SerializeField, Range(0, 5)]
         float maxmimumPitch = 1;
         [SerializeField]
         bool loop = false;
