@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
-  m_Name: Button_Plus
+  m_Script: {fileID: 11500000, guid: 14e12978e961f5b4493eaa54ca196581, type: 3}
+  m_Name: Broom_Particles_Ready
   m_EditorClassIdentifier: 
-  sprite: {fileID: 3278506032978010124, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
-  prefab: {fileID: 642851093565264006, guid: e0366246b3872fa40a1edf391914fe91, type: 3}
-  colliderType: 2
+  color: {r: 0.77879167, g: 0.23921564, b: 0.78431374, a: 1}
