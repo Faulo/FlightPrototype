@@ -105,9 +105,14 @@ namespace TheCursedBroom.Level {
 
                 var collider = obj.GetOrAddComponent<TilemapCollider2D>();
                 collider.usedByComposite = true;
+                collider.maximumTileChangeCount = uint.MaxValue;
+                collider.extrusionFactor = 1f / 32;
 
                 var composite = obj.GetOrAddComponent<CompositeCollider2D>();
                 composite.generationType = CompositeCollider2D.GenerationType.Manual;
+                composite.vertexDistance = 1f / 2;
+                composite.offsetDistance = 1f / 32;
+                composite.edgeRadius = 0;
                 switch (collisionMode) {
                     case CollisionMode.Collision:
                         composite.isTrigger = false;
