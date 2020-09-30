@@ -15,10 +15,6 @@ namespace TheCursedBroom.Level {
         IDictionary<TilemapLayerAsset, TileBase[][]> tiles = new Dictionary<TilemapLayerAsset, TileBase[][]>();
         ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
-        int tilesChangedCount;
-        [SerializeField, Range(-1, 1000)]
-        int tilesChangedMaximum = -1;
-
         [Header("Levels")]
         [SerializeField, Expandable]
         TilemapChunk[] levels = new TilemapChunk[0];
@@ -44,11 +40,17 @@ namespace TheCursedBroom.Level {
         [SerializeField, Range(1, 100)]
         int maximumRangeY = 36;
 
+        int tilesChangedCount;
+        [SerializeField, Range(-1, 1000)]
+        int tilesChangedMaximum = -1;
+
+        int currentColliderIndex = 0;
+        [SerializeField, Range(1, 80)]
+        int pauseBetweenColliderUpdates = 1;
+
         [Header("Editor Tools")]
         [SerializeField]
         bool installTilemap = false;
-
-        int currentColliderIndex = 0;
 
         void Awake() {
             instance = this;
@@ -57,15 +59,21 @@ namespace TheCursedBroom.Level {
         void Start() {
             onStart.Invoke(gameObject);
         }
-        void Update() {
+        void LateUpdate() {
             if (observedActor) {
-                if (currentColliderIndex < map.colliders.Length) {
-                    map.colliders[currentColliderIndex].GenerateGeometry();
+                if (currentColliderIndex < map.colliders.Length * pauseBetweenColliderUpdates) {
+                    if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
+                        map.colliders[currentColliderIndex / pauseBetweenColliderUpdates].GenerateGeometry();
+                    }
                     currentColliderIndex++;
                 } else {
                     UpdateTiles();
                 }
             }
+        }
+        public void RefreshAllTiles() {
+            UpdateTiles();
+            map.colliders.ForAll(collider => collider.GenerateGeometry());
         }
         void PrepareTiles() {
             map.Install(transform);
@@ -119,17 +127,10 @@ namespace TheCursedBroom.Level {
             }
         }
         void DiscardOldTiles() {
-            var positions = new HashSet<Vector3Int>();
-            foreach (var position in loadedTilePositions) {
-                if (!positions.Contains(position)) {
-                    if (IsOutOfBounds(position)) {
-                        positions.Add(position);
-                    }
-                }
-            }
-            foreach (var position in positions) {
-                DiscardTile(position);
-            }
+            loadedTilePositions
+                .Where(IsOutOfBounds)
+                .ToList()
+                .ForAll(DiscardTile);
         }
         bool IsOutOfBounds(Vector3Int position) {
             foreach (var center in observedPositions) {
