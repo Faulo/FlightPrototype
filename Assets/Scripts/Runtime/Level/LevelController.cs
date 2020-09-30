@@ -59,7 +59,7 @@ namespace TheCursedBroom.Level {
         void Start() {
             onStart.Invoke(gameObject);
         }
-        void LateUpdate() {
+        void Update() {
             if (observedActor) {
                 if (currentColliderIndex < map.colliders.Length * pauseBetweenColliderUpdates) {
                     if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
