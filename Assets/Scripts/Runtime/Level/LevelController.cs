@@ -48,6 +48,8 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         bool installTilemap = false;
 
+        int currentColliderIndex = 0;
+
         void Awake() {
             instance = this;
             PrepareTiles();
@@ -57,7 +59,12 @@ namespace TheCursedBroom.Level {
         }
         void Update() {
             if (observedActor) {
-                UpdateTiles();
+                if (currentColliderIndex < map.colliders.Length) {
+                    map.colliders[currentColliderIndex].GenerateGeometry();
+                    currentColliderIndex++;
+                } else {
+                    UpdateTiles();
+                }
             }
         }
         void PrepareTiles() {
@@ -107,9 +114,7 @@ namespace TheCursedBroom.Level {
                 LoadNewTiles();
 
                 if (tilesChangedCount > 0) {
-                    foreach (var collider in map.colliders) {
-                        collider.GenerateGeometry();
-                    }
+                    currentColliderIndex = 0;
                 }
             }
         }
