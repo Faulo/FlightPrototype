@@ -107,14 +107,15 @@ namespace TheCursedBroom.Level {
                 collider.usedByComposite = true;
 
                 var composite = obj.GetOrAddComponent<CompositeCollider2D>();
-                composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
                 composite.generationType = CompositeCollider2D.GenerationType.Manual;
                 switch (collisionMode) {
                     case CollisionMode.Collision:
                         composite.isTrigger = false;
+                        composite.geometryType = CompositeCollider2D.GeometryType.Outlines;
                         break;
                     case CollisionMode.Trigger:
                         composite.isTrigger = true;
+                        composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
                         break;
                     default:
                         throw new NotImplementedException(collisionMode.ToString());
