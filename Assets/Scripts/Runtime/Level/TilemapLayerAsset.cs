@@ -70,6 +70,12 @@ namespace TheCursedBroom.Level {
         [SerializeField, Range(0.001f, 10)]
         float kinematicFriction = 1;
 
+        [Header("Events")]
+        [SerializeField]
+        GameObjectEvent onTriggerEnter = default;
+        [SerializeField]
+        GameObjectEvent onTriggerExit = default;
+
         public Tilemap InstallTilemap(GameObject obj) {
             if (obj.name != name) {
                 obj.name = name;
@@ -119,6 +125,8 @@ namespace TheCursedBroom.Level {
 
                 if (Application.isPlaying) {
                     colliderBaker.SetupBaker(controller);
+                    controller.onTriggerEnter += onTriggerEnter.Invoke;
+                    controller.onTriggerExit += onTriggerExit.Invoke;
                 }
             }
 
