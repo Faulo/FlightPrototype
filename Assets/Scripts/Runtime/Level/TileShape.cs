@@ -11,6 +11,10 @@ namespace TheCursedBroom.Level {
             for (int i = 0, j = positions.Count - 1; i < positions.Count; j = i++) {
                 var a = positions[i];
                 var b = positions[j];
+                // check corners
+                if (a == point) {
+                    return true;
+                }
                 // check borders
                 if ((b.y == a.y) && (point.y == a.y) && (a.x <= point.x) && (point.x <= b.x)) {
                     return true;
@@ -20,7 +24,7 @@ namespace TheCursedBroom.Level {
                 }
                 // check inside
                 if (((b.y < point.y) && (a.y >= point.y)) || ((a.y < point.y) && (b.y >= point.y))) {
-                    if ((point.y - b.y) * (a.x - b.x) / (a.y - b.y) <= (point.x - b.x)) {
+                    if ((float)(point.y - b.y) * (a.x - b.x) / (a.y - b.y) <= (point.x - b.x)) {
                         inside = !inside;
                     }
                 }

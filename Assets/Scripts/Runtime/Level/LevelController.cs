@@ -48,6 +48,8 @@ namespace TheCursedBroom.Level {
         int currentColliderIndex = 0;
         [SerializeField, Range(1, 80)]
         int pauseBetweenColliderUpdates = 1;
+        [SerializeField, Range(1, 100)]
+        int shapeCountMaximum = 1;
 
         [Header("Editor Tools")]
         [SerializeField]
@@ -206,12 +208,22 @@ namespace TheCursedBroom.Level {
         public IList<TileShape> GetTileShapes(TilemapLayerAsset type) {
             var shapes = new List<TileShape>();
             var tilemap = map.GetTilemapByLayer(type);
-            for (int y = observedCenter.y - minimumRangeY; y <= observedCenter.y + minimumRangeY; y++) {
-                for (int x = observedCenter.x - minimumRangeX; x <= observedCenter.x + minimumRangeX; x++) {
+            for (int y = observedCenter.y - maximumRangeY; y <= observedCenter.y + maximumRangeY; y++) {
+                for (int x = observedCenter.x - maximumRangeX; x <= observedCenter.x + maximumRangeX; x++) {
                     var position = new Vector3Int(x, y, 0);
-                    if (tilemap.HasTile(position) && !shapes.Any(shape => shape.ContainsPosition(position))) {
-                        shapes.Add(CreateTileShape(tilemap, position, Vector3Int.left));
+                    if (tilemap.HasTile(position)) {
+                        for (int i = 0; i < shapes.Count; i++) {
+                            if (shapes[i].ContainsPosition(position)) {
+                                goto SKIP;
+                            }
+                        }
+                        shapes.Add(CreateTileShape(tilemap, position, Vector3Int.up));
+                        if (shapes.Count == shapeCountMaximum) {
+                            return shapes;
+                        }
                     }
+SKIP:
+                    ;
                 }
             }
             return shapes;
@@ -222,11 +234,17 @@ namespace TheCursedBroom.Level {
             [Vector3Int.left] = new Vector2(1, 0),
             [Vector3Int.up] = new Vector2(0, 0),
         };
-        IDictionary<Vector3Int, Vector3Int> rotations = new Dictionary<Vector3Int, Vector3Int> {
+        IDictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.down,
             [Vector3Int.down] = Vector3Int.left,
             [Vector3Int.left] = Vector3Int.up,
             [Vector3Int.up] = Vector3Int.right,
+        };
+        IDictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+            [Vector3Int.right] = Vector3Int.up,
+            [Vector3Int.down] = Vector3Int.right,
+            [Vector3Int.left] = Vector3Int.down,
+            [Vector3Int.up] = Vector3Int.left,
         };
         TileShape CreateTileShape(Tilemap tilemap, Vector3Int startPosition, Vector3Int startDirection) {
             var shape = new TileShape();
@@ -234,16 +252,22 @@ namespace TheCursedBroom.Level {
             var direction = startDirection;
             int i = 0;
             do {
-                if (tilemap.HasTile(position + direction)) {
+                if (tilemap.HasTile(position + direction + backwardRotation[direction])) {
+                    position += direction + backwardRotation[direction];
+                    direction = backwardRotation[direction];
+                    shape.positions.Add(position);
+                    shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
+                } else if (tilemap.HasTile(position + direction)) {
                     position += direction;
                 } else {
-                    direction = rotations[direction];
+                    direction = forwardRotation[direction];
                     shape.positions.Add(position);
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
                 }
                 if (++i == 1000) {
-                    Debug.Log($"Stack overflow! Position: {position} Direction: {direction}");
-                    break;
+                    Debug.Log($"Stack overflow in {tilemap}! Position: {position} Direction: {direction}");
+                    Debug.Log(string.Join(", ", shape.positions));
+                    throw new Exception(tilemap.ToString());
                 }
             } while (!(position == startPosition && direction == startDirection));
             return shape;
