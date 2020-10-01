@@ -20,5 +20,8 @@ MonoBehaviour:
   renderSortingLayer: 1096992519
   renderOrderInLayer: 0
   renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
-  colliderBaker: {fileID: 11400000, guid: 1ea1f07d2f68fad4bb635cb1ab0962d9, type: 2}
+  colliderBaker: {fileID: 0}
   collisionMaterial: {fileID: 0}
+  isGround: 0
+  staticFriction: 1
+  kinematicFriction: 1

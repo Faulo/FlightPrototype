@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
@@ -25,8 +26,8 @@ namespace TheCursedBroom.Level {
 
         public Transform observedActor;
         public ISet<ILevelObject> observedObjects = new HashSet<ILevelObject>();
-        IList<Vector3Int> observedPositions = new List<Vector3Int> { Vector3Int.zero };
-        IList<Vector3Int> lastPositions = new List<Vector3Int> { Vector3Int.zero };
+        Vector3Int observedCenter = Vector3Int.zero;
+        Vector3Int lastCenter = Vector3Int.zero;
 
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
@@ -54,9 +55,9 @@ namespace TheCursedBroom.Level {
 
         void Awake() {
             instance = this;
+            PrepareTiles();
         }
         void Start() {
-            PrepareTiles();
             onStart.Invoke(gameObject);
         }
         void Update() {
@@ -105,18 +106,19 @@ namespace TheCursedBroom.Level {
                 }
             }
             if (allowNonActorTileLoading) {
-                observedPositions = observedObjects
+                observedObjects
                     .Where(o => o.requireLevel)
                     .Select(o => o.position)
                     .Append(observedActor.position)
                     .Select(map.WorldToCell)
                     .ToList();
+                throw new NotImplementedException(nameof(allowNonActorTileLoading));
             } else {
-                observedPositions[0] = map.WorldToCell(observedActor.position);
+                observedCenter = map.WorldToCell(observedActor.position);
             }
 
-            if (lastPositions[0] != observedPositions[0]) {
-                lastPositions[0] = observedPositions[0];
+            if (lastCenter != observedCenter) {
+                lastCenter = observedCenter;
 
                 DiscardOldTiles();
                 LoadNewTiles();
@@ -133,25 +135,21 @@ namespace TheCursedBroom.Level {
                 .ForAll(DiscardTile);
         }
         bool IsOutOfBounds(Vector3Int position) {
-            foreach (var center in observedPositions) {
-                if (position.x >= center.x - maximumRangeX && position.x <= center.x + maximumRangeX) {
-                    if (position.y >= center.y - maximumRangeY && position.y <= center.y + maximumRangeY) {
-                        return false;
-                    }
+            if (position.x >= observedCenter.x - maximumRangeX && position.x <= observedCenter.x + maximumRangeX) {
+                if (position.y >= observedCenter.y - maximumRangeY && position.y <= observedCenter.y + maximumRangeY) {
+                    return false;
                 }
             }
             return true;
         }
         void LoadNewTiles() {
-            foreach (var center in observedPositions) {
-                for (int x = center.x - minimumRangeX; x <= center.x + minimumRangeX; x++) {
-                    for (int y = center.y - minimumRangeY; y <= center.y + minimumRangeY; y++) {
-                        var position = new Vector3Int(x, y, 0);
-                        if (!loadedTilePositions.Contains(position)) {
-                            LoadTile(position);
-                            if (tilesChangedCount == tilesChangedMaximum) {
-                                return;
-                            }
+            for (int x = observedCenter.x - minimumRangeX; x <= observedCenter.x + minimumRangeX; x++) {
+                for (int y = observedCenter.y - minimumRangeY; y <= observedCenter.y + minimumRangeY; y++) {
+                    var position = new Vector3Int(x, y, 0);
+                    if (!loadedTilePositions.Contains(position)) {
+                        LoadTile(position);
+                        if (tilesChangedCount == tilesChangedMaximum) {
+                            return;
                         }
                     }
                 }
@@ -204,6 +202,53 @@ namespace TheCursedBroom.Level {
             yield return null;
             map.Install(transform);
         }
+
+        public IList<TileShape> GetTileShapes(TilemapLayerAsset type) {
+            var shapes = new List<TileShape>();
+            var tilemap = map.GetTilemapByLayer(type);
+            for (int y = observedCenter.y - minimumRangeY; y <= observedCenter.y + minimumRangeY; y++) {
+                for (int x = observedCenter.x - minimumRangeX; x <= observedCenter.x + minimumRangeX; x++) {
+                    var position = new Vector3Int(x, y, 0);
+                    if (tilemap.HasTile(position) && !shapes.Any(shape => shape.ContainsPosition(position))) {
+                        shapes.Add(CreateTileShape(tilemap, position, Vector3Int.left));
+                    }
+                }
+            }
+            return shapes;
+        }
+        IDictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
+            [Vector3Int.right] = new Vector2(0, 1),
+            [Vector3Int.down] = new Vector2(1, 1),
+            [Vector3Int.left] = new Vector2(1, 0),
+            [Vector3Int.up] = new Vector2(0, 0),
+        };
+        IDictionary<Vector3Int, Vector3Int> rotations = new Dictionary<Vector3Int, Vector3Int> {
+            [Vector3Int.right] = Vector3Int.down,
+            [Vector3Int.down] = Vector3Int.left,
+            [Vector3Int.left] = Vector3Int.up,
+            [Vector3Int.up] = Vector3Int.right,
+        };
+        TileShape CreateTileShape(Tilemap tilemap, Vector3Int startPosition, Vector3Int startDirection) {
+            var shape = new TileShape();
+            var position = startPosition;
+            var direction = startDirection;
+            int i = 0;
+            do {
+                if (tilemap.HasTile(position + direction)) {
+                    position += direction;
+                } else {
+                    direction = rotations[direction];
+                    shape.positions.Add(position);
+                    shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
+                }
+                if (++i == 1000) {
+                    Debug.Log($"Stack overflow! Position: {position} Direction: {direction}");
+                    break;
+                }
+            } while (!(position == startPosition && direction == startDirection));
+            return shape;
+        }
+
         void OnDrawGizmos() {
             if (observedActor) {
                 var center = new Vector3((int)observedActor.position.x, (int)observedActor.position.y, 0);

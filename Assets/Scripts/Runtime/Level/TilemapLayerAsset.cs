@@ -62,6 +62,14 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         PhysicsMaterial2D collisionMaterial = default;
 
+        [Header("Ground settings")]
+        [SerializeField]
+        bool isGround = false;
+        [SerializeField, Range(0.001f, 10)]
+        float staticFriction = 1;
+        [SerializeField, Range(0.001f, 10)]
+        float kinematicFriction = 1;
+
         public Tilemap InstallTilemap(GameObject obj) {
             if (obj.name != name) {
                 obj.name = name;
@@ -103,17 +111,24 @@ namespace TheCursedBroom.Level {
 
             // Collider
             if (colliderBaker == null) {
-                obj.DestroyComponent<CompositeCollider2D>();
-                obj.DestroyComponent<TilemapCollider2D>();
-                obj.DestroyComponent<EdgeCollider2D>();
-                obj.DestroyComponent<PolygonCollider2D>();
                 obj.DestroyComponent<Rigidbody2D>();
             } else {
                 var rigidbody = obj.GetOrAddComponent<Rigidbody2D>();
                 rigidbody.bodyType = RigidbodyType2D.Static;
                 rigidbody.sharedMaterial = collisionMaterial;
 
-                colliderBaker.SetupBaker(controller);
+                if (Application.isPlaying) {
+                    colliderBaker.SetupBaker(controller);
+                }
+            }
+
+            // Ground
+            if (isGround) {
+                var ground = obj.GetOrAddComponent<Ground>();
+                ground.staticFriction = staticFriction;
+                ground.kinematicFriction = kinematicFriction;
+            } else {
+                obj.DestroyComponent<Ground>();
             }
 
             return tilemap;

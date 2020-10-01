@@ -22,3 +22,6 @@ MonoBehaviour:
   renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
   colliderBaker: {fileID: 11400000, guid: bbcdf8134107ecc4aa6e40b4ed6ef852, type: 2}
   collisionMaterial: {fileID: 0}
+  isGround: 1
+  staticFriction: 1
+  kinematicFriction: 1
