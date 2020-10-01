@@ -13,7 +13,7 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         TilemapContainer map = default;
         IDictionary<TilemapLayerAsset, TileBase[][]> tiles = new Dictionary<TilemapLayerAsset, TileBase[][]>();
-        ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
+        public readonly ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -61,9 +61,9 @@ namespace TheCursedBroom.Level {
         }
         void Update() {
             if (observedActor) {
-                if (currentColliderIndex < map.colliders.Length * pauseBetweenColliderUpdates) {
+                if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
                     if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
-                        map.colliders[currentColliderIndex / pauseBetweenColliderUpdates].GenerateGeometry();
+                        map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
                     }
                     currentColliderIndex++;
                 } else {
@@ -73,7 +73,7 @@ namespace TheCursedBroom.Level {
         }
         public void RefreshAllTiles() {
             UpdateTiles();
-            map.colliders.ForAll(collider => collider.GenerateGeometry());
+            map.tilemapControllers.ForAll(collider => collider.RegenerateCollider());
         }
         void PrepareTiles() {
             map.Install(transform);
@@ -165,20 +165,34 @@ namespace TheCursedBroom.Level {
         }
         void LoadTile(Vector3Int position) {
             foreach (var (type, tilemap) in map.all) {
-                tilemap.SetTile(position, GetTile(type, position));
+                if (TryGetTile(type, position, out var tile)) {
+                    tilemap.SetTile(position, tile);
+                }
             }
             loadedTilePositions.Add(position);
             tilesChangedCount++;
         }
-        TileBase GetTile(TilemapLayerAsset type, Vector3Int position) {
+        bool TryGetTile(TilemapLayerAsset type, Vector3Int position, out TileBase tile) {
             if (position.y < 0 || position.y >= map.height * levels.Length) {
-                return null;
+                tile = null;
+                return false;
             }
             while (position.x < 0) {
                 position.x += map.width;
             }
             position.x %= map.width;
-            return tiles[type][position.y][position.x];
+            tile = tiles[type][position.y][position.x];
+            return tile != null;
+        }
+        public bool HasTile(TilemapLayerAsset type, Vector3Int position) {
+            if (position.y < 0 || position.y >= map.height * levels.Length) {
+                return false;
+            }
+            while (position.x < 0) {
+                position.x += map.width;
+            }
+            position.x %= map.width;
+            return tiles[type][position.y][position.x] != null;
         }
         void OnValidate() {
             if (installTilemap) {

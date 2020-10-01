@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
+using TheCursedBroom.Collisions;
 using TheCursedBroom.Extensions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -18,6 +19,10 @@ namespace TheCursedBroom.Level {
             None,
             Collision,
             Trigger,
+        }
+        enum ColliderBaker {
+            Unity,
+            Slothsoft,
         }
         const int TILE_MAX_COUNT = 100;
 
@@ -56,6 +61,8 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         CollisionMode collisionMode = CollisionMode.None;
         [SerializeField]
+        ColliderBaker colliderBaker = ColliderBaker.Unity;
+        [SerializeField]
         PhysicsMaterial2D collisionMaterial = default;
 
         public Tilemap InstallTilemap(GameObject obj) {
@@ -68,6 +75,10 @@ namespace TheCursedBroom.Level {
             if (obj.transform.position != Vector3.zero) {
                 obj.transform.position = Vector3.zero;
             }
+
+            // Controller
+            var controller = obj.GetOrAddComponent<TilemapController>();
+            controller.type = this;
 
             // Tilemap
             var tilemap = obj.GetOrAddComponent<Tilemap>();
@@ -97,35 +108,55 @@ namespace TheCursedBroom.Level {
             if (collisionMode == CollisionMode.None) {
                 obj.DestroyComponent<CompositeCollider2D>();
                 obj.DestroyComponent<TilemapCollider2D>();
+                obj.DestroyComponent<TilemapColliderBaker>();
+                obj.DestroyComponent<EdgeCollider2D>();
+                obj.DestroyComponent<PolygonCollider2D>();
                 obj.DestroyComponent<Rigidbody2D>();
             } else {
                 var rigidbody = obj.GetOrAddComponent<Rigidbody2D>();
                 rigidbody.bodyType = RigidbodyType2D.Static;
                 rigidbody.sharedMaterial = collisionMaterial;
 
-                var collider = obj.GetOrAddComponent<TilemapCollider2D>();
-                collider.usedByComposite = true;
-                collider.maximumTileChangeCount = uint.MaxValue;
-                collider.extrusionFactor = 1f / 32;
+                switch (colliderBaker) {
+                    case ColliderBaker.Unity: {
+                        var collider = obj.GetOrAddComponent<TilemapCollider2D>();
+                        collider.usedByComposite = true;
+                        collider.maximumTileChangeCount = uint.MaxValue;
+                        collider.extrusionFactor = 1f / 32;
 
-                var composite = obj.GetOrAddComponent<CompositeCollider2D>();
-                composite.generationType = CompositeCollider2D.GenerationType.Manual;
-                composite.vertexDistance = 1f / 2;
-                composite.offsetDistance = 1f / 32;
-                composite.edgeRadius = 0;
-                switch (collisionMode) {
-                    case CollisionMode.Collision:
-                        composite.isTrigger = false;
-                        composite.geometryType = CompositeCollider2D.GeometryType.Outlines;
+                        var composite = obj.GetOrAddComponent<CompositeCollider2D>();
+                        composite.generationType = CompositeCollider2D.GenerationType.Manual;
+                        composite.vertexDistance = 1f / 2;
+                        composite.offsetDistance = 1f / 32;
+                        composite.edgeRadius = 0;
+                        switch (collisionMode) {
+                            case CollisionMode.Collision:
+                                composite.isTrigger = false;
+                                composite.geometryType = CompositeCollider2D.GeometryType.Outlines;
+                                break;
+                            case CollisionMode.Trigger:
+                                composite.isTrigger = true;
+                                composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+                                break;
+                            default:
+                                throw new NotImplementedException(collisionMode.ToString());
+                        }
                         break;
-                    case CollisionMode.Trigger:
-                        composite.isTrigger = true;
-                        composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+                    }
+                    case ColliderBaker.Slothsoft: {
+                        var baker = obj.GetOrAddComponent<TilemapColliderBaker>();
+                        baker.type = this;
+
+                        var collider = obj.GetOrAddComponent<EdgeCollider2D>();
+                        baker.edgeCollider = collider;
                         break;
+                    }
                     default:
-                        throw new NotImplementedException(collisionMode.ToString());
+                        throw new NotImplementedException(colliderBaker.ToString());
                 }
             }
+
+            controller.OnValidate();
 
             return tilemap;
         }
