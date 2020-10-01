@@ -63,15 +63,13 @@ namespace TheCursedBroom.Level {
             onStart.Invoke(gameObject);
         }
         void Update() {
-            if (observedActor) {
-                if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
-                    if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
-                        map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
-                    }
-                    currentColliderIndex++;
-                } else {
-                    UpdateTiles();
+            if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
+                if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
+                    map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
                 }
+                currentColliderIndex++;
+            } else {
+                UpdateTiles();
             }
         }
         public void RefreshAllTiles() {
@@ -97,6 +95,10 @@ namespace TheCursedBroom.Level {
             }
         }
         void UpdateTiles() {
+            if (!observedActor) {
+                return;
+            }
+
             tilesChangedCount = 0;
 
             foreach (var observedObject in observedObjects) {
