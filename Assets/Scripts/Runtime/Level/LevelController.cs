@@ -54,9 +54,9 @@ namespace TheCursedBroom.Level {
 
         void Awake() {
             instance = this;
-            PrepareTiles();
         }
         void Start() {
+            PrepareTiles();
             onStart.Invoke(gameObject);
         }
         void Update() {

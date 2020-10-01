@@ -21,4 +21,5 @@ MonoBehaviour:
   renderOrderInLayer: 20
   renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
   collisionMode: 0
+  colliderBaker: 1
   collisionMaterial: {fileID: 0}
