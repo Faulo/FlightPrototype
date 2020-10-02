@@ -12,7 +12,13 @@ namespace TheCursedBroom.Extensions {
            where TComponent : Component {
             if (gameObject.TryGetComponent<TComponent>(out var component)) {
 #if UNITY_EDITOR
-                UnityEngine.Object.DestroyImmediate(component);
+                if (!UnityEditor.PrefabUtility.IsPartOfPrefabAsset(gameObject)) {
+                    if (UnityEditor.EditorApplication.isPlaying) {
+                        UnityEngine.Object.Destroy(component);
+                    } else {
+                        UnityEngine.Object.DestroyImmediate(component);
+                    }
+                }
 #else
                 UnityEngine.Object.Destroy(component);
 #endif

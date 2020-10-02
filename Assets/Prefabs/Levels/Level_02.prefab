@@ -4759,8 +4759,8 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0
+  m_MaximumTileChangeCount: 4294967295
+  m_ExtrusionFactor: 0.03125
 --- !u!50 &2343479506525994515
 Rigidbody2D:
   serializedVersion: 4
@@ -4796,7 +4796,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
+  m_GeometryType: 0
   m_GenerationType: 1
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -5236,8 +5236,8 @@ CompositeCollider2D:
       - {x: -1, y: 0.0366117}
       - {x: -0.9633883, y: 0}
       - {x: 9.963388, y: 0}
-  m_VertexDistance: 0.03125
-  m_OffsetDistance: 0.0625
+  m_VertexDistance: 0.5
+  m_OffsetDistance: 0.03125
 --- !u!114 &2343479506525994514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5443,8 +5443,8 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
+  m_MaximumTileChangeCount: 4294967295
+  m_ExtrusionFactor: 0.03125
 --- !u!50 &8463250766160393337
 Rigidbody2D:
   serializedVersion: 4
@@ -5488,8 +5488,8 @@ CompositeCollider2D:
     m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
+  m_VertexDistance: 0.5
+  m_OffsetDistance: 0.03125
 --- !u!1 &2343479506630211146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5645,8 +5645,8 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
+  m_MaximumTileChangeCount: 4294967295
+  m_ExtrusionFactor: 0.03125
 --- !u!66 &247611405651975405
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -5667,5 +5667,5 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
+  m_VertexDistance: 0.5
+  m_OffsetDistance: 0.03125
