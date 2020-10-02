@@ -12,6 +12,12 @@ PrefabInstance:
       propertyPath: requiredState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -6536182225902560468, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: particleColor
+      value: 
+      objectReference: {fileID: 11400000, guid: c6a865a66fd0b4b499ebeb9e7645029a,
+        type: 2}
     - target: {fileID: 3939516062045851173, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: m_RootOrder
@@ -221,6 +227,21 @@ PrefabInstance:
         type: 3}
       propertyPath: ShapeModule.angle
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.33235288
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.10882352
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09d64e9e8c3ceb944893c05df82b37cc, type: 3}

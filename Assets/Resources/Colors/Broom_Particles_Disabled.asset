@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e12978e961f5b4493eaa54ca196581, type: 3}
   m_Name: Broom_Particles_Disabled
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 0.7647059, g: 0.20392163, b: 0.11764705, a: 1}
