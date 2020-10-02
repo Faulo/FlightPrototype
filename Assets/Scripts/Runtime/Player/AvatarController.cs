@@ -39,6 +39,8 @@ namespace TheCursedBroom.Player {
         AvatarState saveState = default;
         [SerializeField, Expandable]
         AvatarState loadState = default;
+        [SerializeField]
+        Vector2 loadVelocity = Vector2.up;
 
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
@@ -108,11 +110,10 @@ namespace TheCursedBroom.Player {
             instance = this;
             grounds = groundedCheck.GetGrounds();
             currentState.EnterState();
-            onSpawn?.Invoke(gameObject);
 
-            if (LevelController.instance) {
-                LevelController.instance.observedObjects.Add(state);
-            }
+            LevelController.instance.observedObjects.Add(state);
+
+            onSpawn?.Invoke(gameObject);
         }
 
         void Update() {
@@ -185,8 +186,10 @@ namespace TheCursedBroom.Player {
             transform.position = state.position;
             rotationAngle = state.rotationAngle;
 
-            attachedRigidbody.velocity = Vector2.zero;
+            attachedRigidbody.velocity = loadVelocity;
             attachedRigidbody.angularVelocity = 0;
+
+            LevelController.instance.RefreshAllTiles();
 
             onTeleport?.Invoke(gameObject, delta);
         }

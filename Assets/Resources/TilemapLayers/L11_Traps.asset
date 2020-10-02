@@ -20,5 +20,25 @@ MonoBehaviour:
   renderSortingLayer: 0
   renderOrderInLayer: 5
   renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
-  collisionMode: 2
+  colliderBaker: {fileID: 11400000, guid: 38a68c17307322c4699dbc0d571e4eac, type: 2}
   collisionMaterial: {fileID: 0}
+  isGround: 0
+  staticFriction: 1
+  kinematicFriction: 1
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6861a7ad8407dc142aa58e8210f103be, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []

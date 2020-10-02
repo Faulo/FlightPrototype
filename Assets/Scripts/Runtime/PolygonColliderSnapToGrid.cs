@@ -7,8 +7,18 @@ namespace TheCursedBroom {
     public class PolygonColliderSnapToGrid : MonoBehaviour {
 #if UNITY_EDITOR
         const int GRID_SIZE = 16;
+        PolygonCollider2D[] polygons {
+            get {
+                if (m_polygons == null) {
+                    m_polygons = GetComponentsInChildren<PolygonCollider2D>();
+                }
+                return m_polygons;
+            }
+        }
+        PolygonCollider2D[] m_polygons;
+
         void Update() {
-            foreach (var polygon in GetComponentsInChildren<PolygonCollider2D>()) {
+            foreach (var polygon in polygons) {
                 polygon.offset = SnapToGrid(polygon.offset);
                 for (int i = 0; i < polygon.pathCount; i++) {
                     var path = polygon.GetPath(i);

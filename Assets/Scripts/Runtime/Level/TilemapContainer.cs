@@ -18,6 +18,8 @@ namespace TheCursedBroom.Level {
         public TilemapLayerAsset[] tilemapLayers = new TilemapLayerAsset[0];
         [SerializeField]
         public Tilemap[] tilemaps = new Tilemap[0];
+        [SerializeField]
+        public TilemapController[] tilemapControllers = new TilemapController[0];
 
         IDictionary<TilemapLayerAsset, Tilemap> layerToTilemap;
         IDictionary<TileBase, int> tileToId;
@@ -29,8 +31,6 @@ namespace TheCursedBroom.Level {
                 }
             }
         }
-
-        public CompositeCollider2D[] colliders;
 
         public TilemapLayerAsset GetTilemapLayerByTile(TileBase tile) {
             return tilemapLayers[tileToId[tile]];
@@ -44,6 +44,7 @@ namespace TheCursedBroom.Level {
         public void Install(Transform context) {
             tilemapLayers = TilemapLayerAsset.all;
             tilemaps = new Tilemap[tilemapLayers.Length];
+            tilemapControllers = new TilemapController[tilemapLayers.Length];
             layerToTilemap = new Dictionary<TilemapLayerAsset, Tilemap>();
             tileToId = new Dictionary<TileBase, int>();
 
@@ -54,6 +55,7 @@ namespace TheCursedBroom.Level {
                     : new GameObject();
                 child.transform.parent = context;
                 tilemaps[i] = tilemapLayers[i].InstallTilemap(child);
+                tilemapControllers[i] = tilemaps[i].GetComponent<TilemapController>();
 
                 layerToTilemap[tilemapLayers[i]] = tilemaps[i];
 
@@ -62,8 +64,6 @@ namespace TheCursedBroom.Level {
                     tileToId[tile] = i;
                 }
             }
-
-            colliders = context.GetComponentsInChildren<CompositeCollider2D>();
         }
 
         public Vector3 tileAnchor => tilemaps[0].tileAnchor;
