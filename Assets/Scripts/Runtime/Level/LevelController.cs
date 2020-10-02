@@ -230,19 +230,19 @@ SKIP:
             }
             return shapes;
         }
-        IDictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
+        readonly IReadOnlyDictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
             [Vector3Int.right] = new Vector2(0, 1),
             [Vector3Int.down] = new Vector2(1, 1),
             [Vector3Int.left] = new Vector2(1, 0),
             [Vector3Int.up] = new Vector2(0, 0),
         };
-        IDictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.down,
             [Vector3Int.down] = Vector3Int.left,
             [Vector3Int.left] = Vector3Int.up,
             [Vector3Int.up] = Vector3Int.right,
         };
-        IDictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.up,
             [Vector3Int.down] = Vector3Int.right,
             [Vector3Int.left] = Vector3Int.down,
