@@ -32,25 +32,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleExplosion_Dismount
       objectReference: {fileID: 0}
+    - target: {fileID: 6451651148518846741, guid: 16c95c238ade55345809c8c8c1a76b3a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.26647058
+      value: 0.7647059
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.78431374
+      value: 0.20392163
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.23921564
+      value: 0.11764705
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16c95c238ade55345809c8c8c1a76b3a, type: 3}

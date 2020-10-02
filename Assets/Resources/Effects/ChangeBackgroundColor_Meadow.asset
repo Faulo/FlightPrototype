@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b898011f2a75c439aa9814fc19988f, type: 3}
   m_Name: ChangeBackgroundColor_Meadow
   m_EditorClassIdentifier: 
-  targetColor: {r: 0.17674798, g: 0.49466562, b: 0.85800004, a: 1}
+  targetColor: {r: 0.24000001, g: 0.5702829, b: 0.8, a: 1}
   changeDuration: 2
