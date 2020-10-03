@@ -22,13 +22,21 @@ namespace TheCursedBroom {
             source.time = audio.timeOffset;
             source.Play();
 
+            if (audio.playDuration > 0) {
+                StartCoroutine(CreateMuteRoutine(source, audio.playDuration));
+            }
             if (!audio.loop) {
-                StartCoroutine(CreateDestructionRoutine(source));
+                StartCoroutine(CreateDestructionRoutine(source, source.clip.length));
             }
         }
 
-        IEnumerator CreateDestructionRoutine(AudioSource source) {
-            yield return new WaitForSeconds(source.clip.length);
+        IEnumerator CreateMuteRoutine(AudioSource source, float duration) {
+            yield return new WaitForSeconds(duration);
+            source.mute = true;
+        }
+
+        IEnumerator CreateDestructionRoutine(AudioSource source, float duration) {
+            yield return new WaitForSeconds(duration);
             Destroy(source.gameObject);
         }
     }
