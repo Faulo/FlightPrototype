@@ -13,17 +13,17 @@
       "dependencies": {}
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "https://github.com/Unity-Technologies/2d-extras.git#master",
+      "version": "1.6.1-preview",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
         "com.unity.modules.tilemap": "1.0.0",
         "com.unity.2d.tilemap": "1.0.0"
       },
-      "hash": "18cae2921070fc149efc3e9a0b410df35309db73"
+      "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.6.0",
+      "version": "2.6.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -44,7 +44,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "7.4.1",
+      "version": "7.5.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -53,26 +53,26 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.universal": {
-      "version": "7.4.1",
+      "version": "7.5.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.render-pipelines.core": "7.4.1",
-        "com.unity.shadergraph": "7.4.1"
+        "com.unity.render-pipelines.core": "7.5.1",
+        "com.unity.shadergraph": "7.5.1"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "7.4.1",
+      "version": "7.5.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.render-pipelines.core": "7.4.1"
+        "com.unity.render-pipelines.core": "7.5.1"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.14",
+      "version": "1.1.16",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -83,7 +83,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "2.1.0",
+      "version": "2.1.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -100,13 +100,13 @@
       }
     },
     "net.slothsoft.unity-extensions": {
-      "version": "https://github.com/Faulo/UnityExtensions.git#0.1.13",
+      "version": "https://github.com/Faulo/UnityExtensions.git",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.test-framework": "1.0.13"
       },
-      "hash": "54f529d6a6436aba0a0f66367a1ea9db7f3eb9e4"
+      "hash": "eb368068a7c8c32a654556329187530820617c89"
     },
     "com.unity.modules.animation": {
       "version": "1.0.0",

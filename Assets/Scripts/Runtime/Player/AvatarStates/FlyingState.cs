@@ -7,8 +7,6 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class FlyingState : AvatarState {
         [Header("Flying")]
-        [SerializeField, Expandable]
-        ParticleSystem updraftParticles = default;
         [SerializeField]
         bool wallMustBeAirborne = true;
         [SerializeField, Range(0, 1)]
@@ -20,7 +18,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void EnterState() {
             base.EnterState();
 
-            updraftParticles.Play();
+            avatar.broom.isFlying = true;
 
             hasCollided = false;
             avatar.physics.onCollisionEnter += CollisionListener;
@@ -31,20 +29,14 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            //updraftParticles.transform.rotation = avatar.intendedLookRotation;
-
-            var main = updraftParticles.main;
-            //main.startSpeed = new ParticleSystem.MinMaxCurve(avatar.intendedFlight.y, avatar.intendedFlight.y * 5);
-
             avatar.UpdateMovement();
         }
 
         public override void ExitState() {
             base.ExitState();
 
+            avatar.broom.isFlying = false;
             avatar.physics.onCollisionEnter -= CollisionListener;
-
-            updraftParticles.Stop();
         }
 
 

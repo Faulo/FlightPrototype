@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
@@ -10,13 +12,9 @@ namespace TheCursedBroom.Level {
 
         [Header("MonoBehaviour configuration")]
         [SerializeField]
-        TilemapContainer tilemaps = default;
-        IDictionary<TilemapType, TileBase[][]> tiles = new Dictionary<TilemapType, TileBase[][]>();
-        ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
-
-        [SerializeField, Expandable]
-        CompositeCollider2D groundCollider = default;
-        bool groundHasChanged;
+        TilemapContainer map = default;
+        IDictionary<TilemapLayerAsset, TileBase[][]> tiles = new Dictionary<TilemapLayerAsset, TileBase[][]>();
+        public readonly ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -28,8 +26,8 @@ namespace TheCursedBroom.Level {
 
         public Transform observedActor;
         public ISet<ILevelObject> observedObjects = new HashSet<ILevelObject>();
-        IList<Vector3Int> observedPositions = new List<Vector3Int> { Vector3Int.zero };
-        IList<Vector3Int> lastPositions = new List<Vector3Int> { Vector3Int.zero };
+        Vector3Int observedCenter = Vector3Int.zero;
+        Vector3Int lastCenter = Vector3Int.zero;
 
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
@@ -43,6 +41,20 @@ namespace TheCursedBroom.Level {
         [SerializeField, Range(1, 100)]
         int maximumRangeY = 36;
 
+        int tilesChangedCount;
+        [SerializeField, Range(-1, 1000)]
+        int tilesChangedMaximum = -1;
+
+        int currentColliderIndex = 0;
+        [SerializeField, Range(1, 80)]
+        int pauseBetweenColliderUpdates = 1;
+        [SerializeField, Range(1, 100)]
+        int shapeCountMaximum = 1;
+
+        [Header("Editor Tools")]
+        [SerializeField]
+        bool installTilemap = false;
+
         void Awake() {
             instance = this;
             PrepareTiles();
@@ -51,127 +63,222 @@ namespace TheCursedBroom.Level {
             onStart.Invoke(gameObject);
         }
         void Update() {
-            if (observedActor) {
+            if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
+                if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
+                    map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
+                }
+                currentColliderIndex++;
+            } else {
                 UpdateTiles();
             }
         }
+        public void RefreshAllTiles() {
+            UpdateTiles();
+            map.tilemapControllers.ForAll(collider => collider.RegenerateCollider());
+        }
         void PrepareTiles() {
-            foreach (var (type, tilemap) in tilemaps.all) {
-                tiles[type] = new TileBase[tilemaps.height * levels.Length][];
+            map.Install(transform);
+            for (int i = 0; i < levels.Length; i++) {
+                levels[i].tilemaps.Install(levels[i].transform);
+            }
+            foreach (var (layer, tilemap) in map.all) {
+                tiles[layer] = new TileBase[map.height * levels.Length][];
                 for (int i = 0; i < levels.Length; i++) {
-                    for (int y = 0; y < tilemaps.height; y++) {
-                        int j = y + (i * tilemaps.height);
-                        tiles[type][j] = new TileBase[tilemaps.width];
-                        for (int x = 0; x < tilemaps.width; x++) {
-                            tiles[type][j][x] = levels[i].GetTile(type, new Vector3Int(x, y, 0));
+                    for (int y = 0; y < map.height; y++) {
+                        int j = y + (i * map.height);
+                        tiles[layer][j] = new TileBase[map.width];
+                        for (int x = 0; x < map.width; x++) {
+                            tiles[layer][j][x] = levels[i].GetTile(layer, new Vector3Int(x, y, 0));
                         }
                     }
                 }
             }
-
-            groundCollider.generationType = CompositeCollider2D.GenerationType.Manual;
         }
         void UpdateTiles() {
-            groundHasChanged = false;
+            if (!observedActor) {
+                return;
+            }
+
+            tilesChangedCount = 0;
 
             foreach (var observedObject in observedObjects) {
-                while (observedObject.position.x < observedActor.position.x - (tilemaps.width / 2)) {
-                    observedObject.TranslateX(tilemaps.width);
+                while (observedObject.position.x < observedActor.position.x - (map.width / 2)) {
+                    observedObject.TranslateX(map.width);
                 }
-                while (observedObject.position.x > observedActor.position.x + (tilemaps.width / 2)) {
-                    observedObject.TranslateX(-tilemaps.width);
+                while (observedObject.position.x > observedActor.position.x + (map.width / 2)) {
+                    observedObject.TranslateX(-map.width);
                 }
             }
             if (allowNonActorTileLoading) {
-                observedPositions = observedObjects
+                observedObjects
                     .Where(o => o.requireLevel)
                     .Select(o => o.position)
                     .Append(observedActor.position)
-                    .Select(tilemaps.WorldToCell)
+                    .Select(map.WorldToCell)
                     .ToList();
+                throw new NotImplementedException(nameof(allowNonActorTileLoading));
             } else {
-                observedPositions[0] = tilemaps.WorldToCell(observedActor.position);
+                observedCenter = map.WorldToCell(observedActor.position);
             }
 
-            if (lastPositions[0] != observedPositions[0]) {
-                lastPositions[0] = observedPositions[0];
+            if (lastCenter != observedCenter) {
+                lastCenter = observedCenter;
 
                 DiscardOldTiles();
                 LoadNewTiles();
 
-                if (groundHasChanged) {
-                    groundCollider.GenerateGeometry();
+                if (tilesChangedCount > 0) {
+                    currentColliderIndex = 0;
                 }
             }
         }
         void DiscardOldTiles() {
-            var positions = new HashSet<Vector3Int>();
-            foreach (var position in loadedTilePositions) {
-                if (!positions.Contains(position)) {
-                    if (IsOutOfBounds(position)) {
-                        positions.Add(position);
-                    }
-                }
-            }
-            foreach (var position in positions) {
-                DiscardTile(position);
-            }
+            loadedTilePositions
+                .Where(IsOutOfBounds)
+                .ToList()
+                .ForAll(DiscardTile);
         }
         bool IsOutOfBounds(Vector3Int position) {
-            foreach (var center in observedPositions) {
-                if (position.x >= center.x - maximumRangeX && position.x <= center.x + maximumRangeX) {
-                    if (position.y >= center.y - maximumRangeY && position.y <= center.y + maximumRangeY) {
-                        return false;
-                    }
+            if (position.x >= observedCenter.x - maximumRangeX && position.x <= observedCenter.x + maximumRangeX) {
+                if (position.y >= observedCenter.y - maximumRangeY && position.y <= observedCenter.y + maximumRangeY) {
+                    return false;
                 }
             }
             return true;
         }
         void LoadNewTiles() {
-            foreach (var center in observedPositions) {
-                for (int x = center.x - minimumRangeX; x <= center.x + minimumRangeX; x++) {
-                    for (int y = center.y - minimumRangeY; y <= center.y + minimumRangeY; y++) {
-                        var position = new Vector3Int(x, y, 0);
-                        if (!loadedTilePositions.Contains(position)) {
-                            LoadTile(position);
+            for (int x = observedCenter.x - minimumRangeX; x <= observedCenter.x + minimumRangeX; x++) {
+                for (int y = observedCenter.y - minimumRangeY; y <= observedCenter.y + minimumRangeY; y++) {
+                    var position = new Vector3Int(x, y, 0);
+                    if (!loadedTilePositions.Contains(position)) {
+                        LoadTile(position);
+                        if (tilesChangedCount == tilesChangedMaximum) {
+                            return;
                         }
                     }
                 }
             }
         }
         void DiscardTile(Vector3Int position) {
-            foreach (var (_, tilemap) in tilemaps.all) {
+            foreach (var (_, tilemap) in map.all) {
                 tilemap.SetTile(position, null);
             }
             loadedTilePositions.Remove(position);
         }
         void LoadTile(Vector3Int position) {
-            foreach (var (type, tilemap) in tilemaps.all) {
-                tilemap.SetTile(position, GetTile(type, position));
+            foreach (var (type, tilemap) in map.all) {
+                if (TryGetTile(type, position, out var tile)) {
+                    tilemap.SetTile(position, tile);
+                }
             }
             loadedTilePositions.Add(position);
-            groundHasChanged = true;
+            tilesChangedCount++;
         }
-        TileBase GetTile(TilemapType type, Vector3Int position) {
-            if (position.y < 0 || position.y >= tilemaps.height * levels.Length) {
-                return null;
+        bool TryGetTile(TilemapLayerAsset type, Vector3Int position, out TileBase tile) {
+            if (position.y < 0 || position.y >= map.height * levels.Length) {
+                tile = null;
+                return false;
             }
             while (position.x < 0) {
-                position.x += tilemaps.width;
+                position.x += map.width;
             }
-            position.x %= tilemaps.width;
-            return tiles[type][position.y][position.x];
+            position.x %= map.width;
+            tile = tiles[type][position.y][position.x];
+            return tile != null;
+        }
+        public bool HasTile(TilemapLayerAsset type, Vector3Int position) {
+            if (position.y < 0 || position.y >= map.height * levels.Length) {
+                return false;
+            }
+            while (position.x < 0) {
+                position.x += map.width;
+            }
+            position.x %= map.width;
+            return tiles[type][position.y][position.x] != null;
         }
         void OnValidate() {
-            tilemaps.OnValidate(transform);
-            if (!groundCollider) {
-                groundCollider = GetComponentInChildren<CompositeCollider2D>();
+            if (installTilemap) {
+                installTilemap = false;
+                StartCoroutine(InstallTilemap());
             }
         }
+        IEnumerator InstallTilemap() {
+            yield return null;
+            map.Install(transform);
+        }
+
+        public IList<TileShape> GetTileShapes(TilemapLayerAsset type) {
+            var shapes = new List<TileShape>();
+            var tilemap = map.GetTilemapByLayer(type);
+            for (int y = observedCenter.y - maximumRangeY; y <= observedCenter.y + maximumRangeY; y++) {
+                for (int x = observedCenter.x - maximumRangeX; x <= observedCenter.x + maximumRangeX; x++) {
+                    var position = new Vector3Int(x, y, 0);
+                    if (tilemap.HasTile(position)) {
+                        for (int i = 0; i < shapes.Count; i++) {
+                            if (shapes[i].ContainsPosition(position)) {
+                                goto SKIP;
+                            }
+                        }
+                        shapes.Add(CreateTileShape(tilemap, position, Vector3Int.up));
+                        if (shapes.Count == shapeCountMaximum) {
+                            return shapes;
+                        }
+                    }
+SKIP:
+                    ;
+                }
+            }
+            return shapes;
+        }
+        readonly IReadOnlyDictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
+            [Vector3Int.right] = new Vector2(0, 1),
+            [Vector3Int.down] = new Vector2(1, 1),
+            [Vector3Int.left] = new Vector2(1, 0),
+            [Vector3Int.up] = new Vector2(0, 0),
+        };
+        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+            [Vector3Int.right] = Vector3Int.down,
+            [Vector3Int.down] = Vector3Int.left,
+            [Vector3Int.left] = Vector3Int.up,
+            [Vector3Int.up] = Vector3Int.right,
+        };
+        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+            [Vector3Int.right] = Vector3Int.up,
+            [Vector3Int.down] = Vector3Int.right,
+            [Vector3Int.left] = Vector3Int.down,
+            [Vector3Int.up] = Vector3Int.left,
+        };
+        TileShape CreateTileShape(Tilemap tilemap, Vector3Int startPosition, Vector3Int startDirection) {
+            var shape = new TileShape();
+            var position = startPosition;
+            var direction = startDirection;
+            int i = 0;
+            do {
+                if (tilemap.HasTile(position + direction + backwardRotation[direction])) {
+                    position += direction + backwardRotation[direction];
+                    direction = backwardRotation[direction];
+                    shape.positions.Add(position);
+                    shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
+                } else if (tilemap.HasTile(position + direction)) {
+                    position += direction;
+                } else {
+                    direction = forwardRotation[direction];
+                    shape.positions.Add(position);
+                    shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
+                }
+                if (++i == 1000) {
+                    Debug.Log($"Stack overflow in {tilemap}! Position: {position} Direction: {direction}");
+                    Debug.Log(string.Join(", ", shape.positions));
+                    throw new Exception(tilemap.ToString());
+                }
+            } while (!(position == startPosition && direction == startDirection));
+            return shape;
+        }
+
         void OnDrawGizmos() {
             if (observedActor) {
                 var center = new Vector3((int)observedActor.position.x, (int)observedActor.position.y, 0);
-                center += tilemaps.tileAnchor;
+                center += map.tileAnchor;
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawWireCube(center, new Vector3((2 * minimumRangeX) + 1, (2 * minimumRangeY) + 1, 1));
                 Gizmos.color = Color.blue;

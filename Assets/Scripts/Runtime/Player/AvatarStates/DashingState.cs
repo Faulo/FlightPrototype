@@ -14,9 +14,11 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             dashTimer = 0;
 
-            avatar.UpdateMovement();
+            avatar.broom.isDashing = true;
+            avatar.broom.isFlying = true;
+            avatar.broom.canBoost = false;
 
-            avatar.canGlide = false;
+            avatar.UpdateMovement();
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
@@ -28,6 +30,8 @@ namespace TheCursedBroom.Player.AvatarStates {
 
         public override void ExitState() {
             base.ExitState();
+
+            avatar.broom.isDashing = false;
         }
 
         [Header("Transitions")]

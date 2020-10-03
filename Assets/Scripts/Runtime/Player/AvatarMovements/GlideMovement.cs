@@ -1,18 +1,9 @@
-﻿using System.Linq;
-using TheCursedBroom.Extensions;
-using UnityEngine;
-using UnityEngine.Assertions;
+﻿using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace TheCursedBroom.Player.AvatarMovements {
     [CreateAssetMenu()]
     public class GlideMovement : AvatarMovement {
-        enum BoostState {
-            Inactive,
-            Gathering,
-            Start,
-            Executing
-        }
         enum GlideMode {
             RotationControl,
             AngularVelocityControl
@@ -61,131 +52,113 @@ namespace TheCursedBroom.Player.AvatarMovements {
         [Header("Boost")]
         [SerializeField, Range(0, 1)]
         float requiredAlignment = 1;
-        [SerializeField, Range(0, 100)]
-        float requiredSpeed = 10;
+        [SerializeField, Range(-100, 0)]
+        float requiredYSpeed = -1;
         [SerializeField, Range(1, 100)]
         int boostGatheringFrameCount = 10;
         [SerializeField, Range(0, 10)]
-        float boostAlignDuration = 0;
-        [SerializeField, Range(1, 100)]
-        int boostExecutionFrameCount = 10;
-        [SerializeField, Range(0, 100)]
-        float boostAcceleration = 1;
-        [SerializeField, Range(0, 1000)]
-        int boostParticleCount = 100;
+        float boostRotationDuration = 0;
         [SerializeField, Range(0, 10)]
-        float boostParticleSpeed = 2;
+        float boostExecutionFrameMultiplier = 1;
+        [SerializeField, Range(0, 100)]
+        float boostExecutionSpeed = 1;
         [SerializeField, Range(0, 10)]
         float boostDrag = 0;
-
-        [Header("Visualization")]
-        [SerializeField]
-        string particlesName = "ParticleTrail_Glide";
-        [SerializeField]
-        Gradient colorOverAlignment = default;
-        [SerializeField]
-        Gradient boostGatheringColor = default;
-        [SerializeField]
-        Gradient boostExecutionColor = default;
-        [SerializeField]
-        AnimationCurve particleCountOverAlignment = default;
-        [SerializeField, Range(0, 1000)]
-        int minimumParticleCount = 10;
-        [SerializeField, Range(0, 1000)]
-        int maximumParticleCount = 100;
 
         [Header("Events")]
         [SerializeField]
         GameObjectEvent onBoost = default;
 
         public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
-            var particles = avatar
-                .GetComponentsInChildren<ParticleSystem>()
-                .FirstOrDefault(p => p.name == particlesName);
-            Assert.IsNotNull(particles, $"Couldn't find particles '{particlesName}'!");
             float angularVelocity = 0;
             var acceleration = Vector2.zero;
-            var boostState = BoostState.Inactive;
             int boostGatheringTimer = 0;
             int boostExecutionTimer = 0;
+            int boostExecutionFrameCount = 0;
             return () => {
+                float currentAngle = avatar.rotationAngle;
+
                 var targetDirection = avatar.intendedFlight == Vector2.zero
                     ? avatar.forward
                     : avatar.intendedFlight;
                 float targetAngle = AngleUtil.DirectionalAngle(targetDirection);
-
                 if (directionsNormalized) {
                     targetAngle = AngleUtil.RoundAngle(targetAngle, directionRange);
                 }
                 var targetRotation = Quaternion.Euler(0, 0, targetAngle);
 
-                float currentAngle = Mathf.SmoothDampAngle(avatar.rotationAngle, targetAngle, ref angularVelocity, rotationDuration);
-                var currentRotation = Quaternion.Euler(0, 0, currentAngle);
+                var currentVelocity = avatar.velocity;
 
-                var velocity = avatar.velocity;
-                var velocityRotation = AngleUtil.DirectionalRotation(velocity);
+                (Vector2, float) boost() {
+                    avatar.drag = boostDrag;
 
-                float alignment = AngleUtil.Alignment(currentRotation, velocityRotation);
+                    boostExecutionTimer++;
+                    if (boostExecutionTimer >= boostExecutionFrameCount) {
+                        boostExecutionTimer = 0;
+                        avatar.broom.isBoosting = false;
+                        angularVelocity = 0;
+                        return glide();
+                    }
 
-                float alignDuration = GetAlignDuration(alignment);
-                var targetVelocity = currentRotation * Vector2.right * velocity.magnitude;
+                    float angle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref angularVelocity, boostRotationDuration);
+                    var rotation = Quaternion.Euler(0, 0, angle);
+                    var targetVelocity = (Vector2)(rotation * Vector2.right * currentVelocity.magnitude);
 
-                var particleColor = colorOverAlignment.Evaluate(alignment);
-                int particleCount = minimumParticleCount + Mathf.RoundToInt((maximumParticleCount - minimumParticleCount) * particleCountOverAlignment.Evaluate(alignment));
-                float particleSpeed = 1;
+                    var velocity = targetVelocity;
 
-                switch (boostState) {
-                    case BoostState.Inactive:
-                    case BoostState.Gathering:
-                        avatar.drag = GetDrag(alignment);
-
-                        if (alignment > requiredAlignment) {
-                            if (velocity.magnitude > requiredSpeed) {
-                                if (boostGatheringTimer < boostGatheringFrameCount) {
-                                    boostGatheringTimer++;
-                                }
-                                boostState = BoostState.Gathering;
-                                particleColor = boostGatheringColor.Evaluate((float)boostGatheringTimer / (boostGatheringFrameCount - 1));
-                            }
-                        } else {
-                            if (boostGatheringTimer == boostGatheringFrameCount) {
-                                boostGatheringTimer = 0;
-                                boostState = BoostState.Executing;
-                                onBoost.Invoke(avatar.gameObject);
-                                goto case BoostState.Executing;
-                            } else {
-                                boostState = BoostState.Inactive;
-                                if (boostGatheringTimer > 0) {
-                                    boostGatheringTimer--;
-                                }
-                            }
-                        }
-                        velocity = Vector2.SmoothDamp(velocity, targetVelocity, ref acceleration, alignDuration);
-                        velocity += (Vector2)(currentRotation * Vector2.right * GetAcceleration(alignment) * Time.deltaTime);
-                        velocity += avatar.gravityStep;
-                        break;
-                    case BoostState.Executing:
-                        avatar.drag = boostDrag;
-
-                        velocity = Vector2.SmoothDamp(velocity, targetVelocity, ref acceleration, boostAlignDuration);
-                        velocity += (Vector2)(targetRotation * Vector2.right * boostAcceleration * Time.deltaTime);
-
-                        particleColor = boostExecutionColor.Evaluate((float)boostExecutionTimer / (boostExecutionFrameCount - 1));
-                        particleCount = boostParticleCount;
-                        particleSpeed = boostParticleSpeed;
-
-                        boostExecutionTimer++;
-                        if (boostExecutionTimer == boostExecutionFrameCount) {
-                            boostExecutionTimer = 0;
-                            boostState = BoostState.Inactive;
-                        }
-                        break;
+                    return (velocity, angle);
                 }
-                particles.SetParticleColor(particleColor);
-                particles.SetParticleCount(particleCount);
-                particles.SetStartSpeedMultiplier(2);
 
-                return (velocity, currentAngle);
+                (Vector2, float) glide() {
+                    float angle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref angularVelocity, rotationDuration);
+                    var rotation = Quaternion.Euler(0, 0, angle);
+
+                    var velocityRotation = AngleUtil.DirectionalRotation(currentVelocity);
+
+                    float alignment = AngleUtil.Alignment(rotation, velocityRotation);
+
+                    float alignDuration = GetAlignDuration(alignment);
+                    var targetVelocity = rotation * Vector2.right * currentVelocity.magnitude;
+
+                    avatar.drag = GetDrag(alignment);
+
+                    avatar.broom.isAligned = alignment > requiredAlignment;
+                    avatar.broom.isDiving = currentVelocity.y < requiredYSpeed;
+                    bool intendsBoost = targetAngle <= 180;
+
+                    if (intendsBoost) {
+                        if (avatar.broom.canBoost) {
+                            avatar.broom.canBoost = false;
+                            avatar.broom.isBoosting = true;
+                            float boostDuration = Mathf.Abs(currentVelocity.y);
+                            boostDuration *= boostExecutionFrameMultiplier;
+                            boostExecutionFrameCount = Mathf.RoundToInt(boostDuration);
+                            onBoost.Invoke(avatar.gameObject);
+                            currentVelocity += currentVelocity.normalized * boostExecutionSpeed;
+                            angularVelocity = 0;
+                            return boost();
+                        }
+                    } else {
+                        if (avatar.broom.isAligned && avatar.broom.isDiving) {
+                            if (!avatar.broom.canBoost && boostGatheringTimer < boostGatheringFrameCount) {
+                                boostGatheringTimer++;
+                                if (boostGatheringTimer >= boostGatheringFrameCount) {
+                                    boostGatheringTimer = 0;
+                                    avatar.broom.canBoost = true;
+                                }
+                            }
+                        }
+                    }
+
+                    var velocity = Vector2.SmoothDamp(currentVelocity, targetVelocity, ref acceleration, alignDuration);
+                    velocity += (Vector2)(rotation * Vector2.right * GetAcceleration(alignment) * Time.deltaTime);
+                    velocity += avatar.gravityStep;
+
+                    return (velocity, angle);
+                }
+                return avatar.broom.isBoosting
+                    ? boost()
+                    : glide();
             };
         }
     }

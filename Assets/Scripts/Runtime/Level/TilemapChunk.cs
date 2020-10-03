@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
@@ -9,18 +11,36 @@ namespace TheCursedBroom.Level {
 
         [Header("Editor Tools")]
         [SerializeField]
+        bool installTilemap = false;
+        [SerializeField]
         bool syncRightWithLeftBorder = false;
+        [SerializeField]
+        bool moveTilesToCorrectLayer = false;
 
+        void Awake() {
+            tilemaps.Install(transform);
+        }
         void OnValidate() {
-            tilemaps.OnValidate(transform);
-
+            if (installTilemap) {
+                installTilemap = false;
+                StartCoroutine(InstallTilemap());
+            }
             if (syncRightWithLeftBorder) {
                 syncRightWithLeftBorder = false;
-                SyncBorders();
+                StartCoroutine(SyncBorders());
+            }
+            if (moveTilesToCorrectLayer) {
+                moveTilesToCorrectLayer = false;
+                StartCoroutine(MoveTiles());
             }
         }
-
-        void SyncBorders() {
+        IEnumerator InstallTilemap() {
+            yield return null;
+            tilemaps.Install(transform);
+            Debug.Log("InstallTilemap complete!");
+        }
+        IEnumerator SyncBorders() {
+            yield return null;
             for (int i = 0; i < tilemaps.height; i++) {
                 var left = new Vector3Int(0, i, 0);
                 var right = new Vector3Int(tilemaps.width, i, 0);
@@ -29,10 +49,48 @@ namespace TheCursedBroom.Level {
                     tilemap.SetTile(left + Vector3Int.left, tilemap.GetTile(right + Vector3Int.left));
                 }
             }
+            Debug.Log("SyncBorders complete!");
         }
 
-        public TileBase GetTile(TilemapType type, Vector3Int position) {
-            return tilemaps.GetTilemapByType(type).GetTile(position);
+        IEnumerator MoveTiles() {
+            yield return InstallTilemap();
+            var tileMoves = new List<(Tilemap, Tilemap, Vector3Int, TileBase)>();
+            // collect tiles to move
+            foreach (var (_, oldTilemap) in tilemaps.all) {
+                for (int x = 0; x < tilemaps.width; x++) {
+                    for (int y = 0; y < tilemaps.height; y++) {
+                        var position = new Vector3Int(x, y, 0);
+                        var tile = oldTilemap.GetTile(position);
+                        if (tile) {
+                            var newTilemap = tilemaps.GetTilemapByTile(tile);
+                            if (newTilemap != oldTilemap) {
+                                tileMoves.Add((oldTilemap, newTilemap, position, tile));
+                            }
+                        }
+                    }
+                }
+            }
+
+            // delete tiles from old tilemap
+            foreach (var (oldTilemap, _, position, _) in tileMoves) {
+                oldTilemap.SetTile(position, null);
+            }
+
+            // set tile on new tilemap
+            foreach (var (_, newTilemap, position, tile) in tileMoves) {
+                newTilemap.SetTile(position, tile);
+            }
+
+            // refresh tilemaps
+            foreach (var (_, tilemap) in tilemaps.all) {
+                tilemap.RefreshAllTiles();
+            }
+
+            Debug.Log($"MoveTiles complete! {tileMoves.Count} tiles moved.");
+        }
+
+        public TileBase GetTile(TilemapLayerAsset layer, Vector3Int position) {
+            return tilemaps.GetTilemapByLayer(layer).GetTile(position);
         }
 
         void OnDrawGizmos() {

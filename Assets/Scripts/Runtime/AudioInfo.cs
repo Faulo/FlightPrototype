@@ -8,5 +8,6 @@ namespace TheCursedBroom {
         public AudioMixerGroup mixer;
         public float pitch;
         public float timeOffset;
+        public float playDuration;
     }
 }
