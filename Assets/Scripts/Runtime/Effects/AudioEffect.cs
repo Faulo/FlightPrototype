@@ -19,6 +19,8 @@ namespace TheCursedBroom.Effects {
         bool loop = false;
         [SerializeField, Range(0, 10)]
         float timeOffset = 0;
+        [SerializeField, Range(0, 10)]
+        float playDuration = 0;
 
         public override void Invoke(GameObject context) {
             if (!AudioManager.instance) {
@@ -30,6 +32,7 @@ namespace TheCursedBroom.Effects {
                 pitch = Random.Range(mininumPitch, maxmimumPitch),
                 loop = loop,
                 timeOffset = timeOffset,
+                playDuration = playDuration,
             });
         }
     }

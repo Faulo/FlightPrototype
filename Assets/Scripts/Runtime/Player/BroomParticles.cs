@@ -15,19 +15,21 @@ namespace TheCursedBroom.Player {
         ColorAsset particleColor = default;
 
         ParticleSystem.EmissionModule emission;
+        ParticleSystem.MainModule main;
 
         protected override void OnValidate() {
             base.OnValidate();
             if (!avatar) {
                 avatar = GetComponentInParent<AvatarController>();
             }
-            UpdateColor();
         }
 
         void Start() {
             Assert.IsNotNull(observedComponent);
             Assert.IsNotNull(avatar);
             emission = observedComponent.emission;
+            main = observedComponent.main;
+            UpdateColor();
         }
 
         void Update() {
@@ -42,7 +44,6 @@ namespace TheCursedBroom.Player {
 
         void UpdateColor() {
             if (observedComponent && particleColor) {
-                var main = observedComponent.main;
                 main.startColor = particleColor.color;
             }
         }
