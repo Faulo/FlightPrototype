@@ -81,7 +81,12 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460977798789484390, guid: 09d64e9e8c3ceb944893c05df82b37cc,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09d64e9e8c3ceb944893c05df82b37cc, type: 3}
