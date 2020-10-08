@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 822fc683f855e48408511d04e58c3b07, type: 3}
-  m_Name: EG_EnterCave
+  m_Name: EG_EnterMeadow
   m_EditorClassIdentifier: 
   effects:
-  - {fileID: 11400000, guid: 412ffa4f77d7b004bb7e959d6c6bbda8, type: 2}
-  - {fileID: 11400000, guid: 80cf099ccc1f75342a8b63d5ebd0749f, type: 2}
-  - {fileID: 11400000, guid: 54558a6e26fbf5445a34f0ccdfe710a3, type: 2}
+  - {fileID: 11400000, guid: f01e118dcd55194439cb53db1bf3dd7f, type: 2}
+  - {fileID: 11400000, guid: 328725173059a7a42a7e3038b2d0fe35, type: 2}
+  - {fileID: 11400000, guid: 5430c2e90d7333849b38f02e7fa4e094, type: 2}

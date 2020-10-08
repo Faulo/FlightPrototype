@@ -26,7 +26,7 @@ namespace TheCursedBroom.Level {
         IList<Vector3Int> newPositions = new List<Vector3Int>();
         IList<TileBase> newTiles = new List<TileBase>();
 
-        void FixedUpdate() {
+        void Update() {
             if (newPositions.Count > 0) {
                 tilemap.SetTiles(newPositions.ToArray(), newTiles.ToArray());
                 newPositions.Clear();
