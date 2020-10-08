@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
-  m_Name: Collectible_Star
+  m_Name: L30_Button_A
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6819948692403088750, guid: 3c2c2727556dca54da685eb088f46085, type: 3}
-  prefab: {fileID: 961210211468534619, guid: d78b7940a14775146af8d1c8d2d500e2, type: 3}
-  colliderType: 0
+  sprite: {fileID: -6339577361611483455, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
+  prefab: {fileID: 642851093565264006, guid: e0366246b3872fa40a1edf391914fe91, type: 3}
+  colliderType: 2
