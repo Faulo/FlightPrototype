@@ -56,26 +56,6 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         Material renderMaterial = default;
 
-        [Header("Collision settings")]
-        [SerializeField, Expandable]
-        TilemapColliderBakerAsset colliderBaker = default;
-        [SerializeField]
-        PhysicsMaterial2D collisionMaterial = default;
-
-        [Header("Ground settings")]
-        [SerializeField]
-        bool isGround = false;
-        [SerializeField, Range(0.001f, 10)]
-        float staticFriction = 1;
-        [SerializeField, Range(0.001f, 10)]
-        float kinematicFriction = 1;
-
-        [Header("Events")]
-        [SerializeField]
-        GameObjectEvent onTriggerEnter = default;
-        [SerializeField]
-        GameObjectEvent onTriggerExit = default;
-
         public Tilemap InstallTilemap(GameObject obj) {
             if (obj.name != name) {
                 obj.name = name;
@@ -113,30 +93,6 @@ namespace TheCursedBroom.Level {
                     default:
                         throw new NotImplementedException(renderMode.ToString());
                 }
-            }
-
-            // Collider
-            if (colliderBaker == null) {
-                obj.DestroyComponent<Rigidbody2D>();
-            } else {
-                var rigidbody = obj.GetOrAddComponent<Rigidbody2D>();
-                rigidbody.bodyType = RigidbodyType2D.Static;
-                rigidbody.sharedMaterial = collisionMaterial;
-
-                if (Application.isPlaying) {
-                    colliderBaker.SetupBaker(controller);
-                    controller.onTriggerEnter += onTriggerEnter.Invoke;
-                    controller.onTriggerExit += onTriggerExit.Invoke;
-                }
-            }
-
-            // Ground
-            if (isGround) {
-                var ground = obj.GetOrAddComponent<Ground>();
-                ground.staticFriction = staticFriction;
-                ground.kinematicFriction = kinematicFriction;
-            } else {
-                obj.DestroyComponent<Ground>();
             }
 
             return tilemap;

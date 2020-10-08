@@ -7688,7 +7688,7 @@ GameObject:
   - component: {fileID: 7422552702636427967}
   - component: {fileID: -6039578731211057299}
   m_Layer: 0
-  m_Name: L00_Background_Cave
+  m_Name: L00_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

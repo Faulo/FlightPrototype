@@ -13,8 +13,7 @@ namespace TheCursedBroom.Level {
         [Header("MonoBehaviour configuration")]
         [SerializeField]
         TilemapContainer map = default;
-        IDictionary<TilemapLayerAsset, TileBase[][]> tiles = new Dictionary<TilemapLayerAsset, TileBase[][]>();
-        public readonly ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
+        readonly ISet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
 
         [Header("Levels")]
         [SerializeField, Expandable]
@@ -76,22 +75,27 @@ namespace TheCursedBroom.Level {
             UpdateTiles();
             map.tilemapControllers.ForAll(collider => collider.RegenerateCollider());
         }
+        public (Tilemap, TileBase[][]) CreateTilemapStorage(TilemapLayerAsset type) {
+            var storage = new TileBase[map.height * levels.Length][];
+            foreach (var (layer, tilemap) in map.all) {
+                if (layer == type) {
+                    for (int i = 0; i < levels.Length; i++) {
+                        for (int y = 0; y < map.height; y++) {
+                            int j = y + (i * map.height);
+                            storage[j] = new TileBase[map.width];
+                            for (int x = 0; x < map.width; x++) {
+                                storage[j][x] = levels[i].GetTile(layer, new Vector3Int(x, y, 0));
+                            }
+                        }
+                    }
+                }
+            }
+            return (map.GetTilemapByLayer(type), storage);
+        }
         void PrepareTiles() {
             map.Install(transform);
             for (int i = 0; i < levels.Length; i++) {
                 levels[i].tilemaps.Install(levels[i].transform);
-            }
-            foreach (var (layer, tilemap) in map.all) {
-                tiles[layer] = new TileBase[map.height * levels.Length][];
-                for (int i = 0; i < levels.Length; i++) {
-                    for (int y = 0; y < map.height; y++) {
-                        int j = y + (i * map.height);
-                        tiles[layer][j] = new TileBase[map.width];
-                        for (int x = 0; x < map.width; x++) {
-                            tiles[layer][j][x] = levels[i].GetTile(layer, new Vector3Int(x, y, 0));
-                        }
-                    }
-                }
             }
         }
         void UpdateTiles() {
@@ -160,41 +164,17 @@ namespace TheCursedBroom.Level {
             }
         }
         void DiscardTile(Vector3Int position) {
-            foreach (var (_, tilemap) in map.all) {
-                tilemap.SetTile(position, null);
+            for (int i = 0; i < map.tilemapControllers.Length; i++) {
+                map.tilemapControllers[i].DiscardTile(position);
             }
             loadedTilePositions.Remove(position);
         }
         void LoadTile(Vector3Int position) {
-            foreach (var (type, tilemap) in map.all) {
-                if (TryGetTile(type, position, out var tile)) {
-                    tilemap.SetTile(position, tile);
-                }
+            for (int i = 0; i < map.tilemapControllers.Length; i++) {
+                map.tilemapControllers[i].LoadTile(position);
             }
             loadedTilePositions.Add(position);
             tilesChangedCount++;
-        }
-        bool TryGetTile(TilemapLayerAsset type, Vector3Int position, out TileBase tile) {
-            if (position.y < 0 || position.y >= map.height * levels.Length) {
-                tile = null;
-                return false;
-            }
-            while (position.x < 0) {
-                position.x += map.width;
-            }
-            position.x %= map.width;
-            tile = tiles[type][position.y][position.x];
-            return tile != null;
-        }
-        public bool HasTile(TilemapLayerAsset type, Vector3Int position) {
-            if (position.y < 0 || position.y >= map.height * levels.Length) {
-                return false;
-            }
-            while (position.x < 0) {
-                position.x += map.width;
-            }
-            position.x %= map.width;
-            return tiles[type][position.y][position.x] != null;
         }
         void OnValidate() {
             if (installTilemap) {
@@ -207,19 +187,18 @@ namespace TheCursedBroom.Level {
             map.Install(transform);
         }
 
-        public IList<TileShape> GetTileShapes(TilemapLayerAsset type) {
+        public IList<TileShape> GetTileShapes(ISet<Vector3Int> positions) {
             var shapes = new List<TileShape>();
-            var tilemap = map.GetTilemapByLayer(type);
             for (int y = observedCenter.y - maximumRangeY; y <= observedCenter.y + maximumRangeY; y++) {
                 for (int x = observedCenter.x - maximumRangeX; x <= observedCenter.x + maximumRangeX; x++) {
                     var position = new Vector3Int(x, y, 0);
-                    if (tilemap.HasTile(position)) {
+                    if (positions.Contains(position)) {
                         for (int i = 0; i < shapes.Count; i++) {
                             if (shapes[i].ContainsPosition(position)) {
                                 goto SKIP;
                             }
                         }
-                        shapes.Add(CreateTileShape(tilemap, position, Vector3Int.up));
+                        shapes.Add(CreateTileShape(positions, position, Vector3Int.up));
                         if (shapes.Count == shapeCountMaximum) {
                             return shapes;
                         }
@@ -248,18 +227,18 @@ SKIP:
             [Vector3Int.left] = Vector3Int.down,
             [Vector3Int.up] = Vector3Int.left,
         };
-        TileShape CreateTileShape(Tilemap tilemap, Vector3Int startPosition, Vector3Int startDirection) {
+        TileShape CreateTileShape(ISet<Vector3Int> positions, Vector3Int startPosition, Vector3Int startDirection) {
             var shape = new TileShape();
             var position = startPosition;
             var direction = startDirection;
             int i = 0;
             do {
-                if (tilemap.HasTile(position + direction + backwardRotation[direction])) {
+                if (positions.Contains(position + direction + backwardRotation[direction])) {
                     position += direction + backwardRotation[direction];
                     direction = backwardRotation[direction];
                     shape.positions.Add(position);
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
-                } else if (tilemap.HasTile(position + direction)) {
+                } else if (positions.Contains(position + direction)) {
                     position += direction;
                 } else {
                     direction = forwardRotation[direction];
@@ -267,9 +246,9 @@ SKIP:
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
                 }
                 if (++i == 1000) {
-                    Debug.Log($"Stack overflow in {tilemap}! Position: {position} Direction: {direction}");
+                    Debug.Log($"Stack overflow in {positions}! Position: {position} Direction: {direction}");
                     Debug.Log(string.Join(", ", shape.positions));
-                    throw new Exception(tilemap.ToString());
+                    throw new Exception(positions.ToString());
                 }
             } while (!(position == startPosition && direction == startDirection));
             return shape;
