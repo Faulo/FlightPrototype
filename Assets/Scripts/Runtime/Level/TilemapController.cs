@@ -19,7 +19,7 @@ namespace TheCursedBroom.Level {
         Tilemap tilemap;
         TileBase[][] storage;
 
-        void Start() {
+        void Awake() {
             (tilemap, storage) = LevelController.instance.CreateTilemapStorage(type);
         }
 
