@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6809621170712052476}
   - component: {fileID: 2111044455485666041}
   m_Layer: 0
-  m_Name: Collectible_Star
+  m_Name: L12_Interactable_Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,6 +222,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_Light_Star
+      objectReference: {fileID: 0}
+    - target: {fileID: 642851093565264006, guid: 32ab4408df207134b9b6fbf8501e8685,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4387320085950501871, guid: 32ab4408df207134b9b6fbf8501e8685,
         type: 3}

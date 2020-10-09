@@ -15,8 +15,19 @@ namespace TheCursedBroom.Level.Tiles {
             tileData.sprite = sprite;
             tileData.gameObject = prefab;
             tileData.colliderType = colliderType;
-            tileData.flags = TileFlags.LockColor;
-            tileData.transform = Matrix4x4.identity;
+        }
+        public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go) {
+            if (go) {
+                var transform = tilemap.GetTransformMatrix(position);
+                go.transform.localRotation = Quaternion.LookRotation(
+                    new Vector3(transform.m02, transform.m12, transform.m22),
+                    new Vector3(transform.m01, transform.m11, transform.m21)
+                );
+                go.transform.localScale = transform.lossyScale;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
