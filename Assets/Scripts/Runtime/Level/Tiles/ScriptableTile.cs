@@ -1,4 +1,5 @@
-﻿using Slothsoft.UnityExtensions;
+﻿using System.Linq;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,7 +7,15 @@ namespace TheCursedBroom.Level.Tiles {
     [CreateAssetMenu(fileName = "LX_ScriptableTile_New", menuName = "Tiles/Scriptable Tile", order = 100)]
     public class ScriptableTile : TileBase {
         [SerializeField, Expandable]
+        Texture2D spriteSheet = default;
+        [SerializeField, Expandable]
         Sprite sprite = default;
+        [SerializeField, HideInInspector]
+        Sprite[] sprites = new Sprite[1];
+        [SerializeField, Range(0, 100)]
+        float perlinScale = 0;
+        [SerializeField, Range(0, 100)]
+        float perlinOffset = 0;
         [SerializeField, Expandable]
         GameObject prefab = default;
         [SerializeField]
@@ -15,9 +24,30 @@ namespace TheCursedBroom.Level.Tiles {
         bool instantiateSpriteEditorOnly = false;
         [SerializeField]
         Tile.ColliderType colliderType = Tile.ColliderType.Grid;
+
+        Sprite GetSprite(Vector3Int position) {
+            int index = 0;
+            if (sprites.Length > 1) {
+                index = Mathf.Clamp(Mathf.FloorToInt(RuleTile.GetPerlinValue(position, perlinScale, perlinOffset) * sprites.Length), 0, sprites.Length - 1);
+            }
+            return sprites[index];
+        }
+        void OnValidate() {
+#if UNITY_EDITOR
+            if (spriteSheet) {
+                sprites = UnityEditor.AssetDatabase
+                    .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
+                    .OfType<Sprite>()
+                    .ToArray();
+                sprite = sprites[0];
+            } else {
+                sprites = new[] { sprite };
+            }
+#endif
+        }
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
             if (!instantiateSpriteEditorOnly || !Application.isPlaying) {
-                tileData.sprite = sprite;
+                tileData.sprite = GetSprite(position);
             }
             tileData.gameObject = prefab;
             tileData.flags = tileOptions;
