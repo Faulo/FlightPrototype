@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level.Tiles {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "LX_ScriptableTile_New", menuName = "Tiles/Scriptable Tile", order = 100)]
     public class ScriptableTile : TileBase {
         [SerializeField, Expandable]
         Sprite sprite = default;

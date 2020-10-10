@@ -10,8 +10,8 @@ namespace TheCursedBroom.Level {
     public class TilemapController : MonoBehaviour {
         public event Action<TilemapController> onRegenerateCollider;
 
-        IDictionary<TileBase, PositionDelegate> tileAddedListener = new Dictionary<TileBase, PositionDelegate>();
-        IDictionary<TileBase, PositionDelegate> tileRemovedListener = new Dictionary<TileBase, PositionDelegate>();
+        Dictionary<TileBase, PositionDelegate> tileAddedListener = new Dictionary<TileBase, PositionDelegate>();
+        Dictionary<TileBase, PositionDelegate> tileRemovedListener = new Dictionary<TileBase, PositionDelegate>();
 
         [SerializeField, Expandable]
         public TilemapLayerAsset type = default;
@@ -47,6 +47,12 @@ namespace TheCursedBroom.Level {
                 newTiles.Add(tile);
                 LoadTileListener(position, tile);
             }
+        }
+
+        public bool IsTile(Vector3Int position, TileBase tile) {
+            return TryGetTileFromStorage(position, out var otherTile)
+                ? otherTile == tile
+                : false;
         }
 
         bool TryGetTileFromStorage(Vector3Int position, out TileBase tile) {

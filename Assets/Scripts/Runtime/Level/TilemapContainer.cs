@@ -21,8 +21,8 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         public TilemapController[] tilemapControllers = new TilemapController[0];
 
-        IDictionary<TilemapLayerAsset, int> layerToId;
-        IDictionary<TileBase, int> tileToId;
+        Dictionary<TilemapLayerAsset, int> layerToId;
+        Dictionary<TileBase, int> tileToId;
 
         public IEnumerable<(TilemapLayerAsset, Tilemap)> all {
             get {
