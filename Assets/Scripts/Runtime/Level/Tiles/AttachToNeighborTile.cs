@@ -24,8 +24,8 @@ namespace TheCursedBroom.Level.Tiles {
 
         Dictionary<int, Vector3Int> neighborPositions = new Dictionary<int, Vector3Int> {
             [0] = new Vector3Int(0, -1, 0),
-            [90] = new Vector3Int(1, 0, 0),
             [180] = new Vector3Int(0, 1, 0),
+            [90] = new Vector3Int(1, 0, 0),
             [270] = new Vector3Int(-1, 0, 0)
         };
 
@@ -36,7 +36,7 @@ namespace TheCursedBroom.Level.Tiles {
             tileData.gameObject = prefab;
             tileData.flags = tileOptions;
             tileData.colliderType = tileCollider;
-            tileData.transform = Matrix4x4.Rotate(CalculateRotation(position, tilemapCache[tilemap]));
+            tileData.transform *= Matrix4x4.Rotate(CalculateRotation(position, tilemapCache[tilemap]));
         }
         public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go) {
             if (go) {

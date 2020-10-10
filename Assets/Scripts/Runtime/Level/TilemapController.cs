@@ -50,9 +50,11 @@ namespace TheCursedBroom.Level {
         }
 
         public bool IsTile(Vector3Int position, TileBase tile) {
-            return TryGetTileFromStorage(position, out var otherTile)
-                ? otherTile == tile
-                : false;
+            return storage == null
+                ? GetComponent<Tilemap>().GetTile(position) == tile
+                : TryGetTileFromStorage(position, out var otherTile)
+                    ? otherTile == tile
+                    : false;
         }
 
         bool TryGetTileFromStorage(Vector3Int position, out TileBase tile) {
