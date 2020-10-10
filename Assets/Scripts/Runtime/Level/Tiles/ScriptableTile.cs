@@ -10,10 +10,17 @@ namespace TheCursedBroom.Level.Tiles {
         [SerializeField, Expandable]
         GameObject prefab = default;
         [SerializeField]
+        TileFlags tileOptions = TileFlags.LockAll | TileFlags.InstantiateGameObjectRuntimeOnly;
+        [SerializeField]
+        bool instantiateSpriteEditorOnly = false;
+        [SerializeField]
         Tile.ColliderType colliderType = Tile.ColliderType.Grid;
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
-            tileData.sprite = sprite;
+            if (!instantiateSpriteEditorOnly || !Application.isPlaying) {
+                tileData.sprite = sprite;
+            }
             tileData.gameObject = prefab;
+            tileData.flags = tileOptions;
             tileData.colliderType = colliderType;
         }
         public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go) {

@@ -56,6 +56,10 @@ namespace TheCursedBroom.Level {
         }
 
         bool TryGetTileFromStorage(Vector3Int position, out TileBase tile) {
+            if (storage == null) {
+                tile = null;
+                return false;
+            }
             if (position.y < 0 || position.y >= storage.Length) {
                 tile = null;
                 return false;

@@ -16,6 +16,8 @@ namespace TheCursedBroom.Level.Tiles {
         [SerializeField]
         TileFlags tileOptions = TileFlags.None;
         [SerializeField]
+        bool instantiateSpriteEditorOnly = false;
+        [SerializeField]
         Tile.ColliderType tileCollider = Tile.ColliderType.None;
 
         TilemapCache tilemapCache = new TilemapCache();
@@ -28,8 +30,9 @@ namespace TheCursedBroom.Level.Tiles {
         };
 
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
-            base.GetTileData(position, tilemap, ref tileData);
-            tileData.sprite = sprite;
+            if (!instantiateSpriteEditorOnly || !Application.isPlaying) {
+                tileData.sprite = sprite;
+            }
             tileData.gameObject = prefab;
             tileData.flags = tileOptions;
             tileData.colliderType = tileCollider;
@@ -37,7 +40,6 @@ namespace TheCursedBroom.Level.Tiles {
         }
         public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go) {
             if (go) {
-                base.StartUp(position, tilemap, go);
                 go.transform.rotation = CalculateRotation(position, tilemapCache[tilemap]);
                 return true;
             } else {
