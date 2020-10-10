@@ -29,6 +29,33 @@ TextureImporter:
   - first:
       213: -8175759040462969393
     second: TS_Ore_8
+  - first:
+      213: 8048057903479331967
+    second: SS_Decor_MagicOre_0
+  - first:
+      213: 3749447059522456631
+    second: SS_Decor_MagicOre_1
+  - first:
+      213: 1516914663076120234
+    second: SS_Decor_MagicOre_2
+  - first:
+      213: 4819751183527631563
+    second: SS_Decor_MagicOre_3
+  - first:
+      213: 7825378429919225720
+    second: SS_Decor_MagicOre_4
+  - first:
+      213: 5821221515421265757
+    second: SS_Decor_MagicOre_5
+  - first:
+      213: 8799417519485714125
+    second: SS_Decor_MagicOre_6
+  - first:
+      213: -2552647835746022277
+    second: SS_Decor_MagicOre_7
+  - first:
+      213: 7426057219871558507
+    second: SS_Decor_MagicOre_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -162,7 +189,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TS_Ore_0
+      name: SS_Decor_MagicOre_0
       rect:
         serializedVersion: 2
         x: 0
@@ -176,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d9ccd56a9f6fe780800000000000000
-      internalID: -8651573650230818348
+      spriteID: f7c19a4d50270bf60800000000000000
+      internalID: 8048057903479331967
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_1
+      name: SS_Decor_MagicOre_1
       rect:
         serializedVersion: 2
         x: 16
@@ -197,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40a18edf4292ed640800000000000000
-      internalID: 5106564266340129284
+      spriteID: 73c08f63c36b80430800000000000000
+      internalID: 3749447059522456631
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_2
+      name: SS_Decor_MagicOre_2
       rect:
         serializedVersion: 2
         x: 32
@@ -218,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 719a8d53b861717c0800000000000000
-      internalID: -4100784148537890537
+      spriteID: aa6cb3f59d92d0510800000000000000
+      internalID: 1516914663076120234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_3
+      name: SS_Decor_MagicOre_3
       rect:
         serializedVersion: 2
         x: 0
@@ -239,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d079275f264162c0800000000000000
-      internalID: -4440190588470857512
+      spriteID: bcadeef4a2233e240800000000000000
+      internalID: 4819751183527631563
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_4
+      name: SS_Decor_MagicOre_4
       rect:
         serializedVersion: 2
         x: 16
@@ -260,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d18d37382e720ad0800000000000000
-      internalID: -2737486912297270827
+      spriteID: 877e65ca834599c60800000000000000
+      internalID: 7825378429919225720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_5
+      name: SS_Decor_MagicOre_5
       rect:
         serializedVersion: 2
         x: 32
@@ -281,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 266f11f4453b39e10800000000000000
-      internalID: 2203301817399506530
+      spriteID: d5fab89402229c050800000000000000
+      internalID: 5821221515421265757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_6
+      name: SS_Decor_MagicOre_6
       rect:
         serializedVersion: 2
         x: 0
@@ -302,14 +329,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bdb17e8846a5dca0800000000000000
-      internalID: -5992700898588901960
+      spriteID: dce7b47dc9fcd1a70800000000000000
+      internalID: 8799417519485714125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_7
+      name: SS_Decor_MagicOre_7
       rect:
         serializedVersion: 2
         x: 16
@@ -323,14 +350,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5be852227e1314a0800000000000000
-      internalID: -6623917151380509859
+      spriteID: b7c40b1615c239cd0800000000000000
+      internalID: -2552647835746022277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TS_Ore_8
+      name: SS_Decor_MagicOre_8
       rect:
         serializedVersion: 2
         x: 32
@@ -344,8 +371,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc52400487ed98e80800000000000000
-      internalID: -8175759040462969393
+      spriteID: b6b4b2052b7ae0760800000000000000
+      internalID: 7426057219871558507
       vertices: []
       indices: 
       edges: []
