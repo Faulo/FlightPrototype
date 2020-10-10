@@ -48,7 +48,7 @@ namespace TheCursedBroom.Player {
         public void InvokeEffect(Effect effect) {
             effect.Invoke(observedAvatar.gameObject);
         }
-        IDictionary<string, ScriptableEvent> events;
+        Dictionary<string, ScriptableEvent> events;
         public void InvokeScriptableEvent(string name) {
             Assert.IsTrue(events.ContainsKey(name));
             events[name].Invoke();

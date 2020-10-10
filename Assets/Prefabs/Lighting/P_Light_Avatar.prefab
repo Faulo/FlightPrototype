@@ -1,43 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2310105604376347789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642851093565264006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2f1b4a7ebd5ba4428ca0902120addaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  observedAvatar: {fileID: 0}
-  observedLight: {fileID: 1086103869226998823}
-  radiusOverCollectibleCount:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0.30509454
-      outSlope: 0.30509454
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.045454547
-    - serializedVersion: 3
-      time: 100
-      value: 25
-      inSlope: 0.82923156
-      outSlope: 0.82923156
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.044596862
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1001 &4431141174814045894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,6 +77,16 @@ PrefabInstance:
       propertyPath: m_PointLightInnerRadius
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
+        type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 3861078851627525696, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
       propertyPath: m_Name
@@ -122,21 +94,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534281c6d9471514da2ce80a2cb5abcf, type: 3}
---- !u!1 &642851093565264006 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3861078851627525696, guid: 534281c6d9471514da2ce80a2cb5abcf,
-    type: 3}
-  m_PrefabInstance: {fileID: 4431141174814045894}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1086103869226998823 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
-    type: 3}
-  m_PrefabInstance: {fileID: 4431141174814045894}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642851093565264006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

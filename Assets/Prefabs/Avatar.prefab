@@ -916,7 +916,6 @@ GameObject:
   - component: {fileID: 6301669392618865007}
   - component: {fileID: 4858272974567616656}
   - component: {fileID: 8509556324478317344}
-  - component: {fileID: 566904510}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Untagged
@@ -988,19 +987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b134e565871702408c2940e4fd9a82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &566904510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2327387785658773955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f48a8d66b2adc46887f23a3a88ac01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
 --- !u!1 &2579053602959727007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +1092,7 @@ GameObject:
   - component: {fileID: 3089225555766872607}
   - component: {fileID: 9049049285058712513}
   - component: {fileID: 6081193294796904847}
+  - component: {fileID: 7966300212243877047}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -1231,20 +1218,6 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0.0625
   m_ColliderPaths:
-  - m_Collider: {fileID: 4853336842558127059}
-    m_ColliderPaths:
-    - - X: 2500000
-        Y: 6250000
-      - X: 0
-        Y: 7500000
-      - X: -2500000
-        Y: 6250000
-      - X: -2500000
-        Y: 3750000
-      - X: 0
-        Y: 2500000
-      - X: 2500000
-        Y: 3750000
   - m_Collider: {fileID: 6410998072065350134}
     m_ColliderPaths:
     - - X: 1250000
@@ -1281,9 +1254,43 @@ CompositeCollider2D:
         Y: -1875000
       - X: 7500000
         Y: -1875000
+  - m_Collider: {fileID: 3377214822263179361}
+    m_ColliderPaths:
+    - - X: 1875000
+        Y: -3125000
+      - X: 0
+        Y: -3125000
+      - X: -1875000
+        Y: -3125000
+      - X: -3125000
+        Y: -4375000
+      - X: -3125000
+        Y: -6875000
+      - X: 3125000
+        Y: -6875000
+      - X: 3125000
+        Y: -4375000
+  - m_Collider: {fileID: 4853336842558127059}
+    m_ColliderPaths:
+    - - X: 2500000
+        Y: 6250000
+      - X: 0
+        Y: 7500000
+      - X: -2500000
+        Y: 6250000
+      - X: -2500000
+        Y: 3750000
+      - X: 0
+        Y: 2500000
+      - X: 2500000
+        Y: 3750000
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.1274744, y: -0.3717009}
+    - - {x: 0.3125, y: -0.6783471}
+      - {x: 0.3125, y: -0.44086412}
+      - {x: 0.3101212, y: -0.4351212}
+      - {x: 0.18403, y: -0.30903012}
+      - {x: 0.1832032, y: -0.29739562}
       - {x: 0.2631507, y: -0.1907991}
       - {x: 0.2697489, y: -0.1875}
       - {x: 0.7408471, y: -0.1875}
@@ -1318,9 +1325,13 @@ CompositeCollider2D:
       - {x: -0.7424444, y: -0.3721667}
       - {x: -0.2682841, y: -0.1943565}
       - {x: -0.2582933, y: -0.19727561}
-      - {x: -0.1274744, y: -0.3717008}
-      - {x: -0.1208761, y: -0.375}
-      - {x: 0.1208761, y: -0.375}
+      - {x: -0.1832032, y: -0.29739562}
+      - {x: -0.18403, y: -0.30903012}
+      - {x: -0.3101212, y: -0.4351212}
+      - {x: -0.3125, y: -0.44086412}
+      - {x: -0.3125, y: -0.6783471}
+      - {x: -0.3033471, y: -0.6875}
+      - {x: 0.3033471, y: -0.6875}
   m_VertexDistance: 0.001953125
   m_OffsetDistance: 0.015625
 --- !u!114 &6081193294796904847
@@ -1335,6 +1346,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04d509ce0caac1488645fd7d23bdd45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7966300212243877047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089225555766872605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f48a8d66b2adc46887f23a3a88ac01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
 --- !u!1 &3089225555960653585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1488,8 @@ GameObject:
   - component: {fileID: 3855436540913979009}
   - component: {fileID: 3377214822263179361}
   - component: {fileID: 1675487892}
-  - component: {fileID: 479832905}
+  - component: {fileID: 9005000795492557102}
+  - component: {fileID: 4435655361397472993}
   m_Layer: 0
   m_Name: Legs
   m_TagString: Untagged
@@ -1499,7 +1524,7 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -1531,7 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0203b3cfcf1d814f9498dfd0919496c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &479832905
+--- !u!114 &9005000795492557102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1548,15 +1573,31 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 07c762410000000001193d22
   m_ShapePath:
+  - {x: 0.1875, y: 0.375, z: 0}
+  - {x: 0, y: 0.375, z: 0}
+  - {x: -0.1875, y: 0.375, z: 0}
+  - {x: -0.3125, y: 0.25, z: 0}
   - {x: -0.3125, y: 0, z: 0}
   - {x: 0.3125, y: 0, z: 0}
-  - {x: 0.3125, y: 0.375, z: 0}
-  - {x: -0.3125, y: 0.375, z: 0}
+  - {x: 0.3125, y: 0.25, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37204
+  m_InstanceId: 71552
+--- !u!114 &4435655361397472993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848277091042139628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6995aa94ce648c4cb13f504966042b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathIndex: 0
 --- !u!1 &4843271639842582056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,7 +1675,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5615144667029446474}
   - component: {fileID: 4203533074684741513}
-  - component: {fileID: 206474183}
   m_Layer: 0
   m_Name: Broom
   m_TagString: Untagged
@@ -1697,32 +1737,6 @@ PolygonCollider2D:
       - {x: -0.75, y: -0.625}
       - {x: -0.25, y: -0.4375}
       - {x: 0.75, y: -0.4375}
---- !u!114 &206474183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4923506841448325619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  m_ShapePathHash: 0
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 37198
 --- !u!1 &4963860712443086483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,7 +2108,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8677301790609291800}
   - component: {fileID: 4853336842558127059}
-  - component: {fileID: 622899219}
+  - component: {fileID: 2397244826594400314}
+  - component: {fileID: 3098999024524698017}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -2147,7 +2162,7 @@ PolygonCollider2D:
       - {x: -0.25, y: 0.125}
       - {x: 0, y: 0}
       - {x: 0.25, y: 0.125}
---- !u!114 &622899219
+--- !u!114 &2397244826594400314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2164,15 +2179,30 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 07c762410000000001193d22
   m_ShapePath:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  m_ShapePathHash: 0
+  - {x: 0.25, y: 0.125, z: 0}
+  - {x: 0, y: 0.25, z: 0}
+  - {x: -0.25, y: 0.125, z: 0}
+  - {x: -0.25, y: -0.125, z: 0}
+  - {x: 0, y: -0.25, z: 0}
+  - {x: 0.25, y: -0.125, z: 0}
+  m_ShapePathHash: 849110428
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37210
+  m_InstanceId: 71398
+--- !u!114 &3098999024524698017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7691276936857166954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6995aa94ce648c4cb13f504966042b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathIndex: 0
 --- !u!1 &7934276981752088608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,7 +2213,8 @@ GameObject:
   m_Component:
   - component: {fileID: 356397615531433109}
   - component: {fileID: 6410998072065350134}
-  - component: {fileID: 496264141}
+  - component: {fileID: 7530207869018266509}
+  - component: {fileID: 536974847400165012}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -2238,7 +2269,7 @@ PolygonCollider2D:
       - {x: 0.125, y: -0.375}
       - {x: 0.3125, y: -0.125}
       - {x: 0.3125, y: 0.125}
---- !u!114 &496264141
+--- !u!114 &7530207869018266509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2255,15 +2286,32 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 07c762410000000001193d22
   m_ShapePath:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0.125, y: 0.375, z: 0}
+  - {x: -0.125, y: 0.375, z: 0}
+  - {x: -0.3125, y: 0.125, z: 0}
+  - {x: -0.3125, y: -0.125, z: 0}
+  - {x: -0.125, y: -0.375, z: 0}
+  - {x: 0.125, y: -0.375, z: 0}
+  - {x: 0.3125, y: -0.125, z: 0}
+  - {x: 0.3125, y: 0.125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37206
+  m_InstanceId: 71522
+--- !u!114 &536974847400165012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7934276981752088608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6995aa94ce648c4cb13f504966042b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathIndex: 0
 --- !u!1 &8265227772122616613
 GameObject:
   m_ObjectHideFlags: 0

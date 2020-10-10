@@ -21,8 +21,8 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         public TilemapController[] tilemapControllers = new TilemapController[0];
 
-        IDictionary<TilemapLayerAsset, Tilemap> layerToTilemap;
-        IDictionary<TileBase, int> tileToId;
+        Dictionary<TilemapLayerAsset, int> layerToId;
+        Dictionary<TileBase, int> tileToId;
 
         public IEnumerable<(TilemapLayerAsset, Tilemap)> all {
             get {
@@ -39,13 +39,16 @@ namespace TheCursedBroom.Level {
             return tilemaps[tileToId[tile]];
         }
         public Tilemap GetTilemapByLayer(TilemapLayerAsset layer) {
-            return layerToTilemap[layer];
+            return tilemaps[layerToId[layer]];
+        }
+        public TilemapController GetTilemapControllerByLayer(TilemapLayerAsset layer) {
+            return tilemapControllers[layerToId[layer]];
         }
         public void Install(Transform context) {
             tilemapLayers = TilemapLayerAsset.all;
             tilemaps = new Tilemap[tilemapLayers.Length];
             tilemapControllers = new TilemapController[tilemapLayers.Length];
-            layerToTilemap = new Dictionary<TilemapLayerAsset, Tilemap>();
+            layerToId = new Dictionary<TilemapLayerAsset, int>();
             tileToId = new Dictionary<TileBase, int>();
 
             var currentTilemaps = context.GetComponentsInChildren<Tilemap>(true);
@@ -57,7 +60,7 @@ namespace TheCursedBroom.Level {
                 tilemaps[i] = tilemapLayers[i].InstallTilemap(child);
                 tilemapControllers[i] = tilemaps[i].GetComponent<TilemapController>();
 
-                layerToTilemap[tilemapLayers[i]] = tilemaps[i];
+                layerToId[tilemapLayers[i]] = i;
 
                 foreach (var tile in tilemapLayers[i].allowedTiles) {
                     Assert.IsFalse(tileToId.ContainsKey(tile), $"Tile {tile} can't be on two layers! One of them is: {tilemapLayers[i]}");
