@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
-  m_Name: L12_Interactable_Crystal_Medium
+  m_Script: {fileID: 11500000, guid: 83d8047b5476513448feaa6fdd06e018, type: 3}
+  m_Name: L1_Interactable_Crystal_Medium
   m_EditorClassIdentifier: 
+  neighborTile: {fileID: 11400000, guid: b2f84e66a5337c541ad85c2b6fac913e, type: 2}
   sprite: {fileID: 21300000, guid: bce20d59985c2ac43978fc4cf948d801, type: 3}
   prefab: {fileID: 961210211468534619, guid: 462580f00cceaa94498422a73e596c04, type: 3}
-  colliderType: 0
+  tileOptions: -1
+  instantiateSpriteEditorOnly: 0
+  tileCollider: 0

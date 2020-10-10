@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
-  m_Name: L11_Trap_Spikes
+  m_Name: L1_Interactable_Star
   m_EditorClassIdentifier: 
-  sprite: {fileID: 2541332410875945389, guid: 2f4d336d5909f1346a7785705baa605a, type: 3}
-  prefab: {fileID: 0}
-  colliderType: 2
+  sprite: {fileID: 6819948692403088750, guid: 3c2c2727556dca54da685eb088f46085, type: 3}
+  prefab: {fileID: 961210211468534619, guid: d78b7940a14775146af8d1c8d2d500e2, type: 3}
+  colliderType: 0

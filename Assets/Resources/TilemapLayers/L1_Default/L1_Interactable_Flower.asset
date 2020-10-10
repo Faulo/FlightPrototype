@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
-  m_Name: L12_Interactable_Flower
+  m_Name: L1_Interactable_Flower
   m_EditorClassIdentifier: 
   sprite: {fileID: 8151931138289008875, guid: 5c3166c8b07d103459ca5b3133031dcb, type: 3}
   prefab: {fileID: 961210211468534619, guid: 2c80ab6acbcf55f4194fe0fbd11d1b38, type: 3}
+  tileOptions: -1
+  instantiateSpriteEditorOnly: 1
   colliderType: 0

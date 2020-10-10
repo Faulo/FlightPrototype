@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6abfd6515d91324d9098879d8a8acc8, type: 3}
-  m_Name: L12_Interactables
+  m_Name: L1_Default
   m_EditorClassIdentifier: 
-  tilemapPalette: {fileID: 1408259775151007655, guid: 3b99ce24f82b9bf4883d09205a61deb8,
+  tilemapPalette: {fileID: 3744789999445795154, guid: 7316debb07273b540a0253e53b4e6776,
     type: 3}
   tilemapColor: {r: 1, g: 1, b: 1, a: 1}
   tilemapLayer: 0
-  renderMode: 0
+  renderMode: 1
   renderSortingLayer: 0
-  renderOrderInLayer: 10
+  renderOrderInLayer: 0
   renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
-  collisionMode: 0
-  colliderBaker: 1
-  collisionMaterial: {fileID: 0}
