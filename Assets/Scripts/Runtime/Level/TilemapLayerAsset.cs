@@ -46,6 +46,20 @@ namespace TheCursedBroom.Level {
             }
         }
 
+        [SerializeField]
+        TileGroup[] synonymousTiles = new TileGroup[0];
+        public TileComparer CreateTileComparer() {
+            var comparer = new TileComparer();
+
+            for (int i = 0; i < synonymousTiles.Length; i++) {
+                foreach (var (one, two) in synonymousTiles[i].allTileCombinations) {
+                    comparer.AddSynonym(one, two);
+                }
+            }
+
+            return comparer;
+        }
+
         [Header("Renderer settings")]
         [SerializeField]
         RenderMode renderMode = RenderMode.None;

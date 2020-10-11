@@ -11,7 +11,9 @@ namespace TheCursedBroom.Level {
 
         [Header("Editor Tools")]
         [SerializeField]
-        bool installTilemap = false;
+        bool installTilemaps = false;
+        [SerializeField]
+        bool refreshTilemaps = false;
         [SerializeField]
         bool syncRightWithLeftBorder = false;
         [SerializeField]
@@ -21,9 +23,13 @@ namespace TheCursedBroom.Level {
             tilemaps.Install(transform);
         }
         void OnValidate() {
-            if (installTilemap) {
-                installTilemap = false;
-                StartCoroutine(InstallTilemap());
+            if (installTilemaps) {
+                installTilemaps = false;
+                StartCoroutine(InstallTilemaps());
+            }
+            if (refreshTilemaps) {
+                refreshTilemaps = false;
+                StartCoroutine(RefreshTilemaps());
             }
             if (syncRightWithLeftBorder) {
                 syncRightWithLeftBorder = false;
@@ -34,10 +40,19 @@ namespace TheCursedBroom.Level {
                 StartCoroutine(MoveTiles());
             }
         }
-        IEnumerator InstallTilemap() {
+        IEnumerator InstallTilemaps() {
             yield return null;
             tilemaps.Install(transform);
             Debug.Log("InstallTilemap complete!");
+        }
+        IEnumerator RefreshTilemaps() {
+            yield return null;
+            // refresh tilemaps
+            foreach (var (_, tilemap) in tilemaps.all) {
+                tilemap.RefreshAllTiles();
+                tilemap.ClearAllEditorPreviewTiles();
+            }
+            Debug.Log("RefreshTilemaps complete!");
         }
         IEnumerator SyncBorders() {
             yield return null;
@@ -53,7 +68,7 @@ namespace TheCursedBroom.Level {
         }
 
         IEnumerator MoveTiles() {
-            yield return InstallTilemap();
+            yield return InstallTilemaps();
             var tileMoves = new List<(Tilemap, Tilemap, Vector3Int, TileBase)>();
             // collect tiles to move
             foreach (var (_, oldTilemap) in tilemaps.all) {

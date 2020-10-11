@@ -38,6 +38,7 @@ namespace TheCursedBroom.Level.Tiles {
                 sprites = UnityEditor.AssetDatabase
                     .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
                     .OfType<Sprite>()
+                    .OrderBy(sprite => sprite.name)
                     .ToArray();
                 sprite = sprites[0];
             } else {

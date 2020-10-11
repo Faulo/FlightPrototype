@@ -15,12 +15,40 @@ namespace TheCursedBroom.Level {
 
         [SerializeField, Expandable]
         public TilemapLayerAsset type = default;
+        [SerializeField, Expandable]
+        LevelController ownerLevel = default;
 
-        Tilemap tilemap;
+        Tilemap tilemap {
+            get {
+                if (!m_tilemap) {
+                    TryGetComponent(out m_tilemap);
+                }
+                return m_tilemap;
+            }
+        }
+        Tilemap m_tilemap;
+        TileComparer tileComparer {
+            get {
+                if (m_tileComparer == null) {
+                    m_tileComparer = type.CreateTileComparer();
+                }
+                return m_tileComparer;
+            }
+        }
+        TileComparer m_tileComparer;
+
         TileBase[][] storage;
 
         void Awake() {
-            (tilemap, storage) = LevelController.instance.CreateTilemapStorage(type);
+            OnValidate();
+            if (ownerLevel) {
+                storage = ownerLevel.CreateTilemapStorage(type);
+            }
+        }
+        void OnValidate() {
+            if (!ownerLevel) {
+                ownerLevel = GetComponentInParent<LevelController>();
+            }
         }
 
         IList<Vector3Int> newPositions = new List<Vector3Int>();
@@ -49,28 +77,28 @@ namespace TheCursedBroom.Level {
             }
         }
 
-        public bool IsTile(Vector3Int position, TileBase tile) {
-            return storage == null
-                ? GetComponent<Tilemap>().GetTile(position) == tile
-                : TryGetTileFromStorage(position, out var otherTile)
-                    ? otherTile == tile
-                    : false;
+        public bool IsTile(Vector3Int position, TileBase tile, ITilemap tilemapOverride = null) {
+            return TryGetTileFromStorage(position, out var otherTile, tilemapOverride)
+                ? tileComparer.IsSynonym(otherTile, tile)
+                : false;
         }
 
-        bool TryGetTileFromStorage(Vector3Int position, out TileBase tile) {
+        bool TryGetTileFromStorage(Vector3Int position, out TileBase tile, ITilemap tilemapOverride = null) {
             if (storage == null) {
-                tile = null;
-                return false;
+                tile = tilemapOverride == null
+                    ? tilemap.GetTile(position)
+                    : tilemapOverride.GetTile(position);
+            } else {
+                if (position.y < 0 || position.y >= storage.Length) {
+                    tile = null;
+                    return false;
+                }
+                while (position.x < 0) {
+                    position.x += storage[0].Length;
+                }
+                position.x %= storage[0].Length;
+                tile = storage[position.y][position.x];
             }
-            if (position.y < 0 || position.y >= storage.Length) {
-                tile = null;
-                return false;
-            }
-            while (position.x < 0) {
-                position.x += storage[0].Length;
-            }
-            position.x %= storage[0].Length;
-            tile = storage[position.y][position.x];
             return tile != null;
         }
 

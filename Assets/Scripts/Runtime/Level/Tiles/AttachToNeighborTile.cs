@@ -36,25 +36,23 @@ namespace TheCursedBroom.Level.Tiles {
             tileData.gameObject = prefab;
             tileData.flags = tileOptions;
             tileData.colliderType = tileCollider;
-            tileData.transform *= Matrix4x4.Rotate(CalculateRotation(position, tilemapCache[tilemap]));
+            tileData.transform *= Matrix4x4.Rotate(CalculateRotation(position, tilemap));
         }
         public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go) {
             if (go) {
-                go.transform.rotation = CalculateRotation(position, tilemapCache[tilemap]);
+                go.transform.rotation = CalculateRotation(position, tilemap);
                 return true;
             } else {
                 return false;
             }
         }
 
-        Quaternion CalculateRotation(Vector3Int position, TilemapController tilemap) {
+        Quaternion CalculateRotation(Vector3Int position, ITilemap tilemap) {
             var rotation = prefab.transform.rotation;
-            if (tilemap) {
-                foreach (var neighbor in neighborPositions) {
-                    if (tilemap.IsTile(position + neighbor.Value, neighborTile)) {
-                        rotation = Quaternion.Euler(0, 0, neighbor.Key);
-                        break;
-                    }
+            foreach (var neighbor in neighborPositions) {
+                if (tilemapCache[tilemap].IsTile(position + neighbor.Value, neighborTile, tilemap)) {
+                    rotation = Quaternion.Euler(0, 0, neighbor.Key);
+                    break;
                 }
             }
             return rotation;
