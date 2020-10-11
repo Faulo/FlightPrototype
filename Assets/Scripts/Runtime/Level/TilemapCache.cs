@@ -6,7 +6,7 @@ namespace TheCursedBroom.Level {
     public class TilemapCache {
         public TilemapController this[Component tilemap] {
             get {
-                if (!tilemapOverComponent.ContainsKey(tilemap)) {
+                if (!tilemapOverComponent.ContainsKey(tilemap) || !tilemapOverComponent[tilemap]) {
                     tilemapOverComponent[tilemap] = tilemap.GetComponent<TilemapController>();
                 }
                 return tilemapOverComponent[tilemap];
@@ -16,7 +16,7 @@ namespace TheCursedBroom.Level {
 
         public TilemapController this[ITilemap tilemap] {
             get {
-                if (!tilemapOverInterface.ContainsKey(tilemap)) {
+                if (!tilemapOverInterface.ContainsKey(tilemap) || !tilemapOverInterface[tilemap]) {
                     tilemapOverInterface[tilemap] = tilemap.GetComponent<TilemapController>();
                 }
                 return tilemapOverInterface[tilemap];

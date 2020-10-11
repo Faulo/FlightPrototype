@@ -15,12 +15,30 @@ namespace TheCursedBroom.Level {
 
         [SerializeField, Expandable]
         public TilemapLayerAsset type = default;
+        [SerializeField, Expandable]
+        LevelController ownerLevel = default;
 
-        Tilemap tilemap;
+        Tilemap tilemap {
+            get {
+                if (!m_tilemap) {
+                    m_tilemap = GetComponent<Tilemap>();
+                }
+                return m_tilemap;
+            }
+        }
+        Tilemap m_tilemap;
         TileBase[][] storage;
 
         void Awake() {
-            (tilemap, storage) = LevelController.instance.CreateTilemapStorage(type);
+            OnValidate();
+            if (ownerLevel) {
+                storage = ownerLevel.CreateTilemapStorage(type);
+            }
+        }
+        void OnValidate() {
+            if (!ownerLevel) {
+                ownerLevel = GetComponentInParent<LevelController>();
+            }
         }
 
         IList<Vector3Int> newPositions = new List<Vector3Int>();
@@ -51,7 +69,7 @@ namespace TheCursedBroom.Level {
 
         public bool IsTile(Vector3Int position, TileBase tile) {
             return storage == null
-                ? GetComponent<Tilemap>().GetTile(position) == tile
+                ? tilemap.GetTile(position) == tile
                 : TryGetTileFromStorage(position, out var otherTile)
                     ? otherTile == tile
                     : false;

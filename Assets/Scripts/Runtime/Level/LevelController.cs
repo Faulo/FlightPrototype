@@ -75,7 +75,7 @@ namespace TheCursedBroom.Level {
             UpdateTiles();
             map.tilemapControllers.ForAll(collider => collider.RegenerateCollider());
         }
-        public (Tilemap, TileBase[][]) CreateTilemapStorage(TilemapLayerAsset type) {
+        public TileBase[][] CreateTilemapStorage(TilemapLayerAsset type) {
             var storage = new TileBase[map.height * levels.Length][];
             foreach (var (layer, tilemap) in map.all) {
                 if (layer == type) {
@@ -90,7 +90,7 @@ namespace TheCursedBroom.Level {
                     }
                 }
             }
-            return (map.GetTilemapByLayer(type), storage);
+            return storage;
         }
         void PrepareTiles() {
             map.Install(transform);
@@ -185,6 +185,7 @@ namespace TheCursedBroom.Level {
         IEnumerator InstallTilemap() {
             yield return null;
             map.Install(transform);
+            Debug.Log("InstallTilemap complete!");
         }
 
         public IList<TileShape> GetTileShapes(ISet<Vector3Int> positions) {
