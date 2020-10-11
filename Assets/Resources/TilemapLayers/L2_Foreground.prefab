@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: 6b1588b9cee4e77469358b704c58f548, type: 2}
+  ownerLevel: {fileID: 0}
 --- !u!1839735485 &7074802241413705638
 Tilemap:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ Tilemap:
       - {fileID: -7727349243420111312, guid: fa2f695fde4b67d4cbb8ccffa3fcac5e, type: 3}
       - {fileID: 5782683259861832080, guid: fa2f695fde4b67d4cbb8ccffa3fcac5e, type: 3}
       - {fileID: -8623116959365887984, guid: fa2f695fde4b67d4cbb8ccffa3fcac5e, type: 3}
-      m_AnimationSpeed: 5.5421805
+      m_AnimationSpeed: 4.0060735
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:

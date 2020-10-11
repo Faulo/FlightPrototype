@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: f0b09f89cb268474ca8aec741c4d7f4c, type: 2}
+  ownerLevel: {fileID: 0}
 --- !u!1839735485 &7288822497613286245
 Tilemap:
   m_ObjectHideFlags: 0
@@ -70,7 +71,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 9d0473b186ab3e04ab6033b6d3dd8057, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: -5349330513687547985, guid: 2957870026782374ab89ae57a8993713,
+    m_Data: {fileID: -1605872679747022571, guid: 2957870026782374ab89ae57a8993713,
       type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1

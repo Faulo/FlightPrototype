@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d8047b5476513448feaa6fdd06e018, type: 3}
   m_Name: L1_Interactable_Crystal_Medium
   m_EditorClassIdentifier: 
-  neighborTile: {fileID: 11400000, guid: b2f84e66a5337c541ad85c2b6fac913e, type: 2}
+  neighborTile: {fileID: 11400000, guid: 52c43a20647db6d4cac8cba5a88b8643, type: 2}
   sprite: {fileID: 21300000, guid: bce20d59985c2ac43978fc4cf948d801, type: 3}
   prefab: {fileID: 961210211468534619, guid: 462580f00cceaa94498422a73e596c04, type: 3}
   tileOptions: -1

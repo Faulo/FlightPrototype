@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Slothsoft.UnityExtensions;
+using TheCursedBroom.Extensions;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level.Tiles {
@@ -75,7 +78,9 @@ namespace TheCursedBroom.Level.Tiles {
                 sprites = UnityEditor.AssetDatabase
                     .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
                     .OfType<Sprite>()
+                    .OrderBy(sprite => int.Parse(Regex.Match(sprite.name, "\\d+$").Value))
                     .ToArray();
+                Assert.AreEqual(sprites.Length, idOverPosition.Count, $"{this} requires exactly {idOverPosition.Count} sprites in {spriteSheet}!");
             }
 #endif
         }
@@ -97,9 +102,13 @@ namespace TheCursedBroom.Level.Tiles {
             tileData.colliderType = colliderType;
         }
         SpritePosition CalculateSpritePosition(Vector3Int position, TilemapController tilemap) {
-            return offsetOverPosition
-                    .Where(keyval => tilemap.IsTile(position + keyval.Value, this))
-                    .Aggregate((SpritePosition)0, (sum, keyval) => sum | keyval.Key);
+            SpritePosition mask = 0;
+            foreach (var (add, offset) in offsetOverPosition) {
+                if (tilemap.IsTile(position + offset, this)) {
+                    mask |= add;
+                }
+            }
+            return mask;
         }
         Sprite LookupSprite(SpriteId spriteId) {
             return sprites[(int)spriteId];
