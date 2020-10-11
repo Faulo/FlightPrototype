@@ -30,23 +30,6 @@ PolygonCollider2D:
       - {x: -0.5877852, y: -0.80901706}
       - {x: 0.58778536, y: -0.80901694}
       - {x: 0.9510565, y: 0.30901712}
---- !u!114 &5788889391037929410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6474930595697270367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fdbce4240efa84582521b65d4fcff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  observedComponent: {fileID: 0}
-  containedTiles:
-  - {fileID: 11400000, guid: b2f84e66a5337c541ad85c2b6fac913e, type: 2}
-  - {fileID: 11400000, guid: 823af85de11980d41aaeb8fd9a040f81, type: 2}
-  polygonCollider: {fileID: 3126273116829580686}
 --- !u!114 &1646331386069786333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +44,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staticFriction: 1
   kinematicFriction: 1
+--- !u!114 &5788889391037929410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474930595697270367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fdbce4240efa84582521b65d4fcff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  observedComponent: {fileID: 0}
+  containedTiles:
+  - {fileID: 11400000, guid: 52c43a20647db6d4cac8cba5a88b8643, type: 2}
+  - {fileID: 11400000, guid: 2ec601678f1094d49a3fffde4325c15c, type: 2}
+  polygonCollider: {fileID: 3126273116829580686}
 --- !u!1001 &3346113244303581120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ PrefabInstance:
     - target: {fileID: 8625619612809675167, guid: aaa59cb7fb1e3d446a640c9e407355b2,
         type: 3}
       propertyPath: m_Name
-      value: P_TilemapCollider_L00_Cave
+      value: P_TilemapCollider_L1_Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa59cb7fb1e3d446a640c9e407355b2, type: 3}
