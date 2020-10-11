@@ -69,6 +69,8 @@ namespace TheCursedBroom.Level.Tiles {
         TileFlags tileOptions = TileFlags.LockAll;
         [SerializeField]
         Tile.ColliderType colliderType = Tile.ColliderType.None;
+        [SerializeField, Tooltip("Whether refreshing one tile will also refresh neighboring tiles")]
+        bool autoRefreshNeighbors = false;
 
         TilemapCache tilemapCache = new TilemapCache();
 
@@ -85,12 +87,11 @@ namespace TheCursedBroom.Level.Tiles {
 #endif
         }
         public override void RefreshTile(Vector3Int position, ITilemap tilemap) {
-            var controller = tilemapCache[tilemap];
-            for (int yd = -1; yd <= 1; yd++) {
-                for (int xd = -1; xd <= 1; xd++) {
-                    var pos = new Vector3Int(position.x + xd, position.y + yd, position.z);
-                    if (controller.IsTile(pos, this)) {
-                        tilemap.RefreshTile(pos);
+            if (autoRefreshNeighbors) {
+                var controller = tilemapCache[tilemap];
+                foreach (var (add, offset) in offsetOverPosition) {
+                    if (controller.IsTile(position + offset, this)) {
+                        tilemap.RefreshTile(position + offset);
                     }
                 }
             }

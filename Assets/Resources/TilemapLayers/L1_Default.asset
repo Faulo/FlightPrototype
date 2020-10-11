@@ -16,6 +16,10 @@ MonoBehaviour:
     type: 3}
   tilemapColor: {r: 1, g: 1, b: 1, a: 1}
   tilemapLayer: 0
+  synonymousTiles:
+  - tiles:
+    - {fileID: 11400000, guid: 52c43a20647db6d4cac8cba5a88b8643, type: 2}
+    - {fileID: 11400000, guid: 2ec601678f1094d49a3fffde4325c15c, type: 2}
   renderMode: 1
   renderSortingLayer: 0
   renderOrderInLayer: 0

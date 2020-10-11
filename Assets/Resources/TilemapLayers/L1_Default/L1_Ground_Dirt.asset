@@ -32,3 +32,4 @@ MonoBehaviour:
   - {fileID: -4483752849528964807, guid: 5c4f1fa01d076b0448a9438531d30a91, type: 3}
   tileOptions: 3
   colliderType: 0
+  autoRefreshNeighbors: 1

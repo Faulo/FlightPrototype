@@ -27,6 +27,16 @@ namespace TheCursedBroom.Level {
             }
         }
         Tilemap m_tilemap;
+        TileComparer tileComparer {
+            get {
+                if (m_tileComparer == null) {
+                    m_tileComparer = type.CreateTileComparer();
+                }
+                return m_tileComparer;
+            }
+        }
+        TileComparer m_tileComparer;
+
         TileBase[][] storage;
 
         void Awake() {
@@ -68,27 +78,25 @@ namespace TheCursedBroom.Level {
         }
 
         public bool IsTile(Vector3Int position, TileBase tile) {
-            return storage == null
-                ? tilemap.GetTile(position) == tile
-                : TryGetTileFromStorage(position, out var otherTile)
-                    ? otherTile == tile
-                    : false;
+            return TryGetTileFromStorage(position, out var otherTile)
+                ? tileComparer.IsSynonym(otherTile, tile)
+                : false;
         }
 
         bool TryGetTileFromStorage(Vector3Int position, out TileBase tile) {
             if (storage == null) {
-                tile = null;
-                return false;
+                tile = tilemap.GetTile(position);
+            } else {
+                if (position.y < 0 || position.y >= storage.Length) {
+                    tile = null;
+                    return false;
+                }
+                while (position.x < 0) {
+                    position.x += storage[0].Length;
+                }
+                position.x %= storage[0].Length;
+                tile = storage[position.y][position.x];
             }
-            if (position.y < 0 || position.y >= storage.Length) {
-                tile = null;
-                return false;
-            }
-            while (position.x < 0) {
-                position.x += storage[0].Length;
-            }
-            position.x %= storage[0].Length;
-            tile = storage[position.y][position.x];
             return tile != null;
         }
 
