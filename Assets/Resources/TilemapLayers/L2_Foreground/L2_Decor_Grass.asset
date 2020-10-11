@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
-  m_Name: L30_Decor_Grass
+  m_Name: L2_Decor_Grass
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
   - {fileID: 4855205769739919821, guid: fa2f695fde4b67d4cbb8ccffa3fcac5e, type: 3}
