@@ -9,6 +9,20 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         public TilemapContainer tilemaps = default;
 
+        void Awake() {
+            OnValidate();
+            tilemaps.Install(transform);
+        }
+        void OnValidate() {
+#if UNITY_EDITOR
+            EditorTools();
+#endif
+        }
+        public TileBase GetTile(TilemapLayerAsset layer, Vector3Int position) {
+            return tilemaps.GetTilemapByLayer(layer).GetTile(position);
+        }
+
+#if UNITY_EDITOR
         [Header("Editor Tools")]
         [SerializeField]
         bool installTilemaps = false;
@@ -19,10 +33,7 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         bool moveTilesToCorrectLayer = false;
 
-        void Awake() {
-            tilemaps.Install(transform);
-        }
-        void OnValidate() {
+        void EditorTools() {
             if (installTilemaps) {
                 installTilemaps = false;
                 StartCoroutine(InstallTilemaps());
@@ -104,14 +115,11 @@ namespace TheCursedBroom.Level {
             Debug.Log($"MoveTiles complete! {tileMoves.Count} tiles moved.");
         }
 
-        public TileBase GetTile(TilemapLayerAsset layer, Vector3Int position) {
-            return tilemaps.GetTilemapByLayer(layer).GetTile(position);
-        }
-
         void OnDrawGizmos() {
             Gizmos.color = Color.white;
             var size = new Vector3(tilemaps.width, tilemaps.height, 0);
             Gizmos.DrawWireCube(tilemaps.worldBottomLeft + (size / 2), size);
         }
+#endif
     }
 }
