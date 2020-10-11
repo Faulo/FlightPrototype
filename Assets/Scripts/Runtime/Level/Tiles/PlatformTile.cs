@@ -87,25 +87,26 @@ namespace TheCursedBroom.Level.Tiles {
 #endif
         }
         public override void RefreshTile(Vector3Int position, ITilemap tilemap) {
+            tilemap.RefreshTile(position);
             if (autoRefreshNeighbors) {
                 var controller = tilemapCache[tilemap];
                 foreach (var (add, offset) in offsetOverPosition) {
-                    if (controller.IsTile(position + offset, this)) {
+                    if (controller.IsTile(position + offset, this, tilemap)) {
                         tilemap.RefreshTile(position + offset);
                     }
                 }
             }
         }
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
-            var mask = CalculateSpritePosition(position, tilemapCache[tilemap]);
+            var mask = CalculateSpritePosition(position, tilemap);
             tileData.sprite = LookupSprite(idOverPosition[mask]);
             tileData.flags = tileOptions;
             tileData.colliderType = colliderType;
         }
-        SpritePosition CalculateSpritePosition(Vector3Int position, TilemapController tilemap) {
+        SpritePosition CalculateSpritePosition(Vector3Int position, ITilemap tilemap) {
             SpritePosition mask = 0;
             foreach (var (add, offset) in offsetOverPosition) {
-                if (tilemap.IsTile(position + offset, this)) {
+                if (tilemapCache[tilemap].IsTile(position + offset, this, tilemap)) {
                     mask |= add;
                 }
             }

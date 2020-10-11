@@ -50,6 +50,7 @@ namespace TheCursedBroom.Level {
             // refresh tilemaps
             foreach (var (_, tilemap) in tilemaps.all) {
                 tilemap.RefreshAllTiles();
+                tilemap.ClearAllEditorPreviewTiles();
             }
             Debug.Log("RefreshTilemaps complete!");
         }

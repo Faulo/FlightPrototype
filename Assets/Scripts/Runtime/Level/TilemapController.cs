@@ -21,7 +21,7 @@ namespace TheCursedBroom.Level {
         Tilemap tilemap {
             get {
                 if (!m_tilemap) {
-                    m_tilemap = GetComponent<Tilemap>();
+                    TryGetComponent(out m_tilemap);
                 }
                 return m_tilemap;
             }
@@ -77,15 +77,17 @@ namespace TheCursedBroom.Level {
             }
         }
 
-        public bool IsTile(Vector3Int position, TileBase tile) {
-            return TryGetTileFromStorage(position, out var otherTile)
+        public bool IsTile(Vector3Int position, TileBase tile, ITilemap tilemapOverride = null) {
+            return TryGetTileFromStorage(position, out var otherTile, tilemapOverride)
                 ? tileComparer.IsSynonym(otherTile, tile)
                 : false;
         }
 
-        bool TryGetTileFromStorage(Vector3Int position, out TileBase tile) {
+        bool TryGetTileFromStorage(Vector3Int position, out TileBase tile, ITilemap tilemapOverride = null) {
             if (storage == null) {
-                tile = tilemap.GetTile(position);
+                tile = tilemapOverride == null
+                    ? tilemap.GetTile(position)
+                    : tilemapOverride.GetTile(position);
             } else {
                 if (position.y < 0 || position.y >= storage.Length) {
                     tile = null;
