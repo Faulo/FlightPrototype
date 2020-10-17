@@ -187,7 +187,7 @@ namespace TheCursedBroom.Player {
         }
         public void StateLoad() {
             var delta = state.position - transform.position;
-            transform.position = state.position + (Vector3) loadPosition;
+            transform.position = state.position + (Vector3)loadPosition;
             rotationAngle = state.rotationAngle;
 
             attachedRigidbody.velocity = loadVelocity;
