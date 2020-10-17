@@ -110,12 +110,12 @@ PrefabInstance:
     - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
       propertyPath: m_ShadowIntensity
-      value: 0.75
+      value: 0.0625
       objectReference: {fileID: 0}
     - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
       propertyPath: m_ShadowVolumeIntensity
-      value: 0.75
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}

@@ -104,7 +104,7 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 0.25
+      value: 0.0625
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.125
+      value: 0.0625
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
@@ -144,12 +144,12 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.0625
+      value: 0.015625
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
@@ -159,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: ShapeModule.sphericalDirectionAmount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}

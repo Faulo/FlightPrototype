@@ -23,4 +23,4 @@ MonoBehaviour:
   renderMode: 1
   renderSortingLayer: 0
   renderOrderInLayer: 0
-  renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
+  renderMaterial: {fileID: 2100000, guid: 3a9b5458c1576734bb72917492d3e820, type: 2}

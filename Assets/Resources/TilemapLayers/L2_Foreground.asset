@@ -16,7 +16,8 @@ MonoBehaviour:
     type: 3}
   tilemapColor: {r: 1, g: 1, b: 1, a: 1}
   tilemapLayer: 0
+  synonymousTiles: []
   renderMode: 1
   renderSortingLayer: 574429441
   renderOrderInLayer: 0
-  renderMaterial: {fileID: 2100000, guid: db28d47687c0cc94f85a525901050b51, type: 2}
+  renderMaterial: {fileID: 2100000, guid: 3a9b5458c1576734bb72917492d3e820, type: 2}
