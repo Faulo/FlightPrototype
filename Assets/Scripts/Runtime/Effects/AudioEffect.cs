@@ -11,6 +11,8 @@ namespace TheCursedBroom.Effects {
         [SerializeField, Expandable]
         AudioMixerGroup mixer = default;
 
+        [SerializeField, Range(0, 1)]
+        float spatialBlend = 0;
         [SerializeField, Range(0, 5)]
         float mininumPitch = 1;
         [SerializeField, Range(0, 5)]
@@ -27,8 +29,10 @@ namespace TheCursedBroom.Effects {
                 return;
             }
             AudioManager.instance.Play(new AudioInfo {
+                position = context.transform.position,
                 clip = clips.RandomElement(),
                 mixer = mixer,
+                spatialBlend = spatialBlend,
                 pitch = Random.Range(mininumPitch, maxmimumPitch),
                 loop = loop,
                 timeOffset = timeOffset,

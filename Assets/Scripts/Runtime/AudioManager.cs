@@ -14,10 +14,11 @@ namespace TheCursedBroom {
         }
 
         public void Play(AudioInfo audio) {
-            var source = Instantiate(sourcePrefab, transform);
+            var source = Instantiate(sourcePrefab, audio.position, Quaternion.identity, transform);
             source.loop = audio.loop;
             source.clip = audio.clip;
             source.outputAudioMixerGroup = audio.mixer;
+            source.spatialBlend = audio.spatialBlend;
             source.pitch = audio.pitch;
             source.time = audio.timeOffset;
             source.Play();
