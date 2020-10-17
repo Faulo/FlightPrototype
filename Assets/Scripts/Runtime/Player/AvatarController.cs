@@ -25,6 +25,8 @@ namespace TheCursedBroom.Player {
         AvatarAnimator physicsAnimator = default;
         [SerializeField, Expandable]
         public PhysicsEventEmitter physics = default;
+        [SerializeField, Expandable]
+        public AudioReverbFilter audioReverbFilter = default;
 
         public AvatarAnimations currentAnimation {
             set {
