@@ -1150,7 +1150,8 @@ MonoBehaviour:
   currentState: {fileID: 808840777}
   saveState: {fileID: 2565497426629864672}
   loadState: {fileID: 8118117268162044111}
-  loadVelocity: {x: 0, y: 10}
+  loadPosition: {x: 0, y: 0.5}
+  loadVelocity: {x: 0, y: 5}
   groundedCheck: {fileID: 136339116203656581}
   intendedFacing: 1
   intendedMovement: 0
@@ -1595,7 +1596,7 @@ MonoBehaviour:
   - {x: 0.3125, y: 0.25, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23220
+  m_InstanceId: 24464
 --- !u!114 &4435655361397472993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2211,7 +2212,7 @@ MonoBehaviour:
   - {x: 0.25, y: -0.125, z: 0}
   m_ShapePathHash: 849110428
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23070
+  m_InstanceId: 24314
 --- !u!114 &3098999024524698017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2320,7 +2321,7 @@ MonoBehaviour:
   - {x: 0.3125, y: 0.125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23190
+  m_InstanceId: 24434
 --- !u!114 &536974847400165012
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,6 +40,8 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         AvatarState loadState = default;
         [SerializeField]
+        Vector2 loadPosition = Vector2.zero;
+        [SerializeField]
         Vector2 loadVelocity = Vector2.up;
 
         [SerializeField, Expandable]
@@ -183,7 +185,7 @@ namespace TheCursedBroom.Player {
         }
         public void StateLoad() {
             var delta = state.position - transform.position;
-            transform.position = state.position;
+            transform.position = state.position + (Vector3) loadPosition;
             rotationAngle = state.rotationAngle;
 
             attachedRigidbody.velocity = loadVelocity;
