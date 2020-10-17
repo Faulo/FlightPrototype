@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b81f14cb24ae43b72d2a8fb88ab2b, type: 3}
-  m_Name: Audio_FlightBoost
+  m_Name: Audio_SFX_Level_MagicOre
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: be691fee146adc243b478fb4409ed106, type: 3}
-  mixer: {fileID: 7753301104561651467, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
-  mininumPitch: 1.4
-  maxmimumPitch: 1.6
+  - {fileID: 8300000, guid: a5abeb3f841ae774a84a4029c0317d55, type: 3}
+  mixer: {fileID: 6409435996009824079, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
+  spatialBlend: 0.75
+  mininumPitch: 0.95
+  maxmimumPitch: 1.05
   loop: 0
-  timeOffset: 0.75
+  timeOffset: 0
+  playDuration: 0

@@ -25,6 +25,8 @@ namespace TheCursedBroom.Player {
         AvatarAnimator physicsAnimator = default;
         [SerializeField, Expandable]
         public PhysicsEventEmitter physics = default;
+        [SerializeField, Expandable]
+        public AudioReverbFilter audioReverbFilter = default;
 
         public AvatarAnimations currentAnimation {
             set {
@@ -39,6 +41,8 @@ namespace TheCursedBroom.Player {
         AvatarState saveState = default;
         [SerializeField, Expandable]
         AvatarState loadState = default;
+        [SerializeField]
+        Vector2 loadPosition = Vector2.zero;
         [SerializeField]
         Vector2 loadVelocity = Vector2.up;
 
@@ -183,7 +187,7 @@ namespace TheCursedBroom.Player {
         }
         public void StateLoad() {
             var delta = state.position - transform.position;
-            transform.position = state.position;
+            transform.position = state.position + (Vector3) loadPosition;
             rotationAngle = state.rotationAngle;
 
             attachedRigidbody.velocity = loadVelocity;
