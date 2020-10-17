@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b81f14cb24ae43b72d2a8fb88ab2b, type: 3}
-  m_Name: Audio_FlightBoost
+  m_Name: Audio_SFX_Maya_FlightGlide
   m_EditorClassIdentifier: 
   clips:
   - {fileID: 8300000, guid: be691fee146adc243b478fb4409ed106, type: 3}
@@ -19,3 +19,4 @@ MonoBehaviour:
   maxmimumPitch: 1.6
   loop: 0
   timeOffset: 0.75
+  playDuration: 0

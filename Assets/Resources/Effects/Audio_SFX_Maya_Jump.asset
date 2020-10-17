@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b81f14cb24ae43b72d2a8fb88ab2b, type: 3}
-  m_Name: Audio_Maya_Load
+  m_Name: Audio_SFX_Maya_Jump
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: d82553067124bd245b256ca3a5b37ca1, type: 3}
-  mixer: {fileID: 6409435996009824079, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
+  - {fileID: 8300000, guid: 027816862d5c85542ad98a1b88d96231, type: 3}
+  mixer: {fileID: -3571531847446954820, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
   mininumPitch: 0.9
   maxmimumPitch: 1.1
   loop: 0

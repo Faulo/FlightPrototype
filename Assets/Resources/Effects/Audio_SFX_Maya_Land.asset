@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b81f14cb24ae43b72d2a8fb88ab2b, type: 3}
-  m_Name: Audio_Maya_Save
+  m_Name: Audio_SFX_Maya_Land
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 7afb7e22ea05f0444b4a42aae68c2852, type: 3}
-  mixer: {fileID: 6409435996009824079, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
-  mininumPitch: 0.9
-  maxmimumPitch: 1.1
+  - {fileID: 8300000, guid: d643dc812895fee4cba27877a532c86a, type: 3}
+  mixer: {fileID: 7637111436578098754, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
+  mininumPitch: 0.6
+  maxmimumPitch: 1
   loop: 0
-  timeOffset: 0
+  timeOffset: 0.05
   playDuration: 0
