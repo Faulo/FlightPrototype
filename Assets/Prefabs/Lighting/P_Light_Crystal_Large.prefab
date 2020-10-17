@@ -22,6 +22,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1086103869226998823, guid: 98218b07549922a44bfe9b62d374e729,
+        type: 3}
+      propertyPath: m_ShapeLightParametricSides
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4387320085950501871, guid: 98218b07549922a44bfe9b62d374e729,
         type: 3}
       propertyPath: m_LocalPosition.x
