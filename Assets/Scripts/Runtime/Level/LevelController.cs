@@ -32,6 +32,10 @@ namespace TheCursedBroom.Level {
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
         [SerializeField, Range(1, 100)]
+        int colliderRangeX = 16;
+        [SerializeField, Range(1, 100)]
+        int colliderRangeY = 9;
+        [SerializeField, Range(1, 100)]
         int minimumRangeX = 48;
         [SerializeField, Range(1, 100)]
         int minimumRangeY = 27;
@@ -73,7 +77,9 @@ namespace TheCursedBroom.Level {
         }
         public void RefreshAllTiles() {
             UpdateTiles();
-            map.tilemapControllers.ForAll(collider => collider.RegenerateCollider());
+            for (int i = 0; i < map.tilemapControllers.Length; i++) {
+                map.tilemapControllers[i].RegenerateCollider();
+            }
         }
         public TileBase[][] CreateTilemapStorage(TilemapLayerAsset type) {
             var storage = new TileBase[map.height * levels.Length][];
@@ -190,8 +196,12 @@ namespace TheCursedBroom.Level {
 
         public IList<TileShape> GetTileShapes(ISet<Vector3Int> positions) {
             var shapes = new List<TileShape>();
-            for (int y = observedCenter.y - maximumRangeY; y <= observedCenter.y + maximumRangeY; y++) {
-                for (int x = observedCenter.x - maximumRangeX; x <= observedCenter.x + maximumRangeX; x++) {
+            var bounds = new BoundsInt(observedCenter, new Vector3Int(colliderRangeX, colliderRangeY, 0));
+            bool inBounds(Vector3Int testPosition) {
+                return bounds.Contains(testPosition) && positions.Contains(testPosition);
+            }
+            for (int y = observedCenter.y - colliderRangeY; y <= observedCenter.y + colliderRangeY; y++) {
+                for (int x = observedCenter.x - colliderRangeX; x <= observedCenter.x + colliderRangeX; x++) {
                     var position = new Vector3Int(x, y, 0);
                     if (positions.Contains(position)) {
                         for (int i = 0; i < shapes.Count; i++) {
@@ -199,7 +209,7 @@ namespace TheCursedBroom.Level {
                                 goto SKIP;
                             }
                         }
-                        shapes.Add(CreateTileShape(positions, position, Vector3Int.up));
+                        shapes.Add(CreateTileShape(inBounds, position, Vector3Int.up));
                         if (shapes.Count == shapeCountMaximum) {
                             return shapes;
                         }
@@ -210,36 +220,36 @@ SKIP:
             }
             return shapes;
         }
-        readonly IReadOnlyDictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
+        static readonly Dictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
             [Vector3Int.right] = new Vector2(0, 1),
             [Vector3Int.down] = new Vector2(1, 1),
             [Vector3Int.left] = new Vector2(1, 0),
             [Vector3Int.up] = new Vector2(0, 0),
         };
-        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+        static readonly Dictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.down,
             [Vector3Int.down] = Vector3Int.left,
             [Vector3Int.left] = Vector3Int.up,
             [Vector3Int.up] = Vector3Int.right,
         };
-        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+        static readonly Dictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.up,
             [Vector3Int.down] = Vector3Int.right,
             [Vector3Int.left] = Vector3Int.down,
             [Vector3Int.up] = Vector3Int.left,
         };
-        TileShape CreateTileShape(ISet<Vector3Int> positions, Vector3Int startPosition, Vector3Int startDirection) {
+        static TileShape CreateTileShape(Func<Vector3Int, bool> inBounds, Vector3Int startPosition, Vector3Int startDirection) {
             var shape = new TileShape();
             var position = startPosition;
             var direction = startDirection;
             int i = 0;
             do {
-                if (positions.Contains(position + direction + backwardRotation[direction])) {
+                if (inBounds(position + direction + backwardRotation[direction])) {
                     position += direction + backwardRotation[direction];
                     direction = backwardRotation[direction];
                     shape.positions.Add(position);
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
-                } else if (positions.Contains(position + direction)) {
+                } else if (inBounds(position + direction)) {
                     position += direction;
                 } else {
                     direction = forwardRotation[direction];
@@ -247,9 +257,9 @@ SKIP:
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
                 }
                 if (++i == 1000) {
-                    Debug.Log($"Stack overflow in {positions}! Position: {position} Direction: {direction}");
+                    Debug.Log($"Stack overflow in {inBounds}! Position: {position} Direction: {direction}");
                     Debug.Log(string.Join(", ", shape.positions));
-                    throw new Exception(positions.ToString());
+                    throw new Exception(inBounds.ToString());
                 }
             } while (!(position == startPosition && direction == startDirection));
             return shape;
