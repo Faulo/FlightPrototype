@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6809621170712052476}
   - component: {fileID: 2111044455485666041}
   m_Layer: 0
-  m_Name: L1_Interactable_MagicOre
+  m_Name: L2_Interactable_MagicOre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,6 +124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086103869226998823, guid: 32ab4408df207134b9b6fbf8501e8685,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4387320085950501871, guid: 32ab4408df207134b9b6fbf8501e8685,
         type: 3}
