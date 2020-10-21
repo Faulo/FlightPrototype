@@ -210,7 +210,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
   facingLookahead: 0.2
   groundedSize: 10
-  airborneSize: 12
+  airborneSize: 13
   groundedChangeDuration: 1
   airborneChangeDuration: 0.5
 --- !u!1 &1713786829
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   - {x: 0.3125, y: 0.25, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23780
+  m_InstanceId: 27210
 --- !u!114 &4435655361397472993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,7 +2214,7 @@ MonoBehaviour:
   - {x: 0.25, y: -0.125, z: 0}
   m_ShapePathHash: 849110428
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23624
+  m_InstanceId: 27054
 --- !u!114 &3098999024524698017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,7 +2323,7 @@ MonoBehaviour:
   - {x: 0.3125, y: 0.125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23748
+  m_InstanceId: 27178
 --- !u!114 &536974847400165012
 MonoBehaviour:
   m_ObjectHideFlags: 0
