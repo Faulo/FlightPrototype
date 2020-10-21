@@ -31,10 +31,10 @@ namespace TheCursedBroom.Level {
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
-        [SerializeField, Range(1, 100)]
-        int colliderRangeX = 16;
-        [SerializeField, Range(1, 100)]
-        int colliderRangeY = 9;
+        [SerializeField]
+        Vector3Int colliderSize = Vector3Int.zero;
+        BoundsInt colliderBounds = new BoundsInt();
+
         [SerializeField, Range(1, 100)]
         int minimumRangeX = 48;
         [SerializeField, Range(1, 100)]
@@ -65,7 +65,7 @@ namespace TheCursedBroom.Level {
         void Start() {
             onStart.Invoke(gameObject);
         }
-        void Update() {
+        void FixedUpdate() {
             if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
                 if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
                     map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
@@ -129,6 +129,8 @@ namespace TheCursedBroom.Level {
                 throw new NotImplementedException(nameof(allowNonActorTileLoading));
             } else {
                 observedCenter = map.WorldToCell(observedActor.position);
+                colliderBounds.position = observedCenter - colliderSize;
+                colliderBounds.size = colliderSize + colliderSize + Vector3Int.one;
             }
 
             if (lastCenter != observedCenter) {
@@ -196,27 +198,24 @@ namespace TheCursedBroom.Level {
 
         public IList<TileShape> GetTileShapes(ISet<Vector3Int> positions) {
             var shapes = new List<TileShape>();
-            var bounds = new BoundsInt(observedCenter, new Vector3Int(colliderRangeX, colliderRangeY, 0));
             bool inBounds(Vector3Int testPosition) {
-                return bounds.Contains(testPosition) && positions.Contains(testPosition);
+                return colliderBounds.Contains(testPosition) && positions.Contains(testPosition);
             }
-            for (int y = observedCenter.y - colliderRangeY; y <= observedCenter.y + colliderRangeY; y++) {
-                for (int x = observedCenter.x - colliderRangeX; x <= observedCenter.x + colliderRangeX; x++) {
-                    var position = new Vector3Int(x, y, 0);
-                    if (positions.Contains(position)) {
-                        for (int i = 0; i < shapes.Count; i++) {
-                            if (shapes[i].ContainsPosition(position)) {
-                                goto SKIP;
-                            }
-                        }
-                        shapes.Add(CreateTileShape(inBounds, position, Vector3Int.up));
-                        if (shapes.Count == shapeCountMaximum) {
-                            return shapes;
+            var testPositions = new HashSet<Vector3Int>();
+            foreach (var position in colliderBounds.allPositionsWithin) {
+                if (positions.Contains(position)) {
+                    for (int i = 0; i < shapes.Count; i++) {
+                        if (shapes[i].ContainsPosition(position)) {
+                            goto SKIP;
                         }
                     }
-SKIP:
-                    ;
+                    shapes.Add(CreateTileShape(inBounds, position, Vector3Int.up));
+                    if (shapes.Count == shapeCountMaximum) {
+                        return shapes;
+                    }
                 }
+SKIP:
+                ;
             }
             return shapes;
         }
