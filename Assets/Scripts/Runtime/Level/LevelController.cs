@@ -32,17 +32,15 @@ namespace TheCursedBroom.Level {
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
         [SerializeField]
-        Vector3Int colliderSize = Vector3Int.zero;
-        BoundsInt colliderBounds = new BoundsInt();
+        Vector3Int colliderSize = new Vector3Int(10, 10, 0);
+        [SerializeField]
+        Vector3Int tilemapInnerSize = new Vector3Int(26, 18, 0);
+        [SerializeField]
+        Vector3Int tilemapOuterSize = new Vector3Int(28, 20, 0);
 
-        [SerializeField, Range(1, 100)]
-        int minimumRangeX = 48;
-        [SerializeField, Range(1, 100)]
-        int minimumRangeY = 27;
-        [SerializeField, Range(1, 100)]
-        int maximumRangeX = 64;
-        [SerializeField, Range(1, 100)]
-        int maximumRangeY = 36;
+        BoundsInt colliderBounds = new BoundsInt();
+        BoundsInt tilemapInnerBounds = new BoundsInt();
+        BoundsInt tilemapOuterBounds = new BoundsInt();
 
         int tilesChangedCount;
         [SerializeField, Range(-1, 1000)]
@@ -131,6 +129,12 @@ namespace TheCursedBroom.Level {
                 observedCenter = map.WorldToCell(observedActor.position);
                 colliderBounds.position = observedCenter - colliderSize;
                 colliderBounds.size = colliderSize + colliderSize + Vector3Int.one;
+
+                tilemapInnerBounds.position = observedCenter - tilemapInnerSize;
+                tilemapInnerBounds.size = tilemapInnerSize + tilemapInnerSize + Vector3Int.one;
+
+                tilemapOuterBounds.position = observedCenter - tilemapOuterSize;
+                tilemapOuterBounds.size = tilemapOuterSize + tilemapOuterSize + Vector3Int.one;
             }
 
             if (lastCenter != observedCenter) {
@@ -150,23 +154,13 @@ namespace TheCursedBroom.Level {
                 .ToList()
                 .ForAll(DiscardTile);
         }
-        bool IsOutOfBounds(Vector3Int position) {
-            if (position.x >= observedCenter.x - maximumRangeX && position.x <= observedCenter.x + maximumRangeX) {
-                if (position.y >= observedCenter.y - maximumRangeY && position.y <= observedCenter.y + maximumRangeY) {
-                    return false;
-                }
-            }
-            return true;
-        }
+        bool IsOutOfBounds(Vector3Int position) => !tilemapOuterBounds.Contains(position);
         void LoadNewTiles() {
-            for (int x = observedCenter.x - minimumRangeX; x <= observedCenter.x + minimumRangeX; x++) {
-                for (int y = observedCenter.y - minimumRangeY; y <= observedCenter.y + minimumRangeY; y++) {
-                    var position = new Vector3Int(x, y, 0);
-                    if (!loadedTilePositions.Contains(position)) {
-                        LoadTile(position);
-                        if (tilesChangedCount == tilesChangedMaximum) {
-                            return;
-                        }
+            foreach (var position in tilemapInnerBounds.allPositionsWithin) {
+                if (!loadedTilePositions.Contains(position)) {
+                    LoadTile(position);
+                    if (tilesChangedCount == tilesChangedMaximum) {
+                        return;
                     }
                 }
             }
@@ -263,15 +257,12 @@ SKIP:
             } while (!(position == startPosition && direction == startDirection));
             return shape;
         }
-
         void OnDrawGizmos() {
             if (observedActor) {
-                var center = new Vector3((int)observedActor.position.x, (int)observedActor.position.y, 0);
-                center += map.tileAnchor;
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawWireCube(center, new Vector3((2 * minimumRangeX) + 1, (2 * minimumRangeY) + 1, 1));
+                Gizmos.DrawWireCube(tilemapInnerBounds.center, tilemapInnerBounds.size);
                 Gizmos.color = Color.blue;
-                Gizmos.DrawWireCube(center, new Vector3((2 * maximumRangeX) + 1, (2 * maximumRangeY) + 1, 1));
+                Gizmos.DrawWireCube(tilemapOuterBounds.center, tilemapOuterBounds.size);
             }
         }
     }
