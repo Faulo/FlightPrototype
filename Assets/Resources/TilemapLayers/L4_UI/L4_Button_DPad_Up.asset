@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
-  m_Name: L3_Button_B
+  m_Name: L4_Button_DPad_Up
   m_EditorClassIdentifier: 
   spriteSheet: {fileID: 0}
-  sprite: {fileID: 8379077866503739638, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
+  sprite: {fileID: 1757815995694202585, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
   sprites:
-  - {fileID: 8379077866503739638, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
+  - {fileID: 1757815995694202585, guid: d1b6a8101d4624f41990c9984e286d06, type: 3}
   perlinScale: 0
   perlinOffset: 0
   prefab: {fileID: 642851093565264006, guid: e0366246b3872fa40a1edf391914fe91, type: 3}
   tileOptions: 7
   instantiateSpriteEditorOnly: 0
-  colliderType: 2
+  colliderType: 0
