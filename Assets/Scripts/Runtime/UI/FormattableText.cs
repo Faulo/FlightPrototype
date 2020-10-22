@@ -5,24 +5,28 @@ using TMPro;
 using UnityEngine;
 
 namespace TheCursedBroom.UI {
-    [RequireComponent(typeof(TextMeshProUGUI))]
-    public abstract class FormattableText : MonoBehaviour {
+    public abstract class FormattableText : ComponentFeature<TextMeshProUGUI> {
         [SerializeField, Range(0, 1)]
         float refreshInterval = 1;
+        [SerializeField]
+        string template = default;
 
         public abstract IDictionary<string, string> parameters { get; }
 
-        IEnumerator Start() {
-            var textMesh = GetComponent<TextMeshProUGUI>();
-            string template = textMesh.text;
-            while (true) {
-                textMesh.text = template.Format(parameters);
-                yield return new WaitForSeconds(refreshInterval);
-            }
+        protected override void Awake() {
+            base.Awake();
+            template = observedComponent.text;
         }
 
-        public void ToggleDisplay() {
-            GetComponent<TextMeshProUGUI>().enabled = !GetComponent<TextMeshProUGUI>().enabled;
+        void OnEnable() {
+            StartCoroutine(UpdateTextRoutine());
+        }
+
+        IEnumerator UpdateTextRoutine() {
+            while (true) {
+                observedComponent.text = template.Format(parameters);
+                yield return new WaitForSeconds(refreshInterval);
+            }
         }
     }
 }
