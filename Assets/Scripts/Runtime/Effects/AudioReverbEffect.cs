@@ -1,5 +1,4 @@
-﻿using TheCursedBroom.Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom.Effects {
     [CreateAssetMenu(fileName = "AudioReverb_New", menuName = "Effects/Audio Reverb")]
@@ -8,10 +7,10 @@ namespace TheCursedBroom.Effects {
         AudioReverbPreset preset = AudioReverbPreset.Off;
 
         public override void Invoke(GameObject context) {
-            if (!AvatarController.instance.audioReverbFilter) {
-                return;
+            var filter = FindObjectOfType<AudioReverbFilter>();
+            if (filter) {
+                filter.reverbPreset = preset;
             }
-            AvatarController.instance.audioReverbFilter.reverbPreset = preset;
         }
     }
 }
