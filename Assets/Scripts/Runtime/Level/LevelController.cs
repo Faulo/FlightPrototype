@@ -31,14 +31,12 @@ namespace TheCursedBroom.Level {
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
-        [SerializeField, Range(1, 100)]
-        int minimumRangeX = 48;
-        [SerializeField, Range(1, 100)]
-        int minimumRangeY = 27;
-        [SerializeField, Range(1, 100)]
-        int maximumRangeX = 64;
-        [SerializeField, Range(1, 100)]
-        int maximumRangeY = 36;
+        [SerializeField]
+        public TilemapBounds colliderBounds = new TilemapBounds();
+        [SerializeField]
+        public TilemapBounds tilemapInnerBounds = new TilemapBounds();
+        [SerializeField]
+        public TilemapBounds tilemapOuterBounds = new TilemapBounds();
 
         int tilesChangedCount;
         [SerializeField, Range(-1, 1000)]
@@ -47,8 +45,6 @@ namespace TheCursedBroom.Level {
         int currentColliderIndex = 0;
         [SerializeField, Range(1, 80)]
         int pauseBetweenColliderUpdates = 1;
-        [SerializeField, Range(1, 100)]
-        int shapeCountMaximum = 1;
 
         [Header("Editor Tools")]
         [SerializeField]
@@ -61,7 +57,7 @@ namespace TheCursedBroom.Level {
         void Start() {
             onStart.Invoke(gameObject);
         }
-        void Update() {
+        void FixedUpdate() {
             if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
                 if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
                     map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
@@ -73,7 +69,9 @@ namespace TheCursedBroom.Level {
         }
         public void RefreshAllTiles() {
             UpdateTiles();
-            map.tilemapControllers.ForAll(collider => collider.RegenerateCollider());
+            for (int i = 0; i < map.tilemapControllers.Length; i++) {
+                map.tilemapControllers[i].RegenerateCollider();
+            }
         }
         public TileBase[][] CreateTilemapStorage(TilemapLayerAsset type) {
             var storage = new TileBase[map.height * levels.Length][];
@@ -127,6 +125,9 @@ namespace TheCursedBroom.Level {
 
             if (lastCenter != observedCenter) {
                 lastCenter = observedCenter;
+                colliderBounds.center = observedCenter;
+                tilemapInnerBounds.center = observedCenter;
+                tilemapOuterBounds.center = observedCenter;
 
                 DiscardOldTiles();
                 LoadNewTiles();
@@ -142,23 +143,13 @@ namespace TheCursedBroom.Level {
                 .ToList()
                 .ForAll(DiscardTile);
         }
-        bool IsOutOfBounds(Vector3Int position) {
-            if (position.x >= observedCenter.x - maximumRangeX && position.x <= observedCenter.x + maximumRangeX) {
-                if (position.y >= observedCenter.y - maximumRangeY && position.y <= observedCenter.y + maximumRangeY) {
-                    return false;
-                }
-            }
-            return true;
-        }
+        bool IsOutOfBounds(Vector3Int position) => !tilemapOuterBounds.Contains(position);
         void LoadNewTiles() {
-            for (int x = observedCenter.x - minimumRangeX; x <= observedCenter.x + minimumRangeX; x++) {
-                for (int y = observedCenter.y - minimumRangeY; y <= observedCenter.y + minimumRangeY; y++) {
-                    var position = new Vector3Int(x, y, 0);
-                    if (!loadedTilePositions.Contains(position)) {
-                        LoadTile(position);
-                        if (tilesChangedCount == tilesChangedMaximum) {
-                            return;
-                        }
+            foreach (var position in tilemapInnerBounds.allPositionsWithin) {
+                if (!loadedTilePositions.Contains(position)) {
+                    LoadTile(position);
+                    if (tilesChangedCount == tilesChangedMaximum) {
+                        return;
                     }
                 }
             }
@@ -188,58 +179,82 @@ namespace TheCursedBroom.Level {
             Debug.Log("InstallTilemap complete!");
         }
 
-        public IList<TileShape> GetTileShapes(ISet<Vector3Int> positions) {
-            var shapes = new List<TileShape>();
-            for (int y = observedCenter.y - maximumRangeY; y <= observedCenter.y + maximumRangeY; y++) {
-                for (int x = observedCenter.x - maximumRangeX; x <= observedCenter.x + maximumRangeX; x++) {
-                    var position = new Vector3Int(x, y, 0);
-                    if (positions.Contains(position)) {
-                        for (int i = 0; i < shapes.Count; i++) {
-                            if (shapes[i].ContainsPosition(position)) {
-                                goto SKIP;
-                            }
-                        }
-                        shapes.Add(CreateTileShape(positions, position, Vector3Int.up));
-                        if (shapes.Count == shapeCountMaximum) {
-                            return shapes;
+        public int TryGetColliderShapes(ISet<Vector3Int> positions, ref TileShape[] shapes) {
+            int shapeCount = 0;
+            bool inBounds(Vector3Int testPosition) {
+                return colliderBounds.Contains(testPosition) && positions.Contains(testPosition);
+            }
+            var testPositions = new HashSet<Vector3Int>();
+            foreach (var position in colliderBounds.allPositionsWithin) {
+                if (positions.Contains(position)) {
+                    for (int i = 0; i < shapeCount; i++) {
+                        if (shapes[i].ContainsPosition(position)) {
+                            goto SKIP;
                         }
                     }
+                    shapes[shapeCount++] = CreateTileShape(inBounds, position, Vector3Int.up);
+                }
 SKIP:
-                    ;
+                ;
+            }
+            return shapeCount;
+        }
+        public bool TryGetColliderBounds(ISet<Vector3Int> positions, out Vector3 offset, out Vector3 size) {
+            var colliderPositions = positions.Where(colliderBounds.Contains).ToList();
+            if (colliderPositions.Count == 0) {
+                offset = size = Vector3.zero;
+                return false;
+            }
+            var bottomLeft = (Vector3)colliderPositions.First();
+            var topRight = bottomLeft;
+            foreach (var position in colliderPositions) {
+                if (topRight.x < position.x) {
+                    topRight.x = position.x;
+                }
+                if (topRight.y < position.y) {
+                    topRight.y = position.y;
+                }
+                if (bottomLeft.x > position.x) {
+                    bottomLeft.x = position.x;
+                }
+                if (bottomLeft.y > position.y) {
+                    bottomLeft.y = position.y;
                 }
             }
-            return shapes;
+            offset = (topRight + bottomLeft + Vector3.one) / 2;
+            size = topRight - bottomLeft + Vector3.one;
+            return true;
         }
-        readonly IReadOnlyDictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
+        static readonly Dictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
             [Vector3Int.right] = new Vector2(0, 1),
             [Vector3Int.down] = new Vector2(1, 1),
             [Vector3Int.left] = new Vector2(1, 0),
             [Vector3Int.up] = new Vector2(0, 0),
         };
-        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+        static readonly Dictionary<Vector3Int, Vector3Int> forwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.down,
             [Vector3Int.down] = Vector3Int.left,
             [Vector3Int.left] = Vector3Int.up,
             [Vector3Int.up] = Vector3Int.right,
         };
-        readonly IReadOnlyDictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
+        static readonly Dictionary<Vector3Int, Vector3Int> backwardRotation = new Dictionary<Vector3Int, Vector3Int> {
             [Vector3Int.right] = Vector3Int.up,
             [Vector3Int.down] = Vector3Int.right,
             [Vector3Int.left] = Vector3Int.down,
             [Vector3Int.up] = Vector3Int.left,
         };
-        TileShape CreateTileShape(ISet<Vector3Int> positions, Vector3Int startPosition, Vector3Int startDirection) {
+        static TileShape CreateTileShape(Func<Vector3Int, bool> inBounds, Vector3Int startPosition, Vector3Int startDirection) {
             var shape = new TileShape();
             var position = startPosition;
             var direction = startDirection;
             int i = 0;
             do {
-                if (positions.Contains(position + direction + backwardRotation[direction])) {
+                if (inBounds(position + direction + backwardRotation[direction])) {
                     position += direction + backwardRotation[direction];
                     direction = backwardRotation[direction];
                     shape.positions.Add(position);
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
-                } else if (positions.Contains(position + direction)) {
+                } else if (inBounds(position + direction)) {
                     position += direction;
                 } else {
                     direction = forwardRotation[direction];
@@ -247,22 +262,19 @@ SKIP:
                     shape.vertices.Add(offsets[direction] + new Vector2(position.x, position.y));
                 }
                 if (++i == 1000) {
-                    Debug.Log($"Stack overflow in {positions}! Position: {position} Direction: {direction}");
+                    Debug.Log($"Stack overflow in {inBounds}! Position: {position} Direction: {direction}");
                     Debug.Log(string.Join(", ", shape.positions));
-                    throw new Exception(positions.ToString());
+                    throw new Exception(inBounds.ToString());
                 }
             } while (!(position == startPosition && direction == startDirection));
             return shape;
         }
-
         void OnDrawGizmos() {
             if (observedActor) {
-                var center = new Vector3((int)observedActor.position.x, (int)observedActor.position.y, 0);
-                center += map.tileAnchor;
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawWireCube(center, new Vector3((2 * minimumRangeX) + 1, (2 * minimumRangeY) + 1, 1));
+                Gizmos.DrawWireCube(tilemapInnerBounds.worldCenter, tilemapInnerBounds.worldSize);
                 Gizmos.color = Color.blue;
-                Gizmos.DrawWireCube(center, new Vector3((2 * maximumRangeX) + 1, (2 * maximumRangeY) + 1, 1));
+                Gizmos.DrawWireCube(tilemapOuterBounds.worldCenter, tilemapOuterBounds.worldSize);
             }
         }
     }

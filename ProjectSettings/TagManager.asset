@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Zone
+    uniqueID: 2676621999
+    locked: 0
   - name: Background
     uniqueID: 1096992519
     locked: 0
@@ -46,4 +49,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 574429441
+    locked: 0
+  - name: UI
+    uniqueID: 3885826497
     locked: 0

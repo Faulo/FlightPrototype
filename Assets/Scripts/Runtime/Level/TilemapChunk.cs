@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TheCursedBroom.Extensions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -67,6 +69,14 @@ namespace TheCursedBroom.Level {
         }
         IEnumerator SyncBorders() {
             yield return null;
+            foreach (var (_, tilemap) in tilemaps.all) {
+                tilemap
+                    .GetUsedTiles()
+                    .Select(tile => tile.Item1)
+                    .Where(IsOutOfBounds)
+                    .ToList()
+                    .ForEach(tilemap.ClearTile);
+            }
             for (int i = 0; i < tilemaps.height; i++) {
                 var left = new Vector3Int(0, i, 0);
                 var right = new Vector3Int(tilemaps.width, i, 0);
@@ -114,7 +124,9 @@ namespace TheCursedBroom.Level {
 
             Debug.Log($"MoveTiles complete! {tileMoves.Count} tiles moved.");
         }
-
+        bool IsOutOfBounds(Vector3Int position) {
+            return position.x < 0 || position.y < 0 || position.x >= tilemaps.width || position.y >= tilemaps.height;
+        }
         void OnDrawGizmos() {
             Gizmos.color = Color.white;
             var size = new Vector3(tilemaps.width, tilemaps.height, 0);

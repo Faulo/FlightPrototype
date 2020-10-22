@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -51,8 +50,8 @@ namespace TheCursedBroom.Level {
             }
         }
 
-        IList<Vector3Int> newPositions = new List<Vector3Int>();
-        IList<TileBase> newTiles = new List<TileBase>();
+        List<Vector3Int> newPositions = new List<Vector3Int>();
+        List<TileBase> newTiles = new List<TileBase>();
 
         void Update() {
             if (newPositions.Count > 0) {

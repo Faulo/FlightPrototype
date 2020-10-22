@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Resources/Settings/InputSystem_Controls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Resources/Settings/CONF_Input_Controls.inputactions'
 
 using System;
 using System.Collections;
@@ -14,7 +14,7 @@ namespace TheCursedBroom.Input
         public @Controls()
         {
             asset = InputActionAsset.FromJson(@"{
-    ""name"": ""InputSystem_Controls"",
+    ""name"": ""CONF_Input_Controls"",
     ""maps"": [
         {
             ""name"": ""Player"",
