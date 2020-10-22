@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarMovements {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "AM_Horizontal_New", menuName = "Avatar Movements/Horizontal")]
     public class HorizontalMovement : AvatarMovement {
         [SerializeField]
         AnimationCurve intentionFilter = default;

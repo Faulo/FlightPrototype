@@ -2,7 +2,7 @@
 using UnityEngine.Assertions;
 
 namespace TheCursedBroom.Player.AvatarMovements {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "AM_Dash_New", menuName = "Avatar Movements/Dash")]
     public class DashMovement : AvatarMovement {
         enum VelocityMode {
             SetVelocity,

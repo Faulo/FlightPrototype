@@ -2,7 +2,7 @@
 using UnityEngine.Serialization;
 
 namespace TheCursedBroom.Player.AvatarMovements {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "AM_Glide_New", menuName = "Avatar Movements/Glide")]
     public class GlideMovement : AvatarMovement {
         enum GlideMode {
             RotationControl,

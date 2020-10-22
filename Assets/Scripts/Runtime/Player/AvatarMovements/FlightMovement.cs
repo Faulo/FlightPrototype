@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarMovements {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "AM_Flight_New", menuName = "Avatar Movements/Flight")]
     public class FlightMovement : AvatarMovement {
         [SerializeField, Range(0, 1000)]
         float upDraft = 10;
