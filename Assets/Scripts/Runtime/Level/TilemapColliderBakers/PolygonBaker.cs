@@ -8,21 +8,26 @@ namespace TheCursedBroom.Level.TilemapColliderBakers {
     public class PolygonBaker : TilemapColliderBaker {
         [SerializeField, Expandable]
         PolygonCollider2D polygonCollider = default;
+        [SerializeField, Range(1, 1000)]
+        int shapeCountMaximum = 100;
+
+        TileShape[] shapes;
 
         protected override void OnValidate() {
             base.OnValidate();
             if (!polygonCollider) {
                 polygonCollider = GetComponent<PolygonCollider2D>();
             }
+            shapes = new TileShape[shapeCountMaximum];
         }
 
         protected override void SetupCollider() {
             Assert.IsNotNull(polygonCollider);
         }
         protected override void RegenerateCollider(ISet<Vector3Int> positions) {
-            var shapes = LevelController.instance.GetTileShapes(positions);
-            polygonCollider.pathCount = shapes.Count;
-            for (int i = 0; i < shapes.Count; i++) {
+            int shapeCount = LevelController.instance.TryGetColliderShapes(positions, ref shapes);
+            polygonCollider.pathCount = shapeCount;
+            for (int i = 0; i < shapeCount; i++) {
                 polygonCollider.SetPath(i, shapes[i].vertices);
             }
         }

@@ -1104,6 +1104,7 @@ GameObject:
   - component: {fileID: 9049049285058712513}
   - component: {fileID: 6081193294796904847}
   - component: {fileID: 7966300212243877047}
+  - component: {fileID: 4997517251446782618}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -1373,6 +1374,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
+--- !u!114 &4997517251446782618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089225555766872605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe90269021e7c345aaed12219f6a668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActor: 1
+  m_requireLevel: 0
 --- !u!1 &3089225555960653585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,7 +1613,7 @@ MonoBehaviour:
   - {x: 0.3125, y: 0.25, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 27210
+  m_InstanceId: 25926
 --- !u!114 &4435655361397472993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,7 +2229,7 @@ MonoBehaviour:
   - {x: 0.25, y: -0.125, z: 0}
   m_ShapePathHash: 849110428
   m_Mesh: {fileID: 0}
-  m_InstanceId: 27054
+  m_InstanceId: 25770
 --- !u!114 &3098999024524698017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,7 +2338,7 @@ MonoBehaviour:
   - {x: 0.3125, y: 0.125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 27178
+  m_InstanceId: 25894
 --- !u!114 &536974847400165012
 MonoBehaviour:
   m_ObjectHideFlags: 0

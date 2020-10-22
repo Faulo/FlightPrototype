@@ -32,15 +32,11 @@ namespace TheCursedBroom.Level {
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
         [SerializeField]
-        Vector3Int colliderSize = new Vector3Int(10, 10, 0);
+        public TilemapBounds colliderBounds = new TilemapBounds();
         [SerializeField]
-        Vector3Int tilemapInnerSize = new Vector3Int(26, 18, 0);
+        public TilemapBounds tilemapInnerBounds = new TilemapBounds();
         [SerializeField]
-        Vector3Int tilemapOuterSize = new Vector3Int(28, 20, 0);
-
-        BoundsInt colliderBounds = new BoundsInt();
-        BoundsInt tilemapInnerBounds = new BoundsInt();
-        BoundsInt tilemapOuterBounds = new BoundsInt();
+        public TilemapBounds tilemapOuterBounds = new TilemapBounds();
 
         int tilesChangedCount;
         [SerializeField, Range(-1, 1000)]
@@ -49,8 +45,6 @@ namespace TheCursedBroom.Level {
         int currentColliderIndex = 0;
         [SerializeField, Range(1, 80)]
         int pauseBetweenColliderUpdates = 1;
-        [SerializeField, Range(1, 100)]
-        int shapeCountMaximum = 1;
 
         [Header("Editor Tools")]
         [SerializeField]
@@ -127,18 +121,13 @@ namespace TheCursedBroom.Level {
                 throw new NotImplementedException(nameof(allowNonActorTileLoading));
             } else {
                 observedCenter = map.WorldToCell(observedActor.position);
-                colliderBounds.position = observedCenter - colliderSize;
-                colliderBounds.size = colliderSize + colliderSize + Vector3Int.one;
-
-                tilemapInnerBounds.position = observedCenter - tilemapInnerSize;
-                tilemapInnerBounds.size = tilemapInnerSize + tilemapInnerSize + Vector3Int.one;
-
-                tilemapOuterBounds.position = observedCenter - tilemapOuterSize;
-                tilemapOuterBounds.size = tilemapOuterSize + tilemapOuterSize + Vector3Int.one;
             }
 
             if (lastCenter != observedCenter) {
                 lastCenter = observedCenter;
+                colliderBounds.center = observedCenter;
+                tilemapInnerBounds.center = observedCenter;
+                tilemapOuterBounds.center = observedCenter;
 
                 DiscardOldTiles();
                 LoadNewTiles();
@@ -190,28 +179,51 @@ namespace TheCursedBroom.Level {
             Debug.Log("InstallTilemap complete!");
         }
 
-        public IList<TileShape> GetTileShapes(ISet<Vector3Int> positions) {
-            var shapes = new List<TileShape>();
+        public int TryGetColliderShapes(ISet<Vector3Int> positions, ref TileShape[] shapes) {
+            int shapeCount = 0;
             bool inBounds(Vector3Int testPosition) {
                 return colliderBounds.Contains(testPosition) && positions.Contains(testPosition);
             }
             var testPositions = new HashSet<Vector3Int>();
             foreach (var position in colliderBounds.allPositionsWithin) {
                 if (positions.Contains(position)) {
-                    for (int i = 0; i < shapes.Count; i++) {
+                    for (int i = 0; i < shapeCount; i++) {
                         if (shapes[i].ContainsPosition(position)) {
                             goto SKIP;
                         }
                     }
-                    shapes.Add(CreateTileShape(inBounds, position, Vector3Int.up));
-                    if (shapes.Count == shapeCountMaximum) {
-                        return shapes;
-                    }
+                    shapes[shapeCount++] = CreateTileShape(inBounds, position, Vector3Int.up);
                 }
 SKIP:
                 ;
             }
-            return shapes;
+            return shapeCount;
+        }
+        public bool TryGetColliderBounds(ISet<Vector3Int> positions, out Vector3 offset, out Vector3 size) {
+            var colliderPositions = positions.Where(colliderBounds.Contains).ToList();
+            if (colliderPositions.Count == 0) {
+                offset = size = Vector3.zero;
+                return false;
+            }
+            var bottomLeft = (Vector3)colliderPositions.First();
+            var topRight = bottomLeft;
+            foreach (var position in colliderPositions) {
+                if (topRight.x < position.x) {
+                    topRight.x = position.x;
+                }
+                if (topRight.y < position.y) {
+                    topRight.y = position.y;
+                }
+                if (bottomLeft.x > position.x) {
+                    bottomLeft.x = position.x;
+                }
+                if (bottomLeft.y > position.y) {
+                    bottomLeft.y = position.y;
+                }
+            }
+            offset = (topRight + bottomLeft + Vector3.one) / 2;
+            size = topRight - bottomLeft + Vector3.one;
+            return true;
         }
         static readonly Dictionary<Vector3Int, Vector2> offsets = new Dictionary<Vector3Int, Vector2> {
             [Vector3Int.right] = new Vector2(0, 1),
@@ -260,9 +272,9 @@ SKIP:
         void OnDrawGizmos() {
             if (observedActor) {
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawWireCube(tilemapInnerBounds.center, tilemapInnerBounds.size);
+                Gizmos.DrawWireCube(tilemapInnerBounds.worldCenter, tilemapInnerBounds.worldSize);
                 Gizmos.color = Color.blue;
-                Gizmos.DrawWireCube(tilemapOuterBounds.center, tilemapOuterBounds.size);
+                Gizmos.DrawWireCube(tilemapOuterBounds.worldCenter, tilemapOuterBounds.worldSize);
             }
         }
     }
