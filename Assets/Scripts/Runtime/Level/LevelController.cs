@@ -22,11 +22,6 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         GameObjectEvent onStart = default;
 
-        public Transform observedActor;
-        public ISet<ILevelObject> observedObjects = new HashSet<ILevelObject>();
-        Vector3Int observedCenter = Vector3Int.zero;
-        Vector3Int lastCenter = Vector3Int.zero;
-
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
@@ -38,6 +33,11 @@ namespace TheCursedBroom.Level {
         int currentColliderIndex = 0;
         [SerializeField, Range(1, 80)]
         int pauseBetweenColliderUpdates = 1;
+
+        [Header("Debug output")]
+        public Transform observedActor;
+        public readonly ISet<ILevelObject> observedObjects = new HashSet<ILevelObject>();
+        Vector3Int observedCenter;
 
         void Awake() {
             OnValidate();
