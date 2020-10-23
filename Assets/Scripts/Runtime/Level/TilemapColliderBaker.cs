@@ -7,23 +7,25 @@ namespace TheCursedBroom.Level {
         [SerializeField]
         TileBase[] containedTiles = new TileBase[0];
 
+        TilemapBounds colliderBounds;
         ISet<Vector3Int> positions;
         bool isDirty;
 
         void OnEnable() {
             positions = new HashSet<Vector3Int>();
             for (int i = 0; i < containedTiles.Length; i++) {
-                observedComponent.AddTileAddedListener(containedTiles[i], TileAddedListener);
-                observedComponent.AddTileRemovedListener(containedTiles[i], TileRemovedListener);
+                observedComponent.AddTileColliderAddedListener(containedTiles[i], TileAddedListener);
+                observedComponent.AddTileColliderRemovedListener(containedTiles[i], TileRemovedListener);
             }
             observedComponent.onRegenerateCollider += RegenerateColliderListener;
+            colliderBounds = LevelController.instance.colliderBounds;
 
-            SetupCollider();
+            SetupCollider(colliderBounds);
         }
         void OnDisable() {
             for (int i = 0; i < containedTiles.Length; i++) {
-                observedComponent.RemoveTileAddedListener(containedTiles[i], TileAddedListener);
-                observedComponent.RemoveTileRemovedListener(containedTiles[i], TileRemovedListener);
+                observedComponent.RemoveTileColliderAddedListener(containedTiles[i], TileAddedListener);
+                observedComponent.RemoveTileColliderRemovedListener(containedTiles[i], TileRemovedListener);
             }
             observedComponent.onRegenerateCollider -= RegenerateColliderListener;
             positions = null;
@@ -40,11 +42,11 @@ namespace TheCursedBroom.Level {
         void RegenerateColliderListener(TilemapController tilemap) {
             if (isDirty) {
                 isDirty = false;
-                RegenerateCollider(positions);
+                RegenerateCollider(colliderBounds, positions);
             }
         }
 
-        protected abstract void SetupCollider();
-        protected abstract void RegenerateCollider(ISet<Vector3Int> positions);
+        protected abstract void SetupCollider(TilemapBounds bounds);
+        protected abstract void RegenerateCollider(TilemapBounds bounds, ISet<Vector3Int> positions);
     }
 }

@@ -580,13 +580,9 @@ MonoBehaviour:
   colliderBounds:
     width: 1
     height: 1
-  tilemapInnerBounds:
+  rendererBounds:
     width: 80
     height: 20
-  tilemapOuterBounds:
-    width: 80
-    height: 20
-  tilesChangedMaximum: -1
   pauseBetweenColliderUpdates: 2
   installTilemap: 0
 --- !u!1 &799366527

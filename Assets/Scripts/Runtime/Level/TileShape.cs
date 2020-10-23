@@ -6,6 +6,11 @@ namespace TheCursedBroom.Level {
         public readonly List<Vector3Int> positions = new List<Vector3Int>();
         public readonly List<Vector2> vertices = new List<Vector2>();
 
+        public void AddCorner(Vector3Int position, Vector2 vertexOffset) {
+            positions.Add(position);
+            vertices.Add(new Vector2(position.x, position.y) + vertexOffset);
+        }
+
         public bool ContainsPosition(Vector3Int point) {
             bool inside = false;
             for (int i = 0, j = positions.Count - 1; i < positions.Count; j = i++) {

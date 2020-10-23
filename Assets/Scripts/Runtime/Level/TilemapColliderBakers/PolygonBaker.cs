@@ -21,11 +21,11 @@ namespace TheCursedBroom.Level.TilemapColliderBakers {
             shapes = new TileShape[shapeCountMaximum];
         }
 
-        protected override void SetupCollider() {
+        protected override void SetupCollider(TilemapBounds bounds) {
             Assert.IsNotNull(polygonCollider);
         }
-        protected override void RegenerateCollider(ISet<Vector3Int> positions) {
-            int shapeCount = LevelController.instance.TryGetColliderShapes(positions, ref shapes);
+        protected override void RegenerateCollider(TilemapBounds bounds, ISet<Vector3Int> positions) {
+            int shapeCount = bounds.TryGetShapes(positions, ref shapes);
             polygonCollider.pathCount = shapeCount;
             for (int i = 0; i < shapeCount; i++) {
                 polygonCollider.SetPath(i, shapes[i].vertices);
