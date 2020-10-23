@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29fa5d841817c7c4793ded313d71d325, type: 3}
-  m_Name: ToggleCanvas_Credits
+  m_Name: UI_ToggleCanvas_Game
   m_EditorClassIdentifier: 
-  canvasPrefab: {fileID: 4578575583415932181, guid: 33d3caa84b1d8454e90b276d3cd3c990,
+  canvasPrefab: {fileID: 123415617665007508, guid: 1a948134c40ade642880989ac5f7311a,
     type: 3}
   autoSelectFirst: 1

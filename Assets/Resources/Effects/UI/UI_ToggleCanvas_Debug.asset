@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29fa5d841817c7c4793ded313d71d325, type: 3}
-  m_Name: ToggleCanvas_MainMenu
+  m_Name: UI_ToggleCanvas_Debug
   m_EditorClassIdentifier: 
-  canvasPrefab: {fileID: 4578575583415932181, guid: c9da605a04958bf4cba38fc07a148f9b,
+  canvasPrefab: {fileID: 123415617665007508, guid: 9bc1c70d08f17c848ad632b7c091e9af,
     type: 3}
   autoSelectFirst: 1

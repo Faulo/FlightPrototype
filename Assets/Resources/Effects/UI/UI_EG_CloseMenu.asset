@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5973c753980854d9804e121b7b4a3b, type: 3}
-  m_Name: ChangeQualitySetting_Decrease
+  m_Script: {fileID: 11500000, guid: 822fc683f855e48408511d04e58c3b07, type: 3}
+  m_Name: UI_EG_CloseMenu
   m_EditorClassIdentifier: 
-  change: 1
+  effects:
+  - {fileID: 11400000, guid: 2f0fff3ac4ab62d448fea53027e077d2, type: 2}
+  - {fileID: 11400000, guid: f118f91728870844c820dd12780d520d, type: 2}

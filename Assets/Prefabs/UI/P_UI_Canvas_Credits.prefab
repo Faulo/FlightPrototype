@@ -31,7 +31,7 @@ RectTransform:
   - {fileID: 8444242951812908258}
   - {fileID: 4748309289280446411}
   m_Father: {fileID: 7402582849219208486}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -268,7 +268,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 5aeac99daae27bf458bb16e352520466,
+      objectReference: {fileID: 11400000, guid: 5f29ca1624501a942bc02bedd6e21a89,
         type: 2}
     - target: {fileID: 5562461927524607955, guid: 36c1cc7391bba1744a0772ad57ac873b,
         type: 3}

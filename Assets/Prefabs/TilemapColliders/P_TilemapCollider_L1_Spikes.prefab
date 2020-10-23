@@ -45,7 +45,7 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 6861a7ad8407dc142aa58e8210f103be, type: 2}
+      - m_Target: {fileID: 11400000, guid: aef822602f9ddb14b8db1424ac01d1fb, type: 2}
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:
@@ -78,6 +78,8 @@ MonoBehaviour:
   containedTiles:
   - {fileID: 11400000, guid: 90d81084260b7824db790f51592c9442, type: 2}
   polygonCollider: {fileID: 3126273116829580686}
+  shapeCountMaximum: 10
+  tilePositions: []
 --- !u!1001 &3346113244303581120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 8625619612809675167, guid: aaa59cb7fb1e3d446a640c9e407355b2,
         type: 3}
       propertyPath: m_Name
-      value: P_TilemapCollider_L11_Traps
+      value: P_TilemapCollider_L1_Spikes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa59cb7fb1e3d446a640c9e407355b2, type: 3}
