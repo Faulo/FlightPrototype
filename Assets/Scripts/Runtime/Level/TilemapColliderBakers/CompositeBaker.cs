@@ -20,11 +20,11 @@ namespace TheCursedBroom.Level.TilemapColliderBakers {
             }
         }
 
-        protected override void SetupCollider() {
+        protected override void SetupCollider(TilemapBounds bounds) {
             Assert.IsNotNull(tilemapCollider);
             Assert.IsNotNull(compositeCollider);
         }
-        protected override void RegenerateCollider(ISet<Vector3Int> positions) {
+        protected override void RegenerateCollider(TilemapBounds bounds, ISet<Vector3Int> positions) {
             compositeCollider.GenerateGeometry();
         }
     }

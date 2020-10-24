@@ -929,6 +929,242 @@ namespace TheCursedBroom.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""e5d1bf97-5e5f-4447-a8f1-0f4663f85fd4"",
+            ""actions"": [
+                {
+                    ""name"": ""F1"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb256b0f-5e0d-45df-91c8-d8d867fb600f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F2"",
+                    ""type"": ""Button"",
+                    ""id"": ""0aff3140-c602-4f75-b978-a591bd51f851"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F3"",
+                    ""type"": ""Button"",
+                    ""id"": ""f99131fd-9483-40e9-84af-6937d9c24086"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F4"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a3549e1-6682-4c4d-a54b-b23a0eb961bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F5"",
+                    ""type"": ""Button"",
+                    ""id"": ""20bbc219-2bff-4fd5-a6e0-a1723366e26e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F6"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3ca16b2-23ce-409b-97a5-ae7bc58bf0e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F7"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f99a061-8105-4fcd-bd3d-b03e14761576"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F8"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef7489be-21fc-4c1f-91ef-0ee9c4ce633b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F9"",
+                    ""type"": ""Button"",
+                    ""id"": ""804301d4-6aca-48f2-b8c7-b85d8411b13c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F10"",
+                    ""type"": ""Button"",
+                    ""id"": ""009851e0-cd35-4cf6-b892-1bf3e2acd177"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F11"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e3b27bc-2c5c-4ede-a876-ef6e2e097752"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""F12"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4c53763-bf7a-4688-a1af-1f533e6bca29"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""efe16d9f-4dbd-4f38-b4e9-6168dfc1b6e2"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23fd55f7-64a0-4984-9e7e-e291cd9e0da0"",
+                    ""path"": ""<Keyboard>/f2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0d9e865-b02d-499d-bcbf-073f582ee7ad"",
+                    ""path"": ""<Keyboard>/f3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d09bb45-d53e-498d-9592-2701a45ebabf"",
+                    ""path"": ""<Keyboard>/f4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8b91c27-cdfa-4433-9a06-25b2567e47cc"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3882f894-245e-4da7-9ae8-da35892439a2"",
+                    ""path"": ""<Keyboard>/f6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa7429b4-ad9e-4e84-b497-1f351c429909"",
+                    ""path"": ""<Keyboard>/f7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c05aae56-69ab-4509-a8a3-6fe54a72bf83"",
+                    ""path"": ""<Keyboard>/f8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d88ca143-5acd-4c0f-b9a4-06922aaa2643"",
+                    ""path"": ""<Keyboard>/f9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d296326-135f-4947-9f3e-8dbc48a6c8b8"",
+                    ""path"": ""<Keyboard>/f10"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F10"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef2ddf74-50f1-47e3-a19b-2b4b45b7d831"",
+                    ""path"": ""<Keyboard>/f11"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F11"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b74a692a-a312-4fe0-99a1-0eaa2a9d4139"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""F12"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1014,6 +1250,20 @@ namespace TheCursedBroom.Input
             m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
             m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
+            // Debug
+            m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+            m_Debug_F1 = m_Debug.FindAction("F1", throwIfNotFound: true);
+            m_Debug_F2 = m_Debug.FindAction("F2", throwIfNotFound: true);
+            m_Debug_F3 = m_Debug.FindAction("F3", throwIfNotFound: true);
+            m_Debug_F4 = m_Debug.FindAction("F4", throwIfNotFound: true);
+            m_Debug_F5 = m_Debug.FindAction("F5", throwIfNotFound: true);
+            m_Debug_F6 = m_Debug.FindAction("F6", throwIfNotFound: true);
+            m_Debug_F7 = m_Debug.FindAction("F7", throwIfNotFound: true);
+            m_Debug_F8 = m_Debug.FindAction("F8", throwIfNotFound: true);
+            m_Debug_F9 = m_Debug.FindAction("F9", throwIfNotFound: true);
+            m_Debug_F10 = m_Debug.FindAction("F10", throwIfNotFound: true);
+            m_Debug_F11 = m_Debug.FindAction("F11", throwIfNotFound: true);
+            m_Debug_F12 = m_Debug.FindAction("F12", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1237,6 +1487,127 @@ namespace TheCursedBroom.Input
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Debug
+        private readonly InputActionMap m_Debug;
+        private IDebugActions m_DebugActionsCallbackInterface;
+        private readonly InputAction m_Debug_F1;
+        private readonly InputAction m_Debug_F2;
+        private readonly InputAction m_Debug_F3;
+        private readonly InputAction m_Debug_F4;
+        private readonly InputAction m_Debug_F5;
+        private readonly InputAction m_Debug_F6;
+        private readonly InputAction m_Debug_F7;
+        private readonly InputAction m_Debug_F8;
+        private readonly InputAction m_Debug_F9;
+        private readonly InputAction m_Debug_F10;
+        private readonly InputAction m_Debug_F11;
+        private readonly InputAction m_Debug_F12;
+        public struct DebugActions
+        {
+            private @Controls m_Wrapper;
+            public DebugActions(@Controls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @F1 => m_Wrapper.m_Debug_F1;
+            public InputAction @F2 => m_Wrapper.m_Debug_F2;
+            public InputAction @F3 => m_Wrapper.m_Debug_F3;
+            public InputAction @F4 => m_Wrapper.m_Debug_F4;
+            public InputAction @F5 => m_Wrapper.m_Debug_F5;
+            public InputAction @F6 => m_Wrapper.m_Debug_F6;
+            public InputAction @F7 => m_Wrapper.m_Debug_F7;
+            public InputAction @F8 => m_Wrapper.m_Debug_F8;
+            public InputAction @F9 => m_Wrapper.m_Debug_F9;
+            public InputAction @F10 => m_Wrapper.m_Debug_F10;
+            public InputAction @F11 => m_Wrapper.m_Debug_F11;
+            public InputAction @F12 => m_Wrapper.m_Debug_F12;
+            public InputActionMap Get() { return m_Wrapper.m_Debug; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+            public void SetCallbacks(IDebugActions instance)
+            {
+                if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+                {
+                    @F1.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF1;
+                    @F1.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF1;
+                    @F1.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF1;
+                    @F2.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF2;
+                    @F2.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF2;
+                    @F2.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF2;
+                    @F3.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF3;
+                    @F3.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF3;
+                    @F3.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF3;
+                    @F4.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF4;
+                    @F4.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF4;
+                    @F4.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF4;
+                    @F5.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF5;
+                    @F5.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF5;
+                    @F5.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF5;
+                    @F6.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF6;
+                    @F6.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF6;
+                    @F6.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF6;
+                    @F7.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF7;
+                    @F7.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF7;
+                    @F7.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF7;
+                    @F8.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF8;
+                    @F8.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF8;
+                    @F8.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF8;
+                    @F9.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF9;
+                    @F9.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF9;
+                    @F9.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF9;
+                    @F10.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF10;
+                    @F10.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF10;
+                    @F10.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF10;
+                    @F11.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF11;
+                    @F11.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF11;
+                    @F11.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF11;
+                    @F12.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnF12;
+                    @F12.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnF12;
+                    @F12.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnF12;
+                }
+                m_Wrapper.m_DebugActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @F1.started += instance.OnF1;
+                    @F1.performed += instance.OnF1;
+                    @F1.canceled += instance.OnF1;
+                    @F2.started += instance.OnF2;
+                    @F2.performed += instance.OnF2;
+                    @F2.canceled += instance.OnF2;
+                    @F3.started += instance.OnF3;
+                    @F3.performed += instance.OnF3;
+                    @F3.canceled += instance.OnF3;
+                    @F4.started += instance.OnF4;
+                    @F4.performed += instance.OnF4;
+                    @F4.canceled += instance.OnF4;
+                    @F5.started += instance.OnF5;
+                    @F5.performed += instance.OnF5;
+                    @F5.canceled += instance.OnF5;
+                    @F6.started += instance.OnF6;
+                    @F6.performed += instance.OnF6;
+                    @F6.canceled += instance.OnF6;
+                    @F7.started += instance.OnF7;
+                    @F7.performed += instance.OnF7;
+                    @F7.canceled += instance.OnF7;
+                    @F8.started += instance.OnF8;
+                    @F8.performed += instance.OnF8;
+                    @F8.canceled += instance.OnF8;
+                    @F9.started += instance.OnF9;
+                    @F9.performed += instance.OnF9;
+                    @F9.canceled += instance.OnF9;
+                    @F10.started += instance.OnF10;
+                    @F10.performed += instance.OnF10;
+                    @F10.canceled += instance.OnF10;
+                    @F11.started += instance.OnF11;
+                    @F11.performed += instance.OnF11;
+                    @F11.canceled += instance.OnF11;
+                    @F12.started += instance.OnF12;
+                    @F12.performed += instance.OnF12;
+                    @F12.canceled += instance.OnF12;
+                }
+            }
+        }
+        public DebugActions @Debug => new DebugActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -1303,6 +1674,21 @@ namespace TheCursedBroom.Input
             void OnLeftClick(InputAction.CallbackContext context);
             void OnMiddleClick(InputAction.CallbackContext context);
             void OnRightClick(InputAction.CallbackContext context);
+        }
+        public interface IDebugActions
+        {
+            void OnF1(InputAction.CallbackContext context);
+            void OnF2(InputAction.CallbackContext context);
+            void OnF3(InputAction.CallbackContext context);
+            void OnF4(InputAction.CallbackContext context);
+            void OnF5(InputAction.CallbackContext context);
+            void OnF6(InputAction.CallbackContext context);
+            void OnF7(InputAction.CallbackContext context);
+            void OnF8(InputAction.CallbackContext context);
+            void OnF9(InputAction.CallbackContext context);
+            void OnF10(InputAction.CallbackContext context);
+            void OnF11(InputAction.CallbackContext context);
+            void OnF12(InputAction.CallbackContext context);
         }
     }
 }

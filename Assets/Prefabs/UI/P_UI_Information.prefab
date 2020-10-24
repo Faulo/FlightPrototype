@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8833400050736072179}
   - component: {fileID: 1743088436213355250}
   - component: {fileID: 6228207280734479129}
+  - component: {fileID: 1112922085782823676}
   m_Layer: 5
   m_Name: P_UI_Information
   m_TagString: Untagged
@@ -75,6 +76,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1112922085782823676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047965334365176618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d2ee19613e7e148a7f156c69342482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &777770225750545080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,6 +165,11 @@ PrefabInstance:
       propertyPath: m_firstOverflowCharacterIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3562338418163037468, guid: e6403c9a8e00e7443b726a777641fcf3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5761028145738269262, guid: e6403c9a8e00e7443b726a777641fcf3,
         type: 3}
       propertyPath: m_LocalPosition.x

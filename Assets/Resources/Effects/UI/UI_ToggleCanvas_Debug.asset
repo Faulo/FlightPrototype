@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5973c753980854d9804e121b7b4a3b, type: 3}
-  m_Name: ChangeQualitySetting_Decrease
+  m_Script: {fileID: 11500000, guid: 29fa5d841817c7c4793ded313d71d325, type: 3}
+  m_Name: UI_ToggleCanvas_Debug
   m_EditorClassIdentifier: 
-  change: 1
+  canvasPrefab: {fileID: 123415617665007508, guid: 9bc1c70d08f17c848ad632b7c091e9af,
+    type: 3}
+  autoSelectFirst: 1

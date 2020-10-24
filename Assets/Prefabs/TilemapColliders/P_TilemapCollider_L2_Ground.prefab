@@ -61,6 +61,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52c43a20647db6d4cac8cba5a88b8643, type: 2}
   - {fileID: 11400000, guid: 2ec601678f1094d49a3fffde4325c15c, type: 2}
   polygonCollider: {fileID: 3126273116829580686}
+  shapeCountMaximum: 10
+  tilePositions: []
 --- !u!1001 &3346113244303581120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,7 +128,7 @@ PrefabInstance:
     - target: {fileID: 8625619612809675167, guid: aaa59cb7fb1e3d446a640c9e407355b2,
         type: 3}
       propertyPath: m_Name
-      value: P_TilemapCollider_L1_Ground
+      value: P_TilemapCollider_L2_Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa59cb7fb1e3d446a640c9e407355b2, type: 3}

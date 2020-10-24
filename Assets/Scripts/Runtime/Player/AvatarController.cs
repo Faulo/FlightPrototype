@@ -123,6 +123,7 @@ namespace TheCursedBroom.Player {
         void Update() {
             currentState.UpdateState();
             if (intendsReset) {
+                intendsReset = false;
                 onReset?.Invoke(gameObject);
             }
         }

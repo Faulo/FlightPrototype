@@ -6,10 +6,6 @@ using UnityEngine.Tilemaps;
 namespace TheCursedBroom.Level.Tiles {
     [CreateAssetMenu(fileName = "LX_ScriptableTile_New", menuName = "Tiles/Scriptable Tile", order = 100)]
     public class ScriptableTile : TileBase {
-        [SerializeField, Expandable]
-        Texture2D spriteSheet = default;
-        [SerializeField, Expandable]
-        Sprite sprite = default;
         [SerializeField, HideInInspector]
         Sprite[] sprites = new Sprite[1];
         [SerializeField, Range(0, 100)]
@@ -32,20 +28,6 @@ namespace TheCursedBroom.Level.Tiles {
             }
             return sprites[index];
         }
-        void OnValidate() {
-#if UNITY_EDITOR
-            if (spriteSheet) {
-                sprites = UnityEditor.AssetDatabase
-                    .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
-                    .OfType<Sprite>()
-                    .OrderBy(sprite => sprite.name)
-                    .ToArray();
-                sprite = sprites[0];
-            } else {
-                sprites = new[] { sprite };
-            }
-#endif
-        }
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
             if (!instantiateSpriteEditorOnly || !Application.isPlaying) {
                 tileData.sprite = GetSprite(position);
@@ -67,5 +49,24 @@ namespace TheCursedBroom.Level.Tiles {
                 return false;
             }
         }
+#if UNITY_EDITOR
+        [Header("Editor Tools")]
+        [SerializeField, Expandable]
+        Texture2D spriteSheet = default;
+        [SerializeField, Expandable]
+        Sprite sprite = default;
+        void OnValidate() {
+            if (spriteSheet) {
+                sprites = UnityEditor.AssetDatabase
+                    .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
+                    .OfType<Sprite>()
+                    .OrderBy(sprite => sprite.name)
+                    .ToArray();
+                sprite = sprites[0];
+            } else {
+                sprites = new[] { sprite };
+            }
+        }
+#endif
     }
 }
