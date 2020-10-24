@@ -61,8 +61,6 @@ namespace TheCursedBroom.Level.Tiles {
             [SpritePosition.Right] = Vector3Int.right,
         };
 
-        [SerializeField, Expandable]
-        Texture2D spriteSheet = default;
         [SerializeField, HideInInspector]
         Sprite[] sprites = default;
         [SerializeField]
@@ -74,18 +72,6 @@ namespace TheCursedBroom.Level.Tiles {
 
         TilemapCache tilemapCache = new TilemapCache();
 
-        void OnValidate() {
-#if UNITY_EDITOR
-            if (spriteSheet) {
-                sprites = UnityEditor.AssetDatabase
-                    .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
-                    .OfType<Sprite>()
-                    .OrderBy(sprite => int.Parse(Regex.Match(sprite.name, "\\d+$").Value))
-                    .ToArray();
-                Assert.AreEqual(sprites.Length, idOverPosition.Count, $"{this} requires exactly {idOverPosition.Count} sprites in {spriteSheet}!");
-            }
-#endif
-        }
         public override void RefreshTile(Vector3Int position, ITilemap tilemap) {
             tilemap.RefreshTile(position);
             if (autoRefreshNeighbors) {
@@ -115,5 +101,21 @@ namespace TheCursedBroom.Level.Tiles {
         Sprite LookupSprite(SpriteId spriteId) {
             return sprites[(int)spriteId];
         }
+
+#if UNITY_EDITOR
+        [Header("Editor Tools")]
+        [SerializeField, Expandable]
+        Texture2D spriteSheet = default;
+        void OnValidate() {
+            if (spriteSheet) {
+                sprites = UnityEditor.AssetDatabase
+                    .LoadAllAssetsAtPath(UnityEditor.AssetDatabase.GetAssetPath(spriteSheet))
+                    .OfType<Sprite>()
+                    .OrderBy(sprite => int.Parse(Regex.Match(sprite.name, "\\d+$").Value))
+                    .ToArray();
+                Assert.AreEqual(sprites.Length, idOverPosition.Count, $"{this} requires exactly {idOverPosition.Count} sprites in {spriteSheet}!");
+            }
+        }
+#endif
     }
 }
