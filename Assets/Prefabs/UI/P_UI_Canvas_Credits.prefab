@@ -131,13 +131,16 @@ MonoBehaviour:
   m_text: '<b>{Application.productName}</b> v{Application.version}
 
 
-    Creative
-    and Technical Direction - Daniel Schulz
+    Game design
+    and programming - Daniel Schulz
 
-    Art Direction and Level Design -
-    Tina Wolfrum
+    Art and level design - Tina Wolfrum
 
-    Sound and Music Design - Maximilian Meinicke'
+    Sound
+    design and music - Maximilian Meinicke
+
+
+    http://thecursedbroom.slothsoft.net'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3bdf652714b6d9948bfa9e7dc1d5db11, type: 2}
   m_sharedMaterial: {fileID: -1943800998573714843, guid: 3bdf652714b6d9948bfa9e7dc1d5db11,
