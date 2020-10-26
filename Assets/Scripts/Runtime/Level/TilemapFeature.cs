@@ -1,26 +1,34 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
-    public abstract class TilemapColliderBaker : ComponentFeature<TilemapController> {
+    public abstract class TilemapFeature : ComponentFeature<TilemapController> {
+        enum BoundsType {
+            Collider,
+            Renderer,
+        }
+        [SerializeField]
+        BoundsType boundsType = BoundsType.Collider;
         [SerializeField]
         TileBase[] containedTiles = new TileBase[0];
 
-        TilemapBounds colliderBounds;
+        TilemapBounds bounds;
         ISet<Vector3Int> positions;
         bool isDirty;
 
         void OnEnable() {
+            bounds = GetBounds();
+
             positions = new HashSet<Vector3Int>();
             for (int i = 0; i < containedTiles.Length; i++) {
-                observedComponent.AddTileColliderAddedListener(containedTiles[i], TileAddedListener);
-                observedComponent.AddTileColliderRemovedListener(containedTiles[i], TileRemovedListener);
+                bounds.onLoadTile += TileAddedListener;
+                bounds.onDiscardTile += TileDiscardedListener;
             }
             observedComponent.onRegenerateCollider += RegenerateColliderListener;
-            colliderBounds = LevelController.instance.colliderBounds;
 
-            SetupCollider(colliderBounds);
+            SetupCollider(bounds);
         }
         void OnDisable() {
             for (int i = 0; i < containedTiles.Length; i++) {
@@ -29,6 +37,17 @@ namespace TheCursedBroom.Level {
             }
             observedComponent.onRegenerateCollider -= RegenerateColliderListener;
             positions = null;
+        }
+
+        TilemapBounds GetBounds() {
+            switch (boundsType) {
+                case BoundsType.Collider:
+                    return observedComponent.colliderBounds;
+                case BoundsType.Renderer:
+                    return observedComponent.rendererBounds;
+                default:
+                    throw new NotImplementedException(boundsType.ToString());
+            }
         }
 
         void TileAddedListener(Vector3Int position) {
@@ -42,10 +61,12 @@ namespace TheCursedBroom.Level {
         void RegenerateColliderListener(TilemapController tilemap) {
             if (isDirty) {
                 isDirty = false;
-                RegenerateCollider(colliderBounds, positions);
+                RegenerateCollider(bounds, positions);
             }
         }
 
+        protected abstract void LoadTile(Vector3Int position, TileBase tile);
+        protected abstract void DiscardTile(Vector3Int position, TileBase tile);
         protected abstract void SetupCollider(TilemapBounds bounds);
         protected abstract void RegenerateCollider(TilemapBounds bounds, ISet<Vector3Int> positions);
     }

@@ -7,9 +7,13 @@ using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
     public class TilemapController : MonoBehaviour {
+        public event Action<Vector3Int, TileBase> onLoadColliderTile;
+        public event Action<Vector3Int, TileBase> onDiscardColliderTile;
+        public event Action<Vector3Int, TileBase> onLoadRendererTile;
+        public event Action<Vector3Int, TileBase> onDiscardRendererTile;
         public event Action<TilemapController> onRegenerateCollider;
 
-        Dictionary<TileBase, PositionDelegate> tileColliderAddedListener = new Dictionary<TileBase, PositionDelegate>();
+        Dictionary<TileBase,  PositionDelegate> tileColliderAddedListener = new Dictionary<TileBase, PositionDelegate>();
         Dictionary<TileBase, PositionDelegate> tileColliderRemovedListener = new Dictionary<TileBase, PositionDelegate>();
 
         [SerializeField, Expandable]
@@ -50,10 +54,10 @@ namespace TheCursedBroom.Level {
             }
         }
         void OnEnable() {
-            ownerLevel.colliderBounds.onLoadTile += LoadTileCollider;
-            ownerLevel.colliderBounds.onDiscardTile += DiscardTileCollider;
-            ownerLevel.rendererBounds.onLoadTile += LoadTileRenderer;
-            ownerLevel.rendererBounds.onDiscardTile += DiscardTileRenderer;
+            ownerLevel.colliderBounds.onLoadTile += LoadColliderTile;
+            ownerLevel.colliderBounds.onDiscardTile += DiscardColliderTile;
+            ownerLevel.rendererBounds.onLoadTile += LoadRendererTile;
+            ownerLevel.rendererBounds.onDiscardTile += DiscardRendererTile;
         }
 
         List<Vector3Int> newPositions = new List<Vector3Int>();
@@ -67,24 +71,25 @@ namespace TheCursedBroom.Level {
             }
         }
 
-        void DiscardTileRenderer(Vector3Int position) {
+        void DiscardRendererTile(Vector3Int position) {
             if (TryGetTileFromStorage(position, out var tile)) {
+                onDiscardRendererTile?.Invoke(position, tile);
                 newPositions.Add(position);
                 newTiles.Add(null);
             }
         }
-        void LoadTileRenderer(Vector3Int position) {
+        void LoadRendererTile(Vector3Int position) {
             if (TryGetTileFromStorage(position, out var tile)) {
                 newPositions.Add(position);
                 newTiles.Add(tile);
             }
         }
-        void DiscardTileCollider(Vector3Int position) {
+        void DiscardColliderTile(Vector3Int position) {
             if (TryGetTileFromStorage(position, out var tile) && tileColliderRemovedListener.TryGetValue(tile, out var listener)) {
                 listener(position);
             }
         }
-        void LoadTileCollider(Vector3Int position) {
+        void LoadColliderTile(Vector3Int position) {
             if (TryGetTileFromStorage(position, out var tile) && tileColliderAddedListener.TryGetValue(tile, out var listener)) {
                 listener(position);
             }

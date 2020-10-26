@@ -18,11 +18,11 @@ namespace TheCursedBroom.Level.TilemapColliderBakers {
             if (!polygonCollider) {
                 polygonCollider = GetComponent<PolygonCollider2D>();
             }
-            shapes = new TileShape[shapeCountMaximum];
         }
 
         protected override void SetupCollider(TilemapBounds bounds) {
             Assert.IsNotNull(polygonCollider);
+            shapes = new TileShape[shapeCountMaximum];
         }
         protected override void RegenerateCollider(TilemapBounds bounds, ISet<Vector3Int> positions) {
             int shapeCount = bounds.TryGetShapes(positions, ref shapes);
