@@ -30,10 +30,10 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             positions = new HashSet<Vector3Int>();
             shapes = new TileShape[shapeCountMaximum];
 
-            observedComponent.onRendererChange += TilemapChangeListener;
+            observedComponent.onColliderChange += TilemapChangeListener;
         }
         void OnDisable() {
-            observedComponent.onRendererChange -= TilemapChangeListener;
+            observedComponent.onColliderChange -= TilemapChangeListener;
         }
 
         void TilemapChangeListener(TilemapChangeData data) {

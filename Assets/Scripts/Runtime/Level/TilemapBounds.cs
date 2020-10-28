@@ -49,17 +49,17 @@ namespace TheCursedBroom.Level {
                 .ForAll(DiscardTile);
         }
         bool IsOutOfBounds(Vector3Int position) => !bounds.Contains(position);
+        void DiscardTile(Vector3Int position) {
+            onDiscardTile?.Invoke(position);
+            loadedTilePositions.Remove(position);
+            tilesChangedCount++;
+        }
         void LoadNewTiles() {
             foreach (var position in bounds.allPositionsWithin) {
                 if (!loadedTilePositions.Contains(position)) {
                     LoadTile(position);
                 }
             }
-        }
-        void DiscardTile(Vector3Int position) {
-            onDiscardTile?.Invoke(position);
-            loadedTilePositions.Remove(position);
-            tilesChangedCount++;
         }
         void LoadTile(Vector3Int position) {
             onLoadTile?.Invoke(position);
@@ -75,7 +75,7 @@ namespace TheCursedBroom.Level {
         public static int TryGetShapes(HashSet<Vector3Int> positions, ref TileShape[] shapes) {
             int shapeCount = 0;
             foreach (var position in positions) {
-                if (!positions.Contains(position + Vector3Int.left)) {
+                if (!positions.Contains(position + Vector3Int.left) && !positions.Contains(position + Vector3Int.down)) {
                     bool contains = false;
                     for (int i = 0; i < shapeCount; i++) {
                         if (shapes[i].ContainsPosition(position)) {

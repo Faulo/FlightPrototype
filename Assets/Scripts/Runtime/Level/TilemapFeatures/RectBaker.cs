@@ -25,10 +25,10 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             bounds = LevelController.instance.colliderBounds;
             positions = new HashSet<Vector3Int>();
 
-            observedComponent.onRendererChange += TilemapChangeListener;
+            observedComponent.onColliderChange += TilemapChangeListener;
         }
         void OnDisable() {
-            observedComponent.onRendererChange -= TilemapChangeListener;
+            observedComponent.onColliderChange -= TilemapChangeListener;
         }
 
         void TilemapChangeListener(TilemapChangeData data) {

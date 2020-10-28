@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
@@ -19,11 +20,13 @@ namespace TheCursedBroom.Level {
         }
 
         public void AddLoad(Vector3Int position, TileBase tile) {
+            Assert.IsFalse(discardPositions.Contains(position));
             loadPositions.Add(position);
             loadTiles.Add(tile);
         }
 
         public void AddDiscard(Vector3Int position, TileBase tile) {
+            Assert.IsFalse(loadPositions.Contains(position));
             discardPositions.Add(position);
             discardTiles.Add(tile);
         }

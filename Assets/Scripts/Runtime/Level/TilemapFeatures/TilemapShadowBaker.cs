@@ -24,10 +24,10 @@ namespace TheCursedBroom.Level.TilemapFeatures {
                 .Select(i => CreateShadowCaster(i))
                 .ToArray();
 
-            observedComponent.onRendererChange += TilemapChangeListener;
+            observedComponent.onShadowChange += TilemapChangeListener;
         }
         void OnDisable() {
-            observedComponent.onRendererChange -= TilemapChangeListener;
+            observedComponent.onShadowChange -= TilemapChangeListener;
         }
 
         void TilemapChangeListener(TilemapChangeData data) {
