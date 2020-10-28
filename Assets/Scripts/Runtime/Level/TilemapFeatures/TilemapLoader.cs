@@ -1,14 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level.TilemapFeatures {
-    public class TilemapLoader : TilemapFeature {
-        protected override void SetupCollider(TilemapBounds bounds) {
-            observedComponent.on
+    public class TilemapLoader : ComponentFeature<Tilemap> {
+        [SerializeField, Expandable]
+        TilemapController tilemap = default;
+
+        protected override void OnValidate() {
+            base.OnValidate();
+            if (!tilemap) {
+                tilemap = GetComponent<TilemapController>();
+            }
         }
-        protected override void RegenerateCollider(TilemapBounds bounds, ISet<Vector3Int> positions) {
-            throw new System.NotImplementedException();
+
+        void OnEnable() {
+            tilemap.onRendererChange += TilemapChangeListener;
+        }
+        void OnDisable() {
+            tilemap.onRendererChange -= TilemapChangeListener;
+        }
+
+        void TilemapChangeListener(TilemapChangeData data) {
+            observedComponent.SetTiles(data.loadPositions.ToArray(), data.loadTiles.ToArray());
+            observedComponent.SetTiles(data.discardPositions.ToArray(), data.discardTiles.ToArray());
         }
     }
 }

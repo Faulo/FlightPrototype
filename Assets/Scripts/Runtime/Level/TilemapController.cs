@@ -1,20 +1,13 @@
 using System;
-using System.Collections.Generic;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
     public class TilemapController : MonoBehaviour {
-        public event Action<Vector3Int, TileBase> onLoadColliderTile;
-        public event Action<Vector3Int, TileBase> onDiscardColliderTile;
-        public event Action<Vector3Int, TileBase> onLoadRendererTile;
-        public event Action<Vector3Int, TileBase> onDiscardRendererTile;
-        public event Action<TilemapController> onRegenerateCollider;
-
-        Dictionary<TileBase,  PositionDelegate> tileColliderAddedListener = new Dictionary<TileBase, PositionDelegate>();
-        Dictionary<TileBase, PositionDelegate> tileColliderRemovedListener = new Dictionary<TileBase, PositionDelegate>();
+        public event Action<TilemapChangeData> onColliderChange;
+        public event Action<TilemapChangeData> onRendererChange;
+        public event Action<TilemapChangeData> onShadowChange;
 
         [SerializeField, Expandable]
         public TilemapLayerAsset type = default;
@@ -42,6 +35,10 @@ namespace TheCursedBroom.Level {
 
         TileBase[][] storage;
 
+        readonly TilemapChangeData colliderChange = new TilemapChangeData();
+        readonly TilemapChangeData rendererChange = new TilemapChangeData();
+        readonly TilemapChangeData shadowChange = new TilemapChangeData();
+
         void Awake() {
             OnValidate();
             if (ownerLevel) {
@@ -58,40 +55,61 @@ namespace TheCursedBroom.Level {
             ownerLevel.colliderBounds.onDiscardTile += DiscardColliderTile;
             ownerLevel.rendererBounds.onLoadTile += LoadRendererTile;
             ownerLevel.rendererBounds.onDiscardTile += DiscardRendererTile;
+            ownerLevel.shadowBounds.onLoadTile += LoadShadowTile;
+            ownerLevel.shadowBounds.onDiscardTile += DiscardShadowTile;
+        }
+        void OnDisable() {
+            ownerLevel.colliderBounds.onLoadTile -= LoadColliderTile;
+            ownerLevel.colliderBounds.onDiscardTile -= DiscardColliderTile;
+            ownerLevel.rendererBounds.onLoadTile -= LoadRendererTile;
+            ownerLevel.rendererBounds.onDiscardTile -= DiscardRendererTile;
+            ownerLevel.shadowBounds.onLoadTile -= LoadShadowTile;
+            ownerLevel.shadowBounds.onDiscardTile -= DiscardShadowTile;
         }
 
-        List<Vector3Int> newPositions = new List<Vector3Int>();
-        List<TileBase> newTiles = new List<TileBase>();
-
-        void Update() {
-            if (newPositions.Count > 0) {
-                tilemap.SetTiles(newPositions.ToArray(), newTiles.ToArray());
-                newPositions.Clear();
-                newTiles.Clear();
+        public void RegenerateTilemap() {
+            if (colliderChange.hasChanged) {
+                onColliderChange?.Invoke(colliderChange);
+                colliderChange.Clear();
+            }
+            if (rendererChange.hasChanged) {
+                onRendererChange?.Invoke(rendererChange);
+                rendererChange.Clear();
+            }
+            if (shadowChange.hasChanged) {
+                onShadowChange?.Invoke(shadowChange);
+                shadowChange.Clear();
             }
         }
 
-        void DiscardRendererTile(Vector3Int position) {
+        void LoadColliderTile(Vector3Int position) {
             if (TryGetTileFromStorage(position, out var tile)) {
-                onDiscardRendererTile?.Invoke(position, tile);
-                newPositions.Add(position);
-                newTiles.Add(null);
+                colliderChange.AddLoad(position, tile);
+            }
+        }
+        void DiscardColliderTile(Vector3Int position) {
+            if (TryGetTileFromStorage(position, out var tile)) {
+                colliderChange.AddDiscard(position, tile);
             }
         }
         void LoadRendererTile(Vector3Int position) {
             if (TryGetTileFromStorage(position, out var tile)) {
-                newPositions.Add(position);
-                newTiles.Add(tile);
+                rendererChange.AddLoad(position, tile);
             }
         }
-        void DiscardColliderTile(Vector3Int position) {
-            if (TryGetTileFromStorage(position, out var tile) && tileColliderRemovedListener.TryGetValue(tile, out var listener)) {
-                listener(position);
+        void DiscardRendererTile(Vector3Int position) {
+            if (TryGetTileFromStorage(position, out var tile)) {
+                rendererChange.AddDiscard(position, tile);
             }
         }
-        void LoadColliderTile(Vector3Int position) {
-            if (TryGetTileFromStorage(position, out var tile) && tileColliderAddedListener.TryGetValue(tile, out var listener)) {
-                listener(position);
+        void LoadShadowTile(Vector3Int position) {
+            if (TryGetTileFromStorage(position, out var tile)) {
+                shadowChange.AddLoad(position, tile);
+            }
+        }
+        void DiscardShadowTile(Vector3Int position) {
+            if (TryGetTileFromStorage(position, out var tile)) {
+                shadowChange.AddDiscard(position, tile);
             }
         }
 
@@ -118,30 +136,6 @@ namespace TheCursedBroom.Level {
                 tile = storage[position.y][position.x];
             }
             return tile != null;
-        }
-
-        public void RegenerateCollider() {
-            onRegenerateCollider?.Invoke(this);
-        }
-
-        public void AddTileColliderAddedListener(TileBase tile, PositionDelegate callback) {
-            Assert.IsFalse(tileColliderAddedListener.ContainsKey(tile));
-            tileColliderAddedListener.Add(tile, callback);
-        }
-        public void AddTileColliderRemovedListener(TileBase tile, PositionDelegate callback) {
-            Assert.IsFalse(tileColliderRemovedListener.ContainsKey(tile));
-            tileColliderRemovedListener.Add(tile, callback);
-        }
-
-        public void RemoveTileColliderAddedListener(TileBase tile, PositionDelegate callback) {
-            Assert.IsTrue(tileColliderAddedListener.ContainsKey(tile));
-            Assert.AreEqual(tileColliderAddedListener[tile], callback);
-            tileColliderAddedListener.Remove(tile);
-        }
-        public void RemoveTileColliderRemovedListener(TileBase tile, PositionDelegate callback) {
-            Assert.IsTrue(tileColliderRemovedListener.ContainsKey(tile));
-            Assert.AreEqual(tileColliderRemovedListener[tile], callback);
-            tileColliderRemovedListener.Remove(tile);
         }
     }
 }

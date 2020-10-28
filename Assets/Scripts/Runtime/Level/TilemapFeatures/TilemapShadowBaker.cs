@@ -1,34 +1,28 @@
 using System.Collections.Generic;
 using System.Linq;
-using Slothsoft.UnityExtensions;
+using TheCursedBroom.Lighting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level.TilemapFeatures {
-    [RequireComponent(typeof(PolygonCollider2D))]
-    public class PolygonBaker : TilemapFeature {
-        [SerializeField, Expandable]
-        PolygonCollider2D polygonCollider = default;
+    public class TilemapShadowBaker : TilemapFeature {
         [SerializeField, Range(1, 1000)]
-        int shapeCountMaximum = 100;
+        int shapeCountMaximum = 10;
         [SerializeField]
         TileBase[] containedTiles = new TileBase[0];
 
         TilemapBounds bounds;
         HashSet<Vector3Int> positions;
         TileShape[] shapes;
+        PolygonShadowCaster2D[] shadowCasters;
 
-
-        protected override void OnValidate() {
-            base.OnValidate();
-            if (!polygonCollider) {
-                polygonCollider = GetComponent<PolygonCollider2D>();
-            }
-        }
         void OnEnable() {
-            bounds = LevelController.instance.colliderBounds;
+            bounds = LevelController.instance.shadowBounds;
             positions = new HashSet<Vector3Int>();
             shapes = new TileShape[shapeCountMaximum];
+            shadowCasters = Enumerable.Range(0, shapeCountMaximum)
+                .Select(i => CreateShadowCaster(i))
+                .ToArray();
 
             observedComponent.onRendererChange += TilemapChangeListener;
         }
@@ -49,12 +43,22 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             }
             RegenerateCollider();
         }
-
+        PolygonShadowCaster2D CreateShadowCaster(int index) {
+            var obj = new GameObject($"PolygonShadowCaster2D_{index}");
+            obj.transform.parent = transform;
+            var shadowCaster = obj.AddComponent<PolygonShadowCaster2D>();
+            shadowCaster.enabled = false;
+            return shadowCaster;
+        }
         void RegenerateCollider() {
             int shapeCount = bounds.TryGetShapes(positions, ref shapes);
-            polygonCollider.pathCount = shapeCount;
             for (int i = 0; i < shapeCount; i++) {
-                polygonCollider.SetPath(i, shapes[i].vertices);
+                shadowCasters[i].shapePath = shapes[i].vertices.Select(position => (Vector3)position).ToArray();
+                shadowCasters[i].shapePathHash++;
+                shadowCasters[i].enabled = true;
+            }
+            for (int i = shapeCount; i < shapeCountMaximum; i++) {
+                shadowCasters[i].enabled = false;
             }
         }
     }

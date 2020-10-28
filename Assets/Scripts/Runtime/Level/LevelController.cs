@@ -26,13 +26,15 @@ namespace TheCursedBroom.Level {
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
         [SerializeField]
+        public TilemapBounds rendererBounds = new TilemapBounds();
+        [SerializeField]
         public TilemapBounds colliderBounds = new TilemapBounds();
         [SerializeField]
-        public TilemapBounds rendererBounds = new TilemapBounds();
+        public TilemapBounds shadowBounds = new TilemapBounds();
 
-        int currentColliderIndex = 0;
+        int currentTilemapIndex = 0;
         [SerializeField, Range(1, 80)]
-        int pauseBetweenColliderUpdates = 1;
+        int pauseBetweenTilemapUpdates = 1;
 
         [Header("Debug output")]
         public Transform observedActor;
@@ -54,11 +56,11 @@ namespace TheCursedBroom.Level {
             RefreshAllTiles();
         }
         void FixedUpdate() {
-            if (currentColliderIndex < map.tilemapControllers.Length * pauseBetweenColliderUpdates) {
-                if (currentColliderIndex % pauseBetweenColliderUpdates == 0) {
-                    map.tilemapControllers[currentColliderIndex / pauseBetweenColliderUpdates].RegenerateCollider();
+            if (currentTilemapIndex < map.tilemapControllers.Length * pauseBetweenTilemapUpdates) {
+                if (currentTilemapIndex % pauseBetweenTilemapUpdates == 0) {
+                    map.tilemapControllers[currentTilemapIndex / pauseBetweenTilemapUpdates].RegenerateTilemap();
                 }
-                currentColliderIndex++;
+                currentTilemapIndex++;
             } else {
                 UpdateTiles();
             }
@@ -66,7 +68,7 @@ namespace TheCursedBroom.Level {
         public void RefreshAllTiles() {
             UpdateTiles();
             for (int i = 0; i < map.tilemapControllers.Length; i++) {
-                map.tilemapControllers[i].RegenerateCollider();
+                map.tilemapControllers[i].RegenerateTilemap();
             }
         }
         public TileBase[][] CreateTilemapStorage(TilemapLayerAsset type) {
@@ -91,8 +93,9 @@ namespace TheCursedBroom.Level {
             for (int i = 0; i < levels.Length; i++) {
                 levels[i].tilemaps.Install(levels[i].transform);
             }
-            colliderBounds.PrepareTiles();
             rendererBounds.PrepareTiles();
+            colliderBounds.PrepareTiles();
+            shadowBounds.PrepareTiles();
         }
         void UpdateTiles() {
             if (!observedActor) {
@@ -123,9 +126,10 @@ namespace TheCursedBroom.Level {
 
             tilesChangedCount += colliderBounds.UpdateTiles(observedCenter);
             tilesChangedCount += rendererBounds.UpdateTiles(observedCenter);
+            tilesChangedCount += shadowBounds.UpdateTiles(observedCenter);
 
             if (tilesChangedCount > 0) {
-                currentColliderIndex = 0;
+                currentTilemapIndex = 0;
             }
         }
 
@@ -148,6 +152,7 @@ namespace TheCursedBroom.Level {
             if (observedActor) {
                 colliderBounds.OnDrawGizmos();
                 rendererBounds.OnDrawGizmos();
+                shadowBounds.OnDrawGizmos();
             }
         }
 #endif
