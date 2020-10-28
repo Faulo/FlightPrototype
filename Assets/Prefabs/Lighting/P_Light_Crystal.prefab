@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 116098757193491753, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 116098757193491753, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
@@ -110,12 +110,12 @@ PrefabInstance:
     - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
       propertyPath: m_ShadowIntensity
-      value: 0.625
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
       propertyPath: m_ShadowVolumeIntensity
-      value: 0.125
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
@@ -196,6 +196,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ShapePath.Array.data[0].y
       value: -0.5625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633295342404250337, guid: 534281c6d9471514da2ce80a2cb5abcf,
+        type: 3}
+      propertyPath: m_PointLightQuality
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3861078851627525696, guid: 534281c6d9471514da2ce80a2cb5abcf,
         type: 3}
