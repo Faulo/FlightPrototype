@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ChangeMainLight_Cave
   m_EditorClassIdentifier: 
   targetIntensity: 0.125
-  changeDuration: 2
+  changeDuration: 1

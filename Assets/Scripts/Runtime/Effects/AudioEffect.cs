@@ -24,11 +24,17 @@ namespace TheCursedBroom.Effects {
         [SerializeField, Range(0, 10)]
         float playDuration = 0;
 
+        [Header("BGM")]
+        [SerializeField]
+        bool isBackgroundMusic = false;
+        [SerializeField, Range(0, 10)]
+        float crossFadeDuration = 0;
+
         public override void Invoke(GameObject context) {
             if (!AudioManager.instance) {
                 return;
             }
-            AudioManager.instance.Play(new AudioInfo {
+            var audio = new AudioInfo {
                 position = context.transform.position,
                 clip = clips.RandomElement(),
                 mixer = mixer,
@@ -37,7 +43,12 @@ namespace TheCursedBroom.Effects {
                 loop = loop,
                 timeOffset = timeOffset,
                 playDuration = playDuration,
-            });
+            };
+            if (isBackgroundMusic) {
+                AudioManager.instance.PlayMusic(audio, crossFadeDuration);
+            } else {
+                AudioManager.instance.PlaySFX(audio);
+            }
         }
     }
 }
