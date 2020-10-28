@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EG_Trap
   m_EditorClassIdentifier: 
   effects:
+  - {fileID: 11400000, guid: 45de75c4b488824498833a23adb2cbea, type: 2}
   - {fileID: 11400000, guid: 6861a7ad8407dc142aa58e8210f103be, type: 2}

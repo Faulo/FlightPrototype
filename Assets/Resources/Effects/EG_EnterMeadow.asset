@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: EG_EnterMeadow
   m_EditorClassIdentifier: 
   effects:
-  - {fileID: 11400000, guid: f01e118dcd55194439cb53db1bf3dd7f, type: 2}
+  - {fileID: 11400000, guid: 0efd9587bd5d87a4c8caa874c9ff1710, type: 2}
   - {fileID: 11400000, guid: 328725173059a7a42a7e3038b2d0fe35, type: 2}
   - {fileID: 11400000, guid: 5430c2e90d7333849b38f02e7fa4e094, type: 2}
   - {fileID: 11400000, guid: eeb44adac0d7d1c459289ca736d89fdf, type: 2}
-  - {fileID: 11400000, guid: 0efd9587bd5d87a4c8caa874c9ff1710, type: 2}

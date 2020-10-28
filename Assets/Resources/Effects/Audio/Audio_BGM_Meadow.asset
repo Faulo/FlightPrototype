@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Audio_BGM_Meadow
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 40885d8864f4be54c97fb65d5c72390f, type: 3}
+  - {fileID: 8300000, guid: 76689206f30079f479a454fe5d169dfd, type: 3}
   mixer: {fileID: -1454567373959763372, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
   spatialBlend: 0
   mininumPitch: 1
@@ -21,3 +21,5 @@ MonoBehaviour:
   loop: 1
   timeOffset: 0
   playDuration: 0
+  isBackgroundMusic: 1
+  crossFadeDuration: 1
