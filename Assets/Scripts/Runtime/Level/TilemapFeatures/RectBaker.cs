@@ -45,7 +45,7 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             RegenerateCollider();
         }
         void RegenerateCollider() {
-            if (bounds.TryGetBounds(positions, out var offset, out var size)) {
+            if (TilemapBounds.TryGetBounds(positions, out var offset, out var size)) {
                 boxCollider.offset = offset;
                 boxCollider.size = size;
             }

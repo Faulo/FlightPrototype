@@ -51,7 +51,7 @@ namespace TheCursedBroom.Level.TilemapFeatures {
         }
 
         void RegenerateCollider() {
-            int shapeCount = bounds.TryGetShapes(positions, ref shapes);
+            int shapeCount = TilemapBounds.TryGetShapes(positions, ref shapes);
             polygonCollider.pathCount = shapeCount;
             for (int i = 0; i < shapeCount; i++) {
                 polygonCollider.SetPath(i, shapes[i].vertices);

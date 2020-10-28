@@ -48,13 +48,15 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             obj.transform.parent = transform;
             var shadowCaster = obj.AddComponent<PolygonShadowCaster2D>();
             shadowCaster.enabled = false;
+            shadowCaster.castsShadows = true;
+            shadowCaster.selfShadows = true;
+            shadowCaster.useRendererSilhouette = false;
             return shadowCaster;
         }
         void RegenerateCollider() {
-            int shapeCount = bounds.TryGetShapes(positions, ref shapes);
+            int shapeCount = TilemapBounds.TryGetShapes(positions, ref shapes);
             for (int i = 0; i < shapeCount; i++) {
-                shadowCasters[i].shapePath = shapes[i].vertices.Select(position => (Vector3)position).ToArray();
-                shadowCasters[i].shapePathHash++;
+                shadowCasters[i].SetShapePath(shapes[i].vertices);
                 shadowCasters[i].enabled = true;
             }
             for (int i = shapeCount; i < shapeCountMaximum; i++) {

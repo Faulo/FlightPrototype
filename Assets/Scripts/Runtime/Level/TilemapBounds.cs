@@ -72,34 +72,35 @@ namespace TheCursedBroom.Level {
             Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
 
-        public int TryGetShapes(ISet<Vector3Int> positions, ref TileShape[] shapes) {
+        public static int TryGetShapes(HashSet<Vector3Int> positions, ref TileShape[] shapes) {
             int shapeCount = 0;
-            bool inBounds(Vector3Int testPosition) {
-                return bounds.Contains(testPosition) && positions.Contains(testPosition);
-            }
-            foreach (var position in bounds.allPositionsWithin) {
-                if (positions.Contains(position)) {
+            foreach (var position in positions) {
+                if (!positions.Contains(position + Vector3Int.left)) {
+                    bool contains = false;
                     for (int i = 0; i < shapeCount; i++) {
                         if (shapes[i].ContainsPosition(position)) {
-                            goto SKIP;
+                            contains = true;
+                            break;
                         }
                     }
-                    shapes[shapeCount++] = CreateTileShape(inBounds, position, Vector3Int.up);
+                    if (!contains) {
+                        shapes[shapeCount++] = CreateTileShape(positions.Contains, position, Vector3Int.up);
+                        if (shapeCount == shapes.Length) {
+                            break;
+                        }
+                    }
                 }
-SKIP:
-                ;
             }
             return shapeCount;
         }
-        public bool TryGetBounds(ISet<Vector3Int> positions, out Vector3 offset, out Vector3 size) {
-            var colliderPositions = positions.Where(bounds.Contains).ToList();
-            if (colliderPositions.Count == 0) {
+        public static bool TryGetBounds(HashSet<Vector3Int> positions, out Vector3 offset, out Vector3 size) {
+            if (positions.Count == 0) {
                 offset = size = Vector3.zero;
                 return false;
             }
-            var bottomLeft = (Vector3)colliderPositions.First();
+            var bottomLeft = (Vector3)positions.First();
             var topRight = bottomLeft;
-            foreach (var position in colliderPositions) {
+            foreach (var position in positions) {
                 if (topRight.x < position.x) {
                     topRight.x = position.x;
                 }
