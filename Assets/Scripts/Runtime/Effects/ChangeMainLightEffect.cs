@@ -3,6 +3,8 @@ using UnityEngine;
 namespace TheCursedBroom.Effects {
     [CreateAssetMenu(fileName = "ChangeMainLight_New", menuName = "Effects/ChangeMainLight")]
     public class ChangeMainLightEffect : Effect {
+        [SerializeField]
+        Color targetColor = Color.white;
         [SerializeField, Range(0, 10)]
         float targetIntensity = 1;
         [SerializeField, Range(0, 60)]
@@ -12,7 +14,7 @@ namespace TheCursedBroom.Effects {
             if (!CameraController.instance) {
                 return;
             }
-            CameraController.instance.ChangeMainLightIntensityTo(targetIntensity, changeDuration);
+            CameraController.instance.ChangeMainLightTo(targetIntensity, targetColor, changeDuration);
         }
     }
 }
