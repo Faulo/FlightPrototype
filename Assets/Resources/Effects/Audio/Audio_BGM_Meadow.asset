@@ -21,3 +21,5 @@ MonoBehaviour:
   loop: 1
   timeOffset: 0
   playDuration: 0
+  isBackgroundMusic: 1
+  crossFadeDuration: 1

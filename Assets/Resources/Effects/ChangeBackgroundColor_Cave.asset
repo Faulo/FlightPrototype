@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ChangeBackgroundColor_Cave
   m_EditorClassIdentifier: 
   targetColor: {r: 0.1137255, g: 0.0627451, b: 0.003921569, a: 1}
-  changeDuration: 2
+  changeDuration: 1

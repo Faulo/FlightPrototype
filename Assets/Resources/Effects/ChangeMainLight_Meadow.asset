@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17d5c88248314842a94116fae0b594c, type: 3}
   m_Name: ChangeMainLight_Meadow
   m_EditorClassIdentifier: 
-  targetIntensity: 1.75
-  changeDuration: 2
+  targetIntensity: 3
+  changeDuration: 1
