@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Level {
     [Serializable]
     public class TilemapBounds {
-        public event Action<Vector3Int> onLoadTile;
-        public event Action<Vector3Int> onDiscardTile;
+        public event Action<Vector3Int> onLoadTiles;
+        public event Action<Vector3Int> onDiscardTiles;
 
         [SerializeField, Range(1, 100)]
         int width = 10;
@@ -21,50 +20,44 @@ namespace TheCursedBroom.Level {
         Vector3Int center;
         Vector3Int extends;
         BoundsInt bounds;
-
-        readonly HashSet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
+        BoundsInt oldBounds;
 
         int tilesChangedCount;
 
-        public void PrepareTiles() {
+        public void PrepareTiles(Vector3Int newCenter) {
             extends.x = width;
             extends.y = height;
             bounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
+            oldBounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
+
+            center = newCenter;
+            bounds.position = center - extends;
+            foreach (var position in bounds.allPositionsWithin) {
+                onLoadTiles?.Invoke(position);
+            }
         }
         public int UpdateTiles(Vector3Int newCenter) {
             tilesChangedCount = 0;
             if (center != newCenter) {
+                oldBounds.position = center - extends;
                 center = newCenter;
                 bounds.position = center - extends;
 
-                DiscardOldTiles();
-                LoadNewTiles();
-            }
-            return tilesChangedCount;
-        }
-        void DiscardOldTiles() {
-            loadedTilePositions
-                .Where(IsOutOfBounds)
-                .ToList()
-                .ForAll(DiscardTile);
-        }
-        bool IsOutOfBounds(Vector3Int position) => !bounds.Contains(position);
-        void DiscardTile(Vector3Int position) {
-            onDiscardTile?.Invoke(position);
-            loadedTilePositions.Remove(position);
-            tilesChangedCount++;
-        }
-        void LoadNewTiles() {
-            foreach (var position in bounds.allPositionsWithin) {
-                if (!loadedTilePositions.Contains(position)) {
-                    LoadTile(position);
+                foreach (var position in oldBounds.allPositionsWithin) {
+                    if (!bounds.Contains(position)) {
+                        onDiscardTiles?.Invoke(position);
+                        tilesChangedCount++;
+                    }
+                }
+
+                foreach (var position in bounds.allPositionsWithin) {
+                    if (!oldBounds.Contains(position)) {
+                        onLoadTiles?.Invoke(position);
+                        tilesChangedCount++;
+                    }
                 }
             }
-        }
-        void LoadTile(Vector3Int position) {
-            onLoadTile?.Invoke(position);
-            loadedTilePositions.Add(position);
-            tilesChangedCount++;
+            return tilesChangedCount;
         }
 
         public void OnDrawGizmos() {

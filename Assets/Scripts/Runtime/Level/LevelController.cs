@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
@@ -53,7 +54,6 @@ namespace TheCursedBroom.Level {
         }
         void Start() {
             onStart.Invoke(gameObject);
-            RefreshAllTiles();
         }
         void FixedUpdate() {
             if (currentTilemapIndex < map.tilemapControllers.Length * pauseBetweenTilemapUpdates) {
@@ -66,7 +66,11 @@ namespace TheCursedBroom.Level {
             }
         }
         public void RefreshAllTiles() {
-            UpdateTiles();
+            Assert.IsNotNull(observedActor);
+            observedCenter = map.WorldToCell(observedActor.position);
+            rendererBounds.PrepareTiles(observedCenter);
+            colliderBounds.PrepareTiles(observedCenter);
+            shadowBounds.PrepareTiles(observedCenter);
             for (int i = 0; i < map.tilemapControllers.Length; i++) {
                 map.tilemapControllers[i].RegenerateTilemap();
             }
@@ -93,15 +97,8 @@ namespace TheCursedBroom.Level {
             for (int i = 0; i < levels.Length; i++) {
                 levels[i].tilemaps.Install(levels[i].transform);
             }
-            rendererBounds.PrepareTiles();
-            colliderBounds.PrepareTiles();
-            shadowBounds.PrepareTiles();
         }
         void UpdateTiles() {
-            if (!observedActor) {
-                return;
-            }
-
             foreach (var observedObject in observedObjects) {
                 while (observedObject.position.x < observedActor.position.x - (map.width / 2)) {
                     observedObject.TranslateX(map.width);

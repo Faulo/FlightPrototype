@@ -19,6 +19,7 @@ namespace TheCursedBroom.Level {
                 if (isActor) {
                     Assert.IsNull(LevelController.instance.observedActor);
                     LevelController.instance.observedActor = transform;
+                    LevelController.instance.RefreshAllTiles();
                 } else {
                     LevelController.instance.observedObjects.Add(this);
                 }

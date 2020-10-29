@@ -194,8 +194,6 @@ namespace TheCursedBroom.Player {
             attachedRigidbody.velocity = loadVelocity;
             attachedRigidbody.angularVelocity = 0;
 
-            LevelController.instance.RefreshAllTiles();
-
             onTeleport?.Invoke(gameObject, delta);
         }
 

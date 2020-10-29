@@ -51,20 +51,20 @@ namespace TheCursedBroom.Level {
             }
         }
         void OnEnable() {
-            ownerLevel.colliderBounds.onLoadTile += LoadColliderTile;
-            ownerLevel.colliderBounds.onDiscardTile += DiscardColliderTile;
-            ownerLevel.rendererBounds.onLoadTile += LoadRendererTile;
-            ownerLevel.rendererBounds.onDiscardTile += DiscardRendererTile;
-            ownerLevel.shadowBounds.onLoadTile += LoadShadowTile;
-            ownerLevel.shadowBounds.onDiscardTile += DiscardShadowTile;
+            ownerLevel.colliderBounds.onLoadTiles += LoadColliderTile;
+            ownerLevel.colliderBounds.onDiscardTiles += DiscardColliderTile;
+            ownerLevel.rendererBounds.onLoadTiles += LoadRendererTile;
+            ownerLevel.rendererBounds.onDiscardTiles += DiscardRendererTile;
+            ownerLevel.shadowBounds.onLoadTiles += LoadShadowTile;
+            ownerLevel.shadowBounds.onDiscardTiles += DiscardShadowTile;
         }
         void OnDisable() {
-            ownerLevel.colliderBounds.onLoadTile -= LoadColliderTile;
-            ownerLevel.colliderBounds.onDiscardTile -= DiscardColliderTile;
-            ownerLevel.rendererBounds.onLoadTile -= LoadRendererTile;
-            ownerLevel.rendererBounds.onDiscardTile -= DiscardRendererTile;
-            ownerLevel.shadowBounds.onLoadTile -= LoadShadowTile;
-            ownerLevel.shadowBounds.onDiscardTile -= DiscardShadowTile;
+            ownerLevel.colliderBounds.onLoadTiles -= LoadColliderTile;
+            ownerLevel.colliderBounds.onDiscardTiles -= DiscardColliderTile;
+            ownerLevel.rendererBounds.onLoadTiles -= LoadRendererTile;
+            ownerLevel.rendererBounds.onDiscardTiles -= DiscardRendererTile;
+            ownerLevel.shadowBounds.onLoadTiles -= LoadShadowTile;
+            ownerLevel.shadowBounds.onDiscardTiles -= DiscardShadowTile;
         }
 
         public void RegenerateTilemap() {
@@ -79,6 +79,18 @@ namespace TheCursedBroom.Level {
             if (shadowChange.hasChanged) {
                 onShadowChange?.Invoke(shadowChange);
                 shadowChange.Clear();
+            }
+        }
+
+        void TryCreateChange(TilemapChangeData data, Vector3Int[] positions, Action<TilemapChangeData> callback) {
+            for (int i = 0; i < positions.Length; i++) {
+                if (TryGetTileFromStorage(positions[i], out var tile)) {
+                    data.AddLoad(positions[i], tile);
+                }
+            }
+            if (colliderChange.hasChanged) {
+                callback?.Invoke(data);
+                data.Clear();
             }
         }
 
