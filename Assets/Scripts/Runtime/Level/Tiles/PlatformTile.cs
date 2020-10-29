@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Slothsoft.UnityExtensions;
-using TheCursedBroom.Extensions;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
@@ -54,11 +53,11 @@ namespace TheCursedBroom.Level.Tiles {
             [SpritePosition.Bottom | SpritePosition.Left | SpritePosition.Right] = SpriteId.Top,
             [SpritePosition.Top | SpritePosition.Bottom | SpritePosition.Left | SpritePosition.Right] = SpriteId.Center,
         };
-        static readonly Dictionary<SpritePosition, Vector3Int> offsetOverPosition = new Dictionary<SpritePosition, Vector3Int> {
-            [SpritePosition.Top] = Vector3Int.up,
-            [SpritePosition.Left] = Vector3Int.left,
-            [SpritePosition.Bottom] = Vector3Int.down,
-            [SpritePosition.Right] = Vector3Int.right,
+        static readonly (SpritePosition, Vector3Int)[] offsetOverPosition = new[] {
+            (SpritePosition.Top, Vector3Int.up),
+            (SpritePosition.Left, Vector3Int.left),
+            (SpritePosition.Bottom, Vector3Int.down),
+            (SpritePosition.Right, Vector3Int.right),
         };
 
         [SerializeField, HideInInspector]
@@ -69,8 +68,7 @@ namespace TheCursedBroom.Level.Tiles {
         Tile.ColliderType colliderType = Tile.ColliderType.None;
         [SerializeField, Tooltip("Whether refreshing one tile will also refresh neighboring tiles")]
         bool autoRefreshNeighbors = false;
-
-        TilemapCache tilemapCache = new TilemapCache();
+        readonly TilemapCache tilemapCache = new TilemapCache();
 
         public override void RefreshTile(Vector3Int position, ITilemap tilemap) {
             tilemap.RefreshTile(position);
