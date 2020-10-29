@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d2e8858767e7b4ea4fe71887189bfd, type: 3}
   m_Name: L0_Cave
   m_EditorClassIdentifier: 
-  spriteSheet: {fileID: 2800000, guid: 2957870026782374ab89ae57a8993713, type: 3}
-  sprite: {fileID: 3811899016069534798, guid: 2957870026782374ab89ae57a8993713, type: 3}
   sprites:
   - {fileID: 3811899016069534798, guid: 2957870026782374ab89ae57a8993713, type: 3}
   - {fileID: -1605872679747022571, guid: 2957870026782374ab89ae57a8993713, type: 3}
@@ -24,9 +22,11 @@ MonoBehaviour:
   - {fileID: 4227193557775820953, guid: 2957870026782374ab89ae57a8993713, type: 3}
   - {fileID: 435928749185446000, guid: 2957870026782374ab89ae57a8993713, type: 3}
   - {fileID: -2438762571775007960, guid: 2957870026782374ab89ae57a8993713, type: 3}
-  perlinScale: 0.9375
+  perlinScale: 0.25
   perlinOffset: 0
   prefab: {fileID: 0}
   tileOptions: -1
   instantiateSpriteEditorOnly: 0
   colliderType: 0
+  spriteSheet: {fileID: 2800000, guid: 2957870026782374ab89ae57a8993713, type: 3}
+  sprite: {fileID: 3811899016069534798, guid: 2957870026782374ab89ae57a8993713, type: 3}

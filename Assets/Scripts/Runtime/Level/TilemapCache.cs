@@ -6,22 +6,26 @@ namespace TheCursedBroom.Level {
     public class TilemapCache {
         public TilemapController this[Component tilemap] {
             get {
-                if (!tilemapOverComponent.ContainsKey(tilemap) || !tilemapOverComponent[tilemap]) {
-                    tilemapOverComponent[tilemap] = tilemap.GetComponent<TilemapController>();
+                if (tilemapOverComponent.TryGetValue(tilemap, out var controller) && controller) {
+                    return controller;
                 }
-                return tilemapOverComponent[tilemap];
+                controller = tilemap.GetComponent<TilemapController>();
+                return tilemapOverComponent[tilemap] = controller;
             }
         }
-        Dictionary<Component, TilemapController> tilemapOverComponent = new Dictionary<Component, TilemapController>();
+
+        readonly Dictionary<Component, TilemapController> tilemapOverComponent = new Dictionary<Component, TilemapController>();
 
         public TilemapController this[ITilemap tilemap] {
             get {
-                if (!tilemapOverInterface.ContainsKey(tilemap) || !tilemapOverInterface[tilemap]) {
-                    tilemapOverInterface[tilemap] = tilemap.GetComponent<TilemapController>();
+                if (tilemapOverInterface.TryGetValue(tilemap, out var controller) && controller) {
+                    return controller;
                 }
-                return tilemapOverInterface[tilemap];
+                controller = tilemap.GetComponent<TilemapController>();
+                return tilemapOverInterface[tilemap] = controller;
             }
         }
-        Dictionary<ITilemap, TilemapController> tilemapOverInterface = new Dictionary<ITilemap, TilemapController>();
+
+        readonly Dictionary<ITilemap, TilemapController> tilemapOverInterface = new Dictionary<ITilemap, TilemapController>();
     }
 }

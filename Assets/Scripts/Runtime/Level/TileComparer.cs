@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
     public class TileComparer {
-        Dictionary<TileBase, HashSet<TileBase>> synonymousTiles = new Dictionary<TileBase, HashSet<TileBase>>();
+        readonly Dictionary<TileBase, HashSet<TileBase>> synonymousTiles = new Dictionary<TileBase, HashSet<TileBase>>();
 
         public void AddSynonym(TileBase one, TileBase two) {
             if (!synonymousTiles.ContainsKey(one)) {
@@ -21,8 +21,8 @@ namespace TheCursedBroom.Level {
         }
 
         public bool IsSynonym(TileBase one, TileBase two) {
-            return synonymousTiles.ContainsKey(one)
-                ? synonymousTiles[one].Contains(two)
+            return synonymousTiles.TryGetValue(one, out var set)
+                ? set.Contains(two)
                 : false;
         }
     }

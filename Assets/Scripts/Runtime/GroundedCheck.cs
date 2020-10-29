@@ -1,26 +1,37 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheCursedBroom {
     public class GroundedCheck : MonoBehaviour {
-        [Header("Grounded Check")]
-        [SerializeField]
-        Vector2 groundedSize = Vector2.one;
-        [SerializeField]
-        LayerMask groundedLayers = default;
+        [SerializeField, Range(0, 10)]
+        float defaultKinematicFriction = 1;
+        [SerializeField, Range(0, 10)]
+        float defaultStaticFriction = 1;
 
-        public IReadOnlyList<Ground> GetGrounds() {
-            return Physics2D
-                .OverlapBoxAll(transform.position, groundedSize, groundedLayers)
-                .Select(collider => collider.attachedRigidbody ? collider.attachedRigidbody.gameObject : collider.gameObject)
-                .SelectMany(obj => obj.GetComponents<Ground>())
-                .ToList();
+        Ground ground;
+        Ground oldGround;
+        public bool isGrounded => ground;
+
+        public float kinematicFriction => ground
+            ? ground.kinematicFriction
+            : defaultKinematicFriction;
+        public float staticFriction => ground
+            ? ground.staticFriction
+            : defaultStaticFriction;
+
+        void OnTriggerEnter2D(Collider2D collider) => SetGround(collider);
+        void OnTriggerStay2D(Collider2D collider) => SetGround(collider);
+        void FixedUpdate() => ClearGround();
+        void ClearGround() {
+            if (oldGround) {
+                oldGround = null;
+            } else {
+                ground = null;
+            }
         }
-
-        void OnDrawGizmos() {
-            Gizmos.color = Color.grey;
-            Gizmos.DrawWireCube(transform.position, groundedSize);
+        void SetGround(Component other) {
+            if (other.TryGetComponent<Ground>(out var newGround)) {
+                ground = oldGround = newGround;
+            }
         }
     }
 }

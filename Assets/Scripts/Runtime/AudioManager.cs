@@ -26,6 +26,7 @@ namespace TheCursedBroom {
             source.outputAudioMixerGroup = audio.mixer;
             source.spatialBlend = audio.spatialBlend;
             source.pitch = audio.pitch;
+            source.volume = audio.volume;
             source.time = audio.timeOffset;
             return source;
         }

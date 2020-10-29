@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17d5c88248314842a94116fae0b594c, type: 3}
   m_Name: ChangeMainLight_Cave
   m_EditorClassIdentifier: 
+  targetColor: {r: 0.38679248, g: 0.35294992, b: 0.3083393, a: 1}
   targetIntensity: 0.125
   changeDuration: 1

@@ -16,8 +16,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 22c1690b7b58ccc469f1eacdde0310ce, type: 3}
   mixer: {fileID: 6409435996009824079, guid: a7372226a0a349b4e87a1e0ad1923e56, type: 2}
   spatialBlend: 0.8
-  mininumPitch: 0.9
-  maxmimumPitch: 1.1
+  mininumPitch: 0.8
+  maxmimumPitch: 1
+  mininumVolume: 0.75
+  maxmimumVolume: 1
   loop: 0
   timeOffset: 0
   playDuration: 0
+  isBackgroundMusic: 0
+  crossFadeDuration: 0

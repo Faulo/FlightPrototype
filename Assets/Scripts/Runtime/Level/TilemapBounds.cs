@@ -1,70 +1,63 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Level {
     [Serializable]
     public class TilemapBounds {
-        public event Action<Vector3Int> onLoadTile;
-        public event Action<Vector3Int> onDiscardTile;
+        public event Action<Vector3Int> onLoadTiles;
+        public event Action<Vector3Int> onDiscardTiles;
 
+        [SerializeField]
+        public bool enabled = true;
         [SerializeField, Range(1, 100)]
-        int width = 10;
+        public int width = 10;
         [SerializeField, Range(1, 100)]
-        int height = 10;
-
-        public BoundsInt.PositionEnumerator allPositionsWithin => bounds.allPositionsWithin;
-        public bool Contains(Vector3Int position) => bounds.Contains(position);
+        public int height = 10;
+        public int tileCount => width * height * 4;
+        public Vector3Int extends => new Vector3Int(width, height, 0);
 
         Vector3Int center;
-        Vector3Int extends;
         BoundsInt bounds;
+        BoundsInt oldBounds;
 
-        readonly HashSet<Vector3Int> loadedTilePositions = new HashSet<Vector3Int>();
-
-        int tilesChangedCount;
-
-        public void PrepareTiles() {
-            extends.x = width;
-            extends.y = height;
-            bounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
+        public void PrepareTiles(Vector3Int newCenter) {
+            center = newCenter;
+            UpdateBounds();
+            foreach (var position in bounds.allPositionsWithin) {
+                onLoadTiles?.Invoke(position);
+            }
         }
         public int UpdateTiles(Vector3Int newCenter) {
-            tilesChangedCount = 0;
-            if (center != newCenter) {
-                center = newCenter;
-                bounds.position = center - extends;
+            int tilesChangedCount = 0;
+            oldBounds = bounds;
+            center = newCenter;
+            UpdateBounds();
 
-                DiscardOldTiles();
-                LoadNewTiles();
-            }
-            return tilesChangedCount;
-        }
-        void DiscardOldTiles() {
-            loadedTilePositions
-                .Where(IsOutOfBounds)
-                .ToList()
-                .ForAll(DiscardTile);
-        }
-        bool IsOutOfBounds(Vector3Int position) => !bounds.Contains(position);
-        void LoadNewTiles() {
-            foreach (var position in bounds.allPositionsWithin) {
-                if (!loadedTilePositions.Contains(position)) {
-                    LoadTile(position);
+            foreach (var position in oldBounds.allPositionsWithin) {
+                if (!bounds.Contains(position)) {
+                    onDiscardTiles?.Invoke(position);
+                    tilesChangedCount++;
                 }
             }
+
+            foreach (var position in bounds.allPositionsWithin) {
+                if (!oldBounds.Contains(position)) {
+                    onLoadTiles?.Invoke(position);
+                    tilesChangedCount++;
+                }
+            }
+
+            return tilesChangedCount;
         }
-        void DiscardTile(Vector3Int position) {
-            onDiscardTile?.Invoke(position);
-            loadedTilePositions.Remove(position);
-            tilesChangedCount++;
-        }
-        void LoadTile(Vector3Int position) {
-            onLoadTile?.Invoke(position);
-            loadedTilePositions.Add(position);
-            tilesChangedCount++;
+
+        void UpdateBounds() {
+            bounds.position = center - extends;
+            bounds.size = 2 * extends;
+            if (enabled) {
+                bounds.size += new Vector3Int(0, 0, 1);
+            }
         }
 
         public void OnDrawGizmos() {
@@ -72,34 +65,35 @@ namespace TheCursedBroom.Level {
             Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
 
-        public int TryGetShapes(ISet<Vector3Int> positions, ref TileShape[] shapes) {
+        public static int TryGetShapes(HashSet<Vector3Int> positions, ref TileShape[] shapes) {
             int shapeCount = 0;
-            bool inBounds(Vector3Int testPosition) {
-                return bounds.Contains(testPosition) && positions.Contains(testPosition);
-            }
-            foreach (var position in bounds.allPositionsWithin) {
-                if (positions.Contains(position)) {
+            foreach (var position in positions) {
+                if (!positions.Contains(position + Vector3Int.left) && !positions.Contains(position + Vector3Int.down)) {
+                    bool contains = false;
                     for (int i = 0; i < shapeCount; i++) {
                         if (shapes[i].ContainsPosition(position)) {
-                            goto SKIP;
+                            contains = true;
+                            break;
                         }
                     }
-                    shapes[shapeCount++] = CreateTileShape(inBounds, position, Vector3Int.up);
+                    if (!contains) {
+                        shapes[shapeCount++] = CreateTileShape(positions.Contains, position, Vector3Int.up);
+                        if (shapeCount == shapes.Length) {
+                            break;
+                        }
+                    }
                 }
-SKIP:
-                ;
             }
             return shapeCount;
         }
-        public bool TryGetBounds(ISet<Vector3Int> positions, out Vector3 offset, out Vector3 size) {
-            var colliderPositions = positions.Where(bounds.Contains).ToList();
-            if (colliderPositions.Count == 0) {
+        public static bool TryGetBounds(HashSet<Vector3Int> positions, out Vector3 offset, out Vector3 size) {
+            if (positions.Count == 0) {
                 offset = size = Vector3.zero;
                 return false;
             }
-            var bottomLeft = (Vector3)colliderPositions.First();
+            var bottomLeft = (Vector3)positions.First();
             var topRight = bottomLeft;
-            foreach (var position in colliderPositions) {
+            foreach (var position in positions) {
                 if (topRight.x < position.x) {
                     topRight.x = position.x;
                 }
