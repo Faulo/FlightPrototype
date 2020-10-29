@@ -10,58 +10,54 @@ namespace TheCursedBroom.Level {
         public event Action<Vector3Int> onDiscardTiles;
 
         [SerializeField]
-        bool enabled = true;
+        public bool enabled = true;
         [SerializeField, Range(1, 100)]
-        int width = 10;
+        public int width = 10;
         [SerializeField, Range(1, 100)]
-        int height = 10;
-
-        public BoundsInt.PositionEnumerator allPositionsWithin => bounds.allPositionsWithin;
-        public bool Contains(Vector3Int position) => bounds.Contains(position);
+        public int height = 10;
+        public int tileCount => width * height * 4;
+        public Vector3Int extends => new Vector3Int(width, height, 0);
 
         Vector3Int center;
-        Vector3Int extends;
         BoundsInt bounds;
         BoundsInt oldBounds;
 
-        int tilesChangedCount;
-
         public void PrepareTiles(Vector3Int newCenter) {
-            extends.x = width;
-            extends.y = height;
-            bounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
-            oldBounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
-
-            if (enabled) { 
-                center = newCenter;
-                bounds.position = center - extends;
-                foreach (var position in bounds.allPositionsWithin) {
-                    onLoadTiles?.Invoke(position);
-                }
+            center = newCenter;
+            UpdateBounds();
+            foreach (var position in bounds.allPositionsWithin) {
+                onLoadTiles?.Invoke(position);
             }
         }
         public int UpdateTiles(Vector3Int newCenter) {
-            tilesChangedCount = 0;
-            if (enabled && center != newCenter) {
-                oldBounds.position = center - extends;
-                center = newCenter;
-                bounds.position = center - extends;
+            int tilesChangedCount = 0;
+            oldBounds = bounds;
+            center = newCenter;
+            UpdateBounds();
 
-                foreach (var position in oldBounds.allPositionsWithin) {
-                    if (!bounds.Contains(position)) {
-                        onDiscardTiles?.Invoke(position);
-                        tilesChangedCount++;
-                    }
-                }
-
-                foreach (var position in bounds.allPositionsWithin) {
-                    if (!oldBounds.Contains(position)) {
-                        onLoadTiles?.Invoke(position);
-                        tilesChangedCount++;
-                    }
+            foreach (var position in oldBounds.allPositionsWithin) {
+                if (!bounds.Contains(position)) {
+                    onDiscardTiles?.Invoke(position);
+                    tilesChangedCount++;
                 }
             }
+
+            foreach (var position in bounds.allPositionsWithin) {
+                if (!oldBounds.Contains(position)) {
+                    onLoadTiles?.Invoke(position);
+                    tilesChangedCount++;
+                }
+            }
+
             return tilesChangedCount;
+        }
+
+        void UpdateBounds() {
+            bounds.position = center - extends;
+            bounds.size = 2 * extends;
+            if (enabled) {
+                bounds.size += new Vector3Int(0, 0, 1);
+            }
         }
 
         public void OnDrawGizmos() {
