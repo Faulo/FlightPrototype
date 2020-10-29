@@ -10,7 +10,7 @@ namespace TheCursedBroom.Level {
         public readonly List<Vector3Int> discardPositions = new List<Vector3Int>();
         public readonly List<TileBase> discardTiles = new List<TileBase>();
 
-        public bool hasChanged => loadPositions.Count > 0;
+        public bool hasChanged => loadPositions.Count > 0 || discardPositions.Count > 0;
 
         public void Clear() {
             loadPositions.Clear();
@@ -20,13 +20,15 @@ namespace TheCursedBroom.Level {
         }
 
         public void AddLoad(Vector3Int position, TileBase tile) {
-            //Assert.IsFalse(discardPositions.Contains(position));
+            //Assert.IsFalse(loadPositions.Contains(position), $"Double-tipping load-load position {position}");
+            //Assert.IsFalse(discardPositions.Contains(position), $"Double-tipping discard-load position {position}");
             loadPositions.Add(position);
             loadTiles.Add(tile);
         }
 
         public void AddDiscard(Vector3Int position, TileBase tile) {
-            //Assert.IsFalse(loadPositions.Contains(position));
+            //Assert.IsFalse(discardPositions.Contains(position), $"Double-tipping discard-discard position {position}");
+            //Assert.IsFalse(loadPositions.Contains(position), $"Double-tipping load-discard position {position}");
             discardPositions.Add(position);
             discardTiles.Add(tile);
         }
