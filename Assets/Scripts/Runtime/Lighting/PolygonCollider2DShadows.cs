@@ -6,7 +6,7 @@ namespace TheCursedBroom.Lighting {
     [ExecuteInEditMode]
     public class PolygonCollider2DShadows : MonoBehaviour {
         [SerializeField, Range(0, 10)]
-        int pathIndex = 0;
+        readonly int pathIndex = 0;
 
         PolygonCollider2D polygonCollider;
         PolygonShadowCaster2D shadowCaster;
@@ -17,9 +17,11 @@ namespace TheCursedBroom.Lighting {
         }
 
         void Update() {
-            shadowCaster.shapePath = polygonCollider.GetPath(pathIndex)
-                .Select(position => (Vector3)(position + polygonCollider.offset))
-                .ToArray();
+            if (polygonCollider.offset == Vector2.zero) {
+                shadowCaster.SetShapePath(polygonCollider.GetPath(pathIndex));
+            } else {
+                shadowCaster.SetShapePath(polygonCollider.GetPath(pathIndex).Select(pos => pos + polygonCollider.offset).ToList());
+            }
         }
     }
 }
