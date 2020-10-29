@@ -8,6 +8,8 @@ namespace TheCursedBroom.Level.TilemapFeatures {
     public class PolygonBaker : TilemapFeature {
         [SerializeField, Expandable]
         PolygonCollider2D polygonCollider = default;
+        [SerializeField, Expandable]
+        CompositeCollider2D compositeCollider = default;
         [SerializeField, Range(1, 1000)]
         int shapeCountMaximum = 100;
         [SerializeField]
@@ -22,6 +24,9 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             base.OnValidate();
             if (!polygonCollider) {
                 polygonCollider = GetComponent<PolygonCollider2D>();
+            }
+            if (!compositeCollider) {
+                compositeCollider = GetComponent<CompositeCollider2D>();
             }
         }
         void OnEnable() {
@@ -54,6 +59,9 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             polygonCollider.pathCount = shapeCount;
             for (int i = 0; i < shapeCount; i++) {
                 polygonCollider.SetPath(i, shapes[i].vertices);
+            }
+            if (compositeCollider) {
+                compositeCollider.GenerateGeometry();
             }
         }
     }
