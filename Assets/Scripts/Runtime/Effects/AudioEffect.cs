@@ -17,6 +17,10 @@ namespace TheCursedBroom.Effects {
         float mininumPitch = 1;
         [SerializeField, Range(0, 5)]
         float maxmimumPitch = 1;
+        [SerializeField, Range(0, 5)]
+        float mininumVolume = 1;
+        [SerializeField, Range(0, 5)]
+        float maxmimumVolume = 1;
         [SerializeField]
         bool loop = false;
         [SerializeField, Range(0, 10)]
@@ -40,6 +44,7 @@ namespace TheCursedBroom.Effects {
                 mixer = mixer,
                 spatialBlend = spatialBlend,
                 pitch = Random.Range(mininumPitch, maxmimumPitch),
+                volume = Random.Range(mininumVolume, maxmimumVolume),
                 loop = loop,
                 timeOffset = timeOffset,
                 playDuration = playDuration,
