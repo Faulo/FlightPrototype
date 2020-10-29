@@ -98,5 +98,10 @@ PrefabInstance:
       propertyPath: onStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 340443861902602423, guid: 9c6eb28ee87a50540b730800741ce80e,
+        type: 3}
+      propertyPath: shadowBounds.enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6eb28ee87a50540b730800741ce80e, type: 3}

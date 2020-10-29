@@ -9,6 +9,8 @@ namespace TheCursedBroom.Level {
         public event Action<Vector3Int> onLoadTiles;
         public event Action<Vector3Int> onDiscardTiles;
 
+        [SerializeField]
+        bool enabled = true;
         [SerializeField, Range(1, 100)]
         int width = 10;
         [SerializeField, Range(1, 100)]
@@ -30,15 +32,17 @@ namespace TheCursedBroom.Level {
             bounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
             oldBounds.size = (2 * extends) + new Vector3Int(0, 0, 1);
 
-            center = newCenter;
-            bounds.position = center - extends;
-            foreach (var position in bounds.allPositionsWithin) {
-                onLoadTiles?.Invoke(position);
+            if (enabled) { 
+                center = newCenter;
+                bounds.position = center - extends;
+                foreach (var position in bounds.allPositionsWithin) {
+                    onLoadTiles?.Invoke(position);
+                }
             }
         }
         public int UpdateTiles(Vector3Int newCenter) {
             tilesChangedCount = 0;
-            if (center != newCenter) {
+            if (enabled && center != newCenter) {
                 oldBounds.position = center - extends;
                 center = newCenter;
                 bounds.position = center - extends;
