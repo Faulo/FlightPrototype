@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 340443861902602420, guid: 9c6eb28ee87a50540b730800741ce80e,
         type: 3}
       propertyPath: m_Name
-      value: P_Level_Game
+      value: P_Map_Game
       objectReference: {fileID: 0}
     - target: {fileID: 340443861902602422, guid: 9c6eb28ee87a50540b730800741ce80e,
         type: 3}
@@ -101,6 +101,16 @@ PrefabInstance:
     - target: {fileID: 340443861902602423, guid: 9c6eb28ee87a50540b730800741ce80e,
         type: 3}
       propertyPath: shadowBounds.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200419556137564087, guid: 9c6eb28ee87a50540b730800741ce80e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200419557316939491, guid: 9c6eb28ee87a50540b730800741ce80e,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
