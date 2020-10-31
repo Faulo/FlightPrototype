@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2503596933193540185, guid: b1d3a20ee8f94bf418d6add4bd048e27,
-        type: 3}
-      propertyPath: observedLight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3936557095224330303, guid: b1d3a20ee8f94bf418d6add4bd048e27,
         type: 3}
       propertyPath: m_DeadZoneWidth
@@ -84,23 +79,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3936557096076248658, guid: b1d3a20ee8f94bf418d6add4bd048e27,
         type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936557096076248658, guid: b1d3a20ee8f94bf418d6add4bd048e27,
-        type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3936557096076248661, guid: b1d3a20ee8f94bf418d6add4bd048e27,
         type: 3}
       propertyPath: m_Name
-      value: Main Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936557096076248663, guid: b1d3a20ee8f94bf418d6add4bd048e27,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
+      value: P_Camera_MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3936557096076248663, guid: b1d3a20ee8f94bf418d6add4bd048e27,
         type: 3}
