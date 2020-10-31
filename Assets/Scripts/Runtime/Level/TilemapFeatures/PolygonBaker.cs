@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level.TilemapFeatures {
@@ -41,12 +42,13 @@ namespace TheCursedBroom.Level.TilemapFeatures {
         }
 
         void TilemapChangeListener(TilemapChangeData data) {
-            for (int i = 0; i < data.loadPositions.Count; i++) {
+            for (int i = 0; i < data.loadCount; i++) {
                 if (containedTilesSet.Contains(data.loadTiles[i])) {
                     positions.Add(data.loadPositions[i]);
                 }
             }
-            for (int i = 0; i < data.discardPositions.Count; i++) {
+            Assert.AreEqual(data.discardTiles.Length, data.discardCount);
+            for (int i = 0; i < data.discardCount; i++) {
                 if (containedTilesSet.Contains(data.discardTiles[i])) {
                     positions.Remove(data.discardPositions[i]);
                 }
