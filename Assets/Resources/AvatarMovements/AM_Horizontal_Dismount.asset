@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f3b398c9e797b94490c824506d7d2cb, type: 3}
-  m_Name: AM_Horizontal_Plummet
+  m_Name: AM_Horizontal_Dismount
   m_EditorClassIdentifier: 
   intentionFilter:
     serializedVersion: 2
@@ -36,10 +36,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maximumSpeed: 0
+  maximumSpeed: 10
   kinematicCutoffSpeed: 5
-  accelerationDuration: 0.3
-  decelerationDuration: 1
+  accelerationDuration: 1
+  decelerationDuration: 0.3
   turnAroundImmediately: 0
   breakWhenNoInput: 0
   useGroundFriction: 0
