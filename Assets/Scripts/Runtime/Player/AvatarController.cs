@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Slothsoft.UnityExtensions;
 using TheCursedBroom.Level;
 using UnityEngine;
@@ -25,6 +23,8 @@ namespace TheCursedBroom.Player {
         AvatarAnimator physicsAnimator = default;
         [SerializeField, Expandable]
         public PhysicsEventEmitter physics = default;
+        [SerializeField, Expandable]
+        public AudioReverbFilter audioReverbFilter = default;
 
         public AvatarAnimations currentAnimation {
             set {
@@ -39,6 +39,8 @@ namespace TheCursedBroom.Player {
         AvatarState saveState = default;
         [SerializeField, Expandable]
         AvatarState loadState = default;
+        [SerializeField]
+        Vector2 loadPosition = Vector2.zero;
         [SerializeField]
         Vector2 loadVelocity = Vector2.up;
 
@@ -108,7 +110,6 @@ namespace TheCursedBroom.Player {
 
         void Start() {
             instance = this;
-            grounds = groundedCheck.GetGrounds();
             currentState.EnterState();
 
             LevelController.instance.observedObjects.Add(state);
@@ -119,13 +120,13 @@ namespace TheCursedBroom.Player {
         void Update() {
             currentState.UpdateState();
             if (intendsReset) {
+                intendsReset = false;
                 onReset?.Invoke(gameObject);
             }
         }
 
         void FixedUpdate() {
             UpdateRumbling();
-            grounds = groundedCheck.GetGrounds();
 
             var newState = currentState.CalculateNextState();
 
@@ -141,17 +142,9 @@ namespace TheCursedBroom.Player {
             currentState.EnterState();
         }
 
-        IReadOnlyList<Ground> grounds;
-        public bool isGrounded => grounds
-            .Any();
-        public float groundKinematicFriction => grounds
-            .Select(ground => ground.kinematicFriction)
-            .DefaultIfEmpty(1)
-            .Min();
-        public float groundStaticFriction => grounds
-            .Select(ground => ground.staticFriction)
-            .DefaultIfEmpty(1)
-            .Min();
+        public bool isGrounded => groundedCheck.isGrounded;
+        public float groundKinematicFriction => groundedCheck.kinematicFriction;
+        public float groundStaticFriction => groundedCheck.staticFriction;
 
         public void CastSave() {
             if (currentState != saveState) {
@@ -175,7 +168,8 @@ namespace TheCursedBroom.Player {
                 position.x += x;
             }
         }
-        AvatarSaveState state = new AvatarSaveState();
+
+        readonly AvatarSaveState state = new AvatarSaveState();
 
         public void StateSave() {
             state.position = transform.position;
@@ -183,13 +177,11 @@ namespace TheCursedBroom.Player {
         }
         public void StateLoad() {
             var delta = state.position - transform.position;
-            transform.position = state.position;
+            transform.position = state.position + (Vector3)loadPosition;
             rotationAngle = state.rotationAngle;
 
             attachedRigidbody.velocity = loadVelocity;
             attachedRigidbody.angularVelocity = 0;
-
-            LevelController.instance.RefreshAllTiles();
 
             onTeleport?.Invoke(gameObject, delta);
         }

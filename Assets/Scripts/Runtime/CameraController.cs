@@ -32,17 +32,19 @@ namespace TheCursedBroom {
             observedCamera.backgroundColor = targetColor;
         }
         Coroutine changeLightRoutine;
-        public void ChangeMainLightIntensityTo(float targetIntensity, float duration) {
+        public void ChangeMainLightTo(float targetIntensity, Color targetColor, float duration) {
             if (changeLightRoutine != null) {
                 StopCoroutine(changeLightRoutine);
             }
-            changeLightRoutine = StartCoroutine(CreateIntensityChange(targetIntensity, duration));
+            changeLightRoutine = StartCoroutine(CreateMainLightChange(targetIntensity, targetColor, duration));
         }
-        IEnumerator CreateIntensityChange(float targetIntensity, float duration) {
+        IEnumerator CreateMainLightChange(float targetIntensity, Color targetColor, float duration) {
             float timer = duration;
+            var startColor = observedLight.color;
             float startIntensity = observedLight.intensity;
             while (timer > 0) {
                 timer -= Time.deltaTime;
+                observedLight.color = Color.Lerp(startColor, targetColor, 1 - (timer / duration));
                 observedLight.intensity = Mathf.Lerp(startIntensity, targetIntensity, 1 - (timer / duration));
                 yield return null;
             }

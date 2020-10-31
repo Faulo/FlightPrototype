@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ChangeBackgroundColor_Meadow
   m_EditorClassIdentifier: 
   targetColor: {r: 0.24000001, g: 0.5702829, b: 0.8, a: 1}
-  changeDuration: 2
+  changeDuration: 1

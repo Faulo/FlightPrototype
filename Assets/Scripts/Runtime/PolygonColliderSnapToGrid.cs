@@ -18,14 +18,16 @@ namespace TheCursedBroom {
         PolygonCollider2D[] m_polygons;
 
         void Update() {
-            foreach (var polygon in polygons) {
-                polygon.offset = SnapToGrid(polygon.offset);
-                for (int i = 0; i < polygon.pathCount; i++) {
-                    var path = polygon.GetPath(i);
-                    for (int j = 0; j < path.Length; j++) {
-                        path[j] = SnapToGrid(path[j]);
+            if (!Application.isPlaying) {
+                foreach (var polygon in polygons) {
+                    polygon.offset = SnapToGrid(polygon.offset);
+                    for (int i = 0; i < polygon.pathCount; i++) {
+                        var path = polygon.GetPath(i);
+                        for (int j = 0; j < path.Length; j++) {
+                            path[j] = SnapToGrid(path[j]);
+                        }
+                        polygon.SetPath(i, CleanPath(path).ToList());
                     }
-                    polygon.SetPath(i, CleanPath(path).ToList());
                 }
             }
         }

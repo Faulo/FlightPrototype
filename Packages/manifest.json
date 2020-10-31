@@ -5,11 +5,12 @@
     "com.unity.2d.tilemap.extras": "1.6.1-preview",
     "com.unity.cinemachine": "2.6.3",
     "com.unity.inputsystem": "1.0.0",
+    "com.unity.recorder": "2.4.0-preview.1",
     "com.unity.render-pipelines.universal": "7.5.1",
-    "com.unity.test-framework": "1.1.16",
-    "com.unity.textmeshpro": "2.1.1",
+    "com.unity.test-framework": "1.1.18",
+    "com.unity.textmeshpro": "2.1.3",
     "com.unity.ugui": "1.0.0",
-    "net.slothsoft.unity-extensions": "https://github.com/Faulo/UnityExtensions.git",
+    "net.slothsoft.unity-extensions": "https://github.com/Faulo/UnityExtensions.git#0.1.16",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.audio": "1.0.0",
     "com.unity.modules.director": "1.0.0",
@@ -21,7 +22,6 @@
     "com.unity.modules.screencapture": "1.0.0",
     "com.unity.modules.tilemap": "1.0.0",
     "com.unity.modules.ui": "1.0.0",
-    "com.unity.modules.uielements": "1.0.0",
-    "com.unity.modules.umbra": "1.0.0"
+    "com.unity.modules.uielements": "1.0.0"
   }
 }

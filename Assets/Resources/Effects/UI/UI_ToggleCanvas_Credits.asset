@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fa5d841817c7c4793ded313d71d325, type: 3}
+  m_Name: UI_ToggleCanvas_Credits
+  m_EditorClassIdentifier: 
+  canvasPrefab: {fileID: 4578575583415932181, guid: 33d3caa84b1d8454e90b276d3cd3c990,
+    type: 3}
+  autoSelectFirst: 1

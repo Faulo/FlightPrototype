@@ -97,9 +97,9 @@ MonoBehaviour:
   requiredYSpeed: -2
   boostGatheringFrameCount: 1
   boostRotationDuration: 0.15
-  boostExecutionFrameMultiplier: 4
-  boostExecutionSpeed: 1
-  boostDrag: 0.0625
+  boostExecutionFrameMultiplier: 5
+  boostExecutionSpeed: 1.5
+  boostDrag: 0.375
   onBoost:
     m_PersistentCalls:
       m_Calls:
