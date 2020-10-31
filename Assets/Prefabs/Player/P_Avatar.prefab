@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorState: 64
-  gravity: 1
+  gravity: 0.75
   drag: 0
   allowPhysicsRotation: 0
   allowSave: 0

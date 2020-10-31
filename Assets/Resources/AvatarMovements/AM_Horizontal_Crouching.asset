@@ -38,9 +38,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   maximumSpeed: 0
   kinematicCutoffSpeed: 5
-  accelerationDuration: 0.3
-  decelerationDuration: 0.8
-  turnAroundImmediately: 1
+  accelerationDuration: 0.25
+  decelerationDuration: 1
+  turnAroundImmediately: 0
   breakWhenNoInput: 0
   useGroundFriction: 1
   allowTurning: 1
