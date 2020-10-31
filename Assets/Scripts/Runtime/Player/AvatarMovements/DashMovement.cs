@@ -75,11 +75,9 @@ namespace TheCursedBroom.Player.AvatarMovements {
                 if (!allowHorizontalDirection) {
                     if (rotation == 0) {
                         rotation += facing * 360 / directionRange * (angle < 180 ? 1 : -1);
-                        Debug.Log($"{angle} => {rotation}");
                     }
                     if (rotation == 180) {
                         rotation += facing * 360 / directionRange * (angle < 180 ? 1 : -1);
-                        Debug.Log($"{angle} => {rotation}");
                     }
                 }
             }
