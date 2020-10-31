@@ -396,6 +396,17 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e323b54c-3c84-403a-b132-9732cf9e31fe"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""0d0789bd-39fa-495a-b09b-5493c089ac7f"",
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
@@ -412,6 +423,17 @@ namespace TheCursedBroom.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
+                    ""action"": ""Load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcea0274-30f9-44b8-b039-6d6ae5501765"",
+                    ""path"": ""<Keyboard>/f9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Load"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

@@ -51,6 +51,14 @@ namespace TheCursedBroom.Level {
             }
         }
         void OnEnable() {
+            colliderChange.changeCountMaximum = ownerLevel.colliderBounds.tileCount;
+            rendererChange.changeCountMaximum = ownerLevel.rendererBounds.tileCount;
+            shadowChange.changeCountMaximum = ownerLevel.shadowBounds.tileCount;
+
+            colliderChange.Clear();
+            rendererChange.Clear();
+            shadowChange.Clear();
+
             ownerLevel.colliderBounds.onLoadTiles += LoadColliderTile;
             ownerLevel.colliderBounds.onDiscardTiles += DiscardColliderTile;
             ownerLevel.rendererBounds.onLoadTiles += LoadRendererTile;
@@ -69,28 +77,19 @@ namespace TheCursedBroom.Level {
 
         public void RegenerateTilemap() {
             if (colliderChange.hasChanged) {
+                colliderChange.Finish();
                 onColliderChange?.Invoke(colliderChange);
                 colliderChange.Clear();
             }
             if (rendererChange.hasChanged) {
+                rendererChange.Finish();
                 onRendererChange?.Invoke(rendererChange);
                 rendererChange.Clear();
             }
             if (shadowChange.hasChanged) {
+                shadowChange.Finish();
                 onShadowChange?.Invoke(shadowChange);
                 shadowChange.Clear();
-            }
-        }
-
-        void TryCreateChange(TilemapChangeData data, Vector3Int[] positions, Action<TilemapChangeData> callback) {
-            for (int i = 0; i < positions.Length; i++) {
-                if (TryGetTileFromStorage(positions[i], out var tile)) {
-                    data.AddLoad(positions[i], tile);
-                }
-            }
-            if (colliderChange.hasChanged) {
-                callback?.Invoke(data);
-                data.Clear();
             }
         }
 

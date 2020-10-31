@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionSource: 1
   directionsNormalized: 1
-  directionRange: 8
+  directionRange: 12
   directionBaseAngle: 0
   allowVerticalDirection: 0
+  allowHorizontalDirection: 0
   speedMode: 0
-  initialSpeed: 15
+  initialSpeed: 14

@@ -8,9 +8,11 @@ namespace TheCursedBroom.Player.AvatarMovements {
         AnimationCurve intentionFilter = default;
         [SerializeField, Range(0, 100)]
         float maximumSpeed = 10;
-        [SerializeField, Range(0, 1)]
+        [SerializeField, Range(0, 100)]
+        float kinematicCutoffSpeed = 1;
+        [SerializeField, Range(0, 10)]
         float accelerationDuration = 1;
-        [SerializeField, Range(0, 1)]
+        [SerializeField, Range(0, 10)]
         float decelerationDuration = 1;
         [SerializeField]
         bool turnAroundImmediately = true;
@@ -45,10 +47,11 @@ namespace TheCursedBroom.Player.AvatarMovements {
                     ? accelerationDuration
                     : decelerationDuration;
 
+                bool isKinematic = Math.Abs(velocity.x) > kinematicCutoffSpeed;
                 if (useGroundFriction && avatar.isGrounded) {
-                    duration /= isAccelerating
-                        ? avatar.groundStaticFriction
-                        : avatar.groundKinematicFriction;
+                    duration /= isKinematic
+                        ? avatar.groundKinematicFriction
+                        : avatar.groundStaticFriction;
                 }
 
                 velocity.x = Mathf.SmoothDamp(velocity.x, targetSpeed, ref acceleration, duration);

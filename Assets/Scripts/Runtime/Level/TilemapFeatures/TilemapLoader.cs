@@ -22,8 +22,8 @@ namespace TheCursedBroom.Level.TilemapFeatures {
         }
 
         void TilemapChangeListener(TilemapChangeData data) {
-            observedComponent.SetTiles(data.discardPositions.ToArray(), new TileBase[data.discardTiles.Count]);
-            observedComponent.SetTiles(data.loadPositions.ToArray(), data.loadTiles.ToArray());
+            observedComponent.SetTiles(data.discardPositions, new TileBase[data.discardCount]);
+            observedComponent.SetTiles(data.loadPositions, data.loadTiles);
         }
     }
 }

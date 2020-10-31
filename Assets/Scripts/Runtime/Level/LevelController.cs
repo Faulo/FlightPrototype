@@ -55,7 +55,7 @@ namespace TheCursedBroom.Level {
         void Start() {
             onStart.Invoke(gameObject);
         }
-        void FixedUpdate() {
+        void Update() {
             if (currentTilemapIndex < map.tilemapControllers.Length * pauseBetweenTilemapUpdates) {
                 if (currentTilemapIndex % pauseBetweenTilemapUpdates == 0) {
                     map.tilemapControllers[currentTilemapIndex / pauseBetweenTilemapUpdates].RegenerateTilemap();

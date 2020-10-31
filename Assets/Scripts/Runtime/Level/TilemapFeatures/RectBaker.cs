@@ -31,12 +31,12 @@ namespace TheCursedBroom.Level.TilemapFeatures {
         }
 
         void TilemapChangeListener(TilemapChangeData data) {
-            for (int i = 0; i < data.loadPositions.Count; i++) {
+            for (int i = 0; i < data.loadCount; i++) {
                 if (containedTilesSet.Contains(data.loadTiles[i])) {
                     positions.Add(data.loadPositions[i]);
                 }
             }
-            for (int i = 0; i < data.discardPositions.Count; i++) {
+            for (int i = 0; i < data.discardCount; i++) {
                 if (containedTilesSet.Contains(data.discardTiles[i])) {
                     positions.Remove(data.discardPositions[i]);
                 }

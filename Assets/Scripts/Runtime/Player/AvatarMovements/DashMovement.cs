@@ -15,7 +15,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
         [Header("Dash")]
         [SerializeField]
         DirectionMode directionSource = default;
-        [SerializeField, Tooltip("Round input to rotationDirections")]
+        [SerializeField, Tooltip("Round input to directionRange")]
         bool directionsNormalized = true;
         [SerializeField, Range(1, 360)]
         int directionRange = 8;
@@ -23,6 +23,8 @@ namespace TheCursedBroom.Player.AvatarMovements {
         int directionBaseAngle = 0;
         [SerializeField, Tooltip("Whether straight up or down is possible")]
         bool allowVerticalDirection = true;
+        [SerializeField, Tooltip("Whether straight left or right is possible")]
+        bool allowHorizontalDirection = true;
         [SerializeField]
         VelocityMode speedMode = default;
         [SerializeField, Range(-100, 100)]
@@ -51,18 +53,31 @@ namespace TheCursedBroom.Player.AvatarMovements {
 
             direction.x = Mathf.Abs(direction.x) * facing;
 
-            int rotation = Mathf.RoundToInt(AngleUtil.DirectionalAngle(direction));
+            float angle = AngleUtil.DirectionalAngle(direction);
+            int rotation = Mathf.RoundToInt(angle);
 
             if (directionsNormalized) {
                 rotation += directionBaseAngle;
                 rotation = Mathf.RoundToInt((float)rotation * directionRange / 360) * 360 / directionRange;
                 rotation -= directionBaseAngle;
+                while (rotation < 0) {
+                    rotation += 360;
+                }
+                rotation %= 360;
                 if (!allowVerticalDirection) {
                     if (rotation == 90) {
                         rotation -= facing * 360 / directionRange;
                     }
                     if (rotation == 270) {
                         rotation += facing * 360 / directionRange;
+                    }
+                }
+                if (!allowHorizontalDirection) {
+                    if (rotation == 0) {
+                        rotation += facing * 360 / directionRange * (angle <= 180 ? 1 : -1);
+                    }
+                    if (rotation == 180) {
+                        rotation += facing * 360 / directionRange * (angle <= 180 ? 1 : -1);
                     }
                 }
             }

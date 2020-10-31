@@ -22,30 +22,44 @@ namespace TheCursedBroom.Level {
         BoundsInt bounds;
         BoundsInt oldBounds;
 
-        public void PrepareTiles(Vector3Int newCenter) {
-            center = newCenter;
-            UpdateBounds();
-            foreach (var position in bounds.allPositionsWithin) {
-                onLoadTiles?.Invoke(position);
-            }
-        }
-        public int UpdateTiles(Vector3Int newCenter) {
-            int tilesChangedCount = 0;
-            oldBounds = bounds;
-            center = newCenter;
+        public void PrepareTiles(Vector3Int position) {
+            center = position;
             UpdateBounds();
 
-            foreach (var position in oldBounds.allPositionsWithin) {
-                if (!bounds.Contains(position)) {
-                    onDiscardTiles?.Invoke(position);
-                    tilesChangedCount++;
+            for (int x = bounds.xMin; x < bounds.xMax; x++) {
+                position.x = x;
+                for (int y = bounds.yMin; y < bounds.yMax; y++) {
+                    position.y = y;
+                    onLoadTiles?.Invoke(position);
+                }
+            }
+        }
+
+        public int UpdateTiles(Vector3Int position) {
+            int tilesChangedCount = 0;
+            oldBounds = bounds;
+            center = position;
+            UpdateBounds();
+
+            for (int x = oldBounds.xMin; x < oldBounds.xMax; x++) {
+                position.x = x;
+                for (int y = oldBounds.yMin; y < oldBounds.yMax; y++) {
+                    position.y = y;
+                    if (!bounds.Contains(position)) {
+                        onDiscardTiles?.Invoke(position);
+                        tilesChangedCount++;
+                    }
                 }
             }
 
-            foreach (var position in bounds.allPositionsWithin) {
-                if (!oldBounds.Contains(position)) {
-                    onLoadTiles?.Invoke(position);
-                    tilesChangedCount++;
+            for (int x = bounds.xMin; x < bounds.xMax; x++) {
+                position.x = x;
+                for (int y = bounds.yMin; y < bounds.yMax; y++) {
+                    position.y = y;
+                    if (!oldBounds.Contains(position)) {
+                        onLoadTiles?.Invoke(position);
+                        tilesChangedCount++;
+                    }
                 }
             }
 
@@ -54,10 +68,9 @@ namespace TheCursedBroom.Level {
 
         void UpdateBounds() {
             bounds.position = center - extends;
-            bounds.size = 2 * extends;
-            if (enabled) {
-                bounds.size += new Vector3Int(0, 0, 1);
-            }
+            bounds.size = enabled
+                ? (2 * extends) + new Vector3Int(0, 0, 1)
+                : Vector3Int.zero;
         }
 
         public void OnDrawGizmos() {
