@@ -18,6 +18,10 @@ MonoBehaviour:
   spatialBlend: 0.8
   mininumPitch: 0.9
   maxmimumPitch: 1.1
+  mininumVolume: 0.95
+  maxmimumVolume: 1.05
   loop: 0
   timeOffset: 0
   playDuration: 0
+  isBackgroundMusic: 0
+  crossFadeDuration: 0
