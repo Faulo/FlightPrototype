@@ -1077,7 +1077,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   transitionFrameCount: 20
-  nextState: {fileID: 808840777}
+  nextState: {fileID: 881665436}
 --- !u!1 &3089225555766872605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,8 +1141,8 @@ MonoBehaviour:
   currentState: {fileID: 808840777}
   saveState: {fileID: 2565497426629864672}
   loadState: {fileID: 8118117268162044111}
-  loadPosition: {x: 0, y: 0.5}
-  loadVelocity: {x: 0, y: 5}
+  loadPosition: {x: 0, y: 0}
+  loadVelocity: {x: 0, y: 3}
   groundedCheck: {fileID: 136339116203656581}
   intendedFacing: 1
   intendedMovement: 0
