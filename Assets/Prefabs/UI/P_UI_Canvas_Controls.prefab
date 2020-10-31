@@ -128,10 +128,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "This game is meant to be played with a controller,\nbut here's some backup
-    keyboard bindings:\n\nMove: Left stick / Arrow keys\nJump: A button / Space\nGlide:
-    B button / Ctrl\nSave: D-pad \u25BC / F5\nLoad: D-pad \u25B2 / F9\nMenu: Start
-    / Esc"
+  m_text: 'This game is meant to be played with a controller,
+
+    but here''s some
+    backup keyboard bindings:
+
+
+    Move: Left stick / Arrow keys
+
+    Jump: A button
+    / Space
+
+    Glide: B button / Ctrl
+
+    Save: D-pad down / F5
+
+    Load: D-pad
+    up / F9
+
+    Menu: Start button / Esc'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3bdf652714b6d9948bfa9e7dc1d5db11, type: 2}
   m_sharedMaterial: {fileID: -1943800998573714843, guid: 3bdf652714b6d9948bfa9e7dc1d5db11,
