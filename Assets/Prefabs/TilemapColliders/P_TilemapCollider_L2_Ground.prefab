@@ -81,8 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba63c53e7dd571f49b0d98da2add6c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staticFriction: 1
-  kinematicFriction: 1
+  staticFriction: 6
+  kinematicFriction: 4
 --- !u!114 &5788889391037929410
 MonoBehaviour:
   m_ObjectHideFlags: 0
