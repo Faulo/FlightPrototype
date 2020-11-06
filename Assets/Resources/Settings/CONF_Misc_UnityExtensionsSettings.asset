@@ -29,6 +29,6 @@ MonoBehaviour:
   projectFileSettings:
   - affectedAssemblies:
     - {fileID: 5897886265953266890, guid: 313c938144d4b9a49930360763ccdd2e, type: 3}
-    setCSharpVersionTo: 7.3
+    setCSharpVersionTo: 8.0
     m_setWarningLevelTo: 4
   addNamespaceToCSharpFiles: 1
