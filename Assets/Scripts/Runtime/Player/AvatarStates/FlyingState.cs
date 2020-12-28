@@ -7,6 +7,8 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class FlyingState : AvatarState {
         [Header("Flying")]
+        [SerializeField, Range(0, 100)]
+        int minimumFlyingFrameCount = 1;
         [SerializeField]
         bool wallMustBeAirborne = true;
         [SerializeField, Range(0, 1)]
@@ -14,12 +16,14 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Range(0, 1)]
         float wallMaximumY = 0.5f;
 
+        int flyingTimer;
         bool hasCollided;
         public override void EnterState() {
             base.EnterState();
 
             avatar.broom.isFlying = true;
 
+            flyingTimer = 0;
             hasCollided = false;
             avatar.physics.onCollisionEnter += CollisionListener;
 
@@ -29,6 +33,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
+            flyingTimer++;
             avatar.UpdateMovement();
         }
 
@@ -71,6 +76,9 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override AvatarState CalculateNextState() {
             if (hasCollided) {
                 return wallCollisionState;
+            }
+            if (flyingTimer < minimumFlyingFrameCount) {
+                return this;
             }
             if (!avatar.intendsGlide) {
                 return rejectsGlideState;

@@ -10,6 +10,8 @@ namespace TheCursedBroom.Player.AvatarStates {
         int minimumJumpFrameCount = 1;
         [SerializeField, Range(0, 100)]
         int maximumJumpFrameCount = 1;
+        [SerializeField, Range(0, 2)]
+        float jumpBoostMultiplier = 1;
         float jumpStartSpeed {
             get {
                 float maximumJumpDuration = maximumJumpFrameCount * Time.fixedDeltaTime;
@@ -18,11 +20,18 @@ namespace TheCursedBroom.Player.AvatarStates {
                 return (up - down) / maximumJumpDuration;
             }
         }
-        Vector2 jumpStartVelocity => new Vector2(avatar.velocity.x, jumpStartSpeed);
+        Vector2 jumpStartVelocity => new Vector2(avatar.velocity.x * jumpBoostMultiplier, jumpStartSpeed);
 
-        [SerializeField, Range(0, 10), Tooltip("The vertical speed where/when jumping stops")]
-        float jumpStopSpeed = 0;
-        Vector2 jumpStopVelocity => new Vector2(avatar.velocity.x, jumpStopSpeed);
+        [SerializeField, Range(-10, 10), Tooltip("The vertical speed where jumping stops")]
+        float jumpAbortSpeed = 0;
+        Vector2 jumpStopVelocity => new Vector2(avatar.velocity.x, jumpResetSpeed);
+
+        [SerializeField, Range(0, 10)]
+        float rejectJumpGravity = 1;
+        [SerializeField]
+        bool resetVelocityOnExit = false;
+        [SerializeField, Range(-10, 10), Tooltip("The vertical speed when jumping stops")]
+        float jumpResetSpeed = 0;
 
         int jumpTimer = 0;
         public override void EnterState() {
@@ -39,6 +48,9 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.FixedUpdateState();
 
             jumpTimer++;
+            if (!avatar.intendsJump) {
+                avatar.gravityScale = rejectJumpGravity;
+            }
 
             avatar.UpdateMovement();
         }
@@ -46,14 +58,18 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void ExitState() {
             base.ExitState();
 
-            avatar.velocity = jumpStopVelocity;
+            if (resetVelocityOnExit) {
+                avatar.velocity = jumpStopVelocity;
+            }
         }
 
         [Header("Transitions")]
         [SerializeField, Expandable]
-        AvatarState intendsGlideState = default;
+        AvatarState rejectsJumpState = default;
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
+        [SerializeField, Expandable]
+        AvatarState intendsGlideState = default;
         public override AvatarState CalculateNextState() {
             if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
@@ -62,9 +78,9 @@ namespace TheCursedBroom.Player.AvatarStates {
                 return this;
             }
             if (!avatar.intendsJump) {
-                return rejectsGlideState;
+                return rejectsJumpState;
             }
-            if (avatar.velocity.y < jumpStopSpeed) {
+            if (avatar.velocity.y < jumpAbortSpeed) {
                 return rejectsGlideState;
             }
             if (jumpTimer < maximumJumpFrameCount) {

@@ -295,11 +295,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maximumJumpHeight: 3.5
-  minimumJumpFrameCount: 8
+  minimumJumpFrameCount: 15
   maximumJumpFrameCount: 60
-  jumpStopSpeed: 2
-  intendsGlideState: {fileID: 3309947060964344441}
+  jumpBoostMultiplier: 1.5
+  jumpAbortSpeed: 4
+  rejectJumpGravity: 2
+  resetVelocityOnExit: 1
+  jumpResetSpeed: 2
+  rejectsJumpState: {fileID: 4325773687270416393}
   rejectsGlideState: {fileID: 4325773687270416393}
+  intendsGlideState: {fileID: 3309947060964344441}
 --- !u!1 &1740971981
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +443,7 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
+  minimumFlyingFrameCount: 15
   wallMustBeAirborne: 1
   wallMinimumX: 0.5
   wallMaximumY: 0.5
@@ -738,7 +744,7 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
-  minimumCrouchFrameCount: 8
+  minimumCrouchFrameCount: 10
   intendsGlideState: {fileID: 3309947060964344441}
   intendsJumpState: {fileID: 1713786831}
   notGroundedState: {fileID: 881665436}
@@ -903,9 +909,9 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
-  minimumDashFrameCount: 8
+  minimumDashFrameCount: 5
   intendsGlideState: {fileID: 1836684148}
-  rejectsGlideState: {fileID: 1740971983}
+  rejectsGlideState: {fileID: 1836684148}
 --- !u!1 &2327387785658773955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,8 +1848,9 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
-  minimumHangFrameCount: 0
-  maximumHangFrameCount: 25
+  minimumHangFrameCount: 15
+  maximumHangFrameCount: 30
+  rejectJumpGravity: 1
   intendsGlideState: {fileID: 3309947060964344441}
   rejectsGlideState: {fileID: 881665436}
 --- !u!1 &6206077231400271089
@@ -1914,7 +1921,7 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
-  minimumCollisionFrameCount: 1
+  minimumCollisionFrameCount: 0
   maximumCollisionFrameCount: 30
   intendsJumpState: {fileID: 5260698245157940693}
   rejectsJumpState: {fileID: 6562811889961319448}
@@ -1998,9 +2005,9 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
-  minimumDashFrameCount: 8
+  minimumDashFrameCount: 10
   intendsGlideState: {fileID: 1836684148}
-  rejectsGlideState: {fileID: 1740971983}
+  rejectsGlideState: {fileID: 1836684148}
 --- !u!1 &7303736623242318089
 GameObject:
   m_ObjectHideFlags: 0
