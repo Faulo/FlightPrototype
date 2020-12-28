@@ -15,6 +15,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         float wallMinimumX = 0.5f;
         [SerializeField, Range(0, 1)]
         float wallMaximumY = 0.5f;
+        [SerializeField]
+        bool abortWhenGrounded = true;
+        [SerializeField, Range(0, 10)]
+        float abortSpeed = 1;
 
         int flyingTimer;
         bool hasCollided;
@@ -72,6 +76,8 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
         [SerializeField, Expandable]
+        AvatarState isGroundedState = default;
+        [SerializeField, Expandable]
         AvatarState wallCollisionState = default;
         public override AvatarState CalculateNextState() {
             if (hasCollided) {
@@ -79,6 +85,9 @@ namespace TheCursedBroom.Player.AvatarStates {
             }
             if (flyingTimer < minimumFlyingFrameCount) {
                 return this;
+            }
+            if (abortWhenGrounded && avatar.isGrounded && avatar.velocity.magnitude <= abortSpeed) {
+                return isGroundedState;
             }
             if (!avatar.intendsGlide) {
                 return rejectsGlideState;

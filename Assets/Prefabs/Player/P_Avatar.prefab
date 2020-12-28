@@ -447,7 +447,10 @@ MonoBehaviour:
   wallMustBeAirborne: 1
   wallMinimumX: 0.5
   wallMaximumY: 0.5
+  abortWhenGrounded: 1
+  abortSpeed: 8
   rejectsGlideState: {fileID: 1740971983}
+  isGroundedState: {fileID: 1740971983}
   wallCollisionState: {fileID: 4267501010207170452}
 --- !u!1 &347126880693443701
 GameObject:
