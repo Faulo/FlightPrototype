@@ -8,6 +8,8 @@ namespace TheCursedBroom.Player.AvatarStates {
         int minimumHangFrameCount = 1;
         [SerializeField, Range(0, 100)]
         int maximumHangFrameCount = 1;
+        [SerializeField, Range(0, 10)]
+        float rejectJumpGravity = 1;
 
         int hangTimer;
         public override void EnterState() {
@@ -23,6 +25,9 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.FixedUpdateState();
 
             hangTimer++;
+            if (!avatar.intendsJump) {
+                avatar.gravityScale = rejectJumpGravity;
+            }
 
             avatar.UpdateMovement();
         }

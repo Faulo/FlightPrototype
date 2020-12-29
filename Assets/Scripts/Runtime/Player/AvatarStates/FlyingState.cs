@@ -7,19 +7,27 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class FlyingState : AvatarState {
         [Header("Flying")]
+        [SerializeField, Range(0, 100)]
+        int minimumFlyingFrameCount = 1;
         [SerializeField]
         bool wallMustBeAirborne = true;
         [SerializeField, Range(0, 1)]
         float wallMinimumX = 0.5f;
         [SerializeField, Range(0, 1)]
         float wallMaximumY = 0.5f;
+        [SerializeField]
+        bool abortWhenGrounded = true;
+        [SerializeField, Range(0, 10)]
+        float abortSpeed = 1;
 
+        int flyingTimer;
         bool hasCollided;
         public override void EnterState() {
             base.EnterState();
 
             avatar.broom.isFlying = true;
 
+            flyingTimer = 0;
             hasCollided = false;
             avatar.physics.onCollisionEnter += CollisionListener;
 
@@ -29,6 +37,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
+            flyingTimer++;
             avatar.UpdateMovement();
         }
 
@@ -67,10 +76,18 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
         [SerializeField, Expandable]
+        AvatarState isGroundedState = default;
+        [SerializeField, Expandable]
         AvatarState wallCollisionState = default;
         public override AvatarState CalculateNextState() {
             if (hasCollided) {
                 return wallCollisionState;
+            }
+            if (flyingTimer < minimumFlyingFrameCount) {
+                return this;
+            }
+            if (abortWhenGrounded && avatar.isGrounded && avatar.velocity.magnitude <= abortSpeed) {
+                return isGroundedState;
             }
             if (!avatar.intendsGlide) {
                 return rejectsGlideState;
