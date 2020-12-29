@@ -160,6 +160,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   resetVelocityOnGround: 1
+  rechargeBoost: 1
+  rechargeBoostSpeed: 15
   intendsGlideState: {fileID: 3309947060964344441}
   isGroundedAndMovingState: {fileID: 808840777}
   isGroundedState: {fileID: 4629324005851000664}

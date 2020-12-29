@@ -6,6 +6,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Airborne")]
         [SerializeField]
         bool resetVelocityOnGround = true;
+        [SerializeField]
+        bool rechargeBoost = false;
+        [SerializeField, Range(0, 100)]
+        float rechargeBoostSpeed = 0;
 
         public override void EnterState() {
             base.EnterState();
@@ -16,6 +20,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         }
         public override void FixedUpdateState() {
             base.FixedUpdateState();
+
+            if (rechargeBoost && avatar.velocity.magnitude > rechargeBoostSpeed) {
+                avatar.broom.canBoost = true;
+            }
 
             avatar.UpdateMovement();
         }
