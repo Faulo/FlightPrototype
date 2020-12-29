@@ -6,15 +6,19 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Crouching")]
         [SerializeField, Range(0, 100)]
         int minimumCrouchFrameCount = 1;
+        [SerializeField, Range(0, 100)]
+        int startJumpFrameCount = 1;
+        [SerializeField, Range(0, 100)]
+        int coyoteTimeFrameCount = 1;
 
-        bool intendedJump;
+        bool intendsJump;
         int crouchDuration;
 
         public override void EnterState() {
             base.EnterState();
 
             crouchDuration = 0;
-            intendedJump = avatar.intendsJumpStart;
+            intendsJump = avatar.intendsJumpStart;
 
             avatar.broom.isFlying = false;
             avatar.broom.canBoost = true;
@@ -25,6 +29,9 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.FixedUpdateState();
 
             crouchDuration++;
+            if (avatar.intendsJumpStart) {
+                intendsJump = true;
+            }
 
             avatar.UpdateMovement();
         }
@@ -46,16 +53,13 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (!avatar.isGrounded && avatar.intendsGlide) {
                 return intendsGlideState;
             }
-            if (crouchDuration < minimumCrouchFrameCount) {
-                return this;
-            }
-            if (intendedJump || avatar.intendsJumpStart) {
+            if (crouchDuration >= startJumpFrameCount && intendsJump) {
                 return intendsJumpState;
             }
-            if (!avatar.isGrounded) {
+            if (crouchDuration >= coyoteTimeFrameCount && !avatar.isGrounded) {
                 return notGroundedState;
             }
-            if (!avatar.intendsCrouch) {
+            if (crouchDuration >= minimumCrouchFrameCount && !avatar.intendsCrouch) {
                 return rejectsCrouchState;
             }
             return this;

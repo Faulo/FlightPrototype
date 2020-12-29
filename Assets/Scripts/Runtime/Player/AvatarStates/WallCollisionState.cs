@@ -39,6 +39,9 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (collisionTimer < minimumCollisionFrameCount) {
                 return this;
             }
+            if (!avatar.intendsGlide) {
+                return rejectsJumpState;
+            }
             if (avatar.intendedFacing != avatar.facing) {
                 return intendsJumpState;
             }

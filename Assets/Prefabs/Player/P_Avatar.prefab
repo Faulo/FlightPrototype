@@ -749,7 +749,9 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
-  minimumCrouchFrameCount: 10
+  minimumCrouchFrameCount: 15
+  startJumpFrameCount: 5
+  coyoteTimeFrameCount: 10
   intendsGlideState: {fileID: 3309947060964344441}
   intendsJumpState: {fileID: 1713786831}
   notGroundedState: {fileID: 881665436}
