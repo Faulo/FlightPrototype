@@ -3,15 +3,36 @@ using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
     public class TransitionState : AvatarState {
+        enum DissolveMode {
+            Disabled,
+            Disappearing,
+            Reappearing,
+        }
         [Header("Transitional State")]
         [SerializeField, Range(0, 100)]
         int transitionFrameCount = 1;
+        [SerializeField]
+        DissolveMode dissolve = DissolveMode.Disabled;
 
         int transitionTimer;
+
         public override void EnterState() {
             base.EnterState();
 
             transitionTimer = 0;
+
+            switch (dissolve) {
+                case DissolveMode.Disabled:
+                    break;
+                case DissolveMode.Disappearing:
+                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 0);
+                    break;
+                case DissolveMode.Reappearing:
+                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 1);
+                    break;
+                default:
+                    break;
+            }
 
             avatar.UpdateMovement();
         }
@@ -20,11 +41,37 @@ namespace TheCursedBroom.Player.AvatarStates {
 
             transitionTimer++;
 
+            switch (dissolve) {
+                case DissolveMode.Disabled:
+                    break;
+                case DissolveMode.Disappearing:
+                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", (float)transitionTimer / transitionFrameCount);
+                    break;
+                case DissolveMode.Reappearing:
+                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 1 - ((float)transitionTimer / transitionFrameCount));
+                    break;
+                default:
+                    break;
+            }
+
             avatar.UpdateMovement();
         }
 
         public override void ExitState() {
             base.ExitState();
+
+            switch (dissolve) {
+                case DissolveMode.Disabled:
+                    break;
+                case DissolveMode.Disappearing:
+                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 1);
+                    break;
+                case DissolveMode.Reappearing:
+                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 0);
+                    break;
+                default:
+                    break;
+            }
         }
 
         [Header("Transitions")]

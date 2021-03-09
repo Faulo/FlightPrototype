@@ -41,6 +41,7 @@ Transform:
   - {fileID: 8702739005548762531}
   - {fileID: 3572390029301265727}
   - {fileID: 8615515120963526112}
+  - {fileID: 8300882649722069924}
   m_Father: {fileID: 3089225555766872606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -388,6 +389,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   transitionFrameCount: 15
+  dissolve: 0
   nextState: {fileID: 881665436}
 --- !u!1 &1836684146
 GameObject:
@@ -1106,8 +1108,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  transitionFrameCount: 20
-  nextState: {fileID: 881665436}
+  transitionFrameCount: 40
+  dissolve: 1
+  nextState: {fileID: 5638091525790680785}
 --- !u!1 &3089225555766872605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalFlipTransform: {fileID: 2059172901517104942}
   attachedRigidbody: {fileID: 3089225555766872607}
+  attachedRenderer: {fileID: 3089225555960653587}
   visualsAnimator: {fileID: 3089225555779599424}
   physicsAnimator: {fileID: 4858272974567616656}
   physics: {fileID: 6081193294796904847}
@@ -1478,7 +1482,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3a9b5458c1576734bb72917492d3e820, type: 2}
+  - {fileID: 2100000, guid: d50d19dccddde9740a433e3f0547e59c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2132,6 +2136,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   transitionFrameCount: 50
+  dissolve: 0
   nextState: {fileID: 808840777}
 --- !u!1 &7691276936857166954
 GameObject:
@@ -2340,6 +2345,66 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   transitionFrameCount: 10
+  dissolve: 0
+  nextState: {fileID: 881665436}
+--- !u!1 &8300383899230331112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8300882649722069924}
+  - component: {fileID: 5638091525790680785}
+  m_Layer: 0
+  m_Name: Appearing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8300882649722069924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300383899230331112}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 447305114}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5638091525790680785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300383899230331112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32e5288440e4674eb63aeeface4ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorState: 8
+  gravity: 0
+  drag: 10
+  allowPhysicsRotation: 0
+  allowSave: 0
+  allowLoad: 0
+  movement: {fileID: 0}
+  onStateEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExit:
+    m_PersistentCalls:
+      m_Calls: []
+  transitionFrameCount: 20
+  dissolve: 2
   nextState: {fileID: 881665436}
 --- !u!1 &8530760938937004147
 GameObject:
@@ -2422,6 +2487,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   transitionFrameCount: 15
+  dissolve: 0
   nextState: {fileID: 6015708295390145231}
 --- !u!1 &9196574831870242006
 GameObject:
