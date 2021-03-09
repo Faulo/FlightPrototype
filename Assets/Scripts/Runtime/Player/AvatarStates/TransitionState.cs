@@ -25,10 +25,10 @@ namespace TheCursedBroom.Player.AvatarStates {
                 case DissolveMode.Disabled:
                     break;
                 case DissolveMode.Disappearing:
-                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 0);
+                    avatar.dissolveAmount = 0;
                     break;
                 case DissolveMode.Reappearing:
-                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 1);
+                    avatar.dissolveAmount = 1;
                     break;
                 default:
                     break;
@@ -45,10 +45,10 @@ namespace TheCursedBroom.Player.AvatarStates {
                 case DissolveMode.Disabled:
                     break;
                 case DissolveMode.Disappearing:
-                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", (float)transitionTimer / transitionFrameCount);
+                    avatar.dissolveAmount = (float)transitionTimer / transitionFrameCount;
                     break;
                 case DissolveMode.Reappearing:
-                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 1 - ((float)transitionTimer / transitionFrameCount));
+                    avatar.dissolveAmount = 1 - ((float)transitionTimer / transitionFrameCount);
                     break;
                 default:
                     break;
@@ -64,10 +64,10 @@ namespace TheCursedBroom.Player.AvatarStates {
                 case DissolveMode.Disabled:
                     break;
                 case DissolveMode.Disappearing:
-                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 1);
+                    avatar.dissolveAmount = 1;
                     break;
                 case DissolveMode.Reappearing:
-                    avatar.attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 0);
+                    avatar.dissolveAmount = 0;
                     break;
                 default:
                     break;

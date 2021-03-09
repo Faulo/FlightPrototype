@@ -989,8 +989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dd77297c5c6ef49a4fc9e7d0480040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  observedAvatar: {fileID: 3089225555766872600}
-  observedAnimator: {fileID: 6301669392618865007}
+  avatar: {fileID: 3089225555766872600}
+  attachedAnimator: {fileID: 6301669392618865007}
   walkSpeedDeadZone: 0
 --- !u!114 &8509556324478317344
 MonoBehaviour:
@@ -1167,7 +1167,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalFlipTransform: {fileID: 2059172901517104942}
   attachedRigidbody: {fileID: 3089225555766872607}
-  attachedRenderer: {fileID: 3089225555960653587}
   visualsAnimator: {fileID: 3089225555779599424}
   physicsAnimator: {fileID: 4858272974567616656}
   physics: {fileID: 6081193294796904847}
@@ -1191,6 +1190,7 @@ MonoBehaviour:
   isFacingRight: 1
   wallFacing: 0
   gravityScale: 0
+  dissolveAmount: 0
   rumblingLowIntensity: 0
   rumblingHighIntensity: 0
   rumblingDuration: 0
@@ -1407,6 +1407,7 @@ GameObject:
   - component: {fileID: 3089225555779599422}
   - component: {fileID: 3089225555779599424}
   - component: {fileID: 3089225555960653587}
+  - component: {fileID: 2862816772398162206}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -1460,8 +1461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89dd77297c5c6ef49a4fc9e7d0480040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  observedAvatar: {fileID: 3089225555766872600}
-  observedAnimator: {fileID: 3089225555779599422}
+  avatar: {fileID: 3089225555766872600}
+  attachedAnimator: {fileID: 3089225555779599422}
   walkSpeedDeadZone: 0.1
 --- !u!212 &3089225555960653587
 SpriteRenderer:
@@ -1514,6 +1515,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2862816772398162206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089225555960653585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79080827cb60f54f983fdb0b6b5465f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatar: {fileID: 3089225555766872600}
+  attachedRenderer: {fileID: 3089225555960653587}
 --- !u!1 &3848277091042139628
 GameObject:
   m_ObjectHideFlags: 0

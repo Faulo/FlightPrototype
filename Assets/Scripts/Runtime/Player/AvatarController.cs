@@ -18,8 +18,6 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         public Rigidbody2D attachedRigidbody = default;
         [SerializeField, Expandable]
-        public SpriteRenderer attachedRenderer = default;
-        [SerializeField, Expandable]
         AvatarAnimator visualsAnimator = default;
         [SerializeField, Expandable]
         AvatarAnimator physicsAnimator = default;
@@ -105,14 +103,14 @@ namespace TheCursedBroom.Player {
             set => attachedRigidbody.drag = value;
         }
 
+        public float dissolveAmount = 0;
+
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
             (velocity, rotationAngle) = movementCalculator();
         }
 
         void Start() {
-            attachedRenderer.sharedMaterial.SetFloat("DissolveAmount", 0);
-
             instance = this;
             currentState.EnterState();
 

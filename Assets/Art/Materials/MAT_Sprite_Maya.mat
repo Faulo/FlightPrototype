@@ -37,6 +37,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
+        m_Texture: {fileID: 2800000, guid: e1af0f481ca9ae34eab6f0273d6f42da, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -80,8 +84,8 @@ Material:
     - DissolveAmount: 0
     - PixelSnap: 1
     - Vector1_0e3b4cf96ed944c6a8906a5fcbd9b413: 0
-    - Vector1_d355913c72f84e66a0e129977e97dccf: 100
-    - Vector1_dba3637a5d1345508da20f6daa979456: 0.75
+    - Vector1_d355913c72f84e66a0e129977e97dccf: 68.3
+    - Vector1_dba3637a5d1345508da20f6daa979456: 0.979
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -104,12 +108,14 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - dissolveAmount: 0.5
     m_Colors:
     - Color_4f49f64ded5d4591a6df7b0130db67f0: {r: 1.3333334, g: 0.4392157, b: 2.9960785,
         a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.18431373}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor2: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
