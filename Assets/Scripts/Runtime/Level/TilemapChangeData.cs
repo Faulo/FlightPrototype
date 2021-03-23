@@ -15,22 +15,35 @@ namespace TheCursedBroom.Level {
         readonly List<Vector3Int> m_discardPositions = new List<Vector3Int>();
         readonly List<TileBase> m_discardTiles = new List<TileBase>();
 
-        public int loadCount => loadPositions.Length;
-        public int discardCount => discardPositions.Length;
+        public int loadCount = 0;
+        public int discardCount = 0;
 
-        public int changeCountMaximum = 0;
+        public int changeCountMaximum {
+            get => m_changeCountMaximum;
+            set {
+                if (m_changeCountMaximum != value) {
+                    m_changeCountMaximum = value;
+                    Array.Resize(ref loadPositions, value);
+                    Array.Resize(ref loadTiles, value);
+                    Array.Resize(ref discardPositions, value);
+                    Array.Resize(ref discardTiles, value);
+                }
+            }
+        }
+        int m_changeCountMaximum;
+
         public bool hasChanged = false;
 
         public void Finish() {
-            int loadCount = m_loadPositions.Count;
-            CopyListToArray(m_loadPositions, ref loadPositions, loadCount);
-            CopyListToArray(m_loadTiles, ref loadTiles, loadCount);
-            int discardCount = m_discardPositions.Count;
-            CopyListToArray(m_discardPositions, ref discardPositions, discardCount);
-            CopyListToArray(m_discardTiles, ref discardTiles, discardCount);
+            loadCount = m_loadPositions.Count;
+            CopyListToArray(m_loadPositions, loadPositions, loadCount);
+            CopyListToArray(m_loadTiles, loadTiles, loadCount);
+
+            discardCount = m_discardPositions.Count;
+            CopyListToArray(m_discardPositions, discardPositions, discardCount);
+            CopyListToArray(m_discardTiles, discardTiles, discardCount);
         }
-        void CopyListToArray<T>(in List<T> source, ref T[] target, int count) {
-            target = new T[count];
+        void CopyListToArray<T>(in List<T> source, in T[] target, int count) {
             for (int i = 0; i < count; i++) {
                 target[i] = source[i];
             }

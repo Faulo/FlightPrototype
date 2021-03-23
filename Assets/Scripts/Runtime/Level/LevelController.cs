@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using MyBox;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -29,6 +30,8 @@ namespace TheCursedBroom.Level {
         bool allowNonActorTileLoading = false;
         [SerializeField]
         bool allowMultithreading = false;
+        [SerializeField, ConditionalField(nameof(allowMultithreading)), Range(0, 100)]
+        int pauseBetweenThreadUpdates = 0;
         [SerializeField]
         public TilemapBounds rendererBounds = new TilemapBounds();
         [SerializeField]
@@ -92,7 +95,7 @@ namespace TheCursedBroom.Level {
                         UpdateTiles();
                         break;
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(pauseBetweenThreadUpdates);
             }
         }
         void Update() {
