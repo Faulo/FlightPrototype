@@ -112,7 +112,7 @@ namespace TheCursedBroom.Level {
             }
         }
         public void RefreshAllTiles() {
-            Assert.IsNotNull(observedActor);
+            Assert.IsTrue(observedActor);
             UpdateObservedCenter();
             if (allowMultithreading) {
                 tileState = UpdateState.Prepare;

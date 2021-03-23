@@ -29,7 +29,7 @@ namespace TheCursedBroom.Player {
 
         void Awake() {
             avatar = GetComponentInParent<AvatarController>();
-            Assert.IsNotNull(avatar);
+            Assert.IsTrue(avatar);
         }
 
         #region State
