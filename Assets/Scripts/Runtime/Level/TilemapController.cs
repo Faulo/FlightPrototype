@@ -51,14 +51,6 @@ namespace TheCursedBroom.Level {
             }
         }
         void OnEnable() {
-            colliderChange.changeCountMaximum = ownerLevel.colliderBounds.tileCount;
-            rendererChange.changeCountMaximum = ownerLevel.rendererBounds.tileCount;
-            shadowChange.changeCountMaximum = ownerLevel.shadowBounds.tileCount;
-
-            colliderChange.Clear();
-            rendererChange.Clear();
-            shadowChange.Clear();
-
             ownerLevel.colliderBounds.onLoadTiles += LoadColliderTile;
             ownerLevel.colliderBounds.onDiscardTiles += DiscardColliderTile;
             ownerLevel.rendererBounds.onLoadTiles += LoadRendererTile;
@@ -76,20 +68,14 @@ namespace TheCursedBroom.Level {
         }
 
         public void RegenerateTilemap() {
-            if (colliderChange.hasChanged) {
-                colliderChange.Finish();
+            if (colliderChange.TryFinish()) {
                 onColliderChange?.Invoke(colliderChange);
-                colliderChange.Clear();
             }
-            if (rendererChange.hasChanged) {
-                rendererChange.Finish();
+            if (rendererChange.TryFinish()) {
                 onRendererChange?.Invoke(rendererChange);
-                rendererChange.Clear();
             }
-            if (shadowChange.hasChanged) {
-                shadowChange.Finish();
+            if (shadowChange.TryFinish()) {
                 onShadowChange?.Invoke(shadowChange);
-                shadowChange.Clear();
             }
         }
 

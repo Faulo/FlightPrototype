@@ -113,10 +113,11 @@ namespace TheCursedBroom.Level {
         }
         public void RefreshAllTiles() {
             Assert.IsNotNull(observedActor);
-            observedCenter = map.WorldToCell(observedActor.position);
+            UpdateObservedCenter();
             if (allowMultithreading) {
                 tileState = UpdateState.Prepare;
             } else {
+                PrepareTiles();
                 for (int i = 0; i < map.tilemapControllers.Length; i++) {
                     map.tilemapControllers[i].RegenerateTilemap();
                 }
