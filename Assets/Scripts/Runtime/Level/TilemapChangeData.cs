@@ -1,48 +1,62 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace TheCursedBroom.Level {
     public class TilemapChangeData {
-        public Vector3Int[] loadPositions = new Vector3Int[0];
-        public TileBase[] loadTiles = new TileBase[0];
-        public Vector3Int[] discardPositions = new Vector3Int[0];
-        public TileBase[] discardTiles = new TileBase[0];
+        public Vector3Int[] loadPositions = Array.Empty<Vector3Int>();
+        public TileBase[] loadTiles = Array.Empty<TileBase>();
+        public Vector3Int[] discardPositions = Array.Empty<Vector3Int>();
+        public TileBase[] discardTiles = Array.Empty<TileBase>();
 
-        public int loadCount = 0;
-        public int discardCount = 0;
+        readonly List<Vector3Int> m_loadPositions = new List<Vector3Int>();
+        readonly List<TileBase> m_loadTiles = new List<TileBase>();
+        readonly List<Vector3Int> m_discardPositions = new List<Vector3Int>();
+        readonly List<TileBase> m_discardTiles = new List<TileBase>();
+
+        public int loadCount => loadPositions.Length;
+        public int discardCount => discardPositions.Length;
+
         public int changeCountMaximum = 0;
-
-        public bool hasChanged => loadCount > 0 || discardCount > 0;
+        public bool hasChanged = false;
 
         public void Finish() {
-            Array.Resize(ref loadPositions, loadCount);
-            Array.Resize(ref loadTiles, loadCount);
-            Array.Resize(ref discardPositions, discardCount);
-            Array.Resize(ref discardTiles, discardCount);
+            int loadCount = m_loadPositions.Count;
+            CopyListToArray(m_loadPositions, ref loadPositions, loadCount);
+            CopyListToArray(m_loadTiles, ref loadTiles, loadCount);
+            int discardCount = m_discardPositions.Count;
+            CopyListToArray(m_discardPositions, ref discardPositions, discardCount);
+            CopyListToArray(m_discardTiles, ref discardTiles, discardCount);
+        }
+        void CopyListToArray<T>(in List<T> source, ref T[] target, int count) {
+            target = new T[count];
+            for (int i = 0; i < count; i++) {
+                target[i] = source[i];
+            }
         }
         public void Clear() {
-            loadCount = discardCount = 0;
-            Array.Resize(ref loadPositions, changeCountMaximum);
-            Array.Resize(ref loadTiles, changeCountMaximum);
-            Array.Resize(ref discardPositions, changeCountMaximum);
-            Array.Resize(ref discardTiles, changeCountMaximum);
+            m_loadPositions.Clear();
+            m_loadTiles.Clear();
+            m_discardPositions.Clear();
+            m_discardTiles.Clear();
+            hasChanged = false;
         }
 
         public void AddLoad(Vector3Int position, TileBase tile) {
-            //Assert.IsFalse(loadPositions.Contains(position), $"Double-tipping load-load position {position}");
-            //Assert.IsFalse(discardPositions.Contains(position), $"Double-tipping discard-load position {position}");
-            loadPositions[loadCount] = position;
-            loadTiles[loadCount] = tile;
-            loadCount++;
+            //Assert.IsFalse(loadPositions.Contains(position), $"Double-dipping load-load position {position}");
+            //Assert.IsFalse(discardPositions.Contains(position), $"Double-dipping discard-load position {position}");
+            m_loadPositions.Add(position);
+            m_loadTiles.Add(tile);
+            hasChanged = true;
         }
 
         public void AddDiscard(Vector3Int position, TileBase tile) {
-            //Assert.IsFalse(discardPositions.Contains(position), $"Double-tipping discard-discard position {position}");
-            //Assert.IsFalse(loadPositions.Contains(position), $"Double-tipping load-discard position {position}");
-            discardPositions[discardCount] = position;
-            discardTiles[discardCount] = tile;
-            discardCount++;
+            //Assert.IsFalse(discardPositions.Contains(position), $"Double-dipping discard-discard position {position}");
+            //Assert.IsFalse(loadPositions.Contains(position), $"Double-dipping load-discard position {position}");
+            m_discardPositions.Add(position);
+            m_discardTiles.Add(tile);
+            hasChanged = true;
         }
     }
 }
