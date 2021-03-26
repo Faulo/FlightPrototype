@@ -45,6 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientId: 823983673027461182
   createFlags: 1
+  assets:
+    largeImage: icon
+    largeText: http://thecursedbroom.slothsoft.net
 --- !u!1 &8197161472356221297
 GameObject:
   m_ObjectHideFlags: 0

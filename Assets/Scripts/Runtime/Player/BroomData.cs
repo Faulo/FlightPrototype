@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace TheCursedBroom.Player {
     public class BroomData {
         public bool canBoost {
