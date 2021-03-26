@@ -31,11 +31,11 @@ namespace TheCursedBroom.Level {
         int pauseBetweenTilemapUpdates = 1;
         int currentTilemapIndex = 0;
 
-        [SerializeField]
+        [SerializeField, Expandable]
         LevelSettingsAsset lowSettings = default;
-        [SerializeField]
+        [SerializeField, Expandable]
         LevelSettingsAsset mediumSettings = default;
-        [SerializeField]
+        [SerializeField, Expandable]
         LevelSettingsAsset highSettings = default;
         LevelSettingsAsset GetCurrentSettings() => QualitySettings.GetQualityLevel() switch {
             0 => lowSettings,
