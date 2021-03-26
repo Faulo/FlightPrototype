@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81caeb44a098a5d4bb5e13c0c31c657e, type: 3}
+  m_Name: CONF_Level_Game_High
+  m_EditorClassIdentifier: 
+  allowMultithreading: 1
+  pauseBetweenThreadUpdates: 0
+  rendererBounds:
+    enabled: 1
+    width: 40
+    height: 25
+  colliderBounds:
+    enabled: 1
+    width: 8
+    height: 8
+  shadowBounds:
+    enabled: 1
+    width: 40
+    height: 25
