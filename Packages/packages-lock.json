@@ -30,7 +30,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.7.2",
+      "version": "2.7.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -131,8 +131,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.5.2",
-      "depth": 1,
+      "version": "1.5.4",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.director": "1.0.0",
