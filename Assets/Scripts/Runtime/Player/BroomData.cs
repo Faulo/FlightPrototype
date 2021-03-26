@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace TheCursedBroom.Player {
     public class BroomData {
         public bool canBoost {
@@ -76,6 +78,7 @@ namespace TheCursedBroom.Player {
                 return m_state;
             }
         }
+
         BroomState m_state;
 
         BroomState CalculateState() {
