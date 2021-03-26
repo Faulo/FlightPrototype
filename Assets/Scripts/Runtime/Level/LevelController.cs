@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using MyBox;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -28,20 +27,40 @@ namespace TheCursedBroom.Level {
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
-        [SerializeField]
-        bool allowMultithreading = false;
-        [SerializeField, ConditionalField(nameof(allowMultithreading)), Range(0, 100)]
-        int pauseBetweenThreadUpdates = 0;
-        [SerializeField]
-        public TilemapBounds rendererBounds = new TilemapBounds();
-        [SerializeField]
-        public TilemapBounds colliderBounds = new TilemapBounds();
-        [SerializeField]
-        public TilemapBounds shadowBounds = new TilemapBounds();
-
-        int currentTilemapIndex = 0;
         [SerializeField, Range(1, 80)]
         int pauseBetweenTilemapUpdates = 1;
+        int currentTilemapIndex = 0;
+
+        [SerializeField, Expandable]
+        LevelSettingsAsset lowSettings = default;
+        [SerializeField, Expandable]
+        LevelSettingsAsset mediumSettings = default;
+        [SerializeField, Expandable]
+        LevelSettingsAsset highSettings = default;
+        LevelSettingsAsset GetCurrentSettings() => QualitySettings.GetQualityLevel() switch {
+            0 => lowSettings,
+            1 => mediumSettings,
+            2 => highSettings,
+            _ => throw new NotImplementedException(),
+        };
+
+        bool allowMultithreading;
+        int pauseBetweenThreadUpdates;
+        [NonSerialized]
+        public TilemapBounds rendererBounds;
+        [NonSerialized]
+        public TilemapBounds colliderBounds;
+        [NonSerialized]
+        public TilemapBounds shadowBounds;
+
+        void ApplySettings() {
+            var settings = GetCurrentSettings();
+            allowMultithreading = settings.allowMultithreading;
+            pauseBetweenThreadUpdates = settings.pauseBetweenThreadUpdates;
+            rendererBounds = settings.rendererBounds;
+            colliderBounds = settings.colliderBounds;
+            shadowBounds = settings.shadowBounds;
+        }
 
         [Header("Debug output")]
         public Transform observedActor;
@@ -51,6 +70,7 @@ namespace TheCursedBroom.Level {
         void Awake() {
             OnValidate();
             instance = this;
+            ApplySettings();
             PrepareTilemap();
         }
         void OnValidate() {

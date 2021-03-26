@@ -6,15 +6,14 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Jumping")]
         [SerializeField, Range(0, 10)]
         float maximumJumpHeight = 5;
-        [SerializeField, Range(0, 100)]
-        int minimumJumpFrameCount = 1;
-        [SerializeField, Range(0, 100)]
-        int maximumJumpFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float minimumJumpDuration = 0;
+        [SerializeField, Range(0, 1)]
+        float maximumJumpDuration = 0;
         [SerializeField, Range(0, 2)]
         float jumpBoostMultiplier = 1;
         float jumpStartSpeed {
             get {
-                float maximumJumpDuration = maximumJumpFrameCount * Time.fixedDeltaTime;
                 float up = maximumJumpHeight;
                 float down = Physics2D.gravity.y * avatar.gravityScale * maximumJumpDuration * maximumJumpDuration / 2;
                 return (up - down) / maximumJumpDuration;
@@ -33,11 +32,11 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Range(-10, 10), Tooltip("The vertical speed when jumping stops")]
         float jumpResetSpeed = 0;
 
-        int jumpTimer = 0;
+        float jumpDuration;
         public override void EnterState() {
             base.EnterState();
 
-            jumpTimer = 0;
+            jumpDuration = 0;
 
             avatar.velocity = jumpStartVelocity;
             avatar.intendsJumpStart = false;
@@ -47,7 +46,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            jumpTimer++;
+            jumpDuration += Time.deltaTime;
             if (!avatar.intendsJump) {
                 avatar.gravityScale = rejectJumpGravity;
             }
@@ -74,7 +73,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
             }
-            if (jumpTimer < minimumJumpFrameCount) {
+            if (jumpDuration < minimumJumpDuration) {
                 return this;
             }
             if (!avatar.intendsJump) {
@@ -83,7 +82,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.velocity.y < jumpAbortSpeed) {
                 return rejectsGlideState;
             }
-            if (jumpTimer < maximumJumpFrameCount) {
+            if (jumpDuration < maximumJumpDuration) {
                 return this;
             }
             return rejectsGlideState;

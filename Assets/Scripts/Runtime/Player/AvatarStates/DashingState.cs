@@ -5,14 +5,14 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class DashingState : AvatarState {
         [Header("Dashing")]
-        [SerializeField, Range(0, 100)]
-        int minimumDashFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float minimumDashDuration = 0;
 
-        int dashTimer;
+        float dashDuration;
         public override void EnterState() {
             base.EnterState();
 
-            dashTimer = 0;
+            dashDuration = 0;
 
             avatar.broom.isDashing = true;
             avatar.broom.isFlying = true;
@@ -23,7 +23,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            dashTimer++;
+            dashDuration += Time.deltaTime;
 
             avatar.UpdateMovement();
         }
@@ -40,7 +40,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsGlideState = default;
         public override AvatarState CalculateNextState() {
-            if (dashTimer < minimumDashFrameCount) {
+            if (dashDuration < minimumDashDuration) {
                 return this;
             }
             if (avatar.intendsGlide) {

@@ -95,15 +95,16 @@ MonoBehaviour:
   maximumAcceleration: 1
   requiredAlignment: 0.9
   requiredYSpeed: -2
-  boostGatheringFrameCount: 1
+  minimumBoostGatheringDuration: 0.01
+  boostExecutionDurationMultiplier: 1
   boostRotationDuration: 0.15
-  boostExecutionFrameMultiplier: 5
   boostExecutionSpeed: 1.5
   boostDrag: 0.375
   onBoost:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 87ba9ab422009d845bdbd68d80ef8d58, type: 2}
+        m_TargetAssemblyTypeName: TheCursedBroom.Effects.AudioEffect, TheCursedBroom
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:

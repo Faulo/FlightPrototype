@@ -1,3 +1,4 @@
+using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,7 +20,9 @@ namespace TheCursedBroom.Effects {
                 canvas = Instantiate(canvasPrefab);
 
                 if (autoSelectFirst) {
-                    var firstElement = canvas.GetComponentInChildren<Selectable>();
+                    var firstElement = canvas
+                        .GetComponentsInChildren<Selectable>()
+                        .FirstOrDefault(selectable => selectable.IsInteractable());
                     var eventSystem = FindObjectOfType<EventSystem>();
                     if (firstElement && eventSystem) {
                         eventSystem.SetSelectedGameObject(firstElement.gameObject);

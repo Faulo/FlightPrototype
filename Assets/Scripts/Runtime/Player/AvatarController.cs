@@ -47,6 +47,28 @@ namespace TheCursedBroom.Player {
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
 
+
+        [Header("Rumble")]
+        [SerializeField]
+        RumbleSettings defaultRumble = default;
+        [SerializeField]
+        RumbleSettings flyingRumble = default;
+        [SerializeField]
+        RumbleSettings alignedRumble = default;
+        [SerializeField]
+        RumbleSettings canBoostRumble = default;
+        [SerializeField]
+        RumbleSettings isBoostingRumble = default;
+        RumbleSettings currentRumble => broom.isFlying
+            ? broom.isBoosting || broom.isDashing
+                ? isBoostingRumble
+                : broom.canBoost
+                    ? canBoostRumble
+                    : broom.isAligned
+                        ? alignedRumble
+                        : flyingRumble
+            : defaultRumble;
+
         [Header("Current Input")]
         public int intendedFacing = 1;
         public float intendedMovement = 0;
@@ -197,8 +219,9 @@ namespace TheCursedBroom.Player {
             if (rumblingDuration >= 0) {
                 rumblingDuration -= Time.deltaTime;
             } else {
-                rumblingLowIntensity = 0;
-                rumblingHighIntensity = 0;
+                var rumble = currentRumble;
+                rumblingLowIntensity = rumble.lowIntensity;
+                rumblingHighIntensity = rumble.highIntensity;
             }
         }
 

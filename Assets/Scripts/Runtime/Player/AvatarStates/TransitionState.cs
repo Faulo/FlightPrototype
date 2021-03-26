@@ -9,17 +9,17 @@ namespace TheCursedBroom.Player.AvatarStates {
             Reappearing,
         }
         [Header("Transitional State")]
-        [SerializeField, Range(0, 100)]
-        int transitionFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float transitionDuration = 0;
         [SerializeField]
         DissolveMode dissolve = DissolveMode.Disabled;
 
-        int transitionTimer;
+        float duration;
 
         public override void EnterState() {
             base.EnterState();
 
-            transitionTimer = 0;
+            duration = 0;
 
             switch (dissolve) {
                 case DissolveMode.Disabled:
@@ -39,16 +39,16 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            transitionTimer++;
+            duration += Time.deltaTime;
 
             switch (dissolve) {
                 case DissolveMode.Disabled:
                     break;
                 case DissolveMode.Disappearing:
-                    avatar.dissolveAmount = (float)transitionTimer / transitionFrameCount;
+                    avatar.dissolveAmount = duration / transitionDuration;
                     break;
                 case DissolveMode.Reappearing:
-                    avatar.dissolveAmount = 1 - ((float)transitionTimer / transitionFrameCount);
+                    avatar.dissolveAmount = 1 - (duration / transitionDuration);
                     break;
                 default:
                     break;
@@ -78,7 +78,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState nextState = default;
         public override AvatarState CalculateNextState() {
-            if (transitionTimer < transitionFrameCount) {
+            if (duration < transitionDuration) {
                 return this;
             }
             return nextState;
