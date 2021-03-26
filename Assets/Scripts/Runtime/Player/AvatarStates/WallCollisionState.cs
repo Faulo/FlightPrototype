@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace TheCursedBroom.Player.AvatarStates {
     public class WallCollisionState : AvatarState {
-        [SerializeField, Range(0, 100)]
-        int minimumCollisionFrameCount = 1;
-        [SerializeField, Range(0, 100)]
-        int maximumCollisionFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float minimumCollisionDuration = 0;
+        [SerializeField, Range(0, 1)]
+        float maximumCollisionDuration = 0;
 
-        int collisionTimer;
+        float collisionDuration;
         public override void EnterState() {
             base.EnterState();
 
-            collisionTimer = 0;
+            collisionDuration = 0;
 
             avatar.broom.isFlying = false;
             avatar.broom.canBoost = false;
@@ -22,7 +22,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            collisionTimer++;
+            collisionDuration += Time.deltaTime;
 
             avatar.UpdateMovement();
         }
@@ -36,7 +36,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         [SerializeField, Expandable]
         AvatarState rejectsJumpState = default;
         public override AvatarState CalculateNextState() {
-            if (collisionTimer < minimumCollisionFrameCount) {
+            if (collisionDuration < minimumCollisionDuration) {
                 return this;
             }
             if (!avatar.intendsGlide) {
@@ -45,7 +45,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendedFacing != avatar.facing) {
                 return intendsJumpState;
             }
-            if (collisionTimer < maximumCollisionFrameCount) {
+            if (collisionDuration < maximumCollisionDuration) {
                 return this;
             }
             return rejectsJumpState;

@@ -54,12 +54,12 @@ namespace TheCursedBroom.Player.AvatarMovements {
         float requiredAlignment = 1;
         [SerializeField, Range(-100, 0)]
         float requiredYSpeed = -1;
-        [SerializeField, Range(1, 100)]
-        int boostGatheringFrameCount = 10;
+        [SerializeField, Range(0, 1)]
+        float minimumBoostGatheringDuration = 0;
+        [SerializeField, Range(0, 10)]
+        float boostExecutionDurationMultiplier = 1;
         [SerializeField, Range(0, 10)]
         float boostRotationDuration = 0;
-        [SerializeField, Range(0, 10)]
-        float boostExecutionFrameMultiplier = 1;
         [SerializeField, Range(0, 100)]
         float boostExecutionSpeed = 1;
         [SerializeField, Range(0, 10)]
@@ -72,9 +72,9 @@ namespace TheCursedBroom.Player.AvatarMovements {
         public override MovementCalculator CreateMovementCalculator(AvatarController avatar) {
             float angularVelocity = 0;
             var acceleration = Vector2.zero;
-            int boostGatheringTimer = 0;
-            int boostExecutionTimer = 0;
-            int boostExecutionFrameCount = 0;
+            float boostGatheringDuration = 0;
+            float boostExecutionDuration = 0;
+            float maximumBoostExecutionDuration = 0;
             return () => {
                 float currentAngle = avatar.rotationAngle;
 
@@ -92,9 +92,9 @@ namespace TheCursedBroom.Player.AvatarMovements {
                 (Vector2, float) boost() {
                     avatar.drag = boostDrag;
 
-                    boostExecutionTimer++;
-                    if (boostExecutionTimer >= boostExecutionFrameCount) {
-                        boostExecutionTimer = 0;
+                    boostExecutionDuration++;
+                    if (boostExecutionDuration >= maximumBoostExecutionDuration) {
+                        boostExecutionDuration = 0;
                         avatar.broom.isBoosting = false;
                         angularVelocity = 0;
                         return glide();
@@ -130,9 +130,7 @@ namespace TheCursedBroom.Player.AvatarMovements {
                         if (avatar.broom.canBoost) {
                             avatar.broom.canBoost = false;
                             avatar.broom.isBoosting = true;
-                            float boostDuration = Mathf.Abs(currentVelocity.y);
-                            boostDuration *= boostExecutionFrameMultiplier;
-                            boostExecutionFrameCount = Mathf.RoundToInt(boostDuration);
+                            maximumBoostExecutionDuration = Mathf.Abs(currentVelocity.y) * boostExecutionDurationMultiplier;
                             onBoost.Invoke(avatar.gameObject);
                             currentVelocity += currentVelocity.normalized * boostExecutionSpeed;
                             angularVelocity = 0;
@@ -140,10 +138,10 @@ namespace TheCursedBroom.Player.AvatarMovements {
                         }
                     } else {
                         if (avatar.broom.isAligned && avatar.broom.isDiving) {
-                            if (!avatar.broom.canBoost && boostGatheringTimer < boostGatheringFrameCount) {
-                                boostGatheringTimer++;
-                                if (boostGatheringTimer >= boostGatheringFrameCount) {
-                                    boostGatheringTimer = 0;
+                            if (!avatar.broom.canBoost && boostGatheringDuration < minimumBoostGatheringDuration) {
+                                boostGatheringDuration += Time.deltaTime;
+                                if (boostGatheringDuration >= minimumBoostGatheringDuration) {
+                                    boostGatheringDuration = 0;
                                     avatar.broom.canBoost = true;
                                 }
                             }

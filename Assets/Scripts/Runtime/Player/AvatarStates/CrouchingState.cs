@@ -4,15 +4,15 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class CrouchingState : AvatarState {
         [Header("Crouching")]
-        [SerializeField, Range(0, 100)]
-        int minimumCrouchFrameCount = 1;
-        [SerializeField, Range(0, 100)]
-        int startJumpFrameCount = 1;
-        [SerializeField, Range(0, 100)]
-        int coyoteTimeFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float minimumCrouchDuration = 0;
+        [SerializeField, Range(0, 1)]
+        float startJumpDuration = 0;
+        [SerializeField, Range(0, 1)]
+        float coyoteTimeDuration = 0;
 
         bool intendsJump;
-        int crouchDuration;
+        float crouchDuration;
 
         public override void EnterState() {
             base.EnterState();
@@ -28,7 +28,7 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            crouchDuration++;
+            crouchDuration += Time.deltaTime;
             if (avatar.intendsJumpStart) {
                 intendsJump = true;
             }
@@ -53,13 +53,13 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (!avatar.isGrounded && avatar.intendsGlide) {
                 return intendsGlideState;
             }
-            if (crouchDuration >= startJumpFrameCount && intendsJump) {
+            if (crouchDuration >= startJumpDuration && intendsJump) {
                 return intendsJumpState;
             }
-            if (crouchDuration >= coyoteTimeFrameCount && !avatar.isGrounded) {
+            if (crouchDuration >= coyoteTimeDuration && !avatar.isGrounded) {
                 return notGroundedState;
             }
-            if (crouchDuration >= minimumCrouchFrameCount && !avatar.intendsCrouch) {
+            if (crouchDuration >= minimumCrouchDuration && !avatar.intendsCrouch) {
                 return rejectsCrouchState;
             }
             return this;
