@@ -1,4 +1,5 @@
-﻿using Slothsoft.UnityExtensions;
+﻿using System.Linq;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Effects {
@@ -17,7 +18,10 @@ namespace TheCursedBroom.Effects {
                     var main = particles.main;
                     main.stopAction = ParticleSystemStopAction.Destroy;
                     particles.Stop();
-                    particles.GetComponentsInChildren<ParticleSystemForceField>().ForAll(Destroy);
+                    Enumerable.Range(0, instance.transform.childCount)
+                        .Select(instance.transform.GetChild)
+                        .ToList()
+                        .ForAll(t => Destroy(t.gameObject));
                 } else {
                     Destroy(instance);
                 }

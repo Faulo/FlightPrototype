@@ -108,11 +108,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
-      propertyPath: ShapeModule.m_Texture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
-        type: 3}
       propertyPath: CollisionModule.enabled
       value: 1
       objectReference: {fileID: 0}
@@ -224,7 +219,7 @@ PrefabInstance:
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
       propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 1
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 6460977798789484390, guid: 16c95c238ade55345809c8c8c1a76b3a,
         type: 3}
