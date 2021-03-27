@@ -78,18 +78,20 @@ namespace TheCursedBroom.Player {
         }
         public void OnSave(InputAction.CallbackContext context) {
             if (context.started) {
-                avatar.intendsSave = true;
+                avatar.intendsSaveStart = true;
             }
+            avatar.intendsSave = context.performed;
             if (context.canceled) {
-                avatar.intendsSave = false;
+                avatar.intendsSaveStart = false;
             }
         }
         public void OnLoad(InputAction.CallbackContext context) {
             if (context.started) {
-                avatar.intendsLoad = true;
+                avatar.intendsLoadStart = true;
             }
+            avatar.intendsLoad = context.performed;
             if (context.canceled) {
-                avatar.intendsLoad = false;
+                avatar.intendsLoadStart = false;
             }
         }
 

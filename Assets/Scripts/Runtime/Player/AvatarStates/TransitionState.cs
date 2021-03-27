@@ -1,5 +1,6 @@
 ﻿using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TheCursedBroom.Player.AvatarStates {
     public class TransitionState : AvatarState {
@@ -8,18 +9,32 @@ namespace TheCursedBroom.Player.AvatarStates {
             Disappearing,
             Reappearing,
         }
+        enum ActionMode {
+            Transition,
+            Save,
+            Load,
+        }
         [Header("Transitional State")]
+        [SerializeField, FormerlySerializedAs("onStateSuccess")]
+        GameObjectEvent onTransitionSuccess = new GameObjectEvent();
+        [SerializeField]
+        GameObjectEvent onTransitionAbort = new GameObjectEvent();
         [SerializeField, Range(0, 1)]
         float transitionDuration = 0;
         [SerializeField]
         DissolveMode dissolve = DissolveMode.Disabled;
+        [SerializeField]
+        ActionMode action = ActionMode.Transition;
 
         float duration;
+        bool isAborted;
 
         public override void EnterState() {
             base.EnterState();
 
             duration = 0;
+            isAborted = false;
+            UpdateAborted();
 
             switch (dissolve) {
                 case DissolveMode.Disabled:
@@ -40,6 +55,7 @@ namespace TheCursedBroom.Player.AvatarStates {
             base.FixedUpdateState();
 
             duration += Time.deltaTime;
+            UpdateAborted();
 
             switch (dissolve) {
                 case DissolveMode.Disabled:
@@ -60,14 +76,50 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void ExitState() {
             base.ExitState();
 
-            switch (dissolve) {
-                case DissolveMode.Disabled:
+            if (isAborted) {
+                onTransitionAbort.Invoke(avatar.gameObject);
+                switch (dissolve) {
+                    case DissolveMode.Disabled:
+                        break;
+                    case DissolveMode.Disappearing:
+                        avatar.dissolveAmount = 0;
+                        break;
+                    case DissolveMode.Reappearing:
+                        avatar.dissolveAmount = 1;
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                onTransitionSuccess.Invoke(avatar.gameObject);
+                switch (dissolve) {
+                    case DissolveMode.Disabled:
+                        break;
+                    case DissolveMode.Disappearing:
+                        avatar.dissolveAmount = 1;
+                        break;
+                    case DissolveMode.Reappearing:
+                        avatar.dissolveAmount = 0;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        void UpdateAborted() {
+            switch (action) {
+                case ActionMode.Transition:
                     break;
-                case DissolveMode.Disappearing:
-                    avatar.dissolveAmount = 1;
+                case ActionMode.Save:
+                    if (!avatar.intendsSave) {
+                        isAborted = true;
+                    }
                     break;
-                case DissolveMode.Reappearing:
-                    avatar.dissolveAmount = 0;
+                case ActionMode.Load:
+                    if (!avatar.intendsLoad) {
+                        isAborted = true;
+                    }
                     break;
                 default:
                     break;
@@ -77,7 +129,12 @@ namespace TheCursedBroom.Player.AvatarStates {
         [Header("Transitions")]
         [SerializeField, Expandable]
         AvatarState nextState = default;
+        [SerializeField, Expandable]
+        AvatarState abortState = default;
         public override AvatarState CalculateNextState() {
+            if (isAborted) {
+                return abortState;
+            }
             if (duration < transitionDuration) {
                 return this;
             }

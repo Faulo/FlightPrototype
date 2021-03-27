@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7b6faff4c902745a26c6fa11f857f0, type: 3}
+  m_Name: L4_InputAction_Load
+  m_EditorClassIdentifier: 
+  inputAction: {fileID: -1317914693611096919, guid: 273bfce56d4332b458afc36b59a4547d,
+    type: 3}
+  tileOptions: 7
+  colliderType: 0
+  prefab: {fileID: 7901689077958573524, guid: 3632d2e938d31e241b045a98b3980693, type: 3}

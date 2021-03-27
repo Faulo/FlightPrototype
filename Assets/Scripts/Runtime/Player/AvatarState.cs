@@ -21,15 +21,25 @@ namespace TheCursedBroom.Player {
         bool allowLoad = true;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
+        [SerializeField, Expandable]
+        GameObject stateObject = default;
+        [SerializeField, Expandable]
+        ParticleSystem stateParticles = default;
         [Header("Events")]
         [SerializeField]
-        GameObjectEvent onStateEnter = default;
+        GameObjectEvent onStateEnter = new GameObjectEvent();
         [SerializeField]
-        GameObjectEvent onStateExit = default;
+        GameObjectEvent onStateExit = new GameObjectEvent();
 
         void Awake() {
             avatar = GetComponentInParent<AvatarController>();
             Assert.IsTrue(avatar);
+            if (stateObject) {
+                stateObject.SetActive(false);
+            }
+            if (stateParticles) {
+                stateParticles.Stop();
+            }
         }
 
         #region State
@@ -45,14 +55,20 @@ namespace TheCursedBroom.Player {
                 : () => (avatar.velocity, avatar.rotationAngle);
 
             onStateEnter.Invoke(avatar.gameObject);
+            if (stateObject) {
+                stateObject.SetActive(true);
+            }
+            if (stateParticles) {
+                stateParticles.Play();
+            }
         }
         public virtual void UpdateState() {
-            if (allowSave && avatar.intendsSave) {
-                avatar.intendsSave = false;
+            if (allowSave && avatar.intendsSaveStart) {
+                avatar.intendsSaveStart = false;
                 avatar.CastSave();
             }
-            if (allowLoad && avatar.intendsLoad) {
-                avatar.intendsLoad = false;
+            if (allowLoad && avatar.intendsLoadStart) {
+                avatar.intendsLoadStart = false;
                 avatar.CastLoad();
             }
         }
@@ -60,6 +76,12 @@ namespace TheCursedBroom.Player {
         }
         public virtual void ExitState() {
             onStateExit.Invoke(avatar.gameObject);
+            if (stateObject) {
+                stateObject.SetActive(false);
+            }
+            if (stateParticles) {
+                stateParticles.Stop();
+            }
         }
         public abstract AvatarState CalculateNextState();
         #endregion
