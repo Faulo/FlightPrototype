@@ -19,23 +19,35 @@ namespace DiscordGameSDK {
 
         Discord.Discord discord;
         void Start() {
-            discord = new Discord.Discord(clientId, (ulong)createFlags);
-            discord.GetActivityManager()?.UpdateActivity(
-                new Discord.Activity {
-                    Type = Discord.ActivityType.Playing,
-                    Assets = new Discord.ActivityAssets {
-                        LargeImage = assets.largeImage,
-                        LargeText = assets.largeText,
+            try {
+                discord = new Discord.Discord(clientId, (ulong)createFlags);
+                discord.GetActivityManager()?.UpdateActivity(
+                    new Discord.Activity {
+                        Type = Discord.ActivityType.Playing,
+                        Assets = new Discord.ActivityAssets {
+                            LargeImage = assets.largeImage,
+                            LargeText = assets.largeText,
+                        },
                     },
-                },
-                _ => { }
-            );
+                    _ => { }
+                );
+            } catch (Exception) {
+                discord = null;
+            }
         }
         void OnDisable() {
-            discord?.GetActivityManager()?.ClearActivity(_ => { });
+            try {
+                discord?.GetActivityManager()?.ClearActivity(_ => { });
+            } catch (Exception) {
+                discord = null;
+            }
         }
         void Update() {
-            discord?.RunCallbacks();
+            try {
+                discord?.RunCallbacks();
+            } catch (Exception) {
+                discord = null;
+            }
         }
     }
 }
