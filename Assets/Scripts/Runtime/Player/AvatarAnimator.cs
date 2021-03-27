@@ -8,37 +8,41 @@ using UnityEngine.Assertions;
 namespace TheCursedBroom.Player {
     public class AvatarAnimator : MonoBehaviour {
         [SerializeField, Expandable]
-        AvatarController observedAvatar = default;
+        AvatarController avatar = default;
         [SerializeField, Expandable]
-        Animator observedAnimator = default;
+        Animator attachedAnimator = default;
         [SerializeField, Range(0, 1)]
         float walkSpeedDeadZone = 0;
 
-        float walkSpeed => Math.Abs(observedAvatar.velocity.x) > walkSpeedDeadZone
+        float walkSpeed => Math.Abs(avatar.velocity.x) > walkSpeedDeadZone
             ? 1
             : 0;
 
+        void Awake() {
+            OnValidate();
+        }
         void OnValidate() {
-            if (observedAvatar == null) {
-                observedAvatar = GetComponentInParent<AvatarController>();
+            if (!avatar) {
+                avatar = GetComponentInParent<AvatarController>();
             }
-            if (observedAnimator == null) {
-                observedAnimator = GetComponentInParent<Animator>();
+            if (!attachedAnimator) {
+                attachedAnimator = GetComponentInParent<Animator>();
             }
         }
 
+
         void Start() {
-            events = observedAvatar
+            events = avatar
                 .GetComponentsInChildren<ScriptableEvent>()
                 .ToDictionary(script => script.gameObject.name);
         }
 
         void Update() {
-            observedAnimator.SetFloat(nameof(walkSpeed), walkSpeed);
+            attachedAnimator.SetFloat(nameof(walkSpeed), walkSpeed);
         }
 
         public void Play(AvatarAnimations state) {
-            observedAnimator.Play(state.ToString(), 0);
+            attachedAnimator.Play(state.ToString(), 0);
         }
 
         public void InstantiatePrefab(GameObject prefab) {
@@ -46,7 +50,7 @@ namespace TheCursedBroom.Player {
         }
 
         public void InvokeEffect(Effect effect) {
-            effect.Invoke(observedAvatar.gameObject);
+            effect.Invoke(avatar.gameObject);
         }
         Dictionary<string, ScriptableEvent> events;
         public void InvokeScriptableEvent(string name) {

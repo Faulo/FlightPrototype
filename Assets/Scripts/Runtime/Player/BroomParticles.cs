@@ -25,8 +25,8 @@ namespace TheCursedBroom.Player {
         }
 
         void Start() {
-            Assert.IsNotNull(observedComponent);
-            Assert.IsNotNull(avatar);
+            Assert.IsTrue(observedComponent);
+            Assert.IsTrue(avatar);
             emission = observedComponent.emission;
             main = observedComponent.main;
             UpdateColor();

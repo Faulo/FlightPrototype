@@ -39,6 +39,8 @@ namespace TheCursedBroom.Player {
         AvatarState saveState = default;
         [SerializeField, Expandable]
         AvatarState loadState = default;
+        [SerializeField, Expandable]
+        AvatarState deathState = default;
         [SerializeField]
         Vector2 loadPosition = Vector2.zero;
         [SerializeField]
@@ -46,6 +48,28 @@ namespace TheCursedBroom.Player {
 
         [SerializeField, Expandable]
         GroundedCheck groundedCheck = default;
+
+
+        [Header("Rumble")]
+        [SerializeField]
+        RumbleSettings defaultRumble = default;
+        [SerializeField]
+        RumbleSettings flyingRumble = default;
+        [SerializeField]
+        RumbleSettings alignedRumble = default;
+        [SerializeField]
+        RumbleSettings canBoostRumble = default;
+        [SerializeField]
+        RumbleSettings isBoostingRumble = default;
+        RumbleSettings currentRumble => broom.isFlying
+            ? broom.isBoosting || broom.isDashing
+                ? isBoostingRumble
+                : broom.canBoost
+                    ? canBoostRumble
+                    : broom.isAligned
+                        ? alignedRumble
+                        : flyingRumble
+            : defaultRumble;
 
         [Header("Current Input")]
         public int intendedFacing = 1;
@@ -57,7 +81,9 @@ namespace TheCursedBroom.Player {
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
         public bool intendsSave = false;
+        public bool intendsSaveStart = false;
         public bool intendsLoad = false;
+        public bool intendsLoadStart = false;
         public bool intendsReset = false;
 
         public bool isFacingRight = true;
@@ -102,6 +128,8 @@ namespace TheCursedBroom.Player {
             get => attachedRigidbody.drag;
             set => attachedRigidbody.drag = value;
         }
+
+        public float dissolveAmount = 0;
 
         public MovementCalculator movementCalculator;
         public void UpdateMovement() {
@@ -156,6 +184,11 @@ namespace TheCursedBroom.Player {
                 SetState(loadState);
             }
         }
+        public void Die() {
+            if (currentState != deathState) {
+                SetState(deathState);
+            }
+        }
 
         class AvatarSaveState : ILevelObject {
             public Vector3 position;
@@ -195,8 +228,9 @@ namespace TheCursedBroom.Player {
             if (rumblingDuration >= 0) {
                 rumblingDuration -= Time.deltaTime;
             } else {
-                rumblingLowIntensity = 0;
-                rumblingHighIntensity = 0;
+                var rumble = currentRumble;
+                rumblingLowIntensity = rumble.lowIntensity;
+                rumblingHighIntensity = rumble.highIntensity;
             }
         }
 

@@ -10,6 +10,7 @@ namespace TheCursedBroom.Effects {
             CastLoad,
             StateSave,
             StateLoad,
+            Die,
         }
         [SerializeField]
         Method methodToCall = default;
@@ -29,6 +30,9 @@ namespace TheCursedBroom.Effects {
                     break;
                 case Method.StateLoad:
                     AvatarController.instance.StateLoad();
+                    break;
+                case Method.Die:
+                    AvatarController.instance.Die();
                     break;
                 default:
                     throw new NotImplementedException(methodToCall.ToString());

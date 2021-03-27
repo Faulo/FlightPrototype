@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -26,16 +27,40 @@ namespace TheCursedBroom.Level {
         [Header("Chunk loading")]
         [SerializeField, Tooltip("Whether or not to respect the ILevelObject::requireLevel property")]
         bool allowNonActorTileLoading = false;
-        [SerializeField]
-        public TilemapBounds rendererBounds = new TilemapBounds();
-        [SerializeField]
-        public TilemapBounds colliderBounds = new TilemapBounds();
-        [SerializeField]
-        public TilemapBounds shadowBounds = new TilemapBounds();
-
-        int currentTilemapIndex = 0;
         [SerializeField, Range(1, 80)]
         int pauseBetweenTilemapUpdates = 1;
+        int currentTilemapIndex = 0;
+
+        [SerializeField, Expandable]
+        LevelSettingsAsset lowSettings = default;
+        [SerializeField, Expandable]
+        LevelSettingsAsset mediumSettings = default;
+        [SerializeField, Expandable]
+        LevelSettingsAsset highSettings = default;
+        LevelSettingsAsset GetCurrentSettings() => QualitySettings.GetQualityLevel() switch {
+            0 => lowSettings,
+            1 => mediumSettings,
+            2 => highSettings,
+            _ => throw new NotImplementedException(),
+        };
+
+        bool allowMultithreading;
+        int pauseBetweenThreadUpdates;
+        [NonSerialized]
+        public TilemapBounds rendererBounds;
+        [NonSerialized]
+        public TilemapBounds colliderBounds;
+        [NonSerialized]
+        public TilemapBounds shadowBounds;
+
+        void ApplySettings() {
+            var settings = GetCurrentSettings();
+            allowMultithreading = settings.allowMultithreading;
+            pauseBetweenThreadUpdates = settings.pauseBetweenThreadUpdates;
+            rendererBounds = settings.rendererBounds;
+            colliderBounds = settings.colliderBounds;
+            shadowBounds = settings.shadowBounds;
+        }
 
         [Header("Debug output")]
         public Transform observedActor;
@@ -45,15 +70,53 @@ namespace TheCursedBroom.Level {
         void Awake() {
             OnValidate();
             instance = this;
-            PrepareTiles();
+            ApplySettings();
+            PrepareTilemap();
         }
         void OnValidate() {
 #if UNITY_EDITOR
             EditorTools();
 #endif
         }
+        Thread tileUpdater;
+        UpdateState tileState;
+        enum UpdateState {
+            Idle,
+            Prepare,
+            Update,
+        }
+        void OnEnable() {
+            if (allowMultithreading) {
+                tileState = UpdateState.Idle;
+                tileUpdater = new Thread(UpdateTilesThread) {
+                    Name = "TileUpdater"
+                };
+                tileUpdater.Start();
+            }
+        }
+        void OnDisable() {
+            if (allowMultithreading) {
+                tileUpdater?.Abort();
+            }
+        }
         void Start() {
             onStart.Invoke(gameObject);
+        }
+        void UpdateTilesThread() {
+            while (true) {
+                switch (tileState) {
+                    case UpdateState.Idle:
+                        break;
+                    case UpdateState.Prepare:
+                        PrepareTiles();
+                        tileState = UpdateState.Update;
+                        break;
+                    case UpdateState.Update:
+                        UpdateTiles();
+                        break;
+                }
+                Thread.Sleep(pauseBetweenThreadUpdates);
+            }
         }
         void Update() {
             if (currentTilemapIndex < map.tilemapControllers.Length * pauseBetweenTilemapUpdates) {
@@ -62,17 +125,22 @@ namespace TheCursedBroom.Level {
                 }
                 currentTilemapIndex++;
             } else {
-                UpdateTiles();
+                UpdateObservedCenter();
+                if (!allowMultithreading) {
+                    UpdateTiles();
+                }
             }
         }
         public void RefreshAllTiles() {
-            Assert.IsNotNull(observedActor);
-            observedCenter = map.WorldToCell(observedActor.position);
-            rendererBounds.PrepareTiles(observedCenter);
-            colliderBounds.PrepareTiles(observedCenter);
-            shadowBounds.PrepareTiles(observedCenter);
-            for (int i = 0; i < map.tilemapControllers.Length; i++) {
-                map.tilemapControllers[i].RegenerateTilemap();
+            Assert.IsTrue(observedActor);
+            UpdateObservedCenter();
+            if (allowMultithreading) {
+                tileState = UpdateState.Prepare;
+            } else {
+                PrepareTiles();
+                for (int i = 0; i < map.tilemapControllers.Length; i++) {
+                    map.tilemapControllers[i].RegenerateTilemap();
+                }
             }
         }
         public TileBase[][] CreateTilemapStorage(TilemapLayerAsset type) {
@@ -92,13 +160,13 @@ namespace TheCursedBroom.Level {
             }
             return storage;
         }
-        void PrepareTiles() {
+        void PrepareTilemap() {
             map.Install(transform);
             for (int i = 0; i < levels.Length; i++) {
                 levels[i].tilemaps.Install(levels[i].transform);
             }
         }
-        void UpdateTiles() {
+        void UpdateObservedCenter() {
             foreach (var observedObject in observedObjects) {
                 while (observedObject.position.x < observedActor.position.x - (map.width / 2)) {
                     observedObject.TranslateX(map.width);
@@ -118,12 +186,21 @@ namespace TheCursedBroom.Level {
             } else {
                 observedCenter = map.WorldToCell(observedActor.position);
             }
-
+        }
+        void PrepareTiles() {
+            var center = observedCenter;
+            rendererBounds.PrepareTiles(center);
+            colliderBounds.PrepareTiles(center);
+            shadowBounds.PrepareTiles(center);
+            currentTilemapIndex = 0;
+        }
+        void UpdateTiles() {
+            var center = observedCenter;
             int tilesChangedCount = 0;
 
-            tilesChangedCount += colliderBounds.UpdateTiles(observedCenter);
-            tilesChangedCount += rendererBounds.UpdateTiles(observedCenter);
-            tilesChangedCount += shadowBounds.UpdateTiles(observedCenter);
+            tilesChangedCount += colliderBounds.UpdateTiles(center);
+            tilesChangedCount += rendererBounds.UpdateTiles(center);
+            tilesChangedCount += shadowBounds.UpdateTiles(center);
 
             if (tilesChangedCount > 0) {
                 currentTilemapIndex = 0;

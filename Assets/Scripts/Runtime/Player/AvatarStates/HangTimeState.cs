@@ -4,16 +4,18 @@ using UnityEngine;
 namespace TheCursedBroom.Player.AvatarStates {
     public class HangTimeState : AvatarState {
         [Header("Hang Time")]
-        [SerializeField, Range(0, 100)]
-        int minimumHangFrameCount = 1;
-        [SerializeField, Range(0, 100)]
-        int maximumHangFrameCount = 1;
+        [SerializeField, Range(0, 1)]
+        float minimumHangDuration = 0;
+        [SerializeField, Range(0, 1)]
+        float maximumHangDuration = 0;
+        [SerializeField, Range(0, 10)]
+        float rejectJumpGravity = 1;
 
-        int hangTimer;
+        float hangDuration;
         public override void EnterState() {
             base.EnterState();
 
-            hangTimer = 0;
+            hangDuration = 0;
 
             avatar.broom.isFlying = false;
 
@@ -22,7 +24,10 @@ namespace TheCursedBroom.Player.AvatarStates {
         public override void FixedUpdateState() {
             base.FixedUpdateState();
 
-            hangTimer++;
+            hangDuration += Time.deltaTime;
+            if (!avatar.intendsJump) {
+                avatar.gravityScale = rejectJumpGravity;
+            }
 
             avatar.UpdateMovement();
         }
@@ -39,13 +44,13 @@ namespace TheCursedBroom.Player.AvatarStates {
             if (avatar.intendsGlide && avatar.broom.canBoost) {
                 return intendsGlideState;
             }
-            if (hangTimer < minimumHangFrameCount) {
+            if (hangDuration < minimumHangDuration) {
                 return this;
             }
             if (!avatar.intendsJump) {
                 return rejectsGlideState;
             }
-            if (hangTimer < maximumHangFrameCount) {
+            if (hangDuration < maximumHangDuration) {
                 return this;
             }
             return rejectsGlideState;

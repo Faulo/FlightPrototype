@@ -1,4 +1,5 @@
-﻿using Slothsoft.UnityExtensions;
+﻿using System.Linq;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace TheCursedBroom.Effects {
@@ -13,7 +14,17 @@ namespace TheCursedBroom.Effects {
         public override void Invoke(GameObject context) {
             var prefab = prefabs.RandomElement();
             if (destroyPreviousInstance && instance) {
-                Destroy(instance);
+                if (instance.TryGetComponent<ParticleSystem>(out var particles)) {
+                    var main = particles.main;
+                    main.stopAction = ParticleSystemStopAction.Destroy;
+                    particles.Stop();
+                    Enumerable.Range(0, instance.transform.childCount)
+                        .Select(instance.transform.GetChild)
+                        .ToList()
+                        .ForAll(t => Destroy(t.gameObject));
+                } else {
+                    Destroy(instance);
+                }
             }
             instance = Instantiate(prefab, context.transform.position, context.transform.rotation);
         }

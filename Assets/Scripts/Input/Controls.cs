@@ -198,28 +198,6 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1eca601f-75a0-4ba7-b8c0-1be6f50d68c9"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/button3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8e487f21-2002-4c12-ae72-fa16ea9a8d01"",
                     ""path"": ""<Joystick>/trigger"",
                     ""interactions"": """",
@@ -297,30 +275,8 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9f2f4cc3-dc38-44bb-8b41-c4b5b26ec6df"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Glide"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c8a72816-2bb0-4739-90bb-d60b26fd20bc"",
                     ""path"": ""<Joystick>/button2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Glide"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9289f44b-050b-447e-85f3-889cfe195377"",
-                    ""path"": ""<Joystick>/button4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -374,19 +330,19 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""eeae7826-3889-49e0-878d-f2a7621a65e0"",
-                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""id"": ""1eca601f-75a0-4ba7-b8c0-1be6f50d68c9"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""295efb50-4ef7-40ba-821a-6b87c665048a"",
-                    ""path"": ""<Joystick>/hat/down"",
+                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
+                    ""path"": ""<Joystick>/button3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -408,7 +364,7 @@ namespace TheCursedBroom.Input
                 {
                     ""name"": """",
                     ""id"": ""0d0789bd-39fa-495a-b09b-5493c089ac7f"",
-                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -418,8 +374,8 @@ namespace TheCursedBroom.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""93a32f54-fcf4-4544-a31a-314021bb7e69"",
-                    ""path"": ""<Joystick>/hat/up"",
+                    ""id"": ""9289f44b-050b-447e-85f3-889cfe195377"",
+                    ""path"": ""<Joystick>/button4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -430,7 +386,7 @@ namespace TheCursedBroom.Input
                 {
                     ""name"": """",
                     ""id"": ""bcea0274-30f9-44b8-b039-6d6ae5501765"",
-                    ""path"": ""<Keyboard>/f9"",
+                    ""path"": ""<Keyboard>/f8"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

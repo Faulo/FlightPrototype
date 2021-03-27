@@ -76,6 +76,7 @@ namespace TheCursedBroom.Player {
                 return m_state;
             }
         }
+
         BroomState m_state;
 
         BroomState CalculateState() {

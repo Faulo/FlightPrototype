@@ -1,5 +1,6 @@
 {
     "name": "TheCursedBroom",
+    "rootNamespace": "",
     "references": [
         "Slothsoft.UnityExtensions.Runtime",
         "Cinemachine",
@@ -9,7 +10,8 @@
         "maxattack",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Core.Runtime",
-        "Unity.2D.Tilemap.Extras"
+        "Unity.2D.Tilemap.Extras",
+        "MyBox"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
