@@ -39,6 +39,8 @@ namespace TheCursedBroom.Player {
         AvatarState saveState = default;
         [SerializeField, Expandable]
         AvatarState loadState = default;
+        [SerializeField, Expandable]
+        AvatarState deathState = default;
         [SerializeField]
         Vector2 loadPosition = Vector2.zero;
         [SerializeField]
@@ -180,6 +182,11 @@ namespace TheCursedBroom.Player {
         public void CastLoad() {
             if (currentState != loadState) {
                 SetState(loadState);
+            }
+        }
+        public void Die() {
+            if (currentState != deathState) {
+                SetState(deathState);
             }
         }
 

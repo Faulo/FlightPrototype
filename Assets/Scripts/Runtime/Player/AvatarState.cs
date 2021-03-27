@@ -21,6 +21,10 @@ namespace TheCursedBroom.Player {
         bool allowLoad = true;
         [SerializeField, Expandable]
         AvatarMovement movement = default;
+        [SerializeField, Expandable]
+        GameObject stateObject = default;
+        [SerializeField, Expandable]
+        ParticleSystem stateParticles = default;
         [Header("Events")]
         [SerializeField]
         GameObjectEvent onStateEnter = new GameObjectEvent();
@@ -30,6 +34,12 @@ namespace TheCursedBroom.Player {
         void Awake() {
             avatar = GetComponentInParent<AvatarController>();
             Assert.IsTrue(avatar);
+            if (stateObject) {
+                stateObject.SetActive(false);
+            }
+            if (stateParticles) {
+                stateParticles.Stop();
+            }
         }
 
         #region State
@@ -45,6 +55,12 @@ namespace TheCursedBroom.Player {
                 : () => (avatar.velocity, avatar.rotationAngle);
 
             onStateEnter.Invoke(avatar.gameObject);
+            if (stateObject) {
+                stateObject.SetActive(true);
+            }
+            if (stateParticles) {
+                stateParticles.Play();
+            }
         }
         public virtual void UpdateState() {
             if (allowSave && avatar.intendsSaveStart) {
@@ -60,6 +76,12 @@ namespace TheCursedBroom.Player {
         }
         public virtual void ExitState() {
             onStateExit.Invoke(avatar.gameObject);
+            if (stateObject) {
+                stateObject.SetActive(false);
+            }
+            if (stateParticles) {
+                stateParticles.Stop();
+            }
         }
         public abstract AvatarState CalculateNextState();
         #endregion
