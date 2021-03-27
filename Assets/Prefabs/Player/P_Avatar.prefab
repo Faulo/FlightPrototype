@@ -388,9 +388,14 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
+  onStateSuccess:
+    m_PersistentCalls:
+      m_Calls: []
   transitionDuration: 0.15
   dissolve: 0
+  action: 0
   nextState: {fileID: 881665436}
+  abortState: {fileID: 0}
 --- !u!1 &1836684146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,9 +1100,12 @@ MonoBehaviour:
         m_CallState: 2
   onStateExit:
     m_PersistentCalls:
+      m_Calls: []
+  onStateSuccess:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 9f16950d0dd769441965b1e3c1345937, type: 2}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: TheCursedBroom.Effects.AvatarEffect, TheCursedBroom
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:
@@ -1110,7 +1118,9 @@ MonoBehaviour:
         m_CallState: 2
   transitionDuration: 0.4
   dissolve: 1
+  action: 2
   nextState: {fileID: 5638091525790680785}
+  abortState: {fileID: 808840777}
 --- !u!1 &3089225555766872605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,9 +2139,12 @@ MonoBehaviour:
         m_CallState: 2
   onStateExit:
     m_PersistentCalls:
+      m_Calls: []
+  onStateSuccess:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 82b45b7a965d8b24cbdc378898f2c41c, type: 2}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: TheCursedBroom.Effects.AvatarEffect, TheCursedBroom
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:
@@ -2143,7 +2156,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: b2fa541bd448a1a4490a21d782313a20, type: 2}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: TheCursedBroom.Effects.InstantiateEffect, TheCursedBroom
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:
@@ -2155,7 +2168,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 49886c2c2505f8440ac7187ff34005d4, type: 2}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: TheCursedBroom.Effects.RumbleEffect, TheCursedBroom
         m_MethodName: Invoke
         m_Mode: 0
         m_Arguments:
@@ -2168,7 +2181,9 @@ MonoBehaviour:
         m_CallState: 2
   transitionDuration: 0.5
   dissolve: 0
+  action: 1
   nextState: {fileID: 808840777}
+  abortState: {fileID: 808840777}
 --- !u!1 &7691276936857166954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,9 +2390,14 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
+  onStateSuccess:
+    m_PersistentCalls:
+      m_Calls: []
   transitionDuration: 0.1
   dissolve: 0
+  action: 0
   nextState: {fileID: 881665436}
+  abortState: {fileID: 0}
 --- !u!1 &8300383899230331112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,9 +2454,14 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
+  onStateSuccess:
+    m_PersistentCalls:
+      m_Calls: []
   transitionDuration: 0.2
   dissolve: 2
+  action: 0
   nextState: {fileID: 881665436}
+  abortState: {fileID: 0}
 --- !u!1 &8530760938937004147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,9 +2542,14 @@ MonoBehaviour:
   onStateExit:
     m_PersistentCalls:
       m_Calls: []
+  onStateSuccess:
+    m_PersistentCalls:
+      m_Calls: []
   transitionDuration: 0.15
   dissolve: 0
+  action: 0
   nextState: {fileID: 6015708295390145231}
+  abortState: {fileID: 0}
 --- !u!1 &9196574831870242006
 GameObject:
   m_ObjectHideFlags: 0

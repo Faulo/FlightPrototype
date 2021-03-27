@@ -79,7 +79,9 @@ namespace TheCursedBroom.Player {
         public bool intendsGlide = false;
         public bool intendsCrouch = false;
         public bool intendsSave = false;
+        public bool intendsSaveStart = false;
         public bool intendsLoad = false;
+        public bool intendsLoadStart = false;
         public bool intendsReset = false;
 
         public bool isFacingRight = true;

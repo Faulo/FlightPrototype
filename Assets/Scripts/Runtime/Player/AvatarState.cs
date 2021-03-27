@@ -23,9 +23,9 @@ namespace TheCursedBroom.Player {
         AvatarMovement movement = default;
         [Header("Events")]
         [SerializeField]
-        GameObjectEvent onStateEnter = default;
+        GameObjectEvent onStateEnter = new GameObjectEvent();
         [SerializeField]
-        GameObjectEvent onStateExit = default;
+        GameObjectEvent onStateExit = new GameObjectEvent();
 
         void Awake() {
             avatar = GetComponentInParent<AvatarController>();
@@ -47,12 +47,12 @@ namespace TheCursedBroom.Player {
             onStateEnter.Invoke(avatar.gameObject);
         }
         public virtual void UpdateState() {
-            if (allowSave && avatar.intendsSave) {
-                avatar.intendsSave = false;
+            if (allowSave && avatar.intendsSaveStart) {
+                avatar.intendsSaveStart = false;
                 avatar.CastSave();
             }
-            if (allowLoad && avatar.intendsLoad) {
-                avatar.intendsLoad = false;
+            if (allowLoad && avatar.intendsLoadStart) {
+                avatar.intendsLoadStart = false;
                 avatar.CastLoad();
             }
         }
