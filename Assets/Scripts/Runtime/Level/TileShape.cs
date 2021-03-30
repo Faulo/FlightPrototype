@@ -6,6 +6,14 @@ namespace TheCursedBroom.Level {
         public readonly List<Vector3Int> positions = new List<Vector3Int>();
         public readonly List<Vector2> vertices = new List<Vector2>();
 
+        public TileShape() {
+        }
+        public TileShape(params (Vector3Int position, Vector2 vertexOffset)[] corners) {
+            foreach (var (position, vertexOffset) in corners) {
+                AddCorner(position, vertexOffset);
+            }
+        }
+
         public void AddCorner(Vector3Int position, Vector2 vertexOffset) {
             positions.Add(position);
             vertices.Add(new Vector2(position.x, position.y) + vertexOffset);

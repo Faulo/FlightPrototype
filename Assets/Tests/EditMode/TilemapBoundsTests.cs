@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using TheCursedBroom.Level;
+using Unity.PerformanceTesting;
 using UnityEngine;
 
 namespace TheCursedBroom.Tests.EditMode {
@@ -112,6 +115,70 @@ namespace TheCursedBroom.Tests.EditMode {
             Assert.AreEqual(6 * bounds.tileCount / 4, changeCount);
             Assert.AreEqual(7 * bounds.tileCount / 4, loadCount);
             Assert.AreEqual(3 * bounds.tileCount / 4, discardCount);
+        }
+        static readonly (Vector3Int[] positions, TileShape[] shapes)[] shapeExamples = new[] {
+            (
+                Array.Empty<Vector3Int>(),
+                Array.Empty<TileShape>()
+            ),
+            (
+                new [] {Vector3Int.zero},
+                new [] {
+                    new TileShape(
+                        (Vector3Int.zero, Vector2.zero),
+                        (Vector3Int.zero, Vector2.up),
+                        (Vector3Int.zero, Vector2.one),
+                        (Vector3Int.zero, Vector2.right)
+                    ),
+                }
+            ),
+            (
+                new [] {Vector3Int.zero, Vector3Int.up },
+                new [] {
+                    new TileShape(
+                        (Vector3Int.zero, Vector2.zero),
+                        (Vector3Int.up, Vector2.up),
+                        (Vector3Int.up, Vector2.one),
+                        (Vector3Int.zero, Vector2.right)
+                    ),
+                }
+            ),
+            (
+                new [] {Vector3Int.zero, Vector3Int.one },
+                new [] {
+                    new TileShape(
+                        (Vector3Int.zero, Vector2.zero),
+                        (Vector3Int.zero, Vector2.up),
+                        (Vector3Int.zero, Vector2.one),
+                        (Vector3Int.zero, Vector2.right)
+                    ),
+                    new TileShape(
+                        (Vector3Int.one, Vector2.zero),
+                        (Vector3Int.one, Vector2.up),
+                        (Vector3Int.one, Vector2.one),
+                        (Vector3Int.one, Vector2.right)
+                    ),
+                }
+            ),
+        };
+        [Test]
+        public void TestGetShapes([ValueSource(nameof(shapeExamples))] (Vector3Int[] positions, TileShape[] shapes) example) {
+            var shapes = new TileShape[100];
+            int shapeCount = TilemapBounds.GetShapesNonAlloc(new HashSet<Vector3Int>(example.positions), shapes);
+            Assert.AreEqual(example.shapes.Length, shapeCount);
+            for (int i = 0; i < shapeCount; i++) {
+                CollectionAssert.AreEquivalent(example.shapes[i].positions, shapes[i].positions);
+                CollectionAssert.AreEquivalent(example.shapes[i].vertices, shapes[i].vertices);
+            }
+        }
+        [Test, Performance]
+        public void MeasureGetShapes([ValueSource(nameof(shapeExamples))] (Vector3Int[] positions, TileShape[] shapes) example) {
+            var positions = new HashSet<Vector3Int>(example.positions);
+            var shapes = new TileShape[100];
+            Measure
+                .Method(() => TilemapBounds.GetShapesNonAlloc(positions, shapes))
+                .IterationsPerMeasurement(1000)
+                .Run();
         }
     }
 }

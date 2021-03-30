@@ -78,7 +78,7 @@ namespace TheCursedBroom.Level {
             Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
 
-        public static int TryGetShapes(HashSet<Vector3Int> positions, ref TileShape[] shapes) {
+        public static int GetShapesNonAlloc(HashSet<Vector3Int> positions, TileShape[] shapes) {
             int shapeCount = 0;
             foreach (var position in positions) {
                 if (!positions.Contains(position + Vector3Int.left) && !positions.Contains(position + Vector3Int.down)) {

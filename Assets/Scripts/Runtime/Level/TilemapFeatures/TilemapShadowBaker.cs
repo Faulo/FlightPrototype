@@ -54,7 +54,7 @@ namespace TheCursedBroom.Level.TilemapFeatures {
             return shadowCaster;
         }
         void RegenerateCollider() {
-            int shapeCount = TilemapBounds.TryGetShapes(positions, ref shapes);
+            int shapeCount = TilemapBounds.GetShapesNonAlloc(positions, shapes);
             for (int i = 0; i < shapeCount; i++) {
                 shadowCasters[i].SetShapePath(shapes[i].vertices);
                 shadowCasters[i].enabled = true;

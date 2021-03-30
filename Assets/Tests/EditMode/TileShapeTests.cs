@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using TheCursedBroom.Level;
+using Unity.PerformanceTesting;
 using UnityEngine;
 
 namespace TheCursedBroom.Tests.EditMode {
@@ -84,6 +85,19 @@ namespace TheCursedBroom.Tests.EditMode {
 
         void AssertOutside(TileShape shape, Vector3Int position) {
             Assert.IsFalse(shape.ContainsPosition(position), $"{position} must be considered outside!");
+        }
+
+        [Test, Performance]
+        public void MeasureCrossContainsPosition() {
+            void method() {
+                foreach (var position in weird.positions) {
+                    weird.ContainsPosition(position);
+                }
+            }
+            Measure
+                .Method(method)
+                .IterationsPerMeasurement(1000)
+                .Run();
         }
     }
 }
