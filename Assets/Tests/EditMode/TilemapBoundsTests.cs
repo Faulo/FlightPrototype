@@ -124,40 +124,20 @@ namespace TheCursedBroom.Tests.EditMode {
             (
                 new [] {Vector3Int.zero},
                 new [] {
-                    new TileShape(
-                        (Vector3Int.zero, Vector2.zero),
-                        (Vector3Int.zero, Vector2.up),
-                        (Vector3Int.zero, Vector2.one),
-                        (Vector3Int.zero, Vector2.right)
-                    ),
+                    new TileShape(new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0))
                 }
             ),
             (
                 new [] {Vector3Int.zero, Vector3Int.up },
                 new [] {
-                    new TileShape(
-                        (Vector3Int.zero, Vector2.zero),
-                        (Vector3Int.up, Vector2.up),
-                        (Vector3Int.up, Vector2.one),
-                        (Vector3Int.zero, Vector2.right)
-                    ),
+                    new TileShape(new Vector2(0, 0), new Vector2(0, 2), new Vector2(1, 2), new Vector2(1, 0))
                 }
             ),
             (
                 new [] {Vector3Int.zero, Vector3Int.one },
                 new [] {
-                    new TileShape(
-                        (Vector3Int.zero, Vector2.zero),
-                        (Vector3Int.zero, Vector2.up),
-                        (Vector3Int.zero, Vector2.one),
-                        (Vector3Int.zero, Vector2.right)
-                    ),
-                    new TileShape(
-                        (Vector3Int.one, Vector2.zero),
-                        (Vector3Int.one, Vector2.up),
-                        (Vector3Int.one, Vector2.one),
-                        (Vector3Int.one, Vector2.right)
-                    ),
+                    new TileShape(new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0)),
+                    new TileShape(new Vector2(1, 1), new Vector2(1, 2), new Vector2(2, 2), new Vector2(2, 1))
                 }
             ),
         };
@@ -167,7 +147,6 @@ namespace TheCursedBroom.Tests.EditMode {
             int shapeCount = TilemapBounds.GetShapesNonAlloc(new HashSet<Vector3Int>(example.positions), shapes);
             Assert.AreEqual(example.shapes.Length, shapeCount);
             for (int i = 0; i < shapeCount; i++) {
-                CollectionAssert.AreEquivalent(example.shapes[i].positions, shapes[i].positions);
                 CollectionAssert.AreEquivalent(example.shapes[i].vertices, shapes[i].vertices);
             }
         }

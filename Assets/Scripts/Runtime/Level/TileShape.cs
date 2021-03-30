@@ -8,10 +8,8 @@ namespace TheCursedBroom.Level {
 
         public TileShape() {
         }
-        public TileShape(params (Vector3Int position, Vector2 vertexOffset)[] corners) {
-            foreach (var (position, vertexOffset) in corners) {
-                AddCorner(position, vertexOffset);
-            }
+        public TileShape(params Vector2[] vertices) {
+            this.vertices.AddRange(vertices);
         }
 
         public void AddCorner(Vector3Int position, Vector2 vertexOffset) {
