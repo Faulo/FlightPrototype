@@ -1,8 +1,7 @@
 ﻿using NUnit.Framework;
-using TheCursedBroom;
 using UnityEngine;
 
-namespace Tests {
+namespace TheCursedBroom.Tests.EditMode {
     public class AngleUtilTests {
         [Test]
         public void TestDirectionalAngle() {

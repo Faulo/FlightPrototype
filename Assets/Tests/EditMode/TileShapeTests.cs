@@ -2,7 +2,7 @@ using NUnit.Framework;
 using TheCursedBroom.Level;
 using UnityEngine;
 
-namespace Tests {
+namespace TheCursedBroom.Tests.EditMode {
     public class TileShapeTests {
         Vector3Int bottomLeft = new Vector3Int(0, 0, 0);
         Vector3Int topLeft = new Vector3Int(0, 2, 0);

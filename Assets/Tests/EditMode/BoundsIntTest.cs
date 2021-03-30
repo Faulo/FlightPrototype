@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Tests {
+namespace TheCursedBroom.Tests.EditMode {
     public class BoundsIntTest {
         [Test]
         public void TestAllPositionsWithin() {

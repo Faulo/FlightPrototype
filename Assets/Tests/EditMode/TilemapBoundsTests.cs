@@ -2,7 +2,7 @@ using NUnit.Framework;
 using TheCursedBroom.Level;
 using UnityEngine;
 
-namespace TheCursedBroom.Editor.Tests {
+namespace TheCursedBroom.Tests.EditMode {
     public class TilemapBoundsTests {
         TilemapBounds bounds;
 
