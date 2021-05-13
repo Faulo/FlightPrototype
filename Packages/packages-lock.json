@@ -1,10 +1,14 @@
 {
   "dependencies": {
     "com.domybest.mybox": {
-      "version": "1.5.1",
+      "version": "1.6.2",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.ai": "1.0.0",
+        "com.unity.modules.physics2d": "1.0.0"
+      },
       "url": "https://package.openupm.com"
     },
     "com.unity.2d.sprite": {
@@ -20,7 +24,7 @@
       "dependencies": {}
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "2.0.0-pre.2",
+      "version": "2.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -44,7 +48,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.7",
+      "version": "2.0.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -132,7 +136,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.4",
+      "version": "3.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -141,7 +145,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.5.4",
+      "version": "1.5.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
